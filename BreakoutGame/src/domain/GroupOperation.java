@@ -12,7 +12,7 @@ package domain;
 
 public class GroupOperation {
     private OperationCategory category;
-    private String value;
+    private int value;
 
     //Constructors
     /**
@@ -23,7 +23,7 @@ public class GroupOperation {
         
     }
     
-    public GroupOperation(OperationCategory category, String value)
+    public GroupOperation(OperationCategory category, int value)
     {
         this.category = category;
         this.value = value;
@@ -39,12 +39,12 @@ public class GroupOperation {
         this.category = category;
     }
 
-    public String getValue()
+    public int getValue()
     {
         return value;
     }
 
-    public void setValue(String value)
+    public void setValue(int value)
     {
         this.value = value;
     }
