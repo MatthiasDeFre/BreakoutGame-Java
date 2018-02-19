@@ -7,6 +7,7 @@ package domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import persistence.PersistenceController;
 
 /**
@@ -22,9 +23,9 @@ public class Controller {
     }
     
     
-    public List<Exercise> getListAllExercises()
+    public List<String> getListAllExercises()
     {
-        return persistenceController.getListAllExercises();
+        return persistenceController.getListAllExercises().stream().map(e -> e.toString()).collect(Collectors.toList());
         
     }
     
