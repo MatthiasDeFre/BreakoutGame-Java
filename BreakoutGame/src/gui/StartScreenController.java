@@ -22,8 +22,6 @@ import javafx.scene.layout.GridPane;
 public class StartScreenController extends GridPane {
 
     @FXML
-    private Label label;
-    @FXML
     private GridPane grid;
 
     public StartScreenController() {
