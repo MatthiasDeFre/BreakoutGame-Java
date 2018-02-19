@@ -5,12 +5,19 @@
  */
 package domain;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 /**
  *
  * @author Matthias
  */
 
 public class GroupOperation {
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private long id;
     private OperationCategory category;
     private int value;
 
