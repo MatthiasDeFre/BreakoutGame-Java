@@ -5,12 +5,24 @@
  */
 package domain;
 
+import util.LangConfig;
+
 /**
  *
  * @author Alexander
  */
 public enum Category {
-    MATH,
-    GEOGRAPHY,
-    DUTCH
+    
+  
+    MATH("MATH"),
+    GEOGRAPHY("GEOGRAPHY"),
+    DUTCH("DUTCH");
+    private final String key;
+    Category(String key)    
+    {
+        this.key = key;
+    }
+    String getDescription() {
+        return LangConfig.getString(key);
+    }
 }

@@ -5,13 +5,24 @@
  */
 package domain;
 
+import util.LangConfig;
+
 /**
  *
  * @author Matthias
  */
 public enum OperationCategory {
-    MULTIPLY,
-    MIN,
-    PLUS
+    MULTIPLY("MULTIPLY"),
+    MIN("MIN"),
+    PLUS("PLUS");
     
+    private String key;
+
+    OperationCategory(String key)
+    {
+        this.key = key;
+    }
+    public String getDescription() {
+        return LangConfig.getString(key);
+    }
 }

@@ -6,7 +6,9 @@
 package gui;
 
 import javafx.application.Application;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 /**
@@ -19,12 +21,12 @@ public class Startup extends Application {
     public void start(Stage primaryStage) throws Exception {
 
         StartScreenController root = new StartScreenController();
-
-        Scene scene = new Scene(root, 1000, 700);
-
+         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+        Scene scene = new Scene(root, primaryScreenBounds.getMinX(),primaryScreenBounds.getMinY());
+        
         primaryStage.setTitle("BOB Manager");
         primaryStage.setScene(scene);
-        primaryStage.setResizable(false);
+        primaryStage.setResizable(true);
         primaryStage.show();
     }
 
