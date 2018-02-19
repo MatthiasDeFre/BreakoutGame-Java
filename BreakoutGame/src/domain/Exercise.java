@@ -7,17 +7,31 @@ package domain;
 
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 /**
  *
  * @author geers
  */
+@Entity
+@Table(name="Exercises")
 public class Exercise {
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private int id;
     String answer;
     String feedback;
     String assignment;
     Category category;
-    FilteredList<GroupOperation> groupOperation;
+    FilteredList<GroupOperation> groupOperations;
+    
+    @ManyToOne
+    GroupOperation groupOperation;
     
     public Exercise(String answer, String feedback, String assignment, Category category) {
         this.answer = answer;
@@ -25,6 +39,7 @@ public class Exercise {
         this.assignment = assignment;
         this.category = category;
     }
+    
 
     protected Exercise() {
     }
