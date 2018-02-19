@@ -17,8 +17,10 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 
 /**
@@ -31,21 +33,44 @@ public class StartScreenController extends GridPane {
     @FXML
     private GridPane grid;
     @FXML
-    private ListView<String> listviewOef;
+    private Button btnOpdrachtAanmaken;
+    @FXML
+    private Button btnOpdrachtVerwijderen;
+    @FXML
+    private Button btnOpdrachtDetails;
+    @FXML
+    private Button btnOpdrachtKopiëren;
+    @FXML
+    private Button btnOpdrachtAanpassen;
 
+    //NONFXML Attributes
+    SceneController controller = new SceneController();
     private Controller dc;
     private ObservableList<String> listExercices;
 
     public StartScreenController() {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("StartScreen.fxml"));
-        loader.setRoot(this);
-        loader.setController(this);
-        try {
-            loader.load();
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        }
-        listExercices = FXCollections.observableArrayList(dc.getListAllExercises());
-        listviewOef.setItems(listExercices);
+        controller.screenInit("StartScreen.FXML");
+//        listExercices = FXCollections.observableArrayList(dc.getListAllExercises());
+//        listviewOef.setItems(listExercices);
+    }
+
+    @FXML
+    private void btnOpdrachtAanmakenClick(MouseEvent event) {
+    }
+
+    @FXML
+    private void btnOpdrachtVerwijderenClick(MouseEvent event) {
+    }
+
+    @FXML
+    private void btnOpdrachtDetailsClick(MouseEvent event) {
+    }
+
+    @FXML
+    private void btnOpdrachtKopiërenClick(MouseEvent event) {
+    }
+
+    @FXML
+    private void btnOpdrachtAanpassenClick(MouseEvent event) {
     }
 }

@@ -7,6 +7,7 @@ package gui;
 
 //import java.util.Locale;
 //import java.util.ResourceBundle;
+import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -28,6 +29,18 @@ public class SceneController {
             app_stage.setScene(home_page_scene);
             app_stage.show();
         } catch (Exception e) {
+            System.out.printf("Error switching scene");
+        }
+        return true;
+    }
+
+    public boolean screenInit(String FXML) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(FXML));
+        loader.setRoot(this);
+        loader.setController(this);
+        try {
+            loader.load();
+        } catch (IOException ex) {
             System.out.printf("Error switching scene");
         }
         return true;
