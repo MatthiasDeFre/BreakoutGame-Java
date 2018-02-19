@@ -23,6 +23,8 @@ public class StartScreenController extends GridPane {
 
     @FXML
     private Label label;
+    @FXML
+    private GridPane grid;
 
     public StartScreenController() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("StartScreen.fxml"));
