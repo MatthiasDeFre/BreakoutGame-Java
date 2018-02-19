@@ -5,10 +5,18 @@
  */
 package persistence;
 
+import domain.Exercise;
+import java.util.List;
+
 /**
  *
  * @author geers
  */
-public class PController {
+public class PersistenceController {
+    private ExerciseRepository exerciseRepository;
     
+    public List<Exercise> getListAllExercises()
+    {
+        return exerciseRepository.getAll();
+    }
 }
