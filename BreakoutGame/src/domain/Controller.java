@@ -5,8 +5,9 @@
  */
 package domain;
 
+import java.util.ArrayList;
 import java.util.List;
-import persistence.PController;
+import persistence.PersistenceController;
 
 /**
  *
@@ -14,11 +15,17 @@ import persistence.PController;
  */
 public class Controller {
     
-    private PController pController;
+    private PersistenceController persistenceController;
+
+    public Controller() {
+        persistenceController=new PersistenceController();
+    }
+    
     
     public List<Exercise> getListAllExercises()
     {
-        return null;
+        return persistenceController.getListAllExercises();
+        
     }
     
 }
