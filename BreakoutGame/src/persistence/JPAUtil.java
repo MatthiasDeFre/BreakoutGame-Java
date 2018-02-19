@@ -23,4 +23,10 @@ public class JPAUtil {
      private JPAUtil() {
          
      }
+     
+    // <editor-fold defaultstate="collapsed" desc="Properties">
+
+    
+    // </editor-fold>
+    
 }
