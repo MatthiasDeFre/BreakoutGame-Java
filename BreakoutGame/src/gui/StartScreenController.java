@@ -31,7 +31,7 @@ import javafx.scene.layout.GridPane;
  *
  * @author Alexander
  */
-public class StartScreenController extends GridPane {
+public class StartScreenController extends GridPane implements Initializable, _Scene {
 
     @FXML
     private GridPane grid;
@@ -46,10 +46,6 @@ public class StartScreenController extends GridPane {
     @FXML
     private Button btnOpdrachtAanpassen;
 
-    //NONFXML Attributes
-    SceneController controller = new SceneController();
-    private Controller dc;
-    private ObservableList<Exercise> listExercices;
     @FXML
     private ListView<Exercise> lstTest;
     @FXML
@@ -59,25 +55,28 @@ public class StartScreenController extends GridPane {
     @FXML
     private TableColumn<Exercise, String> clmDescription;
 
+    //NONFXML Attributes
+    SceneController sceneController = new SceneController();
+    private Controller dc;
+    private ObservableList<Exercise> listExercices;
+
     public StartScreenController() {
-       FXMLLoader loader = new FXMLLoader(getClass().getResource("StartScreen.fxml"));
-        loader.setRoot(this);
-        loader.setController(this);
-        try {
-            loader.load();
-        } catch (IOException ex) {
-            System.out.printf("Error switching scene");
-        }
-        
-    //   controller.screenInit("StartScreen.fxml");
-      dc = new Controller();
-     
-       listExercices = FXCollections.observableArrayList(dc.getListAllExercisesE());
-       lstTest.setItems(listExercices);
-       tblExercises.setItems(listExercices);
-       clmAssignment.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getCategoryDescription()));
-       clmDescription.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getAssignment()));
-       
+//        FXMLLoader loader = new FXMLLoader(getClass().getResource("StartScreen.fxml"));
+//        loader.setRoot(this);
+//        loader.setController(this);
+//        try {
+//            loader.load();
+//        } catch (IOException ex) {
+//            System.out.printf("Error starting scene");
+//        }
+
+//        dc = new Controller();
+//
+//        listExercices = FXCollections.observableArrayList(dc.getListAllExercisesE());
+//        lstTest.setItems(listExercices);
+//        tblExercises.setItems(listExercices);
+//        clmAssignment.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getCategoryDescription()));
+//        clmDescription.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getAssignment()));
     }
 
     @FXML
@@ -90,6 +89,11 @@ public class StartScreenController extends GridPane {
 
     @FXML
     private void btnOpdrachtDetailsClick(MouseEvent event) {
+//        tblExercises.getSelectionModel().selectedItemProperty().addListener((ObservableValue, oldValue, newValue) -> {
+//            if (newValue != null) {
+//                controller.switchScene(event, "ExerciseDetailScreen.fxml");
+//            }
+//        });
     }
 
     @FXML
@@ -99,4 +103,21 @@ public class StartScreenController extends GridPane {
     @FXML
     private void btnOpdrachtAanpassenClick(MouseEvent event) {
     }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        dc = new Controller();
+
+        listExercices = FXCollections.observableArrayList(dc.getListAllExercisesE());
+        lstTest.setItems(listExercices);
+        tblExercises.setItems(listExercices);
+        clmAssignment.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getCategoryDescription()));
+        clmDescription.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getAssignment()));
+    }
+
+    @Override
+    public void setScreenParent(SceneController screenPage) {
+        sceneController = screenPage;
+    }
+
 }
