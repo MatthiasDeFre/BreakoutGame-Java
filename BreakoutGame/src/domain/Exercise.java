@@ -39,11 +39,14 @@ public class Exercise {
   //  GroupOperation groupOperation;
     
     public Exercise(String answer, String feedback, String assignment, Category category) {
-      setAnswer(answer);
+        this(answer, feedback, assignment, category, new ArrayList<>());
+    }
+    public Exercise(String answer, String feedback, String assignment, Category category, List<GroupOperation> operations) {
+        setAnswer(answer);
         setFeedback(feedback);
         setAssignment(assignment);
         setCategory(category);
-        groupOperations = new ArrayList<>();
+        groupOperations = operations;
     }
     
 

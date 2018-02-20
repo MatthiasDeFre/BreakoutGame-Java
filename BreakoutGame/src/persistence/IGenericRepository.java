@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author Matthias
  */
-public interface IGenericMapper<T> {
+public interface IGenericRepository<T> {
     List<T> getAll();
     T getById(long id);
     T update(T object);

@@ -60,7 +60,7 @@ public class StartScreenController extends GridPane {
     private TableColumn<Exercise, String> clmDescription;
 
     public StartScreenController() {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("StartScreen.fxml"));
+       FXMLLoader loader = new FXMLLoader(getClass().getResource("StartScreen.fxml"));
         loader.setRoot(this);
         loader.setController(this);
         try {
@@ -68,8 +68,9 @@ public class StartScreenController extends GridPane {
         } catch (IOException ex) {
             System.out.printf("Error switching scene");
         }
-       // controller.screenInit("StartScreen.fxml");
-       dc = new Controller();
+        
+    //   controller.screenInit("StartScreen.fxml");
+      dc = new Controller();
      
        listExercices = FXCollections.observableArrayList(dc.getListAllExercisesE());
        lstTest.setItems(listExercices);

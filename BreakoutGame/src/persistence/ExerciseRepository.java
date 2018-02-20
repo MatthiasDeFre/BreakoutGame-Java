@@ -11,7 +11,7 @@ import domain.Exercise;
  *
  * @author Matthias
  */
-public class ExerciseRepository extends GenericMapper<Exercise>{
+public class ExerciseRepository extends GenericRepository<Exercise>{
     
     // <editor-fold defaultstate="collapsed" desc="Properties">
 

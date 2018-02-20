@@ -14,7 +14,7 @@ import javax.persistence.EntityManagerFactory;
  *
  * @author Matthias
  */
-public class GenericMapper<T> implements IGenericMapper<T>{
+public abstract class GenericRepository<T> implements IGenericRepository<T>{
 
 
     // <editor-fold defaultstate="collapsed" desc="Properties">
@@ -27,7 +27,7 @@ public class GenericMapper<T> implements IGenericMapper<T>{
     
     // <editor-fold defaultstate="collapsed" desc="Constructors">
     
-    public GenericMapper(Class<T> type)
+    public GenericRepository(Class<T> type)
     {
         this.type = type;
     }

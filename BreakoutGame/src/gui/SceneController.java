@@ -43,6 +43,7 @@ public class SceneController {
         } catch (IOException ex) {
             System.out.printf("Error switching scene");
         }
+        
         return true;
     }
 }
