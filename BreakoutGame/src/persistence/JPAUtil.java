@@ -16,7 +16,7 @@ public class JPAUtil {
     /**
      * TODO Change PU name to correct one
      */
-    private final static EntityManagerFactory EMF = Persistence.createEntityManagerFactory("TODO");
+    private final static EntityManagerFactory EMF = Persistence.createEntityManagerFactory("BreakoutGamePU");
      public static EntityManagerFactory getEntityManagerFactory() {
          return EMF;
      }

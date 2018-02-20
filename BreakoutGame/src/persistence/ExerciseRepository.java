@@ -26,6 +26,12 @@ public class ExerciseRepository extends GenericMapper<Exercise>{
     }
     
     
+    
     // </editor-fold>
+
+    public ExerciseRepository()
+    {
+        super(Exercise.class);
+    }
    
 }

@@ -14,6 +14,12 @@ import java.util.List;
  */
 public class PersistenceController {
     private ExerciseRepository exerciseRepository;
+
+    public PersistenceController()
+    {
+        exerciseRepository = new ExerciseRepository();
+    }
+    
     
     public List<Exercise> getListAllExercises()
     {

@@ -18,7 +18,7 @@ public class LangConfig {
     public static void setLang() {
         currentLocale = new Locale("nl_BE");
         Locale.setDefault(currentLocale);
-        rs = ResourceBundle.getBundle("resources/Lang/Lang", Locale.getDefault());
+        rs = ResourceBundle.getBundle("resources/lang/Lang", Locale.getDefault());
     }
     public static String getString(String key) {
         return rs.getString(key);

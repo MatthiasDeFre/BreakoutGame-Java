@@ -5,7 +5,9 @@
  */
 package domain;
 
+import java.util.ArrayList;
 import java.util.List;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javax.persistence.Entity;
@@ -30,21 +32,98 @@ public class Exercise {
     private String feedback;
     private String assignment;
     private Category category;
-    private List<GroupOperation> groupOperations;
     
     @ManyToMany
-    GroupOperation groupOperation;
+    private List<GroupOperation> groupOperations;
+
+  //  GroupOperation groupOperation;
     
     public Exercise(String answer, String feedback, String assignment, Category category) {
-        this.answer = answer;
-        this.feedback = feedback;
-        this.assignment = assignment;
-        this.category = category;
+      setAnswer(answer);
+        setFeedback(feedback);
+        setAssignment(assignment);
+        setCategory(category);
+        groupOperations = new ArrayList<>();
     }
     
 
     protected Exercise() {
     }
     
+  
+    
+    public boolean hasFeedback() {
+        return !(feedback == null) && !(feedback.isEmpty());
+    }
+
+    public String getAnswer()
+    {
+        return answer;
+    }
+
+    public String getFeedback()
+    {
+        return feedback;
+    }
+
+    public String getAssignment()
+    {
+        return assignment;
+    }
+
+    public Category getCategory()
+    {
+        return category;
+    }
+
+    public List<GroupOperation> getGroupOperations()
+    {
+        return groupOperations;
+    }
+
+    
+    
+    public void setAnswer(String answer)
+    {
+        if(answer == null ||answer.trim().equals(""))
+            throw new IllegalArgumentException();
+        else
+            this.answer = answer.trim();
+    }
+
+    public void setFeedback(String feedback)
+    {   
+        if(feedback != null)
+         this.feedback = feedback.trim();
+        else
+         this.feedback = feedback;
+    }
+
+    public void setAssignment(String assignment)
+    {
+        if(assignment == null || assignment.trim().equals(""))
+              throw new IllegalArgumentException();
+        else
+            this.assignment = assignment.trim();
+    }
+
+    public void setCategory(Category category)
+    {   
+        if(category == null)
+            throw new IllegalArgumentException();
+        else
+           this.category = category;
+    }
+    
+    public String getCategoryDescription() {
+        return category.getDescription();
+    }
+    
+    
+    @Override
+    public String toString()
+    {
+        return String.format("%s %s", category.getDescription(), assignment);
+    }
     
 }

@@ -28,5 +28,10 @@ public class Controller {
         return persistenceController.getListAllExercises().stream().map(e -> e.toString()).collect(Collectors.toList());
         
     }
+    public List<Exercise> getListAllExercisesE()
+    {
+        return persistenceController.getListAllExercises();
+        
+    }
     
 }

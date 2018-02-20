@@ -12,6 +12,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -20,6 +21,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 
@@ -46,12 +49,34 @@ public class StartScreenController extends GridPane {
     //NONFXML Attributes
     SceneController controller = new SceneController();
     private Controller dc;
-    private ObservableList<String> listExercices;
+    private ObservableList<Exercise> listExercices;
+    @FXML
+    private ListView<Exercise> lstTest;
+    @FXML
+    private TableView<Exercise> tblExercises;
+    @FXML
+    private TableColumn<Exercise, String> clmAssignment;
+    @FXML
+    private TableColumn<Exercise, String> clmDescription;
 
     public StartScreenController() {
-        controller.screenInit("StartScreen.FXML");
-//        listExercices = FXCollections.observableArrayList(dc.getListAllExercises());
-//        listviewOef.setItems(listExercices);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("StartScreen.fxml"));
+        loader.setRoot(this);
+        loader.setController(this);
+        try {
+            loader.load();
+        } catch (IOException ex) {
+            System.out.printf("Error switching scene");
+        }
+       // controller.screenInit("StartScreen.fxml");
+       dc = new Controller();
+     
+       listExercices = FXCollections.observableArrayList(dc.getListAllExercisesE());
+       lstTest.setItems(listExercices);
+       tblExercises.setItems(listExercices);
+       clmAssignment.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getCategoryDescription()));
+       clmDescription.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getAssignment()));
+       
     }
 
     @FXML

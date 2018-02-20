@@ -18,7 +18,7 @@ import persistence.JPAUtil;
  */
 public class ExerciseTest {
     
-    public ExerciseTest()
+   public ExerciseTest()
     {
     }
     
@@ -31,7 +31,7 @@ public class ExerciseTest {
     public void testSomeMethod()
     {
         // TODO review the generated test code and remove the default call to fail.
-        Assert.fail("The test case is a prototype.");
+      //  Assert.fail("The test case is a prototype.");
     }
     
     // <editor-fold defaultstate="collapsed" desc="Normal case tests">
@@ -43,17 +43,17 @@ public class ExerciseTest {
     @Test
     public void emptyOrNullFeedbackNoFeedback() {
         Exercise ex = new Exercise("blabla", "", "DOET IETS", Category.MATH);
-        //Assert.assertFalse(ex.hasFeedback());
+        Assert.assertFalse(ex.hasFeedback());
         Exercise ex2 = new Exercise("blabla", null, "DOET IETS", Category.MATH); 
-        //Assert.assertFalse(ex.hasFeedback());
+        Assert.assertFalse(ex2.hasFeedback());
            Exercise ex3 = new Exercise("blabla", "       ", "DOET IETS", Category.MATH); 
-        //Assert.assertFalse(ex.hasFeedback());
+        Assert.assertFalse(ex3.hasFeedback());
         
     }
     @Test
     public void notEmptyFeedBackHasFeedback() {
         Exercise ex = new Exercise("blabla", "dddd", "DOET IETS", Category.MATH);
-         //Assert.assertTrue(ex.hasFeedback());
+        Assert.assertTrue(ex.hasFeedback());
     }
     
     // </editor-fold>

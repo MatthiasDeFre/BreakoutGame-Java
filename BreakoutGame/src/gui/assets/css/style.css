@@ -4,5 +4,7 @@
     -fx-background-size: cover;
     -fx-background-position: center center;
 }
-
+.table-view{
+   -fx-background-color: transparent;
+}
 

@@ -38,7 +38,7 @@ public class Seeder {
         
         em.getTransaction().commit();
         em.close();
-        emf.close();
+    //    emf.close();
         
     }
 }
