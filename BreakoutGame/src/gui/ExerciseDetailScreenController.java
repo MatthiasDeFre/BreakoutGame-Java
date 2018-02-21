@@ -5,6 +5,7 @@
  */
 package gui;
 
+import domain.Controller;
 import domain.Exercise;
 import java.net.URL;
 import java.util.Observable;
@@ -26,7 +27,15 @@ public class ExerciseDetailScreenController extends GridPane implements Observer
     private Label lblExercise;
     @FXML
     private Label lblDescription;
+    
+    private Controller dc;
 
+    public ExerciseDetailScreenController(Controller dc) {
+        this.dc = dc;
+    }
+
+    
+    
     @Override
     public void update(Observable o, Object obj) {
         Exercise exercise = (Exercise) obj;

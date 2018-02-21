@@ -10,6 +10,8 @@ import domain.Exercise;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 import javafx.beans.property.SimpleStringProperty;
@@ -33,7 +35,7 @@ import javafx.stage.Stage;
  *
  * @author Alexander
  */
-public class StartScreenController extends GridPane {
+public class StartScreenController extends GridPane implements Observer {
 
     @FXML
     private GridPane grid;
@@ -58,9 +60,11 @@ public class StartScreenController extends GridPane {
     private TableColumn<Exercise, String> clmDescription;
 
     //NONFXML Attributes
-    SceneController sceneController = new SceneController();
     private Controller dc;
+    SceneController sceneController = new SceneController(dc);
     private ObservableList<Exercise> listExercices;
+    @FXML
+    private Label lblExec;
 
     public StartScreenController() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("StartScreen.fxml"));
@@ -95,7 +99,7 @@ public class StartScreenController extends GridPane {
         //tableview listener
         tblExercises.getSelectionModel().selectedItemProperty().addListener((ObservableValue, oldValue, newValue) -> {
             if (newValue != null) {
-                sceneController.switchScene(event, "ExerciseDetailScreen.fxml");
+//                sceneController.switchScene(event, "ExerciseDetailScreen.fxml");
             }
         });
         dc.setExercise(tblExercises.getSelectionModel().getSelectedItem());
@@ -137,4 +141,9 @@ public class StartScreenController extends GridPane {
 //    public void setScreenParent(SceneController screenPage) {
 //        sceneController = screenPage;
 //    }
+    @Override
+    public void update(Observable o, Object obj) {
+        Exercise exercise = (Exercise) obj;
+        lblExec.setText("fdfdfd");
+    }
 }

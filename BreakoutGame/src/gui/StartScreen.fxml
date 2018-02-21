@@ -48,5 +48,6 @@
       <Button fx:id="btnOpdrachtKopiëren" mnemonicParsing="false" onMouseClicked="#btnOpdrachtKopiërenClick" prefWidth="135.0" text="Opdracht kopiëren" translateX="40.0" GridPane.columnIndex="4" GridPane.rowIndex="7" />
       <Button fx:id="btnOpdrachtAanpassen" mnemonicParsing="false" onMouseClicked="#btnOpdrachtAanpassenClick" prefWidth="135.0" text="Opdracht aanpassen" translateX="40.0" GridPane.columnIndex="4" GridPane.rowIndex="3" />
       <ListView fx:id="lstTest" prefHeight="21.0" prefWidth="152.0" stylesheets="@assets/css/style.css" GridPane.columnIndex="1" />
+      <Label fx:id="lblExec" text="lblExec" GridPane.columnIndex="4" />
    </children>
 </fx:root>

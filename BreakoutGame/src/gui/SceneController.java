@@ -41,9 +41,8 @@ public class SceneController {
     private Controller dc;
     private ExerciseDetailScreenController exerciseDetailScreen;
 
-    public SceneController() {
-        exerciseDetailScreen = new ExerciseDetailScreenController();
-        dc = new Controller();
+    public SceneController(Controller dc) {
+        exerciseDetailScreen = new ExerciseDetailScreenController(dc);
         dc.addObserver(exerciseDetailScreen);
     }
 
