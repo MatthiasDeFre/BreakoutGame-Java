@@ -98,6 +98,7 @@ public class StartScreenController extends GridPane {
                 sceneController.switchScene(event, "ExerciseDetailScreen.fxml");
             }
         });
+        dc.setExercise(tblExercises.getSelectionModel().getSelectedItem());
     }
 
     @FXML

@@ -20,17 +20,17 @@ import javafx.scene.layout.GridPane;
  *
  * @author Alexander
  */
-public class ExerciseDetailScreenController extends GridPane{
+public class ExerciseDetailScreenController extends GridPane implements Observer{
 
     @FXML
     private Label lblExercise;
     @FXML
     private Label lblDescription;
 
-//    @Override
-//    public void update(Observable o, Object obj) {
-//        Exercise exercise = (Exercise) obj;
-//        lblExercise.setText(exercise.getAssignment());
-//    }
+    @Override
+    public void update(Observable o, Object obj) {
+        Exercise exercise = (Exercise) obj;
+        lblExercise.setText("fdfdfd");
+    }
 
 }

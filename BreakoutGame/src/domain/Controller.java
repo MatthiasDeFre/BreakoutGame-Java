@@ -19,7 +19,7 @@ public class Controller extends Observable {
 
     private PersistenceController persistenceController;
 
-//    private Exercise exercise;
+    private Exercise exercise;
 
     public Controller() {
         persistenceController = new PersistenceController();
@@ -35,10 +35,10 @@ public class Controller extends Observable {
 
     }
 
-//    public void setExercise(Exercise exercise) {
-//        this.exercise = exercise;
-//        setChanged();
-//        notifyObservers(exercise);
-//    }
+    public void setExercise(Exercise exercise) {
+        this.exercise = exercise;
+        setChanged();
+        notifyObservers(exercise);
+    }
 
 }

@@ -38,13 +38,26 @@ public class SceneController {
 
 //    private HashMap<String, Pane> screenMap = new HashMap<>();
 //    private Scene main;
-    
     private Controller dc;
     private ExerciseDetailScreenController exerciseDetailScreen;
 
     public SceneController() {
-//        exerciseDetailScreen = new ExerciseDetailScreenController();
-//        dc.addObserver(exerciseDetailScreen);
+        exerciseDetailScreen = new ExerciseDetailScreenController();
+        dc = new Controller();
+        dc.addObserver(exerciseDetailScreen);
+    }
+
+    public boolean switchScene(MouseEvent event, String FXML) {
+        try {
+            Parent home_page_parent = FXMLLoader.load(getClass().getResource(FXML)); // ,ResourceBundle.getBundle("lang/Lang", Locale.getDefault())
+            Scene home_page_scene = new Scene(home_page_parent);
+            Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            app_stage.setScene(home_page_scene);
+            app_stage.show();
+        } catch (Exception e) {
+            System.out.printf("Error switching scene");
+        }
+        return true;
     }
 
 //    public SceneController(Scene main) {
@@ -172,16 +185,4 @@ public class SceneController {
 //        }
 //
 //    }
-    public boolean switchScene(MouseEvent event, String FXML) {
-        try {
-            Parent home_page_parent = FXMLLoader.load(getClass().getResource(FXML)); // ,ResourceBundle.getBundle("lang/Lang", Locale.getDefault())
-            Scene home_page_scene = new Scene(home_page_parent);
-            Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            app_stage.setScene(home_page_scene);
-            app_stage.show();
-        } catch (Exception e) {
-            System.out.printf("Error switching scene");
-        }
-        return true;
-    }
 }
