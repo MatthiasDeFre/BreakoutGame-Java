@@ -7,6 +7,7 @@ package gui;
 
 //import java.util.Locale;
 //import java.util.ResourceBundle;
+import domain.Controller;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -35,44 +36,45 @@ import javafx.util.Duration;
  */
 public class SceneController {
 
-    private HashMap<String, Pane> screenMap = new HashMap<>();
-    private Scene main;
+//    private HashMap<String, Pane> screenMap = new HashMap<>();
+//    private Scene main;
+    
+    private Controller dc;
+    private ExerciseDetailScreenController exerciseDetailScreen;
 
     public SceneController() {
-
+//        exerciseDetailScreen = new ExerciseDetailScreenController();
+//        dc.addObserver(exerciseDetailScreen);
     }
 
-    public SceneController(Scene main) {
-        this.main = main;
-    }
-
-    protected void addScreen(String name, Pane pane) {
-        screenMap.put(name, pane);
-    }
-
-    protected void removeScreen(String name) {
-        screenMap.remove(name);
-    }
-
-    protected void activate(String name) {
-        main.setRoot(screenMap.get(name));
-    }
-
-    public void changeScene(String fxml) {
-        Stage primaryStage = null;
-        
-        try {
-            Parent pane = FXMLLoader.load(
-                    getClass().getResource(fxml));
-            
-            primaryStage.getScene().setRoot(pane);
-        } catch (IOException ex) {
-            Logger.getLogger(SceneController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-
-
+//    public SceneController(Scene main) {
+//        this.main = main;
+//    }
+//
+//    protected void addScreen(String name, Pane pane) {
+//        screenMap.put(name, pane);
+//    }
+//
+//    protected void removeScreen(String name) {
+//        screenMap.remove(name);
+//    }
+//
+//    protected void activate(String name) {
+//        main.setRoot(screenMap.get(name));
+//    }
+//
+//    public void changeScene(String fxml) {
+//        Stage primaryStage = null;
+//        
+//        try {
+//            Parent pane = FXMLLoader.load(
+//                    getClass().getResource(fxml));
+//            
+//            primaryStage.getScene().setRoot(pane);
+//        } catch (IOException ex) {
+//            Logger.getLogger(SceneController.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
 //    public SceneController() {
 //        super();//mario
 //

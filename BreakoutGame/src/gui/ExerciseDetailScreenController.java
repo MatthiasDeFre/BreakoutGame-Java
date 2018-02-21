@@ -5,7 +5,10 @@
  */
 package gui;
 
+import domain.Exercise;
 import java.net.URL;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -17,19 +20,17 @@ import javafx.scene.layout.GridPane;
  *
  * @author Alexander
  */
-public class ExerciseDetailScreenController extends GridPane implements Initializable {
+public class ExerciseDetailScreenController extends GridPane{
 
     @FXML
     private Label lblExercise;
     @FXML
     private Label lblDescription;
 
-    /**
-     * Initializes the controller class.
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
-    
+//    @Override
+//    public void update(Observable o, Object obj) {
+//        Exercise exercise = (Exercise) obj;
+//        lblExercise.setText(exercise.getAssignment());
+//    }
+
 }

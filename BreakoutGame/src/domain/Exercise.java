@@ -7,6 +7,7 @@ package domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
@@ -23,24 +24,25 @@ import javax.persistence.Table;
  * @author geers
  */
 @Entity
-@Table(name="Exercises")
+@Table(name = "Exercises")
 public class Exercise {
+
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String answer;
     private String feedback;
     private String assignment;
     private Category category;
-    
+
     @ManyToMany
     private List<GroupOperation> groupOperations;
 
-  //  GroupOperation groupOperation;
-    
+    //  GroupOperation groupOperation;
     public Exercise(String answer, String feedback, String assignment, Category category) {
         this(answer, feedback, assignment, category, new ArrayList<>());
     }
+
     public Exercise(String answer, String feedback, String assignment, Category category, List<GroupOperation> operations) {
         setAnswer(answer);
         setFeedback(feedback);
@@ -48,85 +50,73 @@ public class Exercise {
         setCategory(category);
         groupOperations = operations;
     }
-    
 
     protected Exercise() {
     }
-    
-  
-    
+
     public boolean hasFeedback() {
         return !(feedback == null) && !(feedback.isEmpty());
     }
 
-    public String getAnswer()
-    {
+    public String getAnswer() {
         return answer;
     }
 
-    public String getFeedback()
-    {
+    public String getFeedback() {
         return feedback;
     }
 
-    public String getAssignment()
-    {
+    public String getAssignment() {
         return assignment;
     }
 
-    public Category getCategory()
-    {
+    public Category getCategory() {
         return category;
     }
 
-    public List<GroupOperation> getGroupOperations()
-    {
+    public List<GroupOperation> getGroupOperations() {
         return groupOperations;
     }
 
-    
-    
-    public void setAnswer(String answer)
-    {
-        if(answer == null ||answer.trim().equals(""))
+    public void setAnswer(String answer) {
+        if (answer == null || answer.trim().equals("")) {
             throw new IllegalArgumentException();
-        else
+        } else {
             this.answer = answer.trim();
+        }
     }
 
-    public void setFeedback(String feedback)
-    {   
-        if(feedback != null)
-         this.feedback = feedback.trim();
-        else
-         this.feedback = feedback;
+    public void setFeedback(String feedback) {
+        if (feedback != null) {
+            this.feedback = feedback.trim();
+        } else {
+            this.feedback = feedback;
+        }
     }
 
-    public void setAssignment(String assignment)
-    {
-        if(assignment == null || assignment.trim().equals(""))
-              throw new IllegalArgumentException();
-        else
-            this.assignment = assignment.trim();
-    }
-
-    public void setCategory(Category category)
-    {   
-        if(category == null)
+    public void setAssignment(String assignment) {
+        if (assignment == null || assignment.trim().equals("")) {
             throw new IllegalArgumentException();
-        else
-           this.category = category;
+        } else {
+            this.assignment = assignment.trim();
+        }
     }
-    
+
+    public void setCategory(Category category) {
+        if (category == null) {
+            throw new IllegalArgumentException();
+        } else {
+            this.category = category;
+        }
+    }
+
     public String getCategoryDescription() {
         return category.getDescription();
     }
-    
-    
+
     @Override
-    public String toString()
-    {
+    public String toString() {
         return String.format("%s %s", category.getDescription(), assignment);
     }
-    
+
 }
