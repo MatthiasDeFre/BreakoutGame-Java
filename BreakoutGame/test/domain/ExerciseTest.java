@@ -17,13 +17,12 @@ import persistence.JPAUtil;
  * @author Matthias
  */
 public class ExerciseTest {
-    
    public ExerciseTest()
     {
     }
     
     @Before
-    public void setUp()
+    public void before()
     {
     }
 
@@ -37,22 +36,22 @@ public class ExerciseTest {
     // <editor-fold defaultstate="collapsed" desc="Normal case tests">
     @Test 
     public void correctConstructor() {
-           Exercise ex = new Exercise("Test", "blabla", "5", "DOET IETS", Category.MATH);
+           Exercise ex = new Exercise("Test", "blabla", "5", "DOET IETS", new Category("DUTCH"));
            //Assert with all getters
     }
     @Test
     public void emptyOrNullFeedbackNoFeedback() {
-        Exercise ex = new Exercise("Test","blabla", "", "DOET IETS", Category.MATH);
+        Exercise ex = new Exercise("Test","blabla", "", "DOET IETS", new Category("DUTCH"));
         Assert.assertFalse(ex.hasFeedback());
-        Exercise ex2 = new Exercise("Test","blabla", null, "DOET IETS", Category.MATH); 
+        Exercise ex2 = new Exercise("Test","blabla", null, "DOET IETS", new Category("DUTCH")); 
         Assert.assertFalse(ex2.hasFeedback());
-           Exercise ex3 = new Exercise("Test","blabla", "       ", "DOET IETS", Category.MATH); 
+           Exercise ex3 = new Exercise("Test","blabla", "       ", "DOET IETS", new Category("DUTCH")); 
         Assert.assertFalse(ex3.hasFeedback());
         
     }
     @Test
     public void notEmptyFeedBackHasFeedback() {
-        Exercise ex = new Exercise("Test","blabla", "dddd", "DOET IETS", Category.MATH);
+        Exercise ex = new Exercise("Test","blabla", "dddd", "DOET IETS", new Category("DUTCH"));
         Assert.assertTrue(ex.hasFeedback());
     }
     
@@ -62,26 +61,39 @@ public class ExerciseTest {
     
     @Test(expected = IllegalArgumentException.class)
     public void nullAnwserThrowsException() {
-        Exercise ex = new Exercise("Test",null, "", "doe iets", Category.MATH);
+        Exercise ex = new Exercise("Test",null, "", "doe iets", new Category("DUTCH"));
     }
     @Test(expected = IllegalArgumentException.class)
     public void emptyAnwserThrowsException() {
-        Exercise ex = new Exercise("Test","   ", "", "doe iets", Category.MATH);
+        Exercise ex = new Exercise("Test","   ", "", "doe iets", new Category("DUTCH"));
     }
     
     @Test(expected = IllegalArgumentException.class)
     public void emptyQuestionThrowsException() {
-        Exercise ex = new Exercise("Test","hallo", "", "   ", Category.MATH);
+        Exercise ex = new Exercise("Test","hallo", "", "   ", new Category("DUTCH"));
     }
     @Test(expected = IllegalArgumentException.class)
     public void nullQuestionThrowsException() {
-        Exercise ex = new Exercise("Test","hallo", "", null, Category.MATH);
+        Exercise ex = new Exercise("Test","hallo", "", null, new Category("DUTCH"));
     }
     
     @Test(expected = IllegalArgumentException.class)
     public void nullCategoryThrowsException() {
         Exercise ex = new Exercise("Test","hallo", "", "hdhshddh", null);
     }
+    
+    @Test(expected=IllegalArgumentException.class)
+    public void nullNameThrowsException()
+    {
+        new Exercise(null,"tekst","","",new Category("DUTCH"));
+    }
+    
+    @Test(expected=IllegalArgumentException.class)
+    public void emptyNameThrowsException()
+    {
+        new Exercise("","tekst","","",new Category("DUTCH"));
+    }
+    
     // </editor-fold>
     
     

@@ -87,7 +87,11 @@ public class Exercise {
     }
 
     public void setName(String name) {
-        this.name = name;
+        if(name==null || name.trim().equals(""))
+            throw new IllegalArgumentException();
+        else
+            this.name = name;
+        
     }
     
     public void setAnswer(String answer) {

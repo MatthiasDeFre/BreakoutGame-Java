@@ -11,18 +11,19 @@ import util.LangConfig;
  *
  * @author Alexander
  */
-public enum Category {
+public class Category {
     
-  
-    MATH("MATH"),
-    GEOGRAPHY("GEOGRAPHY"),
-    DUTCH("DUTCH");
+//  
+//    MATH("MATH"),
+//    GEOGRAPHY("GEOGRAPHY"),
+//    DUTCH("DUTCH");
+    
     private final String key;
-    Category(String key)    
+    public Category(String key)    
     {
         this.key = key;
     }
-    String getDescription() {
+    public String getDescription() {
         return LangConfig.getString(key);
     }
 }
