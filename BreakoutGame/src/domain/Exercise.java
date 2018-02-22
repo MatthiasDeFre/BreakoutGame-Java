@@ -11,6 +11,7 @@ import java.util.Observable;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -36,6 +37,8 @@ public class Exercise {
     private String answer;
     private String feedback;
     private String assignment;
+    
+    @ManyToOne
     private Category category;
 
     @ManyToMany

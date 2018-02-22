@@ -103,8 +103,8 @@ public class StartScreenController extends GridPane implements Observer {
 //                sceneController.switchScene(event, "ExerciseDetailScreen.fxml");
             }
         });
-        dc.setExercise(tblExercises.getSelectionModel().getSelectedItem());
-    }
+        dc.setExercise(tblExercises.getSelectionModel().getSelectedItem()); 
+   }
 
     @FXML
     private void btnOpdrachtKopiërenClick(MouseEvent event) {

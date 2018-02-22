@@ -21,11 +21,13 @@ public class Seeder {
     public static void seedDatabaseWithStartData() {
         
         GroupOperation[] goArray = { new GroupOperation(OperationCategory.MULTIPLY, 1),  new GroupOperation(OperationCategory.MIN, 5), new GroupOperation(OperationCategory.PLUS, 3), new GroupOperation(OperationCategory.MULTIPLY, 2), new GroupOperation(OperationCategory.MIN, 50),  new GroupOperation(OperationCategory.PLUS, 10)};
-        Exercise ex1 = new Exercise("RANDOM NAME", "10", null, "Hoeveel is 5 + 5?", new Category("MATH"), Arrays.asList(goArray));
-        Exercise ex2 = new Exercise("ANOTHER RANDOM NAME", "2003", "Zoek via wikipedia naar het correcte antwoord.", "In welk jaar is het boek De Davinci Code uitgegeven", new Category("DUTCH"), Arrays.asList(goArray));
+     
         Category math=new Category("MATH");
         Category dutch=new Category("DUTCH");
         Category geography=new Category("GEOGRAPHY");
+        
+        Exercise ex1 = new Exercise("RANDOM NAME", "10", null, "Hoeveel is 5 + 5?", math, Arrays.asList(goArray));
+        Exercise ex2 = new Exercise("ANOTHER RANDOM NAME", "2003", "Zoek via wikipedia naar het correcte antwoord.", "In welk jaar is het boek De Davinci Code uitgegeven", dutch, Arrays.asList(goArray));
         
         EntityManagerFactory emf = JPAUtil.getEntityManagerFactory();
         EntityManager em = emf.createEntityManager();
@@ -34,14 +36,16 @@ public class Seeder {
         
         //Seeding groupoperations (no cascading persist)
         Arrays.stream(goArray).forEach(e -> em.persist(e));
-        
-        //Seeding exercises
-        em.persist(ex1);
-        em.persist(ex2);
+
         //Seeding Categories
         em.persist(math);
         em.persist(dutch);
         em.persist(geography);
+        
+        //Seeding exercises
+        em.persist(ex1);
+        em.persist(ex2);
+
         
         em.getTransaction().commit();
         em.close();

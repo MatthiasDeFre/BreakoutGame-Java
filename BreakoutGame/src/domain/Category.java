@@ -5,25 +5,47 @@
  */
 package domain;
 
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import util.LangConfig;
 
 /**
  *
  * @author Alexander
  */
-public class Category {
+@Entity
+public class Category implements Serializable {
     
 //  
 //    MATH("MATH"),
 //    GEOGRAPHY("GEOGRAPHY"),
 //    DUTCH("DUTCH");
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    @Column(unique = true)
+    private String name;
     
-    private final String key;
-    public Category(String key)    
+    protected Category() {
+        
+    }
+    public Category(String name)    
     {
-        this.key = key;
+        setName(name);
+    }
+    public void setName(String name) {
+        if(name != null && !name.trim().isEmpty()) {
+            this.name = name;
+        } else {
+            throw new IllegalArgumentException();
+        }
+        
     }
     public String getDescription() {
-        return LangConfig.getString(key);
+        return LangConfig.getString(name);
     }
 }
