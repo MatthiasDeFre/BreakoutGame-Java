@@ -42,8 +42,8 @@ public class SceneController {
     private ExerciseDetailScreenController exerciseDetailScreen;
 
     public SceneController(Controller dc) {
-        exerciseDetailScreen = new ExerciseDetailScreenController(dc);
-        dc.addObserver(exerciseDetailScreen);
+      //  exerciseDetailScreen = new ExerciseDetailScreenController(dc);
+     //   dc.addObserver(exerciseDetailScreen);
     }
 
     public boolean switchScene(MouseEvent event, String FXML) {

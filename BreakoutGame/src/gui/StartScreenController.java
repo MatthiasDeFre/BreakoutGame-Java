@@ -61,7 +61,7 @@ public class StartScreenController extends GridPane implements Observer {
 
     //NONFXML Attributes
     private Controller dc;
-    SceneController sceneController = new SceneController(dc);
+    private SceneController sceneController;
     private ObservableList<Exercise> listExercices;
     @FXML
     private Label lblExec;
@@ -77,7 +77,8 @@ public class StartScreenController extends GridPane implements Observer {
         }
 
         dc = new Controller();
-
+        sceneController  = new SceneController(dc);
+        dc.addObserver(this);
         listExercices = FXCollections.observableArrayList(dc.getListAllExercisesE());
         lstTest.setItems(listExercices);
         tblExercises.setItems(listExercices);
@@ -144,6 +145,6 @@ public class StartScreenController extends GridPane implements Observer {
     @Override
     public void update(Observable o, Object obj) {
         Exercise exercise = (Exercise) obj;
-        lblExec.setText("fdfdfd");
+        lblExec.setText(exercise.getName());
     }
 }

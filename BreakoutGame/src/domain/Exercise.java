@@ -11,6 +11,7 @@ import java.util.Observable;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -30,6 +31,8 @@ public class Exercise {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @Column(unique = true)
+    private String name;
     private String answer;
     private String feedback;
     private String assignment;
@@ -39,11 +42,12 @@ public class Exercise {
     private List<GroupOperation> groupOperations;
 
     //  GroupOperation groupOperation;
-    public Exercise(String answer, String feedback, String assignment, Category category) {
-        this(answer, feedback, assignment, category, new ArrayList<>());
+    public Exercise(String name, String answer, String feedback, String assignment, Category category) {
+        this(name, answer, feedback, assignment, category, new ArrayList<>());
     }
 
-    public Exercise(String answer, String feedback, String assignment, Category category, List<GroupOperation> operations) {
+    public Exercise(String name, String answer, String feedback, String assignment, Category category, List<GroupOperation> operations) {
+        setName(name);
         setAnswer(answer);
         setFeedback(feedback);
         setAssignment(assignment);
@@ -56,6 +60,10 @@ public class Exercise {
 
     public boolean hasFeedback() {
         return !(feedback == null) && !(feedback.isEmpty());
+    }
+    
+    public String getName() {
+        return name;
     }
 
     public String getAnswer() {
@@ -78,6 +86,10 @@ public class Exercise {
         return groupOperations;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+    
     public void setAnswer(String answer) {
         if (answer == null || answer.trim().equals("")) {
             throw new IllegalArgumentException();
@@ -87,10 +99,10 @@ public class Exercise {
     }
 
     public void setFeedback(String feedback) {
-        if (feedback != null) {
+        if (feedback != null && !feedback.trim().equals("")) {
             this.feedback = feedback.trim();
         } else {
-            this.feedback = feedback;
+            this.feedback = null;
         }
     }
 

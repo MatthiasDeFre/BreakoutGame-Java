@@ -37,22 +37,22 @@ public class ExerciseTest {
     // <editor-fold defaultstate="collapsed" desc="Normal case tests">
     @Test 
     public void correctConstructor() {
-           Exercise ex = new Exercise("blabla", "5", "DOET IETS", Category.MATH);
+           Exercise ex = new Exercise("Test", "blabla", "5", "DOET IETS", Category.MATH);
            //Assert with all getters
     }
     @Test
     public void emptyOrNullFeedbackNoFeedback() {
-        Exercise ex = new Exercise("blabla", "", "DOET IETS", Category.MATH);
+        Exercise ex = new Exercise("Test","blabla", "", "DOET IETS", Category.MATH);
         Assert.assertFalse(ex.hasFeedback());
-        Exercise ex2 = new Exercise("blabla", null, "DOET IETS", Category.MATH); 
+        Exercise ex2 = new Exercise("Test","blabla", null, "DOET IETS", Category.MATH); 
         Assert.assertFalse(ex2.hasFeedback());
-           Exercise ex3 = new Exercise("blabla", "       ", "DOET IETS", Category.MATH); 
+           Exercise ex3 = new Exercise("Test","blabla", "       ", "DOET IETS", Category.MATH); 
         Assert.assertFalse(ex3.hasFeedback());
         
     }
     @Test
     public void notEmptyFeedBackHasFeedback() {
-        Exercise ex = new Exercise("blabla", "dddd", "DOET IETS", Category.MATH);
+        Exercise ex = new Exercise("Test","blabla", "dddd", "DOET IETS", Category.MATH);
         Assert.assertTrue(ex.hasFeedback());
     }
     
@@ -62,25 +62,25 @@ public class ExerciseTest {
     
     @Test(expected = IllegalArgumentException.class)
     public void nullAnwserThrowsException() {
-        Exercise ex = new Exercise(null, "", "doe iets", Category.MATH);
+        Exercise ex = new Exercise("Test",null, "", "doe iets", Category.MATH);
     }
     @Test(expected = IllegalArgumentException.class)
     public void emptyAnwserThrowsException() {
-        Exercise ex = new Exercise("   ", "", "doe iets", Category.MATH);
+        Exercise ex = new Exercise("Test","   ", "", "doe iets", Category.MATH);
     }
     
     @Test(expected = IllegalArgumentException.class)
     public void emptyQuestionThrowsException() {
-        Exercise ex = new Exercise("hallo", "", "   ", Category.MATH);
+        Exercise ex = new Exercise("Test","hallo", "", "   ", Category.MATH);
     }
     @Test(expected = IllegalArgumentException.class)
     public void nullQuestionThrowsException() {
-        Exercise ex = new Exercise("hallo", "", null, Category.MATH);
+        Exercise ex = new Exercise("Test","hallo", "", null, Category.MATH);
     }
     
     @Test(expected = IllegalArgumentException.class)
     public void nullCategoryThrowsException() {
-        Exercise ex = new Exercise("hallo", "", "hdhshddh", null);
+        Exercise ex = new Exercise("Test","hallo", "", "hdhshddh", null);
     }
     // </editor-fold>
     
