@@ -1,0 +1,27 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package gui;
+
+import domain.SceneName;
+import static domain.SceneName.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Supplier;
+import javafx.scene.Scene;
+
+/**
+ *
+ * @author Alexander
+ */
+public class SceneFactory {
+    private final Map<SceneName, Supplier<Scene>> factory = new HashMap();
+
+    public SceneFactory() {
+        
+    }
+    
+    
+}

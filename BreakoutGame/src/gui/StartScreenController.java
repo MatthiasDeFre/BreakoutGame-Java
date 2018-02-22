@@ -5,7 +5,7 @@
  */
 package gui;
 
-import domain.Controller;
+import domain.UseCaseExerciseAdminController;
 import domain.Exercise;
 import java.io.IOException;
 import java.net.URL;
@@ -31,7 +31,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 /**
- * FXML Controller class
+ * FXML UseCaseExerciseAdminController class
  *
  * @author Alexander
  */
@@ -60,7 +60,7 @@ public class StartScreenController extends GridPane implements Observer {
     private TableColumn<Exercise, String> clmDescription;
 
     //NONFXML Attributes
-    private Controller dc;
+    private UseCaseExerciseAdminController dc;
     private SceneController sceneController;
     private ObservableList<Exercise> listExercices;
     @FXML
@@ -76,7 +76,7 @@ public class StartScreenController extends GridPane implements Observer {
             System.out.printf("Error starting scene");
         }
 
-        dc = new Controller();
+        dc = new UseCaseExerciseAdminController();
         sceneController  = new SceneController(dc);
         dc.addObserver(this);
         listExercices = FXCollections.observableArrayList(dc.getListAllExercisesE());
@@ -127,7 +127,7 @@ public class StartScreenController extends GridPane implements Observer {
 //            System.out.printf("Error starting scene");
 //        }
 //
-//        dc = new Controller();
+//        dc = new UseCaseExerciseAdminController();
 //
 //        //list init
 //        listExercices = FXCollections.observableArrayList(dc.getListAllExercisesE());

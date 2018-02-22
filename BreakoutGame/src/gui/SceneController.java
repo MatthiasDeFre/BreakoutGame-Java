@@ -7,7 +7,7 @@ package gui;
 
 //import java.util.Locale;
 //import java.util.ResourceBundle;
-import domain.Controller;
+import domain.UseCaseExerciseAdminController;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -38,10 +38,10 @@ public class SceneController {
 
 //    private HashMap<String, Pane> screenMap = new HashMap<>();
 //    private Scene main;
-    private Controller dc;
+    private UseCaseExerciseAdminController dc;
     private ExerciseDetailScreenController exerciseDetailScreen;
 
-    public SceneController(Controller dc) {
+    public SceneController(UseCaseExerciseAdminController dc) {
       //  exerciseDetailScreen = new ExerciseDetailScreenController(dc);
      //   dc.addObserver(exerciseDetailScreen);
     }

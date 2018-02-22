@@ -5,7 +5,7 @@
  */
 package gui;
 
-import domain.Controller;
+import domain.UseCaseExerciseAdminController;
 import domain.Exercise;
 import java.net.URL;
 import java.util.Observable;
@@ -17,7 +17,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 
 /**
- * FXML Controller class
+ * FXML UseCaseExerciseAdminController class
  *
  * @author Alexander
  */
@@ -28,9 +28,9 @@ public class ExerciseDetailScreenController extends GridPane implements Observer
     @FXML
     private Label lblDescription;
     
-    private Controller dc;
+    private UseCaseExerciseAdminController dc;
 
-    public ExerciseDetailScreenController(Controller dc) {
+    public ExerciseDetailScreenController(UseCaseExerciseAdminController dc) {
         this.dc = dc;
     }
 

@@ -15,13 +15,13 @@ import persistence.PersistenceController;
  *
  * @author geers
  */
-public class Controller extends Observable {
+public class UseCaseExerciseAdminController extends Observable {
 
     private PersistenceController persistenceController;
 
     private Exercise exercise;
 
-    public Controller() {
+    public UseCaseExerciseAdminController() {
         persistenceController = new PersistenceController();
     }
 
