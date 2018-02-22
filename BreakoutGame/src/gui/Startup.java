@@ -5,7 +5,10 @@
  */
 package gui;
 
+import domain.SceneName;
+import domain.UseCaseExerciseAdminController;
 import javafx.application.Application;
+import static javafx.application.Application.launch;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -27,26 +30,18 @@ public class Startup extends Application {
         Seeder.seedDatabaseWithStartData();
         LangConfig.setLang();
 
-//        SceneController sceneController = new SceneController();
+//        StartScreenController root = new StartScreenController();
+//        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+//        Scene scene = new Scene(root, primaryScreenBounds.getMinX(), primaryScreenBounds.getMinY());
 
-//        sceneController.loadScreen("Startscherm", "StartScreen.fxml");
-//        sceneController.setScreen("Startscherm");
-//
-//        Group root = new Group();
-//        root.getChildren().addAll(sceneController);
-//        Scene scene = new Scene(root);
-//
-//        primaryStage.setScene(scene);
-//        primaryStage.show();
-
-        StartScreenController root = new StartScreenController();
-        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-        Scene scene = new Scene(root, primaryScreenBounds.getMinX(), primaryScreenBounds.getMinY());
-
+        SceneController2 sc2 = new SceneController2(new UseCaseExerciseAdminController(), primaryStage);
+        
         Image icon = new Image("/gui/assets/img/icon.png");
         primaryStage.getIcons().add(icon);
         primaryStage.setTitle("BOB Manager");
-        primaryStage.setScene(scene);
+//        primaryStage.setScene(scene);
+        sc2.createScene(SceneName.STARTSCREEN);
+        sc2.switchScene(SceneName.STARTSCREEN);
         primaryStage.setResizable(true);
         primaryStage.show();
     }

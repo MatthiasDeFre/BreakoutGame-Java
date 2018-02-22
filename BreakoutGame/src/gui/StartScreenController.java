@@ -7,6 +7,7 @@ package gui;
 
 import domain.UseCaseExerciseAdminController;
 import domain.Exercise;
+import domain.SceneName;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -28,6 +29,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 /**
@@ -63,10 +65,11 @@ public class StartScreenController extends GridPane implements Observer {
     private UseCaseExerciseAdminController dc;
     private SceneController sceneController;
     private ObservableList<Exercise> listExercices;
+    private SceneController2 sceneController2;
     @FXML
     private Label lblExec;
 
-    public StartScreenController() {
+    public StartScreenController(UseCaseExerciseAdminController dc) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("StartScreen.fxml"));
         loader.setRoot(this);
         loader.setController(this);
@@ -76,8 +79,8 @@ public class StartScreenController extends GridPane implements Observer {
             System.out.printf("Error starting scene");
         }
 
-        dc = new UseCaseExerciseAdminController();
-        sceneController  = new SceneController(dc);
+        this.dc = dc;
+        sceneController = new SceneController(dc);
         dc.addObserver(this);
         listExercices = FXCollections.observableArrayList(dc.getListAllExercisesE());
         lstTest.setItems(listExercices);
@@ -96,15 +99,14 @@ public class StartScreenController extends GridPane implements Observer {
 
     @FXML
     private void btnOpdrachtDetailsClick(MouseEvent event) {
+  
+
         btnOpdrachtDetails.setText("Choose exercise");
         //tableview listener
-        tblExercises.getSelectionModel().selectedItemProperty().addListener((ObservableValue, oldValue, newValue) -> {
-            if (newValue != null) {
-//                sceneController.switchScene(event, "ExerciseDetailScreen.fxml");
-            }
-        });
-        dc.setExercise(tblExercises.getSelectionModel().getSelectedItem()); 
-   }
+        SceneController2.createScene(SceneName.EXERCISESCREEN);
+        dc.setExercise(tblExercises.getSelectionModel().getSelectedItem());
+        SceneController2.switchScene(SceneName.EXERCISESCREEN);
+    }
 
     @FXML
     private void btnOpdrachtKopiërenClick(MouseEvent event) {
@@ -115,33 +117,6 @@ public class StartScreenController extends GridPane implements Observer {
 
     }
 
-//    @Override
-//    public void initialize(URL location, ResourceBundle resources) {
-//
-//        FXMLLoader loader = new FXMLLoader(getClass().getResource("StartScreen.fxml"));
-//        loader.setRoot(this);
-//        loader.setController(this);
-//        try {
-//            loader.load();
-//        } catch (IOException ex) {
-//            System.out.printf("Error starting scene");
-//        }
-//
-//        dc = new UseCaseExerciseAdminController();
-//
-//        //list init
-//        listExercices = FXCollections.observableArrayList(dc.getListAllExercisesE());
-//        lstTest.setItems(listExercices);
-//        //tableview init
-//        tblExercises.setItems(listExercices);
-//        clmAssignment.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getCategoryDescription()));
-//        clmDescription.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getAssignment()));
-//    }
-//
-//    @Override
-//    public void setScreenParent(SceneController screenPage) {
-//        sceneController = screenPage;
-//    }
     @Override
     public void update(Observable o, Object obj) {
         Exercise exercise = (Exercise) obj;
