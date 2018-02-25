@@ -89,8 +89,8 @@ public class ExerciseDetailScreenController extends AnchorPane implements Observ
         txtFeedback.setText(exercise.getFeedback());
         txtCat.setText(exercise.getCategoryDescription());
         tblViewGroupOperations.setItems(FXCollections.observableArrayList(exercise.getGroupOperations()));
-       clmCat.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getCategory().getDescription()));
-        clmValue.setCellValueFactory(e -> new SimpleStringProperty(String.valueOf(e.getValue().getValue())));
+       //clmCat.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getCategory().getDescription()));
+        clmValue.setCellValueFactory(e -> new SimpleStringProperty(String.valueOf(e.getValue().getDescription())));
         
     }
 

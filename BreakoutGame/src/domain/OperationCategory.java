@@ -14,7 +14,8 @@ import util.LangConfig;
 public enum OperationCategory {
     MULTIPLY("MULTIPLY"),
     MIN("MIN"),
-    PLUS("PLUS");
+    PLUS("PLUS"),
+    SWAPCHAR("SWAPCHAR");
     
     private String key;
 
