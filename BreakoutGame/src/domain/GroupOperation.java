@@ -22,7 +22,7 @@ public class GroupOperation {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
     private OperationCategory category;
-    private int value;
+    private String value;
 
     //Constructors
     /**
@@ -33,7 +33,7 @@ public class GroupOperation {
         
     }
     
-    public GroupOperation(OperationCategory category, int value)
+    public GroupOperation(OperationCategory category, String value)
     {
         this.category = category;
         this.value = value;
@@ -49,12 +49,14 @@ public class GroupOperation {
         this.category = category;
     }
 
-    public int getValue()
+    public String getValue()
     {
         return value;
     }
-
-    public void setValue(int value)
+    public String getDescription() {
+        return String.format(category.getDescription(), value.split("&"));
+    }
+    public void setValue(String value)
     {
         this.value = value;
     }

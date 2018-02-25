@@ -20,7 +20,7 @@ import javax.persistence.EntityManagerFactory;
 public class Seeder {
     public static void seedDatabaseWithStartData() {
         
-        GroupOperation[] goArray = { new GroupOperation(OperationCategory.MULTIPLY, 1),  new GroupOperation(OperationCategory.MIN, 5), new GroupOperation(OperationCategory.PLUS, 3), new GroupOperation(OperationCategory.MULTIPLY, 2), new GroupOperation(OperationCategory.MIN, 50),  new GroupOperation(OperationCategory.PLUS, 10)};
+        GroupOperation[] goArray = { new GroupOperation(OperationCategory.MULTIPLY, "1"),  new GroupOperation(OperationCategory.MIN, "1"), new GroupOperation(OperationCategory.PLUS, "1"), new GroupOperation(OperationCategory.MULTIPLY, "2"), new GroupOperation(OperationCategory.MIN, "50"),  new GroupOperation(OperationCategory.PLUS, "10"), new GroupOperation(OperationCategory.SWAPCHAR, "a&b")};
      
         Category math=new Category("MATH");
         Category dutch=new Category("DUTCH");
