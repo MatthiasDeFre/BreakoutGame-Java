@@ -27,7 +27,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "Exercises")
-public class Exercise {
+public class Exercise implements IManageable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
