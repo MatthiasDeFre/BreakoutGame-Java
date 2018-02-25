@@ -7,7 +7,7 @@ import javafx.collections.FXCollections;
 import persistence.PersistenceController;
 
 
-public class ExerciseManager<Exercise> extends Manager<IManageable>
+public class ExerciseManager extends Manager<Exercise>
 {
     protected ExerciseManager()
     {
@@ -16,8 +16,7 @@ public class ExerciseManager<Exercise> extends Manager<IManageable>
 
     public ExerciseManager(PersistenceController persistence)
     {
-        //pass this classname, Exercise is prohibited, member of type param section
-        setItems(FXCollections.observableList(persistence.getAllOfType(this.getClass())));
+        setItems(FXCollections.observableList(persistence.getAllOfType(Exercise.class)));
     }
 
     

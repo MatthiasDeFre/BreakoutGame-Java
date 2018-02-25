@@ -26,12 +26,12 @@ public class UseCaseExerciseAdminController extends Observable {
     }
 
     public List<String> getListAllExercises() {
-        return persistenceController.getAllOfType(ExerciseManager.class).stream().map(e -> e.toString()).collect(Collectors.toList());
+        return persistenceController.getAllOfType(Exercise.class).stream().map(e -> e.toString()).collect(Collectors.toList());
 
     }
 
     public List<Exercise> getListAllExercisesE() {
-        return persistenceController.getAllOfType(ExerciseManager.class);
+        return persistenceController.getAllOfType(Exercise.class);
 
     }
 

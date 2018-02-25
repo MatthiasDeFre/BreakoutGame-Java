@@ -7,6 +7,7 @@ package persistence;
 
 import domain.Exercise;
 import domain.ExerciseManager;
+import domain.GroupOperation;
 import domain.GroupOperationManager;
 import java.util.HashMap;
 import java.util.List;
@@ -22,16 +23,16 @@ public class PersistenceController {
     public PersistenceController()
     {
         repositories = new HashMap<>();
-        repositories.put(ExerciseManager.class.getSimpleName(),  new ExerciseRepository());
-        repositories.put(GroupOperationManager.class.getSimpleName(), new GroupOperationRepository());
+        repositories.put(Exercise.class.getSimpleName(),  new ExerciseRepository());
+        repositories.put(GroupOperation.class.getSimpleName(), new GroupOperationRepository());
         
     }
 
     /**
-     * @param type the Manager class for the requested objects
+     * @param type the class for the requested objects
      * @return a list of objects of type T
      */
-    public <T> List<T> getAllOfType(Class type)
+    public <T> List<T> getAllOfType(Class<T> type)
     {
         IGenericRepository repository = repositories.get(type.getSimpleName());
         return repository.getAll();

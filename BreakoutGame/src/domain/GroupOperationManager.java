@@ -7,7 +7,7 @@ import javafx.collections.FXCollections;
 import persistence.PersistenceController;
 
 
-public class GroupOperationManager<GroupOperation> extends Manager<IManageable>
+public class GroupOperationManager extends Manager<GroupOperation>
 {
 
     protected GroupOperationManager()
@@ -18,7 +18,7 @@ public class GroupOperationManager<GroupOperation> extends Manager<IManageable>
 
     public GroupOperationManager(PersistenceController persistence)
     {
-        setItems(FXCollections.observableList(persistence.getAllOfType(this.getClass())));
+        setItems(FXCollections.observableList(persistence.getAllOfType(GroupOperation.class)));
     }
     
 }
