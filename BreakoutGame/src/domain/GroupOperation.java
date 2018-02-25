@@ -17,7 +17,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="GroupOperation")
-public class GroupOperation {
+public class GroupOperation implements IManageable {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
