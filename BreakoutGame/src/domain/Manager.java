@@ -7,7 +7,7 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-//add more types to parameter section, once implemented
+
 public abstract class Manager<T extends IManageable>
 {
     /**
@@ -19,10 +19,9 @@ public abstract class Manager<T extends IManageable>
     */
     private ObservableList<T> items;
     
-    public Manager()
+    protected Manager()
     {
         setItems(FXCollections.observableArrayList());
-        
     }
     /**
      * @return an unmodifiable copy of {@code items}
@@ -48,4 +47,5 @@ public abstract class Manager<T extends IManageable>
     {
         selected = item;
     }
+    
 }

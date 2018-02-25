@@ -6,23 +6,33 @@
 package persistence;
 
 import domain.Exercise;
+import domain.ExerciseManager;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
  * @author geers
  */
 public class PersistenceController {
-    private ExerciseRepository exerciseRepository;
+    private Map<String,IGenericRepository> repositories;
 
     public PersistenceController()
     {
-        exerciseRepository = new ExerciseRepository();
+        repositories = new HashMap<>();
+        repositories.put(ExerciseManager.class.getSimpleName(),  new ExerciseRepository());
+        
     }
-    
-    
-    public List<Exercise> getListAllExercises()
+
+    /**
+     * @param type the Manager class for the requested objects
+     * @return a list of objects of type T
+     */
+    public <T> List<T> getAllOfType(Class type)
     {
-        return exerciseRepository.getAll();
+        IGenericRepository repository = repositories.get(type.getSimpleName());
+        return repository.getAll();
     }
+    
 }
