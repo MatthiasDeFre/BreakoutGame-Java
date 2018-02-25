@@ -3,6 +3,7 @@
 
 package domain;
 
+import javafx.collections.FXCollections;
 import persistence.PersistenceController;
 
 
@@ -17,7 +18,7 @@ public class GroupOperationManager<GroupOperation> extends Manager<IManageable>
 
     public GroupOperationManager(PersistenceController persistence)
     {
-        //get list from persistence
+        setItems(FXCollections.observableList(persistence.getAllOfType(this.getClass())));
     }
     
 }

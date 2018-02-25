@@ -7,6 +7,7 @@ package persistence;
 
 import domain.Exercise;
 import domain.ExerciseManager;
+import domain.GroupOperationManager;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +23,7 @@ public class PersistenceController {
     {
         repositories = new HashMap<>();
         repositories.put(ExerciseManager.class.getSimpleName(),  new ExerciseRepository());
+        repositories.put(GroupOperationManager.class.getSimpleName(), new GroupOperationRepository());
         
     }
 
