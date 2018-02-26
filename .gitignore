@@ -25,3 +25,6 @@ hs_err_pid*
 /build.xml
 /manifest.mf
 /vpproject/
+/BreakoutGame/nbproject/private/
+/BreakoutGame/build/
+/BreakoutGame/dist/
