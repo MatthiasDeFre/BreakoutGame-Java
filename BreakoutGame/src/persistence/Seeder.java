@@ -9,6 +9,8 @@ import domain.Category;
 import domain.Exercise;
 import domain.GroupOperation;
 import domain.OperationCategory;
+import domain.Student;
+import domain.StudentClass;
 import java.util.Arrays;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -28,6 +30,9 @@ public class Seeder {
         
         Exercise ex1 = new Exercise("RANDOM NAME", "10", null, "Hoeveel is 5 + 5?", math, Arrays.asList(goArray));
         Exercise ex2 = new Exercise("ANOTHER RANDOM NAME", "2003", "Zoek via wikipedia naar het correcte antwoord.", "In welk jaar is het boek De Davinci Code uitgegeven", dutch, Arrays.asList(goArray));
+        StudentClass studentClass=new StudentClass("2c1");
+        Student student=new Student("Jelle","Geers");
+        
         
         EntityManagerFactory emf = JPAUtil.getEntityManagerFactory();
         EntityManager em = emf.createEntityManager();
@@ -45,6 +50,12 @@ public class Seeder {
         //Seeding exercises
         em.persist(ex1);
         em.persist(ex2);
+        
+        //Seeding Student & class
+        em.persist(studentClass);
+        em.persist(student);
+        
+        
 
         
         em.getTransaction().commit();

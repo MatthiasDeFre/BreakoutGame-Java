@@ -28,14 +28,16 @@ public class StudentClass {
     private Long id;
     private String studentClassName;
     
-    @OneToMany
+    @OneToMany(mappedBy="StudentClass")
     private Set<Student> students= new HashSet<>();
 
     public Set<Student> getStudents() {
         return Collections.unmodifiableSet(students);
     }
 
-    public StudentClass() {
+    protected StudentClass()
+    {
+        
     }
 
     public StudentClass(String StudentClassName) {
