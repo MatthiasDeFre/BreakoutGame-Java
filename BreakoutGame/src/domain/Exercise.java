@@ -5,6 +5,7 @@
  */
 package domain;
 
+import domain.managers.IManageable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
