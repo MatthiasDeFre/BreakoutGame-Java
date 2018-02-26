@@ -23,6 +23,7 @@ public class SceneFactory {
     public SceneFactory(UseCaseExerciseAdminController dc) {
         add(STARTSCREEN, () -> new Scene(new StartScreenController(dc)));
         add(EXERCISESCREEN, () -> new Scene(new ExerciseDetailScreenController(dc)));
+        add(EXERCISEMAINSCREEN, () -> new Scene(new ExerciseController(dc)));
     }
     
     private void add(SceneName sn, Supplier<Scene> scene) {

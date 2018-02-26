@@ -11,5 +11,6 @@ package domain;
  */
 public enum SceneName {
     STARTSCREEN,
-    EXERCISESCREEN
+    EXERCISESCREEN,
+    EXERCISEMAINSCREEN
 }

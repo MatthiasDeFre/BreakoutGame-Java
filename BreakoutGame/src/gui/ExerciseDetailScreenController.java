@@ -74,7 +74,7 @@ public class ExerciseDetailScreenController extends AnchorPane implements Observ
             System.out.printf(ex.getMessage());
         }
 
-        dc.addObserver(this);
+//        dc.addObserver(this);
         this.dc = dc;
 
     }
@@ -82,7 +82,6 @@ public class ExerciseDetailScreenController extends AnchorPane implements Observ
     @Override
     public void update(Observable o, Object obj) {
         Exercise exercise = (Exercise) obj;
-        //lblExercise.setText("fdfdfd");
         txtAnw.setText(exercise.getAnswer());
         txtAssignment.setText(exercise.getAssignment());
         txtEx.setText(exercise.getName());

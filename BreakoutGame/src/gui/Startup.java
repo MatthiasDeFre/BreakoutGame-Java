@@ -15,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import persistence.Seeder;
 import util.LangConfig;
 
@@ -40,8 +41,8 @@ public class Startup extends Application {
         primaryStage.getIcons().add(icon);
         primaryStage.setTitle("BOB Manager");
 //        primaryStage.setScene(scene);
-        sc2.createScene(SceneName.STARTSCREEN);
-        sc2.switchScene(SceneName.STARTSCREEN);
+        sc2.createScene(SceneName.EXERCISEMAINSCREEN);
+        sc2.switchScene(SceneName.EXERCISEMAINSCREEN);
         primaryStage.setResizable(true);
         primaryStage.show();
     }

@@ -63,7 +63,6 @@ public class StartScreenController extends GridPane implements Observer {
 
     //NONFXML Attributes
     private UseCaseExerciseAdminController dc;
-    private SceneController sceneController;
     private ObservableList<Exercise> listExercices;
     private SceneController2 sceneController2;
     @FXML
@@ -80,8 +79,7 @@ public class StartScreenController extends GridPane implements Observer {
         }
 
         this.dc = dc;
-        sceneController = new SceneController(dc);
-        dc.addObserver(this);
+//        dc.addObserver(this);
         listExercices = FXCollections.observableArrayList(dc.getListAllExercisesE());
         lstTest.setItems(listExercices);
         tblExercises.setItems(listExercices);
@@ -99,13 +97,9 @@ public class StartScreenController extends GridPane implements Observer {
 
     @FXML
     private void btnOpdrachtDetailsClick(MouseEvent event) {
-  
-
-        btnOpdrachtDetails.setText("Choose exercise");
-        //tableview listener
-        SceneController2.createScene(SceneName.EXERCISESCREEN);
+//        SceneController2.createScene(SceneName.EXERCISESCREEN);
         dc.setExercise(tblExercises.getSelectionModel().getSelectedItem());
-        SceneController2.switchScene(SceneName.EXERCISESCREEN);
+//        SceneController2.switchScene(SceneName.EXERCISESCREEN);
     }
 
     @FXML

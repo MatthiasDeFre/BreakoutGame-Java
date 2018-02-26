@@ -39,15 +39,4 @@ public class SceneController2 {
         primaryStage.setScene(scene);
     }
 
-//    private void screenInit(String fxml, Pane test) {
-//        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
-//        loader.setRoot(test);
-//        loader.setController(test);
-//        try {
-//            loader.load();
-//        } catch (IOException ex) {
-//            System.out.printf("Error starting scene");
-//        }
-//    }
-
 }
