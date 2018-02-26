@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
@@ -7,14 +8,47 @@
 <?import javafx.scene.layout.BorderPane?>
 
 
-<FlowPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="803.0" prefWidth="1109.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TableView maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="383.0" prefWidth="200.0">
+      <TableView fx:id="tblBox" layoutX="48.0" layoutY="153.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="630.0" prefWidth="234.0" AnchorPane.bottomAnchor="20.0" AnchorPane.topAnchor="153.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="C1" />
-          <TableColumn prefWidth="75.0" text="C2" />
+          <TableColumn fx:id="clmName" prefWidth="102.0" text="Name" />
+          <TableColumn fx:id="clmDescription" prefWidth="131.0" text="Description" />
         </columns>
       </TableView>
-      <HBox prefHeight="100.0" prefWidth="200.0" />
+      <TableView fx:id="tblSelectedActions" layoutX="555.0" layoutY="251.0" prefHeight="200.0" prefWidth="200.0">
+        <columns>
+          <TableColumn fx:id="clmDescriptionSelected" prefWidth="199.0" text="Selected Actions" />
+        </columns>
+      </TableView>
+      <TableView fx:id="tblSelectedAll" layoutX="320.0" layoutY="251.0" prefHeight="200.0" prefWidth="200.0">
+        <columns>
+          <TableColumn fx:id="clmDescriptionAll" prefWidth="197.0" text="All actions" />
+        </columns>
+      </TableView>
+      <HBox layoutX="320.0" layoutY="153.0" prefHeight="26.0" prefWidth="346.0">
+         <children>
+            <Label text="Name" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets right="35.0" top="5.0" />
+               </HBox.margin>
+            </Label>
+            <TextField prefHeight="25.0" prefWidth="269.0">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </TextField>
+         </children>
+      </HBox>
+      <HBox layoutX="320.0" layoutY="195.0" prefHeight="26.0" prefWidth="352.0">
+         <children>
+            <Label text="Description" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets right="5.0" top="5.0" />
+               </HBox.margin>
+            </Label>
+            <TextField prefHeight="25.0" prefWidth="272.0" />
+         </children>
+      </HBox>
    </children>
-</FlowPane>
+</AnchorPane>
