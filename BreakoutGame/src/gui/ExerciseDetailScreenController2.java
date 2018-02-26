@@ -87,9 +87,9 @@ public class ExerciseDetailScreenController2 extends GridPane implements Observe
         txtEx.setText(exercise.getName());
         txtFeedback.setText(exercise.getFeedback());
         txtCat.setText(exercise.getCategoryDescription());
-//        tblViewGroupOperations.setItems(FXCollections.observableArrayList(exercise.getGroupOperations())); //deze gebruiken
+   //     tblViewGroupOperations.setItems(exercise.getGroupOperationsObservableList()); //deze gebruiken
        //clmCat.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getCategory().getDescription()));
-//        clmValue.setCellValueFactory(e -> new SimpleStringProperty(String.valueOf(e.getValue().getDescription()))); //deze gebruiken
+      //  clmValue.setCellValueFactory(e -> new SimpleStringProperty(String.valueOf(e.getValue().getDescription()))); //deze gebruiken
         
     }
 

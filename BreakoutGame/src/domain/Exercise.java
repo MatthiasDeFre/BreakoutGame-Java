@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable; 
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javax.persistence.CascadeType;
@@ -22,6 +24,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  *
@@ -45,7 +48,11 @@ public class Exercise implements IManageable, Serializable {
 
     @ManyToMany
     private List<GroupOperation> groupOperations;
-
+    
+      @Transient
+    private ObservableList<GroupOperation> groupOperationsFiltered;
+  
+    
     //  GroupOperation groupOperation;
     public Exercise(String name, String answer, String feedback, String assignment, Category category) {
         this(name, answer, feedback, assignment, category, new ArrayList<>());
@@ -58,6 +65,7 @@ public class Exercise implements IManageable, Serializable {
         setAssignment(assignment);
         setCategory(category);
         groupOperations = operations;
+        groupOperationsFiltered = FXCollections.observableArrayList(groupOperations);
     }
     //Creating / copying
     public void copy(Exercise exercise) {
@@ -67,6 +75,7 @@ public class Exercise implements IManageable, Serializable {
         setAssignment(exercise.getAssignment());
         setCategory(exercise.getCategory());
         groupOperations = exercise.getGroupOperations();
+        groupOperationsFiltered = FXCollections.observableArrayList(groupOperations);
     }
     
     public Exercise() {
@@ -95,11 +104,17 @@ public class Exercise implements IManageable, Serializable {
     public Category getCategory() {
         return category;
     }
-
+    
     public List<GroupOperation> getGroupOperations() {
         return groupOperations;
     }
-
+   public ObservableList<GroupOperation> getGroupOperationsObservableList() {
+       if(groupOperationsFiltered != null)
+       return groupOperationsFiltered;
+       else
+            groupOperationsFiltered = FXCollections.observableArrayList(groupOperations);
+       return groupOperationsFiltered;
+    }
     public void setName(String name) {
         if(name==null || name.trim().equals(""))
             throw new IllegalArgumentException();

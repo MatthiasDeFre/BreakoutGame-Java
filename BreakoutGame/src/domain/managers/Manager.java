@@ -27,8 +27,8 @@ public abstract class Manager<T extends domain.managers.IManageable>
     private PersistenceController persistenceController;
     protected Manager(Class<T> type, PersistenceController persistenceController)
     {
-        setItems(FXCollections.observableArrayList());
-        itemsFiltered = new FilteredList<>(items, p -> true);
+      //  setItems(FXCollections.observableArrayList());
+     
         this.persistenceController = persistenceController;
         this.type = type;
     }
@@ -56,6 +56,8 @@ public abstract class Manager<T extends domain.managers.IManageable>
     public void setItems(ObservableList newItems)
     {
         items = newItems;
+        itemsFiltered = new FilteredList<>(items, p -> true);
+        
     }
     
     public void setSelected(T item)

@@ -29,7 +29,7 @@ public class Seeder {
         Category geography=new Category("GEOGRAPHY");
         
         Exercise ex1 = new Exercise("RANDOM NAME", "10", null, "Hoeveel is 5 + 5?", math, Arrays.asList(goArray));
-        Exercise ex2 = new Exercise("ANOTHER RANDOM NAME", "2003", "Zoek via wikipedia naar het correcte antwoord.", "In welk jaar is het boek De Davinci Code uitgegeven", dutch, Arrays.asList(goArray));
+        Exercise ex2 = new Exercise("ANOTHER RANDOM NAME", "2003", "Zoek via wikipedia naar het correcte antwoord.", "In welk jaar is het boek De Davinci Code uitgegeven", dutch, (Arrays.asList(goArray)).subList(0, 3));
         StudentClass studentClass=new StudentClass("2c1");
         Student student=new Student("Jelle","Geers");
         

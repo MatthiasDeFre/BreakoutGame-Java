@@ -32,9 +32,10 @@ public class GroupOperationManager extends Manager<GroupOperation>
     {
         ((GroupOperation) getSelected()).copy(object);
     }
-    
-     public void changeFilter(List<OperationCategory> categories) {
-         getFilteredItems().setPredicate(e -> categories.contains(e.getCategory()));
+    private boolean returnvalue;
+     public void changeFilter(List<GroupOperation> categories) {
+         getFilteredItems().setPredicate(e -> !categories.contains(e));
+         System.out.println("");
      }
     
 }

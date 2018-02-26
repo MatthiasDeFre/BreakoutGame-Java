@@ -51,7 +51,9 @@ public class UseCaseExerciseAdminController extends Observable {
         setChanged();
         notifyObservers(exercise);
     }
-    
+    public void changeFilterGroupOperations(List<GroupOperation> groupOperations) {
+        groupOperationManager.changeFilter(groupOperations);
+    }
     public void createExercise(Exercise exercise) {
         exerciseManager.save(exercise);
     }
