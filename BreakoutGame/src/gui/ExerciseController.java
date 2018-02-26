@@ -19,25 +19,26 @@ import javafx.scene.layout.HBox;
  */
 public class ExerciseController extends HBox {
 
-    private ExerciseDetailScreenController exerciseDetailScreen;
     private ExerciseDetailScreenController2 exerciseDetailScreen2;
     private StartScreenController startScreen;
-    
-    private TestScreenController testScreen;
+    private GroupScreenController groupScreen;
 
+//    private TestScreenController testScreen;
+//    private ExerciseDetailScreenController exerciseDetailScreen;
     private UseCaseExerciseAdminController dc;
 
     public ExerciseController(UseCaseExerciseAdminController dc) {
         this.dc = dc;
         startScreen = new StartScreenController(dc);
-        exerciseDetailScreen = new ExerciseDetailScreenController(dc);
         exerciseDetailScreen2 = new ExerciseDetailScreenController2(dc);
-        testScreen = new TestScreenController(dc);
+        groupScreen = new GroupScreenController(dc);
 
+//        testScreen = new TestScreenController(dc);
+//        exerciseDetailScreen = new ExerciseDetailScreenController(dc);
 //        this.add(startScreen, 0, 0);
 //        this.add(testScreen, 1, 0);
         dc.addObserver(exerciseDetailScreen2);
-        getChildren().addAll(startScreen, exerciseDetailScreen2);
+        getChildren().addAll(startScreen, exerciseDetailScreen2,groupScreen);
         this.setStyle("-fx-background-image: url('https://i.imgur.com/E1METw5.jpg')");
     }
 }
