@@ -9,7 +9,7 @@ import javafx.collections.ObservableList;
 import persistence.PersistenceController;
 import java.lang.Class;
 
-public abstract class Manager<T extends IManageable>
+public abstract class Manager<T extends domain.managers.IManageable>
 {
     /**
      * @param selected

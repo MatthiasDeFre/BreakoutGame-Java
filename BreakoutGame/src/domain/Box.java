@@ -5,6 +5,7 @@
  */
 package domain;
 
+import domain.managers.IManageable;
 import java.io.Serializable;
 import java.util.List;
 import javafx.collections.ObservableList;

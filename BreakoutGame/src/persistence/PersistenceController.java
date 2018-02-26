@@ -15,6 +15,7 @@ import persistence.repositories.ActionRepository;
 import persistence.repositories.SessionRepository;
 import persistence.repositories.GroupOperationRepository;
 import domain.*;
+import domain.managers.IManageable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

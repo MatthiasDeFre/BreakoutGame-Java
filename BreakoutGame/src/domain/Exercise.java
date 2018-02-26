@@ -6,6 +6,7 @@
 package domain;
 
 import domain.managers.IManageable;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable; 
@@ -28,7 +29,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "Exercises")
-public class Exercise implements IManageable {
+public class Exercise implements IManageable, Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

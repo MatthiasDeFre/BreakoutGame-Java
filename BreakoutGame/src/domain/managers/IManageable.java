@@ -9,5 +9,6 @@ package domain.managers;
  */
 public interface IManageable 
 {
-
+    long getId();
+    void setId(long id);
 }
