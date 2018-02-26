@@ -41,7 +41,7 @@ public class StudentClass {
     }
 
     public StudentClass(String StudentClassName) {
-        this.studentClassName = StudentClassName;
+        setStudentClassName(StudentClassName);
     }
 
     public String getStudentClassName() {
@@ -49,13 +49,10 @@ public class StudentClass {
     }
 
     public void setStudentClassName(String studentClassName) {
-        if(studentClassName==null|studentClassName.trim().equals(""))
+        if(studentClassName==null||studentClassName.trim().equals(""))
             throw new IllegalArgumentException();
         else
             this.studentClassName=studentClassName;
     }
-    
-    
-    
-    
+
 }
