@@ -8,6 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import persistence.PersistenceController;
 import java.lang.Class;
+import javafx.collections.transformation.FilteredList;
 
 public abstract class Manager<T extends domain.managers.IManageable>
 {
@@ -22,19 +23,25 @@ public abstract class Manager<T extends domain.managers.IManageable>
     * @param items
     */
     private ObservableList<T> items;
+    private FilteredList<T> itemsFiltered;
     private PersistenceController persistenceController;
     protected Manager(Class<T> type, PersistenceController persistenceController)
     {
         setItems(FXCollections.observableArrayList());
+        itemsFiltered = new FilteredList<>(items, p -> true);
         this.persistenceController = persistenceController;
         this.type = type;
     }
     /**
      * @return an unmodifiable copy of {@code items}
      */
-    public List<T> getItems()
+    public ObservableList<T> getItems()
     {
         return FXCollections.unmodifiableObservableList(items);
+    }
+    
+    public FilteredList<T> getFilteredItems() {
+        return itemsFiltered;
     }
     /**
      * @return the selected item
@@ -59,6 +66,6 @@ public abstract class Manager<T extends domain.managers.IManageable>
         persistenceController.persistObject(type, object);
     }
     public void delete(T object) {
-        
+        persistenceController.deleteObject(type, object);
     }
 }

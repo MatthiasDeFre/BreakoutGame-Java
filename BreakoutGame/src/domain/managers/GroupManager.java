@@ -23,4 +23,6 @@ public class GroupManager extends Manager<Group>
         setItems(FXCollections.observableArrayList(persistence.getAllOfType(Group.class)));
     }
     
+    
+    
 }

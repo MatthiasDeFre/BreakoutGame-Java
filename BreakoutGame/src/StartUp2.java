@@ -3,6 +3,9 @@ import domain.Category;
 import domain.Exercise;
 import domain.PersistMode;
 import domain.UseCaseExerciseAdminController;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import persistence.JPAUtil;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -23,7 +26,15 @@ public class StartUp2 {
     {
         // TODO code application logic here
         UseCaseExerciseAdminController uc = new UseCaseExerciseAdminController();
-        Exercise ex = new Exercise("nee", "nee", "nee", "nee", new Category("MATH"));
+          EntityManagerFactory emf = JPAUtil.getEntityManagerFactory();
+        EntityManager em = emf.createEntityManager();
+         Category math=new Category("MATH");
+        Category dutch=new Category("DUTCH");
+        Exercise ex = new Exercise("nee", "nee", "nee", "nee", math);
+        em.getTransaction().begin();
+        em.persist(math);
+        em.persist(dutch);
+        em.getTransaction().commit();
         uc.setManagerMode(PersistMode.NEW);
         uc.setExercise(new Exercise());
         
@@ -32,11 +43,11 @@ public class StartUp2 {
         uc.setManagerMode(PersistMode.UPDATE);
         uc.setExercise(ex);
      
-        Exercise exA = new Exercise("Teest", "test", "teest", "test", new Category("DUTCH"));
+        Exercise exA = new Exercise("Teest", "test", "teest", "test", dutch);
         
         uc.createExercise(exA);
         System.out.println(ex.toString());
-      uc.deleteExercise(ex);
+        uc.deleteExercise(ex);
         System.out.println(exA.toString());
         
     }

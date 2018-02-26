@@ -1,10 +1,10 @@
 
 
 
-package domain.managers;
+package domain;
 
-import domain.GroupOperation;
 import domain.managers.Manager;
+import java.util.List;
 import javafx.collections.FXCollections;
 import persistence.PersistenceController;
 
@@ -30,5 +30,9 @@ public class GroupOperationManager extends Manager<GroupOperation>
     {
         ((GroupOperation) getSelected()).copy(object);
     }
+    
+     public void changeFilter(List<OperationCategory> categories) {
+         getFilteredItems().setPredicate(e -> categories.contains(e.getCategory()));
+     }
     
 }

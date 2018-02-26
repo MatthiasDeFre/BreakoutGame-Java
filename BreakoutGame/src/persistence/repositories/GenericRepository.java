@@ -10,6 +10,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import persistence.JPAUtil;
+import persistence.repositories.IGenericRepository;
 
 /**
  *
@@ -19,7 +20,7 @@ public abstract class GenericRepository<T> implements IGenericRepository<T>{
 
 
     // <editor-fold defaultstate="collapsed" desc="Properties">
-
+    
     private final Class<T> type;
     private static final EntityManagerFactory emf = JPAUtil.getEntityManagerFactory();
     private static final EntityManager em = emf.createEntityManager();
@@ -28,7 +29,7 @@ public abstract class GenericRepository<T> implements IGenericRepository<T>{
     
     // <editor-fold defaultstate="collapsed" desc="Constructors">
     
-    protected GenericRepository(Class<T> type)
+    public GenericRepository(Class<T> type)
     {
         this.type = type;
     }
@@ -68,8 +69,10 @@ public abstract class GenericRepository<T> implements IGenericRepository<T>{
      * @param object 
      */
     public void persistObject(T object)
-    {
+    {   startTransaction();
         em.persist(object);
+        commitTransaction();
+    //    em.detach(object);
     }
     
      /**
@@ -97,7 +100,11 @@ public abstract class GenericRepository<T> implements IGenericRepository<T>{
      * @return 
      */
     public T update(T object) {
-        return em.merge(object);
+        startTransaction();
+        T reObject = em.merge(object);
+        commitTransaction();
+     //    em.detach(object);
+        return reObject;
     }
     
     /**
@@ -115,7 +122,9 @@ public abstract class GenericRepository<T> implements IGenericRepository<T>{
      * @param object 
      */
     public void delete(T object) {
+        startTransaction();
         em.remove(em.merge(object));
+        commitTransaction();
     }
     // </editor-fold>
 

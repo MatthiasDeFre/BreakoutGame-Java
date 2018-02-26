@@ -6,6 +6,7 @@
 package domain;
 
 import domain.managers.IManageable;
+import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -32,6 +33,42 @@ public class GroupOperation implements IManageable {
      */
     protected GroupOperation() {
         
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int hash = 7;
+        hash = 23 * hash + Objects.hashCode(this.category);
+        hash = 23 * hash + Objects.hashCode(this.value);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (this == obj)
+        {
+            return true;
+        }
+        if (obj == null)
+        {
+            return false;
+        }
+        if (getClass() != obj.getClass())
+        {
+            return false;
+        }
+        final GroupOperation other = (GroupOperation) obj;
+        if (!Objects.equals(this.value, other.value))
+        {
+            return false;
+        }
+        if (this.category != other.category)
+        {
+            return false;
+        }
+        return true;
     }
     
     public GroupOperation(OperationCategory category, String value)
@@ -70,13 +107,13 @@ public class GroupOperation implements IManageable {
     @Override
     public long getId()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return id;
     }
 
     @Override
     public void setId(long id)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       this.id = id;
     }
     
 }

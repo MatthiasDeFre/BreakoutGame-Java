@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.stream.Collectors;
+import javafx.collections.transformation.FilteredList;
 import persistence.PersistenceController;
 
 /**
@@ -41,7 +42,9 @@ public class UseCaseExerciseAdminController extends Observable {
         return persistenceController.getAllOfType(Exercise.class);
 
     }
-
+    public FilteredList<GroupOperation> getGroupOperations() {
+        return groupOperationManager.getFilteredItems();
+    }
     public void setExercise(Exercise exercise) {
         //this.exercise = exercise;
         exerciseManager.setSelected(exercise);
