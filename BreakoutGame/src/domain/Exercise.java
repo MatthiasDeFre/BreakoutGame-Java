@@ -7,7 +7,7 @@ package domain;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
+import java.util.Observable; 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
