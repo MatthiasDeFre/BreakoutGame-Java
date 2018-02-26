@@ -25,7 +25,7 @@ import java.util.Map;
  */
 public class PersistenceController {
     private Map<String,IGenericRepository> repositories;
-
+    private PersistMode mode;
     public PersistenceController()
     {
         repositories = new HashMap<>();
@@ -51,6 +51,22 @@ public class PersistenceController {
     {
         IGenericRepository repository = repositories.get(type.getSimpleName());
         return repository.getAll();
+    }
+    
+    public void setPersistMode(PersistMode mode) {
+        this.mode = mode;
+    }
+    
+    public <T> void persistObject(Class<T> type, T object) {
+        IGenericRepository repository = repositories.get(type.getSimpleName());
+        if(mode == PersistMode.NEW) {
+         ((IManageable) object).setId(0);
+          repository.persistObject(object);  
+        }
+        else if(mode == PersistMode.UPDATE) {
+            repository.update(object);
+        }
+            
     }
     
 }

@@ -39,7 +39,7 @@ public class Exercise implements IManageable {
     private String feedback;
     private String assignment;
     
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Category category;
 
     @ManyToMany
@@ -58,8 +58,17 @@ public class Exercise implements IManageable {
         setCategory(category);
         groupOperations = operations;
     }
-
-    protected Exercise() {
+    //Creating / copying
+    public void copy(Exercise exercise) {
+        setName(exercise.getName());
+        setAnswer(exercise.getAnswer());
+        setFeedback(exercise.getFeedback());
+        setAssignment(exercise.getAssignment());
+        setCategory(exercise.getCategory());
+        groupOperations = exercise.getGroupOperations();
+    }
+    
+    public Exercise() {
     }
 
     public boolean hasFeedback() {
@@ -137,6 +146,19 @@ public class Exercise implements IManageable {
     @Override
     public String toString() {
         return String.format("%s %s", category.getDescription(), assignment);
+    }
+
+    @Override
+    public long getId()
+    {
+        return id;
+    }
+
+    @Override
+    public void setId(long id)
+    {
+        System.out.println(id);
+        this.id = id;
     }
 
 }

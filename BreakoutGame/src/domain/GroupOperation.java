@@ -39,6 +39,11 @@ public class GroupOperation implements IManageable {
         this.category = category;
         this.value = value;
     }
+    
+    public void copy(GroupOperation groupOperation) {
+        setCategory(groupOperation.getCategory());
+        setValue(groupOperation.getValue());
+    }
     //Getters and setters
     public OperationCategory getCategory()
     {
@@ -60,6 +65,18 @@ public class GroupOperation implements IManageable {
     public void setValue(String value)
     {
         this.value = value;
+    }
+
+    @Override
+    public long getId()
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setId(long id)
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

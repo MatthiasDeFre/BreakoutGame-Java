@@ -18,11 +18,16 @@ import persistence.PersistenceController;
 public class UseCaseExerciseAdminController extends Observable {
 
     private PersistenceController persistenceController;
+    private GroupOperationManager groupOperationManager;
+    private ExerciseManager exerciseManager;
+    
 
     private Exercise exercise;
 
     public UseCaseExerciseAdminController() {
         persistenceController = new PersistenceController();
+        groupOperationManager = new GroupOperationManager(persistenceController);
+        exerciseManager = new ExerciseManager(persistenceController);
     }
 
     public List<String> getListAllExercises() {
@@ -36,9 +41,18 @@ public class UseCaseExerciseAdminController extends Observable {
     }
 
     public void setExercise(Exercise exercise) {
-        this.exercise = exercise;
+        //this.exercise = exercise;
+        exerciseManager.setSelected(exercise);
         setChanged();
         notifyObservers(exercise);
+    }
+    
+    public void createExercise(Exercise exercise) {
+        exerciseManager.save(exercise);
+    }
+    
+    public void setManagerMode(PersistMode persistMode) {
+        persistenceController.setPersistMode(persistMode);
     }
 
 }
