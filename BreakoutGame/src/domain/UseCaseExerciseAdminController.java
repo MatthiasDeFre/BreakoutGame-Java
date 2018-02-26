@@ -5,6 +5,7 @@
  */
 package domain;
 
+import domain.managers.GroupOperationManager;
 import domain.managers.ExerciseManager;
 import java.util.ArrayList;
 import java.util.List;
