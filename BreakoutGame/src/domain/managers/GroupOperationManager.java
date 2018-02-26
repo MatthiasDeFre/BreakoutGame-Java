@@ -1,8 +1,10 @@
 
 
 
-package domain;
+package domain.managers;
 
+import domain.GroupOperation;
+import domain.OperationCategory;
 import domain.managers.Manager;
 import java.util.List;
 import javafx.collections.FXCollections;
