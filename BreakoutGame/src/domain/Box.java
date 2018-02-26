@@ -7,7 +7,10 @@ package domain;
 
 import domain.managers.IManageable;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
 import javax.persistence.Entity;
@@ -30,15 +33,17 @@ public class Box implements Serializable, IManageable {
    private String name;
    
    @ManyToMany
-   private ObservableSet<Exercise> exercises;
+   private Set<Exercise> exercises;
    
    @ManyToMany
-   private ObservableList<AccessCode> accessCodes;
+   private List<AccessCode> accessCodes;
    
    @ManyToMany
-   private ObservableList<Action> actions;
+   private List<Action> actions;
+   
    protected Box() {
        //Treasurechest
+       actions = new ArrayList<>();
        actions.add(new Action());
    }
     public long getId()
@@ -71,27 +76,27 @@ public class Box implements Serializable, IManageable {
         this.name = name;
     }
 
-    public ObservableSet<Exercise> getExercises()
+    public Set<Exercise> getExercises()
     {
         return exercises;
     }
 
-    public void setExercises(ObservableSet<Exercise> exercises)
+    public void setExercises(Set<Exercise> exercises)
     {
         this.exercises = exercises;
     }
 
-    public ObservableList<AccessCode> getAccessCodes()
+    public List<AccessCode> getAccessCodes()
     {
         return accessCodes;
     }
 
-    public void setAccessCodes(ObservableList<AccessCode> accessCodes)
+    public void setAccessCodes(List<AccessCode> accessCodes)
     {
         this.accessCodes = accessCodes;
     }
 
-    public ObservableList<Action> getActions()
+    public List<Action> getActions()
     {
         return actions;
     }

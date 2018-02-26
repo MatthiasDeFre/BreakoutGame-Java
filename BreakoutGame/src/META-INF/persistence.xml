@@ -5,7 +5,11 @@
     <class>domain.Category</class>
     <class>domain.Exercise</class>
     <class>domain.GroupOperation</class>
-    <class>domain.StudentClassTest</class>
+    <class>domain.Box</class>
+    <class>domain.AccessCode</class>
+    <class>domain.Action</class>
+    <class>domain.Student</class>
+    <class>domain.StudentClass</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://localhost;databaseName=TestDatabase"/>
       <property name="javax.persistence.jdbc.user" value="Test"/>

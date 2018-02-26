@@ -40,7 +40,7 @@ public class PersistenceController {
         repositories.put(Session.class.getSimpleName(),new SessionRepository());
         repositories.put(Student.class.getSimpleName(),new StudentRepository());
         //put other repos
-        
+        mode = PersistMode.NEW;
         
     }
 
@@ -69,5 +69,8 @@ public class PersistenceController {
         }
             
     }
-    
+    public <T> void deleteObject(Class<T> type, T object) {
+       IGenericRepository repository = repositories.get(type.getSimpleName());
+       repository.delete(object);
+    }
 }

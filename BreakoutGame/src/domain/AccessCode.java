@@ -5,12 +5,35 @@
  */
 package domain;
 
+import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 /**
  *
  * @author Matthias
  */
-public class AccessCode {
+@Entity
+public class AccessCode implements Serializable {
+
+    public AccessCode()
+    {
+    }
+
+    
+    @Id
+    private long id;
     
     private int code;
+
+    public long getId()
+    {
+        return id;
+    }
+
+    public void setId(long id)
+    {
+        this.id = id;
+    }
     
 }

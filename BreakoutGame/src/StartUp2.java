@@ -36,7 +36,7 @@ public class StartUp2 {
         
         uc.createExercise(exA);
         System.out.println(ex.toString());
-        
+      uc.deleteExercise(ex);
         System.out.println(exA.toString());
         
     }

@@ -3,6 +3,7 @@
 
 package domain;
 
+import domain.managers.Manager;
 import javafx.collections.FXCollections;
 import persistence.PersistenceController;
 

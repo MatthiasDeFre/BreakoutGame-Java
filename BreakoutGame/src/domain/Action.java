@@ -6,23 +6,35 @@
 package domain;
 
 import domain.managers.IManageable;
+import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 /**
  *
  * @author geers
  */
-public class Action implements IManageable {
+@Entity
+public class Action implements IManageable, Serializable {
+
+    public Action()
+    {
+    }
+
+    
+    @Id
+    private long id;
 
     @Override
     public long getId()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       return id;
     }
 
     @Override
     public void setId(long id)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.id = id;
     }
     
 }

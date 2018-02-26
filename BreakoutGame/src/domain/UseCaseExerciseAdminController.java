@@ -5,6 +5,7 @@
  */
 package domain;
 
+import domain.managers.ExerciseManager;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -50,7 +51,9 @@ public class UseCaseExerciseAdminController extends Observable {
     public void createExercise(Exercise exercise) {
         exerciseManager.save(exercise);
     }
-    
+    public void deleteExercise(Exercise exercise) {
+        exerciseManager.delete(exercise);
+    }
     public void setManagerMode(PersistMode persistMode) {
         persistenceController.setPersistMode(persistMode);
     }

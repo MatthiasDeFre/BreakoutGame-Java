@@ -40,7 +40,7 @@ public class Exercise implements IManageable, Serializable {
     private String feedback;
     private String assignment;
     
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     private Category category;
 
     @ManyToMany

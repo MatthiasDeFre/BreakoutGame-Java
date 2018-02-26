@@ -121,7 +121,9 @@ public abstract class GenericRepository<T> implements IGenericRepository<T>{
      * @param object 
      */
     public void delete(T object) {
+        startTransaction();
         em.remove(em.merge(object));
+        commitTransaction();
     }
     // </editor-fold>
 
