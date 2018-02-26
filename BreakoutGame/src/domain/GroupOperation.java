@@ -5,6 +5,7 @@
  */
 package domain;
 
+import domain.managers.IManageable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

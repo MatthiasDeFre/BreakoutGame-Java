@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package persistence;
+package persistence.repositories;
 
 import domain.Exercise;
 
@@ -20,7 +20,7 @@ public class ExerciseRepository extends GenericRepository<Exercise>{
     
     // <editor-fold defaultstate="collapsed" desc="Constructors">
 
-    public ExerciseRepository(Class<Exercise> type)
+    private ExerciseRepository(Class<Exercise> type)
     {
         super(type);
     }

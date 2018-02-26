@@ -1,7 +1,7 @@
 
 
 
-package domain;
+package domain.managers;
 
 import java.util.List;
 import javafx.collections.FXCollections;

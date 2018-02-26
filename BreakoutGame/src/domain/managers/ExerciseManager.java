@@ -1,8 +1,9 @@
 
 
 
-package domain;
+package domain.managers;
 
+import domain.Exercise;
 import javafx.collections.FXCollections;
 import persistence.PersistenceController;
 

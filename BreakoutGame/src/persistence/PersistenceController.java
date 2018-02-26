@@ -5,10 +5,16 @@
  */
 package persistence;
 
-import domain.Exercise;
-import domain.ExerciseManager;
-import domain.GroupOperation;
-import domain.GroupOperationManager;
+import persistence.repositories.IGenericRepository;
+import persistence.repositories.BoxRepository;
+import persistence.repositories.ExerciseRepository;
+import persistence.repositories.StudentRepository;
+import persistence.repositories.GroupRepository;
+import persistence.repositories.ClassroomRepository;
+import persistence.repositories.ActionRepository;
+import persistence.repositories.SessionRepository;
+import persistence.repositories.GroupOperationRepository;
+import domain.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,8 +29,17 @@ public class PersistenceController {
     public PersistenceController()
     {
         repositories = new HashMap<>();
+        repositories.put(Action.class.getSimpleName(), new ActionRepository());
+        repositories.put(Box.class.getSimpleName(),new BoxRepository());
+        //category?
+        repositories.put(Classroom.class.getSimpleName(), new ClassroomRepository());
         repositories.put(Exercise.class.getSimpleName(),  new ExerciseRepository());
         repositories.put(GroupOperation.class.getSimpleName(), new GroupOperationRepository());
+        repositories.put(Group.class.getSimpleName(),new GroupRepository());
+        repositories.put(Session.class.getSimpleName(),new SessionRepository());
+        repositories.put(Student.class.getSimpleName(),new StudentRepository());
+        //put other repos
+        
         
     }
 

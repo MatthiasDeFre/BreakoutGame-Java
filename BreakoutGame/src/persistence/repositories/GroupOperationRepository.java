@@ -1,7 +1,7 @@
 
 
 
-package persistence;
+package persistence.repositories;
 
 import domain.GroupOperation;
 
@@ -13,7 +13,7 @@ public class GroupOperationRepository extends GenericRepository<GroupOperation>
         super(GroupOperation.class);
     }
 
-    public GroupOperationRepository(Class<GroupOperation> type)
+    private GroupOperationRepository(Class<GroupOperation> type)
     {
         super(type);
     }

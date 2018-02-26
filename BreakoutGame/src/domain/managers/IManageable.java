@@ -1,7 +1,7 @@
 
 
 
-package domain;
+package domain.managers;
 
 /**
  * Purely a Tag Interface

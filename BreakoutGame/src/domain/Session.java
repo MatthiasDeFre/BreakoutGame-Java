@@ -5,10 +5,12 @@
  */
 package domain;
 
+import domain.managers.IManageable;
+
 /**
  *
  * @author geers
  */
-public class Session {
+public class Session implements IManageable {
     
 }

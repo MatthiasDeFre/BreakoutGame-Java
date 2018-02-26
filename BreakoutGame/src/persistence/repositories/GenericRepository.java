@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package persistence;
+package persistence.repositories;
 
 import domain.Category;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import persistence.JPAUtil;
 
 /**
  *
@@ -27,7 +28,7 @@ public abstract class GenericRepository<T> implements IGenericRepository<T>{
     
     // <editor-fold defaultstate="collapsed" desc="Constructors">
     
-    public GenericRepository(Class<T> type)
+    protected GenericRepository(Class<T> type)
     {
         this.type = type;
     }

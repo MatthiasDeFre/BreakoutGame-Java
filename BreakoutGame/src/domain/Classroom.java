@@ -11,6 +11,6 @@ import domain.managers.IManageable;
  *
  * @author geers
  */
-public class Box implements IManageable {
+public class Classroom implements IManageable {
     
 }
