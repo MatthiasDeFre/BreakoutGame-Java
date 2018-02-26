@@ -8,6 +8,7 @@ package gui;
 import domain.GroupOperation;
 import domain.UseCaseExerciseAdminController;
 import java.io.IOException;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -44,7 +45,9 @@ public class GroupScreenController extends GridPane {
 
 //        dc.addObserver(this);
         this.dc = dc;
-        tblViewGroupOperations.setItems(FXCollections.observableArrayList(dc.));
+        clmDescription.setCellValueFactory(e -> new SimpleStringProperty(String.valueOf(e.getValue().getDescription())));
+        tblViewGroupOperations.setItems(FXCollections.observableArrayList(dc.getGroupOperations()));
+        System.out.println(dc.getGroupOperations());
 
     }
 
