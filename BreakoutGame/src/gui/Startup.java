@@ -41,8 +41,8 @@ public class Startup extends Application {
         primaryStage.getIcons().add(icon);
         primaryStage.setTitle("BOB Manager");
 //        primaryStage.setScene(scene);
-        sc2.createScene(SceneName.EXERCISEMAINSCREEN);
-        sc2.switchScene(SceneName.EXERCISEMAINSCREEN);
+        sc2.createScene(SceneName.EXERCISEMAINSCREEN2);
+        sc2.switchScene(SceneName.EXERCISEMAINSCREEN2);
         primaryStage.setResizable(true);
         primaryStage.show();
     }
