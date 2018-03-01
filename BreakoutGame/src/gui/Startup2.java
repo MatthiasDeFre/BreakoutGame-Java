@@ -7,13 +7,14 @@ package gui;
 
 import domain.ListStudentController;
 import domain.SceneName;
-import domain.UseCaseExerciseAdminController;
+import domain.ExerciseDomainController;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import persistence.Seeder;
 import util.LangConfig;
+import static javafx.application.Application.launch;
 
 /**
  *

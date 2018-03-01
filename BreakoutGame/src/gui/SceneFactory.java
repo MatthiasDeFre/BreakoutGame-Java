@@ -8,7 +8,7 @@ package gui;
 import domain.ListStudentController;
 import domain.SceneName;
 import static domain.SceneName.*;
-import domain.ExerciseController;
+import domain.ExerciseDomainController;
 import gui.ComplexApplication2.ComplexApplication_cssController;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,7 +22,7 @@ import javafx.scene.Scene;
 public class SceneFactory {
     private final Map<SceneName, Supplier<Scene>> factory = new HashMap();
 
-    public SceneFactory(ExerciseController dc) {
+    public SceneFactory(ExerciseDomainController dc) {
         add(STARTSCREEN, () -> new Scene(new StartScreenController(dc)));
         add(EXERCISESCREEN, () -> new Scene(new ExerciseDetailScreenController(dc)));
         add(EXERCISEMAINSCREEN, () -> new Scene(new gui.ExerciseController(dc)));

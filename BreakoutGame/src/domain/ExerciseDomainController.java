@@ -20,7 +20,7 @@ import persistence.PersistenceController;
  *
  * @author geers
  */
-public class UseCaseExerciseAdminController  {
+public class ExerciseDomainController  {
 
     private PersistenceController persistenceController;
     private GroupOperationManager groupOperationManager;
@@ -29,20 +29,15 @@ public class UseCaseExerciseAdminController  {
 
     private Exercise exercise;
 
-    public UseCaseExerciseAdminController() {
+    public ExerciseDomainController() {
         persistenceController = new PersistenceController();
         groupOperationManager = new GroupOperationManager(persistenceController);
         exerciseManager = new ExerciseManager(persistenceController);
     }
 
-    public List<String> getListAllExercises() {
-        return persistenceController.getAllOfType(Exercise.class).stream().map(e -> e.toString()).collect(Collectors.toList());
-
-    }
-
-    public List<Exercise> getListAllExercisesE() {
-        return persistenceController.getAllOfType(Exercise.class);
-    }
+   public ObservableList<Exercise> getListAllExercisesE() {
+        return exerciseManager.getItems();
+ }
     
     public List<Student> getListAllStudents()
     {

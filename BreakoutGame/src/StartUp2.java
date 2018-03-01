@@ -1,8 +1,9 @@
 
 import domain.Category;
 import domain.Exercise;
+import domain.ExerciseDomainController;
 import domain.PersistMode;
-import domain.UseCaseExerciseAdminController;
+import domain.ExerciseDomainController;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import persistence.JPAUtil;
@@ -25,7 +26,7 @@ public class StartUp2 {
     public static void main(String[] args)
     {
         // TODO code application logic here
-        UseCaseExerciseAdminController uc = new UseCaseExerciseAdminController();
+        ExerciseDomainController uc = new ExerciseDomainController();
           EntityManagerFactory emf = JPAUtil.getEntityManagerFactory();
         EntityManager em = emf.createEntityManager();
          Category math=new Category("MATH");

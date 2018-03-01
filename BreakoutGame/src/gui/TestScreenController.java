@@ -5,7 +5,7 @@
  */
 package gui;
 
-import domain.UseCaseExerciseAdminController;
+import domain.ExerciseDomainController;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -20,9 +20,9 @@ import javafx.scene.layout.BorderPane;
  */
 public class TestScreenController extends BorderPane {
     
-    private UseCaseExerciseAdminController dc;
+    private ExerciseDomainController dc;
 
-    public TestScreenController(UseCaseExerciseAdminController dc) {
+    public TestScreenController(ExerciseDomainController dc) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("testScreen.fxml"));
         loader.setRoot(this);
         loader.setController(this);

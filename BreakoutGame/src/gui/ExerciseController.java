@@ -5,7 +5,7 @@
  */
 package gui;
 
-import domain.UseCaseExerciseAdminController;
+import domain.ExerciseDomainController;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
@@ -25,9 +25,9 @@ public class ExerciseController extends HBox {
 
 //    private TestScreenController testScreen;
 //    private ExerciseDetailScreenController exerciseDetailScreen;
-    private UseCaseExerciseAdminController dc;
+    private ExerciseDomainController dc;
 
-    public ExerciseController(UseCaseExerciseAdminController dc) {
+    public ExerciseController(ExerciseDomainController dc) {
         this.dc = dc;
         startScreen = new StartScreenController(dc);
         exerciseDetailScreen2 = new ExerciseDetailScreenController2(dc);

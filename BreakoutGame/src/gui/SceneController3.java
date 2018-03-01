@@ -7,7 +7,7 @@ package gui;
 
 import domain.ListStudentController;
 import domain.SceneName;
-import domain.UseCaseExerciseAdminController;
+import domain.ExerciseDomainController;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 

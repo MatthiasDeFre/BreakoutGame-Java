@@ -8,7 +8,7 @@ package gui;
 import domain.Exercise;
 import domain.ListStudentController;
 import domain.Student;
-import domain.UseCaseExerciseAdminController;
+import domain.ExerciseDomainController;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;

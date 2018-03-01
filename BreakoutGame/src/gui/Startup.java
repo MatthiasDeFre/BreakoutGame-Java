@@ -6,7 +6,7 @@
 package gui;
 
 import domain.SceneName;
-import domain.ExerciseController;
+import domain.ExerciseDomainController;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.geometry.Rectangle2D;
@@ -18,6 +18,8 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import persistence.Seeder;
 import util.LangConfig;
+import static javafx.application.Application.launch;
+import static javafx.application.Application.launch;
 import static javafx.application.Application.launch;
 
 /**
@@ -36,7 +38,7 @@ public class Startup extends Application {
 //        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 //        Scene scene = new Scene(root, primaryScreenBounds.getMinX(), primaryScreenBounds.getMinY());
 
-        SceneController2 sc2 = new SceneController2(new ExerciseController(), primaryStage);
+        SceneController2 sc2 = new SceneController2(new ExerciseDomainController(), primaryStage);
         
         Image icon = new Image("/gui/assets/img/icon.png");
         primaryStage.getIcons().add(icon);

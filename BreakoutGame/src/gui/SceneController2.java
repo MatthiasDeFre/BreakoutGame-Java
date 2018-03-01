@@ -6,7 +6,7 @@
 package gui;
 
 import domain.SceneName;
-import domain.UseCaseExerciseAdminController;
+import domain.ExerciseDomainController;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -19,12 +19,12 @@ import javafx.stage.Stage;
  */
 public class SceneController2 {
 
-    private static UseCaseExerciseAdminController dc;
+    private static ExerciseDomainController dc;
     private static Stage primaryStage;
     private static SceneFactory sf;
     private static Scene scene; 
 
-    public SceneController2(UseCaseExerciseAdminController dc, Stage primaryStage) {
+    public SceneController2(ExerciseDomainController dc, Stage primaryStage) {
         this.dc = dc;
         this.primaryStage = primaryStage;
         sf = new SceneFactory(dc);

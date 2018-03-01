@@ -8,7 +8,7 @@ package gui;
 import domain.Exercise;
 import domain.GroupOperation;
 import domain.OperationCategory;
-import domain.UseCaseExerciseAdminController;
+import domain.ExerciseDomainController;
 import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
@@ -35,11 +35,11 @@ public class GroupScreenController extends GridPane implements Observer{
     private TableView<GroupOperation> tblViewSelectedGroupOperations;
 
     //Non fxml attributes
-    private UseCaseExerciseAdminController dc;
+    private ExerciseDomainController dc;
     @FXML
     private TableColumn<GroupOperation, String> tblSelectedDesc;
 
-    public GroupScreenController(UseCaseExerciseAdminController dc) {
+    public GroupScreenController(ExerciseDomainController dc) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("GroupScreen.fxml"));
         loader.setRoot(this);
         loader.setController(this);

@@ -5,7 +5,7 @@
  */
 package gui;
 
-import domain.UseCaseExerciseAdminController;
+import domain.ExerciseDomainController;
 import domain.Exercise;
 import domain.GroupOperation;
 import java.io.IOException;
@@ -36,7 +36,7 @@ public class ExerciseDetailScreenController extends AnchorPane implements Observ
     @FXML
     private Label lblExercise;
 
-    private UseCaseExerciseAdminController dc;
+    private ExerciseDomainController dc;
     @FXML
     private AnchorPane grid;
     @FXML
@@ -64,7 +64,7 @@ public class ExerciseDetailScreenController extends AnchorPane implements Observ
     @FXML
     private TableColumn<GroupOperation, String> clmValue;
 
-    public ExerciseDetailScreenController(UseCaseExerciseAdminController dc) {
+    public ExerciseDetailScreenController(ExerciseDomainController dc) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ExerciseDetailScreen.fxml"));
         loader.setRoot(this);
         loader.setController(this);

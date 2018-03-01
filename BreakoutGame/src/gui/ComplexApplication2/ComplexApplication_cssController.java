@@ -5,7 +5,7 @@
  */
 package gui.ComplexApplication2;
 
-import domain.UseCaseExerciseAdminController;
+import domain.ExerciseDomainController;
 import gui.ExerciseDetailScreenController2;
 import gui.GroupScreenController;
 import gui.StartScreenController;
@@ -45,7 +45,7 @@ public class ComplexApplication_cssController extends VBox {
 
 //    private TestScreenController testScreen;
 //    private ExerciseDetailScreenController exerciseDetailScreen;
-    private UseCaseExerciseAdminController dc;
+    private ExerciseDomainController dc;
     @FXML
     private AnchorPane anchor1;
     @FXML
@@ -53,7 +53,7 @@ public class ComplexApplication_cssController extends VBox {
     @FXML
     private AnchorPane anchor2;
 
-    public ComplexApplication_cssController(UseCaseExerciseAdminController dc) {
+    public ComplexApplication_cssController(ExerciseDomainController dc) {
       
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ComplexApplication_css.fxml"));
         loader.setRoot(this);

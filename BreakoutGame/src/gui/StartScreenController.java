@@ -5,7 +5,7 @@
  */
 package gui;
 
-import domain.UseCaseExerciseAdminController;
+import domain.ExerciseDomainController;
 import domain.Exercise;
 import domain.PersistMode;
 import domain.SceneName;
@@ -63,13 +63,13 @@ public class StartScreenController extends GridPane implements Observer {
     private TableColumn<Exercise, String> clmDescription;
 
     //NONFXML Attributes
-    private UseCaseExerciseAdminController dc;
+    private ExerciseDomainController dc;
     private ObservableList<Exercise> listExercices;
     private SceneController2 sceneController2;
     @FXML
     private Label lblExec;
 
-    public StartScreenController(UseCaseExerciseAdminController dc) {
+    public StartScreenController(ExerciseDomainController dc) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("StartScreen.fxml"));
         loader.setRoot(this);
         loader.setController(this);
