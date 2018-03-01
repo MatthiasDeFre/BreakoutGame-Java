@@ -69,6 +69,13 @@ public class Student implements IManageable {
         else
             this.lastName = lastName;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s %s ", this.firstName,this.lastName);
+    }
+    
+    
     
     
 }

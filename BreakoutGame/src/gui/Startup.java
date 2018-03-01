@@ -34,7 +34,6 @@ public class Startup extends Application {
 //        StartScreenController root = new StartScreenController();
 //        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 //        Scene scene = new Scene(root, primaryScreenBounds.getMinX(), primaryScreenBounds.getMinY());
-
         SceneController2 sc2 = new SceneController2(new UseCaseExerciseAdminController(), primaryStage);
         
         Image icon = new Image("/gui/assets/img/icon.png");

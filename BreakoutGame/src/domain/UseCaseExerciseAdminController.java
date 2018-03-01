@@ -40,9 +40,13 @@ public class UseCaseExerciseAdminController  {
 
     }
 
-    public ObservableList<Exercise> getListAllExercisesE() {
-        return exerciseManager.getItems();
-
+    public List<Exercise> getListAllExercisesE() {
+        return persistenceController.getAllOfType(Exercise.class);
+    }
+    
+    public List<Student> getListAllStudents()
+    {
+        return persistenceController.getAllOfType(Student.class);
     }
     public ObservableList getGroupOperations() {
         return groupOperationManager.getFilteredItems();

@@ -3,7 +3,6 @@
 
 package domain.managers;
 
-import domain.Group;
 import domain.Student;
 import javafx.collections.FXCollections;
 import persistence.PersistenceController;
@@ -21,6 +20,13 @@ public class StudentManager extends Manager<Student>
     {
           super(Student.class, persistence);
         setItems(FXCollections.observableArrayList(persistence.getAllOfType(Student.class)));
+    }
+    
+    public void addStudent(Student object)
+    {
+        ((Student) getSelected()).getId();
+        System.out.println(((Student) getSelected()).getId());
+        getPersistenceController().persistObject(Student.class, getSelected());
     }
     
 }

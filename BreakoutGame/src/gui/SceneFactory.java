@@ -5,6 +5,7 @@
  */
 package gui;
 
+import domain.ListStudentController;
 import domain.SceneName;
 import static domain.SceneName.*;
 import domain.UseCaseExerciseAdminController;
@@ -26,6 +27,11 @@ public class SceneFactory {
         add(EXERCISESCREEN, () -> new Scene(new ExerciseDetailScreenController(dc)));
         add(EXERCISEMAINSCREEN, () -> new Scene(new ExerciseController(dc)));
         add(EXERCISEMAINSCREEN2, () -> new Scene(new ComplexApplication_cssController(dc)));
+    }
+    
+    public SceneFactory(ListStudentController dc)
+    {
+        add(STUDENTSSCREEN, () -> new Scene(new ListStudentsController(dc)));
     }
     
     private void add(SceneName sn, Supplier<Scene> scene) {
