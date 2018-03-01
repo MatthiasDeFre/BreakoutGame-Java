@@ -9,8 +9,11 @@ import domain.managers.IManageable;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable; 
+import java.util.Observable;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -21,10 +24,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import org.eclipse.persistence.annotations.ChangeTracking;
 
 /**
  *
@@ -33,148 +38,199 @@ import javax.persistence.Transient;
 @Entity
 @Table(name = "Exercises")
 public class Exercise implements IManageable, Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    
     private long id;
-    @Column(unique = true)
-    private String name;
+    //   @Column(unique = true)
+    private SimpleStringProperty name = new SimpleStringProperty();
     private String answer;
     private String feedback;
-    private String assignment;
+    private SimpleStringProperty assignment = new SimpleStringProperty();
     
-    @ManyToOne
-    private Category category;
-
-    @ManyToMany
+    private SimpleObjectProperty<Category> category = new SimpleObjectProperty<>();
+    
     private List<GroupOperation> groupOperations;
-    
-      @Transient
-    private ObservableList<GroupOperation> groupOperationsFiltered;
-  
-    
+
+    /*   @Transient
+    private ObservableList<GroupOperation> groupOperationsTemp;*/
     //  GroupOperation groupOperation;
-    public Exercise(String name, String answer, String feedback, String assignment, Category category) {
+    public Exercise(String name, String answer, String feedback, String assignment, Category category)
+    {
         this(name, answer, feedback, assignment, category, new ArrayList<>());
     }
-
-    public Exercise(String name, String answer, String feedback, String assignment, Category category, List<GroupOperation> operations) {
+    
+    public Exercise(String name, String answer, String feedback, String assignment, Category category, List<GroupOperation> operations)
+    {
         setName(name);
         setAnswer(answer);
         setFeedback(feedback);
         setAssignment(assignment);
         setCategory(category);
-        groupOperations = operations;
-        groupOperationsFiltered = FXCollections.observableArrayList(groupOperations);
+        groupOperations = new ArrayList<>(operations);
+        //     groupOperationsTemp = FXCollections.observableArrayList(groupOperations);
     }
+
     //Creating / copying
-    public void copy(Exercise exercise) {
+    public void copy(Exercise exercise)
+    {
         setName(exercise.getName());
         setAnswer(exercise.getAnswer());
         setFeedback(exercise.getFeedback());
         setAssignment(exercise.getAssignment());
         setCategory(exercise.getCategory());
-        groupOperations = exercise.getGroupOperations();
-        groupOperationsFiltered = FXCollections.observableArrayList(groupOperations);
+        groupOperations = new ArrayList<>(exercise.getGroupOperations());
+        // groupOperationsTemp = FXCollections.observableArrayList(groupOperations);
     }
     
-    public Exercise() {
+    public Exercise()
+    {
+        category.set(new Category("STANDARD"));
+        groupOperations = new ArrayList<>();
     }
-
-    public boolean hasFeedback() {
+    
+    public Exercise(Exercise ex)
+    {
+        copy(ex);
+    }
+    
+    public boolean hasFeedback()
+    {
         return !(feedback == null) && !(feedback.isEmpty());
     }
-    
-    public String getName() {
-        return name;
-    }
 
-    public String getAnswer() {
+    @Column(name = "name")
+    public String getName()
+    {
+        return name.get();
+    }
+    
+    @Column(name = "answer")
+    public String getAnswer()
+    {
         return answer;
     }
 
-    public String getFeedback() {
+    @Column(name = "feedback")
+    public String getFeedback()
+    {
         return feedback;
     }
 
-    public String getAssignment() {
-        return assignment;
+    @Column(name = "assignment")
+    public String getAssignment()
+    {
+        return assignment.get();
     }
 
-    public Category getCategory() {
-        return category;
+    @ManyToOne
+    @JoinColumn(name = "category")
+    public Category getCategory()
+    {
+        return category.get();
     }
-    
-    public List<GroupOperation> getGroupOperations() {
+
+    @ManyToMany
+    @JoinColumn(name = "groupoperations")
+    public List<GroupOperation> getGroupOperations()
+    {
         return groupOperations;
     }
-   public ObservableList<GroupOperation> getGroupOperationsObservableList() {
-       if(groupOperationsFiltered != null)
-       return groupOperationsFiltered;
-       else
-            groupOperationsFiltered = FXCollections.observableArrayList(groupOperations);
-       return groupOperationsFiltered;
+    
+    public void setGroupOperations(List<GroupOperation> groupOperations)
+    {
+        this.groupOperations = groupOperations;
+        
     }
-    public void setName(String name) {
-        if(name==null || name.trim().equals(""))
+
+    public void setName(String name)
+    {
+        if (name == null || name.trim().equals(""))
+        {
             throw new IllegalArgumentException();
-        else
-            this.name = name;
+        } else
+        {
+            this.name.set(name);
+        }
         
     }
     
-    public void setAnswer(String answer) {
-        if (answer == null || answer.trim().equals("")) {
+    public void setAnswer(String answer)
+    {
+        if (answer == null || answer.trim().equals(""))
+        {
             throw new IllegalArgumentException();
-        } else {
+        } else
+        {
             this.answer = answer.trim();
         }
     }
-
-    public void setFeedback(String feedback) {
-        if (feedback != null && !feedback.trim().equals("")) {
+    
+    public void setFeedback(String feedback)
+    {
+        if (feedback != null && !feedback.trim().equals(""))
+        {
             this.feedback = feedback.trim();
-        } else {
+        } else
+        {
             this.feedback = null;
         }
     }
-
-    public void setAssignment(String assignment) {
-        if (assignment == null || assignment.trim().equals("")) {
+    
+    public void setAssignment(String assignment)
+    {
+        if (assignment == null || assignment.trim().equals(""))
+        {
             throw new IllegalArgumentException();
-        } else {
-            this.assignment = assignment.trim();
+        } else
+        {
+            this.assignment.set(assignment.trim());
         }
     }
-
-    public void setCategory(Category category) {
-        if (category == null) {
+    
+    public void setCategory(Category category)
+    {
+        if (category == null)
+        {
             throw new IllegalArgumentException();
-        } else {
-            this.category = category;
+        } else
+        {
+            this.category.set(category);
         }
     }
-
-    public String getCategoryDescription() {
-        return category.getDescription();
+    
+    public String getCategoryDescription()
+    {
+        return category.get().getDescription();
     }
-
+    
     @Override
-    public String toString() {
-        return String.format("%s %s", category.getDescription(), assignment);
+    public String toString()
+    {
+        return String.format("%s %s", category.get().getDescription(), assignment);
     }
-
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Override
     public long getId()
     {
         return id;
     }
-
+    
     @Override
     public void setId(long id)
     {
         System.out.println(id);
         this.id = id;
     }
-
+    
+    public StringProperty assignmentProperty()
+    {
+        return assignment;
+    }
+    
+    public ObjectProperty categoryProperty()
+    {
+        return category;
+    }
+    
 }

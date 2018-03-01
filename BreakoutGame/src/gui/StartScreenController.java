@@ -7,6 +7,7 @@ package gui;
 
 import domain.UseCaseExerciseAdminController;
 import domain.Exercise;
+import domain.PersistMode;
 import domain.SceneName;
 import java.io.IOException;
 import java.net.URL;
@@ -80,15 +81,22 @@ public class StartScreenController extends GridPane implements Observer {
 
         this.dc = dc;
 //        dc.addObserver(this);
-        listExercices = FXCollections.observableArrayList(dc.getListAllExercisesE());
+        listExercices =dc.getListAllExercisesE();
         lstTest.setItems(listExercices);
         tblExercises.setItems(listExercices);
-        clmAssignment.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getCategoryDescription()));
-        clmDescription.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getAssignment()));
+        clmAssignment.setCellValueFactory(e -> e.getValue().categoryProperty());
+        clmDescription.setCellValueFactory(e -> e.getValue().assignmentProperty());
+        tblExercises.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+    if (newSelection != null) {
+        setExerciseToDc();
+    }
+});
     }
 
     @FXML
     private void btnOpdrachtAanmakenClick(MouseEvent event) {
+        dc.setManagerMode(PersistMode.NEW);
+        dc.setExercise(new Exercise());
     }
 
     @FXML
@@ -98,7 +106,7 @@ public class StartScreenController extends GridPane implements Observer {
     @FXML
     private void btnOpdrachtDetailsClick(MouseEvent event) {
 //        SceneController2.createScene(SceneName.EXERCISESCREEN);
-        dc.setExercise(tblExercises.getSelectionModel().getSelectedItem());
+        setExerciseToDc();
 //        SceneController2.switchScene(SceneName.EXERCISESCREEN);
     }
 
@@ -108,12 +116,17 @@ public class StartScreenController extends GridPane implements Observer {
 
     @FXML
     private void btnOpdrachtAanpassenClick(MouseEvent event) {
-
+        
     }
 
     @Override
     public void update(Observable o, Object obj) {
         Exercise exercise = (Exercise) obj;
         lblExec.setText(exercise.getName());
+    }
+    
+    private void setExerciseToDc() {
+         dc.setManagerMode(PersistMode.UPDATE);
+        dc.setExercise(tblExercises.getSelectionModel().getSelectedItem());
     }
 }

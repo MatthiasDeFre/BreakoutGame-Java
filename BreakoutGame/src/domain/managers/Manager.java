@@ -3,21 +3,30 @@
 
 package domain.managers;
 
+import domain.Exercise;
+import domain.PersistMode;
+import domain.Subject;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import persistence.PersistenceController;
 import java.lang.Class;
+import java.util.HashSet;
+import java.util.Observable;
+import java.util.Observer;
+import java.util.Set;
 import javafx.collections.transformation.FilteredList;
 
-public abstract class Manager<T extends domain.managers.IManageable>
+public abstract class Manager<T extends domain.managers.IManageable> implements Subject
 {
     /**
      * @param selected
      */
     private T selected;
     
-     private final Class<T> type;
+    private final Class<T> type;
+    
+    private Set<Observer> observers;
     
     /**
     * @param items
@@ -31,13 +40,14 @@ public abstract class Manager<T extends domain.managers.IManageable>
      
         this.persistenceController = persistenceController;
         this.type = type;
+        observers = new HashSet<>();
     }
     /**
      * @return an unmodifiable copy of {@code items}
      */
     public ObservableList<T> getItems()
     {
-        return FXCollections.unmodifiableObservableList(items);
+        return items;
     }
     
     public FilteredList<T> getFilteredItems() {
@@ -63,11 +73,30 @@ public abstract class Manager<T extends domain.managers.IManageable>
     public void setSelected(T item)
     {
         selected = item;
+        notifyObservers(selected);
     }
     public void save(T object) {
-        persistenceController.persistObject(type, object);
+         getPersistenceController().persistObject(type, getSelected());
+        if(getPersistenceController().getPersistMode() == PersistMode.NEW)
+            getItems().add(getSelected());
     }
-    public void delete(T object) {
-        persistenceController.deleteObject(type, object);
+    public void delete() {
+        persistenceController.deleteObject(type, selected);
+    }
+
+    @Override
+    public void addObserver(Observer obs)
+    {
+        observers.add(obs);
+    }
+
+    @Override
+    public void removeObserver(Observer obs)
+    {
+        observers.remove(obs);  
+    }
+    
+    public void notifyObservers(T object) {
+        observers.forEach(e -> e.update(null, object));
     }
 }

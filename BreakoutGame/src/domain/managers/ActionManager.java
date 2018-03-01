@@ -3,24 +3,24 @@
 
 package domain.managers;
 
-import domain.Action;
+import domain.BoBAction;
 import domain.Box;
 import javafx.collections.FXCollections;
 import persistence.PersistenceController;
 
 
-public class ActionManager extends Manager<Action>
+public class ActionManager extends Manager<BoBAction>
 {
 
     protected ActionManager()
     {
-         super(Action.class, new PersistenceController());
+         super(BoBAction.class, new PersistenceController());
     }
     
     public ActionManager(PersistenceController persitence)
     {
-           super(Action.class, persitence);
-        setItems(FXCollections.observableArrayList(persitence.getAllOfType(Action.class)));
+           super(BoBAction.class, persitence);
+        setItems(FXCollections.observableArrayList(persitence.getAllOfType(BoBAction.class)));
     }
 
 }

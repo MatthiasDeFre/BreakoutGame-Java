@@ -80,6 +80,12 @@ public class Category implements Serializable {
         }
         return true;
     }
+
+    @Override
+    public String toString()
+    {
+        return LangConfig.getString(name);
+    }
     
     
 }

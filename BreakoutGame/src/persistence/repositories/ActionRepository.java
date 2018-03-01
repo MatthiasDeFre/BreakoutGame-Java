@@ -5,20 +5,24 @@
  */
 package persistence.repositories;
 
-import domain.Action;
+
+import domain.BoBAction;
+import domain.Exercise;
+import javafx.beans.value.ChangeListener;
+import org.eclipse.persistence.annotations.ChangeTracking;
 
 /**
  *
  * @author geers
  */
-public class ActionRepository extends GenericRepository<Action> {
+public class ActionRepository extends GenericRepository<BoBAction> {
     
     public ActionRepository()
     {
-        this(Action.class);
+        this(BoBAction.class);
     }
     
-    private ActionRepository(Class<Action> type) {
+    private ActionRepository(Class<BoBAction> type) {
         super(type);
     }
     

@@ -5,13 +5,20 @@
  */
 package persistence;
 
+import domain.AccessCode;
+import domain.BoBAction;
+import domain.Box;
 import domain.Category;
 import domain.Exercise;
 import domain.GroupOperation;
 import domain.OperationCategory;
 import domain.Student;
 import domain.StudentClass;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
@@ -32,7 +39,29 @@ public class Seeder {
         Exercise ex2 = new Exercise("ANOTHER RANDOM NAME", "2003", "Zoek via wikipedia naar het correcte antwoord.", "In welk jaar is het boek De Davinci Code uitgegeven", dutch, (Arrays.asList(goArray)).subList(0, 3));
         StudentClass studentClass=new StudentClass("2c1");
         Student student=new Student("Jelle","Geers");
-        
+        Set<Exercise> exercises = new HashSet<>();
+        exercises.add(ex2);
+        exercises.add(ex1);
+        AccessCode a1 = new AccessCode(52);
+         AccessCode a2 = new AccessCode(40);
+          AccessCode a3 = new AccessCode(32);
+           AccessCode a4 = new AccessCode(556);
+         
+          List<AccessCode> accesscodes = new ArrayList<>();
+          
+           accesscodes.add(a1);
+           accesscodes.add(a2);
+           accesscodes.add(a3);
+           accesscodes.add(a4);
+           
+           BoBAction action = new BoBAction("Doe iets");
+           BoBAction action2 = new BoBAction("Zoek een kist");
+           
+           List<BoBAction> acs = new ArrayList<>();
+           acs.add(action);
+           acs.add(action2);
+          
+        Box box = new Box("Box voor 22/05","BoxMDF1", exercises, accesscodes, acs);
         
         EntityManagerFactory emf = JPAUtil.getEntityManagerFactory();
         EntityManager em = emf.createEntityManager();
@@ -50,6 +79,15 @@ public class Seeder {
         //Seeding exercises
         em.persist(ex1);
         em.persist(ex2);
+        
+        //Seeding actions
+        acs.forEach(e -> em.persist(e));
+      
+        //Seeding accesscodes
+        accesscodes.forEach(e -> em.persist(e));
+        
+        //Seeding box
+        em.persist(box);
         
         //Seeding Student & class
         em.persist(studentClass);

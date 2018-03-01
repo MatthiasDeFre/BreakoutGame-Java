@@ -5,13 +5,13 @@
  */
 package domain;
 
+import java.util.Observer;
+
 /**
  *
- * @author Alexander
+ * @author Matthias
  */
-public enum SceneName {
-    STARTSCREEN,
-    EXERCISESCREEN,
-    EXERCISEMAINSCREEN,
-    EXERCISEMAINSCREEN2
+public interface Subject {
+    void addObserver(Observer obs);
+    void removeObserver(Observer obs);
 }

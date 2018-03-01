@@ -24,6 +24,6 @@ public enum OperationCategory {
         this.key = key;
     }
     public String getDescription() {
-        return LangConfig.getString(key);
+        return LangConfig.getString(key+"DESC");
     }
 }

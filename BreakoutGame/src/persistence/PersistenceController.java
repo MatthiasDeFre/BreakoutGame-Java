@@ -5,6 +5,17 @@
  */
 package persistence;
 
+import domain.Group;
+import domain.Exercise;
+import domain.Category;
+import domain.Student;
+import domain.AccessCode;
+import domain.Classroom;
+import domain.BoBAction;
+import domain.Box;
+import domain.Session;
+import domain.GroupOperation;
+import domain.PersistMode;
 import persistence.repositories.IGenericRepository;
 import persistence.repositories.BoxRepository;
 import persistence.repositories.ExerciseRepository;
@@ -19,6 +30,8 @@ import domain.managers.IManageable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import persistence.repositories.AccessCodeRepository;
+import persistence.repositories.CategoryRepository;
 
 /**
  *
@@ -30,15 +43,17 @@ public class PersistenceController {
     public PersistenceController()
     {
         repositories = new HashMap<>();
-        repositories.put(Action.class.getSimpleName(), new ActionRepository());
+        repositories.put(BoBAction.class.getSimpleName(), new ActionRepository());
         repositories.put(Box.class.getSimpleName(),new BoxRepository());
         //category?
+        repositories.put(Category.class.getSimpleName(), new CategoryRepository());
         repositories.put(Classroom.class.getSimpleName(), new ClassroomRepository());
         repositories.put(Exercise.class.getSimpleName(),  new ExerciseRepository());
         repositories.put(GroupOperation.class.getSimpleName(), new GroupOperationRepository());
         repositories.put(Group.class.getSimpleName(),new GroupRepository());
         repositories.put(Session.class.getSimpleName(),new SessionRepository());
         repositories.put(Student.class.getSimpleName(),new StudentRepository());
+        repositories.put(AccessCode.class.getSimpleName(), new AccessCodeRepository());
         //put other repos
         mode = PersistMode.NEW;
         
@@ -57,7 +72,9 @@ public class PersistenceController {
     public void setPersistMode(PersistMode mode) {
         this.mode = mode;
     }
-    
+    public PersistMode getPersistMode() {
+        return mode;
+    }
     public <T> void persistObject(Class<T> type, T object) {
         IGenericRepository repository = repositories.get(type.getSimpleName());
         if(mode == PersistMode.NEW) {

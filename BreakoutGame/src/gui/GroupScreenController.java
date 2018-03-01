@@ -7,6 +7,7 @@ package gui;
 
 import domain.Exercise;
 import domain.GroupOperation;
+import domain.OperationCategory;
 import domain.UseCaseExerciseAdminController;
 import java.io.IOException;
 import java.util.Observable;
@@ -50,7 +51,7 @@ public class GroupScreenController extends GridPane implements Observer{
 
 //        dc.addObserver(this);
         this.dc = dc;
-        clmDescription.setCellValueFactory(e -> new SimpleStringProperty(String.valueOf(e.getValue().getDescription())));
+           clmDescription.setCellValueFactory(e -> e.getValue().descriptionProperty());
         tblViewGroupOperations.setItems(dc.getGroupOperations());
         System.out.println(dc.getGroupOperations());
 
@@ -60,9 +61,10 @@ public class GroupScreenController extends GridPane implements Observer{
     public void update(Observable o, Object arg)
     {
          Exercise exercise = (Exercise) arg;
-         tblViewSelectedGroupOperations.setItems(exercise.getGroupOperationsObservableList()); //deze gebruiken
+         tblViewSelectedGroupOperations.setItems(dc.getGroupOperationsTemp()); //deze gebruiken
+    //     exercise.addGroupOperationTemp(new GroupOperation(OperationCategory.MULTIPLY, "5"));
        //clmCat.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getCategory().getDescription()));
-         tblSelectedDesc.setCellValueFactory(e -> new SimpleStringProperty(String.valueOf(e.getValue().getDescription()))); //deze gebruiken
+         tblSelectedDesc.setCellValueFactory(e -> e.getValue().descriptionProperty()); //deze gebruiken
          dc.changeFilterGroupOperations(exercise.getGroupOperations());
     //     tblViewGroupOperations.setItems(dc.getGroupOperations());
     }

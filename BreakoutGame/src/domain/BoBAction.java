@@ -7,8 +7,8 @@ package domain;
 
 import domain.managers.IManageable;
 import java.io.Serializable;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,57 +17,54 @@ import javax.persistence.Id;
 
 /**
  *
- * @author Matthias
+ * @author geers
  */
 @Entity
-public class AccessCode implements Serializable, IManageable {
+public class BoBAction implements IManageable, Serializable {
 
-   
+    private SimpleStringProperty name = new SimpleStringProperty();
+    public BoBAction()
+    {
+    }
+
+    public BoBAction(String name)
+    {
+        setName(name);
+    }
+
+    @Column(name="name")
+    public String getName()
+    {
+        return name.get();
+    }
+
+    public void setName(String name)
+    {
+        this.name.set(name);
+    }
+    
+    
     
     
     
     private long id;
-    
-    private SimpleIntegerProperty code = new SimpleIntegerProperty();
-    
 
-     public AccessCode()
-    {
-    }
-     
-   
-    public AccessCode(int code)
-    {
-        setCode(code);
-    }
-    
-     @Column(name="code")
-    public int getCode()
-    {
-        return code.get();
-    }
-
-    public void setCode(int code)
-    {
-        this.code.set(code);
-    }
-
-     
-    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Override
     public long getId()
     {
-        return id;
+       return id;
     }
 
+    @Override
     public void setId(long id)
     {
         this.id = id;
     }
     
-    public IntegerProperty codeProperty() {
-        return code;
+    public StringProperty nameProperty() {
+        return name;
     }
     
 }

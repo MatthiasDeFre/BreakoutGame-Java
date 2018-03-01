@@ -37,8 +37,8 @@ public class ExerciseController extends HBox {
 //        exerciseDetailScreen = new ExerciseDetailScreenController(dc);
 //        this.add(startScreen, 0, 0);
 //        this.add(testScreen, 1, 0);
-        dc.addObserver(exerciseDetailScreen2);
-        dc.addObserver(groupScreen);
+        dc.addObserverExercise(exerciseDetailScreen2);
+        dc.addObserverExercise(groupScreen);
         getChildren().addAll(startScreen, exerciseDetailScreen2,groupScreen);
         this.setStyle("-fx-background-image: url('https://i.imgur.com/E1METw5.jpg')");
     }

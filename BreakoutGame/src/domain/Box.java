@@ -33,20 +33,32 @@ public class Box implements Serializable, IManageable {
    private String description;
    private String name;
    
-   @Transient
+   @ManyToMany
    private Set<Exercise> exercises;
    
    @ManyToMany
    private List<AccessCode> accessCodes;
    
    @ManyToMany
-   private List<Action> actions;
+   private List<BoBAction> actions;
    
-   protected Box() {
+   public Box() {
        //Treasurechest
        actions = new ArrayList<>();
-       actions.add(new Action());
+       actions.add(new BoBAction());
    }
+
+    public Box(String description, String name, Set<Exercise> exercises, List<AccessCode> accessCodes, List<BoBAction> actions)
+    {
+        this.description = description;
+        this.name = name;
+        this.exercises = exercises;
+        this.accessCodes = accessCodes;
+        this.actions = actions;
+    }
+   
+   
+   
     public long getId()
     {
         return id;
@@ -97,21 +109,21 @@ public class Box implements Serializable, IManageable {
         this.accessCodes = accessCodes;
     }
 
-    public List<Action> getActions()
+    public List<BoBAction> getActions()
     {
         return actions;
     }
 
-    public void setActions(ObservableList<Action> actions)
+    public void setActions(ObservableList<BoBAction> actions)
     {
         this.actions = actions;
     }
     
-    public void addAction(Action action) {
+    public void addAction(BoBAction action) {
         actions.add(actions.size() -2, action);
        
     }
-    public void removeAction(Action action) {
+    public void removeAction(BoBAction action) {
         //Check if equal to treasure (cant remove treasure = exception)
         actions.remove(action);
     }
@@ -125,4 +137,8 @@ public class Box implements Serializable, IManageable {
         exercises.add(exercise);
     }
    
+    public boolean isValidBox() {
+        return getActions().size() -1 == getExercises().size();
+    }
+    
 }

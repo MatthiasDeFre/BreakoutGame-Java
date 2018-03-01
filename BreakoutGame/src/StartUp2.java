@@ -38,16 +38,16 @@ public class StartUp2 {
         uc.setManagerMode(PersistMode.NEW);
         uc.setExercise(new Exercise());
         
-        uc.createExercise(ex);
+        uc.saveExercise(ex);
         ex.setId(1);
         uc.setManagerMode(PersistMode.UPDATE);
         uc.setExercise(ex);
      
         Exercise exA = new Exercise("Teest", "test", "teest", "test", dutch);
         
-        uc.createExercise(exA);
+        uc.saveExercise(exA);
         System.out.println(ex.toString());
-        uc.deleteExercise(ex);
+        uc.deleteExercise();
         System.out.println(exA.toString());
         
     }

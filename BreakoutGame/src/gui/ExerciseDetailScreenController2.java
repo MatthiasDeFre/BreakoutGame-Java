@@ -5,6 +5,7 @@
  */
 package gui;
 
+import domain.Category;
 import domain.UseCaseExerciseAdminController;
 import domain.Exercise;
 import domain.GroupOperation;
@@ -16,15 +17,19 @@ import java.util.ResourceBundle;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.util.StringConverter;
 
 /**
  * FXML UseCaseExerciseAdminController class
@@ -57,13 +62,18 @@ public class ExerciseDetailScreenController2 extends GridPane implements Observe
     private TextField txtFeedback;
     @FXML
     private TextField txtAssignment;
-    @FXML
-    private TextField txtCat;
+   
     @FXML
     private TableColumn<GroupOperation, String> clmCat;
     @FXML
     private TableColumn<GroupOperation, String> clmValue;
-
+ @FXML
+    private ComboBox<Category> cmbCategory;
+ 
+  @FXML
+    private Button Save;
+    
+    
     public ExerciseDetailScreenController2(UseCaseExerciseAdminController dc) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ExerciseDetailScreen2.fxml"));
         loader.setRoot(this);
@@ -76,6 +86,25 @@ public class ExerciseDetailScreenController2 extends GridPane implements Observe
 
 //        dc.addObserver(this);
         this.dc = dc;
+        cmbCategory.setItems(dc.getCategories());
+        StringConverter<Category> converter = new StringConverter<Category>() {
+            @Override
+            public String toString(Category category) {
+                return category.getDescription();
+            }
+
+            @Override
+            public Category fromString(String string)
+            {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+           
+        };
+        cmbCategory.setConverter(converter);
+         cmbCategory.getSelectionModel().selectedItemProperty().addListener((o, ol, nw) -> {
+            System.out.println(cmbCategory.getValue().getDescription());
+        });
 
     }
 
@@ -86,11 +115,18 @@ public class ExerciseDetailScreenController2 extends GridPane implements Observe
         txtAssignment.setText(exercise.getAssignment());
         txtEx.setText(exercise.getName());
         txtFeedback.setText(exercise.getFeedback());
-        txtCat.setText(exercise.getCategoryDescription());
+    //    txtCat.setText(exercise.getCategoryDescription());
+       cmbCategory.getSelectionModel().select(exercise.getCategory());
    //     tblViewGroupOperations.setItems(exercise.getGroupOperationsObservableList()); //deze gebruiken
        //clmCat.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getCategory().getDescription()));
       //  clmValue.setCellValueFactory(e -> new SimpleStringProperty(String.valueOf(e.getValue().getDescription()))); //deze gebruiken
         
     }
 
+      @FXML
+    private void saveEx(ActionEvent event)
+    {
+           dc.saveExercise(txtEx.getText(), txtAnw.getText(), txtFeedback.getText(), txtAssignment.getText(), cmbCategory.getSelectionModel().getSelectedIndex());
+    }
+    
 }

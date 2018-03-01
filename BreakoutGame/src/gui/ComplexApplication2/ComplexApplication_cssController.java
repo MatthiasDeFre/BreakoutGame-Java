@@ -9,9 +9,11 @@ import domain.UseCaseExerciseAdminController;
 import gui.ExerciseDetailScreenController2;
 import gui.GroupScreenController;
 import gui.StartScreenController;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
@@ -52,6 +54,16 @@ public class ComplexApplication_cssController extends VBox {
     private AnchorPane anchor2;
 
     public ComplexApplication_cssController(UseCaseExerciseAdminController dc) {
+      
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("ComplexApplication_css.fxml"));
+        loader.setRoot(this);
+        loader.setController(this);
+        try {
+            loader.load();
+        } catch (IOException ex) {
+            System.out.printf(ex.getMessage());
+        }
+        
         this.dc = dc;
         startScreen = new StartScreenController(dc);
         exerciseDetailScreen2 = new ExerciseDetailScreenController2(dc);
@@ -61,9 +73,11 @@ public class ComplexApplication_cssController extends VBox {
 //        exerciseDetailScreen = new ExerciseDetailScreenController(dc);
 //        this.add(startScreen, 0, 0);
 //        this.add(testScreen, 1, 0);
-        dc.addObserver(exerciseDetailScreen2);
-        dc.addObserver(groupScreen);
+        dc.addObserverExercise(exerciseDetailScreen2);
+        dc.addObserverExercise(groupScreen);
         anchor1.getChildren().add(startScreen);
+        scrollpane.getChildren().add(exerciseDetailScreen2);
+        anchor2.getChildren().add(groupScreen);
         this.setStyle("-fx-background-image: url('https://i.imgur.com/E1METw5.jpg')");
     }
 

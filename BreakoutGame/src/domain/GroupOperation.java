@@ -7,11 +7,15 @@ package domain;
 
 import domain.managers.IManageable;
 import java.util.Objects;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  *
@@ -20,12 +24,12 @@ import javax.persistence.Table;
 @Entity
 @Table(name="GroupOperation")
 public class GroupOperation implements IManageable {
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
     private OperationCategory category;
-    private String value;
+    private String valueString;
 
+    private SimpleStringProperty description = new SimpleStringProperty();
+    
     //Constructors
     /**
      * Standard constructor
@@ -40,7 +44,7 @@ public class GroupOperation implements IManageable {
     {
         int hash = 7;
         hash = 23 * hash + Objects.hashCode(this.category);
-        hash = 23 * hash + Objects.hashCode(this.value);
+        hash = 23 * hash + Objects.hashCode(this.valueString);
         return hash;
     }
 
@@ -60,7 +64,7 @@ public class GroupOperation implements IManageable {
             return false;
         }
         final GroupOperation other = (GroupOperation) obj;
-        if (!Objects.equals(this.value, other.value))
+        if (!Objects.equals(this.valueString, other.valueString))
         {
             return false;
         }
@@ -74,14 +78,15 @@ public class GroupOperation implements IManageable {
     public GroupOperation(OperationCategory category, String value)
     {
         this.category = category;
-        this.value = value;
+        setValueString(value);
     }
     
     public void copy(GroupOperation groupOperation) {
         setCategory(groupOperation.getCategory());
-        setValue(groupOperation.getValue());
+        setValueString(groupOperation.getValueString());
     }
     //Getters and setters
+    @Column(name="category")
     public OperationCategory getCategory()
     {
         return category;
@@ -90,20 +95,26 @@ public class GroupOperation implements IManageable {
     public void setCategory(OperationCategory category)
     {
         this.category = category;
+    //    description.set(getDescription());
     }
-
-    public String getValue()
+    
+    @Column(name="valuestring")
+    public String getValueString()
     {
-        return value;
+        return valueString;
     }
+    @Transient
     public String getDescription() {
-        return String.format(category.getDescription(), value.split("&"));
+        return String.format(category.getDescription(), valueString.split("&"));
     }
-    public void setValue(String value)
+    public void setValueString(String valueString)
     {
-        this.value = value;
+        this.valueString = valueString;
+        description.set(getDescription());
     }
 
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Override
     public long getId()
     {
@@ -114,6 +125,10 @@ public class GroupOperation implements IManageable {
     public void setId(long id)
     {
        this.id = id;
+    }
+    
+    public StringProperty descriptionProperty() {
+        return description;
     }
     
 }
