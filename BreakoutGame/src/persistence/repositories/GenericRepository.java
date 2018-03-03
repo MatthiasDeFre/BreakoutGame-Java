@@ -128,7 +128,9 @@ public abstract class GenericRepository<T> implements IGenericRepository<T>{
     }
     // </editor-fold>
 
-  
+    protected EntityManager getEntityManager() {
+        return em;
+    }
 
    
 }

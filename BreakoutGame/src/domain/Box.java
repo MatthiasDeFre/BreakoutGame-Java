@@ -21,12 +21,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Transient;
 
 /**
  *
  * @author geers
  */
+@NamedQueries(@NamedQuery(name = "BoxExists", query = "SELECT b FROM Box b WHERE b.name = :name"))
 @Entity
 public class Box implements Serializable, IManageable {
 

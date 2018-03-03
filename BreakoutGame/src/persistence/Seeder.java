@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import persistence.repositories.BoxRepository;
 
 /**
  *
@@ -99,6 +100,7 @@ public class Seeder {
         em.getTransaction().commit();
         em.close();
     //    emf.close();
-        
+        BoxRepository boxRepository = new BoxRepository();
+        System.out.println(boxRepository.contains("BoxMDF1"));
     }
 }

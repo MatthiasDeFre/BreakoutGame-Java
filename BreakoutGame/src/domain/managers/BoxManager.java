@@ -43,7 +43,7 @@ public class BoxManager extends Manager<Box>
 
     public ObservableList<AccessCode> getAccessCodesTemp()
     {
-        return accessCodesTemp;
+        return tempLists.get(AccessCode.class.getSimpleName());
     }
 
     public void setAccessCodesTemp(ObservableList<AccessCode> accessCodesTemp)
@@ -54,7 +54,7 @@ public class BoxManager extends Manager<Box>
 
     public ObservableList<BoBAction> getActionsTemp()
     {
-        return actionsTemp;
+        return tempLists.get(BoBAction.class.getSimpleName());
     }
 
     public void setActionsTemp(ObservableList<BoBAction> actionsTemp)
@@ -65,7 +65,7 @@ public class BoxManager extends Manager<Box>
 
     public ObservableList<Exercise> getExerciseTemp()
     {
-        return exerciseTemp;
+        return tempLists.get(Exercise.class.getSimpleName());
     }
 
     public void setExerciseTemp(ObservableList<Exercise> exerciseTemp)

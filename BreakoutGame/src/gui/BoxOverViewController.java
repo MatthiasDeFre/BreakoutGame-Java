@@ -98,12 +98,14 @@ public class BoxOverViewController extends AnchorPane implements Observer {
     @Override
     public void update(Observable o, Object arg)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       Box box = (Box) arg;
+       
     }
 
     private void setBoxToDc()
     {
-        System.out.println(tblBox.getSelectionModel().getSelectedItem().toString());
+        dc.setSelectedBox(tblBox.getSelectionModel().getSelectedItem());
+        
     }
 
 }

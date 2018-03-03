@@ -21,15 +21,22 @@
             <Font name="Comic Sans MS Bold" size="20.0" />
          </font>
       </JFXTextField>
-      <HBox layoutX="21.0" layoutY="498.0" prefHeight="47.0" prefWidth="399.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="10.0">
+      <HBox layoutX="21.0" layoutY="498.0" prefHeight="47.0" prefWidth="399.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="10.0">
          <children>
-            <JFXTextField prefHeight="25.0" prefWidth="287.0" HBox.hgrow="ALWAYS" />
+            <JFXTextField prefHeight="25.0" prefWidth="287.0" HBox.hgrow="ALWAYS">
+               <padding>
+                  <Insets right="10.0" />
+               </padding>
+            </JFXTextField>
             <JFXButton buttonType="RAISED" prefHeight="25.0" prefWidth="229.0" styleClass="button-raised" stylesheets="@../../../JFoenixTest/src/css/jfoenix-components.css" text="Save">
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </JFXButton>
          </children>
+         <padding>
+            <Insets right="10.0" />
+         </padding>
       </HBox>
       <GridPane prefHeight="270.0" prefWidth="399.0" vgap="20.0" AnchorPane.bottomAnchor="92.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="183.0">
          <children>

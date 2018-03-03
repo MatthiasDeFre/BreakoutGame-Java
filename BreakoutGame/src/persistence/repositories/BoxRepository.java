@@ -6,6 +6,7 @@
 package persistence.repositories;
 
 import domain.Box;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -20,5 +21,11 @@ public class BoxRepository extends GenericRepository<Box> {
     
     private BoxRepository(Class<Box> type) {
         super(type);
+    }
+    
+    public boolean contains(String name) {
+        TypedQuery<Box> query =  getEntityManager().createNamedQuery("BoxExists", Box.class);
+        query.setParameter("name", name);
+        return query.getSingleResult() != null;
     }
 }

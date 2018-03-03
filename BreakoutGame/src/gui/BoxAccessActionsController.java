@@ -9,9 +9,12 @@ import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.effects.JFXDepthManager;
 import domain.AccessCode;
 import domain.BoBAction;
+import domain.Box;
 import domain.BoxController;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,7 +29,7 @@ import javafx.scene.layout.HBox;
  *
  * @author Matthias
  */
-public class BoxAccessActionsController extends AnchorPane {
+public class BoxAccessActionsController extends AnchorPane implements Observer{
 
     @FXML
     private JFXTextField txtName;
@@ -69,6 +72,20 @@ public class BoxAccessActionsController extends AnchorPane {
       
       tblAllActions.setItems(dc.getActions());
       clmAllActionName.setCellValueFactory(e -> e.getValue().nameProperty());
+    }
+
+    @Override
+    public void update(Observable o, Object arg)
+    {
+        Box box = (Box) arg;
+        tblSelectedAccess.setItems(dc.getTempListAccessCodes());
+        clmSelectedAccessNavme.setCellValueFactory(e -> e.getValue().codeProperty().asObject());
+        
+        tblSelectedActions.setItems(dc.getTempListBoBActions());
+        clmSelectedActionName.setCellValueFactory(e -> e.getValue().nameProperty());
+        
+        txtDescription.setText(box.getDescription());
+        txtName.setText(box.getName());
     }
 
    

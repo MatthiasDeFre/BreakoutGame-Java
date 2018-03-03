@@ -55,10 +55,16 @@ public class BoxStartScreenController  extends VBox {
      //   mainPane.setDividerPosition(0,50);
       //  SplitPane.setResizableWithParent(boxOverViewController, Boolean.TRUE);
         BoxAccessActionsController boxAccessActionsController = new BoxAccessActionsController(dc);
+        dc.addObserverBox(boxAccessActionsController);
+     
      //   SplitPane.setResizableWithParent(boxAccessActionsController, Boolean.TRUE);
     
         mainPane.getItems().add(boxAccessActionsController);
-       mainPane.getItems().add(new BoxExerciseListController(dc));
+        BoxExerciseListController boxExerciseListController = new BoxExerciseListController(dc);
+           dc.addObserverBox(boxExerciseListController);
+       mainPane.getItems().add(boxExerciseListController);
+       
+       this.requestFocus();
         
     }
 

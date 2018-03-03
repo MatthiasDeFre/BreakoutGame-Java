@@ -9,6 +9,7 @@ import domain.managers.AccessCodeManager;
 import domain.managers.ActionManager;
 import domain.managers.BoxManager;
 import domain.managers.ExerciseManager;
+import java.util.Observer;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import persistence.PersistenceController;
@@ -49,5 +50,30 @@ public class BoxController {
     
     public FilteredList getAccessCodes() {
         return accessCodeManager.getFilteredItems();
+    }
+    
+    public void setSelectedBox(Box box) {
+        boxManager.setSelected(box);
+        applyFilters();
+    }
+    
+    public void addObserverBox(Observer obs) {
+        boxManager.addObserver(obs);
+    }
+    
+    public ObservableList<AccessCode> getTempListAccessCodes() {
+        return boxManager.getAccessCodesTemp();
+    }
+     public ObservableList<Exercise> getTempListExercises() {
+        return boxManager.getExerciseTemp();
+    }
+      public ObservableList<BoBAction> getTempListBoBActions() {
+        return  boxManager.getActionsTemp();
+    }
+      
+    public void applyFilters() {
+        exerciseManager.changeFilter(boxManager.getExerciseTemp());
+        actionManager.changeFilter(boxManager.getActionsTemp());
+        accessCodeManager.changeFilter(boxManager.getAccessCodesTemp());
     }
 }
