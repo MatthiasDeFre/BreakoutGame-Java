@@ -11,8 +11,11 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,19 +30,14 @@ import javax.persistence.Transient;
 @Entity
 public class Box implements Serializable, IManageable {
 
-   @Id
-   @GeneratedValue(strategy = GenerationType.IDENTITY)
    private long id;
-   private String description;
-   private String name;
+   private SimpleStringProperty description = new SimpleStringProperty();
+   private SimpleStringProperty name = new SimpleStringProperty();
    
-   @ManyToMany
    private Set<Exercise> exercises;
    
-   @ManyToMany
    private List<AccessCode> accessCodes;
    
-   @ManyToMany
    private List<BoBAction> actions;
    
    public Box() {
@@ -50,15 +48,24 @@ public class Box implements Serializable, IManageable {
 
     public Box(String description, String name, Set<Exercise> exercises, List<AccessCode> accessCodes, List<BoBAction> actions)
     {
-        this.description = description;
-        this.name = name;
-        this.exercises = exercises;
-        this.accessCodes = accessCodes;
-        this.actions = actions;
+        setDescription(description);
+        setName(name);
+        setExercises(new HashSet<>(exercises));
+        setAccessCodes(new ArrayList<>(accessCodes));
+        setActions(new ArrayList<>(actions));
+    }
+    
+    public void copy(Box box) {
+        setDescription(box.getDescription());
+        setName(box.getName());
+        setExercises(new HashSet<>(box.getExercises()));
+        setAccessCodes(new ArrayList<>(box.getAccessCodes()));
+        setActions(new ArrayList<>(box.getActions()));
     }
    
    
-   
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long getId()
     {
         return id;
@@ -69,26 +76,30 @@ public class Box implements Serializable, IManageable {
         this.id = id;
     }
 
+     @Column(name = "description")
     public String getDescription()
     {
-        return description;
+        return description.get();
     }
 
     public void setDescription(String description)
     {
-        this.description = description;
+        this.description.set(description);
     }
-
+    
+   @Column(name = "name")
     public String getName()
     {
-        return name;
+        return name.get();
     }
-
+    
+   
     public void setName(String name)
     {
-        this.name = name;
+        this.name.set(name);
     }
 
+    @ManyToMany
     public Set<Exercise> getExercises()
     {
         return exercises;
@@ -99,6 +110,7 @@ public class Box implements Serializable, IManageable {
         this.exercises = exercises;
     }
 
+    @ManyToMany
     public List<AccessCode> getAccessCodes()
     {
         return accessCodes;
@@ -109,12 +121,13 @@ public class Box implements Serializable, IManageable {
         this.accessCodes = accessCodes;
     }
 
+    @ManyToMany
     public List<BoBAction> getActions()
     {
         return actions;
     }
 
-    public void setActions(ObservableList<BoBAction> actions)
+    public void setActions(List<BoBAction> actions)
     {
         this.actions = actions;
     }
@@ -139,6 +152,13 @@ public class Box implements Serializable, IManageable {
    
     public boolean isValidBox() {
         return getActions().size() -1 == getExercises().size();
+    }
+    
+    public StringProperty nameProperty() {
+        return name;
+    }
+     public StringProperty descriptionProperty() {
+        return description;
     }
     
 }

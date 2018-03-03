@@ -3,8 +3,10 @@
 
 package domain.managers;
 
+import domain.AccessCode;
 import domain.BoBAction;
 import domain.Box;
+import java.util.List;
 import javafx.collections.FXCollections;
 import persistence.PersistenceController;
 
@@ -22,5 +24,10 @@ public class ActionManager extends Manager<BoBAction>
            super(BoBAction.class, persitence);
         setItems(FXCollections.observableArrayList(persitence.getAllOfType(BoBAction.class)));
     }
+    
+     public void changeFilter(List<BoBAction> actions) {
+         getFilteredItems().setPredicate(e -> !actions.contains(e));
+         System.out.println("");
+     }
 
 }

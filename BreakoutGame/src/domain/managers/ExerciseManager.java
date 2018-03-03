@@ -3,10 +3,12 @@
 
 package domain.managers;
 
+import domain.AccessCode;
 import domain.Category;
 import domain.Exercise;
 import domain.GroupOperation;
 import domain.PersistMode;
+import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import persistence.PersistenceController;
@@ -51,9 +53,7 @@ public class ExerciseManager extends Manager<Exercise>
     {
         ((Exercise) getSelected()).copy(object);
         System.out.println(((Exercise) getSelected()).getId());
-        getPersistenceController().persistObject(Exercise.class, getSelected());
-        if(getPersistenceController().getPersistMode() == PersistMode.NEW)
-            getItems().add(getSelected());
+        super.save(object);
         
     }
 
@@ -64,6 +64,10 @@ public class ExerciseManager extends Manager<Exercise>
         super.setSelected(item);
       
     }
+     public void changeFilter(List<Exercise> exercises) {
+         getFilteredItems().setPredicate(e -> !exercises.contains(e));
+         System.out.println("");
+     }
     
 
     

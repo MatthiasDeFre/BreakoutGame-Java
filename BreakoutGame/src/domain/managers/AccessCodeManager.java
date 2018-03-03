@@ -6,7 +6,10 @@
 package domain.managers;
 
 import domain.AccessCode;
+import domain.GroupOperation;
+import java.util.List;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import persistence.PersistenceController;
 
 /**
@@ -18,6 +21,7 @@ public class AccessCodeManager extends Manager<AccessCode>{
     protected AccessCodeManager()
     {
         super(AccessCode.class, new PersistenceController());
+   
     }
     
     
@@ -26,7 +30,13 @@ public class AccessCodeManager extends Manager<AccessCode>{
     {
         super(AccessCode.class, persistenceController);
         setItems(FXCollections.observableArrayList(persistenceController.getAllOfType(AccessCode.class)));
+    
         
     }
+  
+     public void changeFilter(List<AccessCode> accessCodes) {
+         getFilteredItems().setPredicate(e -> !accessCodes.contains(e));
+         System.out.println("");
+     }
     
 }
