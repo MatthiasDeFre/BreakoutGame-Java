@@ -94,6 +94,7 @@ public class BoxOverViewController extends AnchorPane implements Observer {
                         setBoxToDc();
                     }
         });
+        
     }
 
     @Override

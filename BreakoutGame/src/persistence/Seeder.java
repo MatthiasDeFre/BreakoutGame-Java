@@ -71,7 +71,9 @@ public class Seeder {
            acs.add(action);
            acs.add(action2);
           
-        Box box = new Box("Box voor 22/05","BoxMDF1", exercises, accesscodes, acs);
+           List<Exercise> test = new ArrayList();
+           test.add(ex1);
+        Box box = new Box("Box voor 22/05","BoxMDF1", new HashSet<>(test), accesscodes, acs);
         
         EntityManagerFactory emf = JPAUtil.getEntityManagerFactory();
         EntityManager em = emf.createEntityManager();

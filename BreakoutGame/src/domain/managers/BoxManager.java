@@ -9,7 +9,9 @@ import domain.Box;
 import domain.Exercise;
 import domain.PersistMode;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import persistence.PersistenceController;
@@ -46,10 +48,10 @@ public class BoxManager extends Manager<Box>
         return tempLists.get(AccessCode.class.getSimpleName());
     }
 
-    public void setAccessCodesTemp(ObservableList<AccessCode> accessCodesTemp)
+    public void setAccessCodesTemp(List<AccessCode> accessCodesTemp)
     {
         //this.accessCodesTemp = accessCodesTemp;
-        tempLists.put(AccessCode.class.getSimpleName(), accessCodesTemp);
+        tempLists.get(AccessCode.class.getSimpleName()).setAll(accessCodesTemp);
     }
 
     public ObservableList<BoBAction> getActionsTemp()
@@ -57,9 +59,9 @@ public class BoxManager extends Manager<Box>
         return tempLists.get(BoBAction.class.getSimpleName());
     }
 
-    public void setActionsTemp(ObservableList<BoBAction> actionsTemp)
+    public void setActionsTemp(List<BoBAction> actionsTemp)
     {
-        tempLists.put(BoBAction.class.getSimpleName(), actionsTemp);
+        tempLists.get(BoBAction.class.getSimpleName()).setAll(actionsTemp);
        // this.actionsTemp = actionsTemp;
     }
 
@@ -68,10 +70,10 @@ public class BoxManager extends Manager<Box>
         return tempLists.get(Exercise.class.getSimpleName());
     }
 
-    public void setExerciseTemp(ObservableList<Exercise> exerciseTemp)
+    public void setExerciseTemp(List<Exercise> exerciseTemp)
     {
       //  this.exerciseTemp = exerciseTemp;
-          tempLists.put(Exercise.class.getSimpleName(), exerciseTemp);
+          tempLists.get(Exercise.class.getSimpleName()).setAll(exerciseTemp);
     }
     
     private void resetTempCollections() {     
@@ -84,10 +86,10 @@ public class BoxManager extends Manager<Box>
         setExerciseTemp(FXCollections.observableArrayList());*/
     }
     public void addObjectToTemp(Object object) {
-        tempLists.get(object.getClass().getDeclaringClass().getSimpleName()).add(object);
+        tempLists.get(object.getClass().getSimpleName()).add(object);
     }
     public void removeObjectFromTemp(Object object) {
-        tempLists.get(object.getClass().getDeclaringClass().getSimpleName()).remove(object);
+        tempLists.get(object.getClass().getSimpleName()).remove(object);
     }
     
     
@@ -113,9 +115,9 @@ public class BoxManager extends Manager<Box>
     @Override
     public void setSelected(Box item)
     {
-        setAccessCodesTemp(FXCollections.observableArrayList(item.getAccessCodes()));
-        setActionsTemp(FXCollections.observableArrayList(item.getActions()));
-        setExerciseTemp(FXCollections.observableArrayList(item.getExercises()));
+        setAccessCodesTemp(item.getAccessCodes());
+        setActionsTemp(item.getActions());
+        setExerciseTemp(item.getExercises().stream().collect(Collectors.toList()));
         super.setSelected(item); //To change body of generated methods, choose Tools | Templates.
     }
     

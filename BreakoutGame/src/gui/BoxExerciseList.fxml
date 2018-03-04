@@ -23,11 +23,11 @@
             </TableView>
             <VBox prefHeight="200.0" prefWidth="100.0" spacing="20.0" HBox.hgrow="SOMETIMES">
                <children>
-                  <JFXButton buttonType="RAISED" prefHeight="500.0" prefWidth="200.0" ripplerFill="#0c0eb2" style="-fx-background-color: lightblue;" text="&gt;&gt;" VBox.vgrow="ALWAYS">
+                  <JFXButton fx:id="btnSendToTemp" buttonType="RAISED" onAction="#sendToTemp" prefHeight="500.0" prefWidth="200.0" ripplerFill="#0c0eb2" style="-fx-background-color: lightblue;" text="&gt;&gt;" VBox.vgrow="ALWAYS">
                      <VBox.margin>
                         <Insets top="150.0" />
                      </VBox.margin></JFXButton>
-                  <JFXButton buttonType="RAISED" prefHeight="500.0" prefWidth="200.0" ripplerFill="#090cb9" style="-fx-background-color: lightblue;" text="&lt;&lt;" VBox.vgrow="ALWAYS">
+                  <JFXButton fx:id="btnRemoveFromTemp" buttonType="RAISED" onAction="#removeFromTemp" prefHeight="500.0" prefWidth="200.0" ripplerFill="#090cb9" style="-fx-background-color: lightblue;" text="&lt;&lt;" VBox.vgrow="ALWAYS">
                      <VBox.margin>
                         <Insets bottom="150.0" />
                      </VBox.margin></JFXButton>
