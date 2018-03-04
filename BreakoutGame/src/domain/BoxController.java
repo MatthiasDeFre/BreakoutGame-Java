@@ -9,6 +9,7 @@ import domain.managers.AccessCodeManager;
 import domain.managers.ActionManager;
 import domain.managers.BoxManager;
 import domain.managers.ExerciseManager;
+import java.util.HashSet;
 import java.util.Observer;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -75,5 +76,13 @@ public class BoxController {
         exerciseManager.changeFilter(boxManager.getExerciseTemp());
         actionManager.changeFilter(boxManager.getActionsTemp());
         accessCodeManager.changeFilter(boxManager.getAccessCodesTemp());
+    }
+    
+    public void saveBox(String name, String description) {
+        Box box = new Box(description, name, new HashSet<>(boxManager.getExerciseTemp()), boxManager.getAccessCodesTemp(), boxManager.getActionsTemp());
+        boxManager.save(box);
+    }
+      public void setManagerMode(PersistMode persistMode) {
+        persistenceController.setPersistMode(persistMode);
     }
 }

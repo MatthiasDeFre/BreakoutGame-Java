@@ -35,6 +35,7 @@ public class boxscreentest extends Application {
         BoxStartScreenController root = new BoxStartScreenController(dc);
         
         Scene scene = new Scene(root, 300, 250);
+          scene.getStylesheets().add(boxscreentest.class.getResource("gui/assets/css/jfoenix-components.css").toExternalForm());
         primaryStage.setMaximized(true);
         primaryStage.setTitle("Hello World!");
         primaryStage.setScene(scene);

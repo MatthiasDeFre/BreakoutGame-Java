@@ -5,6 +5,10 @@
  */
 package gui;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXPopup;
+import com.jfoenix.controls.JFXPopup.PopupHPosition;
+import com.jfoenix.controls.JFXPopup.PopupVPosition;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.effects.JFXDepthManager;
 import domain.AccessCode;
@@ -16,11 +20,13 @@ import java.net.URL;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 
@@ -55,6 +61,10 @@ public class BoxAccessActionsController extends AnchorPane implements Observer{
     private BoxController dc;
     @FXML
     private HBox hboxAccess;
+    @FXML
+    private JFXButton btnSave;
+    @FXML
+    private HBox hBoxActions;
     public BoxAccessActionsController(BoxController dc)
     {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("BoxAccessActions.fxml"));
@@ -67,11 +77,28 @@ public class BoxAccessActionsController extends AnchorPane implements Observer{
         }
         this.dc = dc;
       JFXDepthManager.setDepth(hboxAccess, 5);
+            JFXDepthManager.setDepth(hBoxActions, 5);
       tblAllAccess.setItems(dc.getAccessCodes());
       clmAllAccessName.setCellValueFactory(e -> e.getValue().codeProperty().asObject());
-      
+    
       tblAllActions.setItems(dc.getActions());
       clmAllActionName.setCellValueFactory(e -> e.getValue().nameProperty());
+      
+         tblAllAccess.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> 
+                {
+                    if (newSelection != null)
+                    {
+                        HBox test = new HBox(new JFXTextField(String.valueOf(newSelection.getCode())), new JFXButton("Save"));
+                        test.setPrefWidth(tblAllAccess.getWidth());
+                        JFXPopup popup = new JFXPopup(test);
+                        if(tblAllAccess.getSelectionModel().getSelectedIndex() == tblAllAccess.getItems().size() - 1)
+                         popup.show(tblAllAccess, PopupVPosition.TOP, PopupHPosition.LEFT);
+                        else
+                              popup.show(tblAllAccess, PopupVPosition.TOP, PopupHPosition.LEFT);
+                        System.out.println(tblAllAccess.getSelectionModel().getSelectedIndex());
+                    }
+        });
+      
     }
 
     @Override
@@ -86,6 +113,12 @@ public class BoxAccessActionsController extends AnchorPane implements Observer{
         
         txtDescription.setText(box.getDescription());
         txtName.setText(box.getName());
+    }
+
+    @FXML
+    private void saveBox(ActionEvent event)
+    {
+        dc.saveBox(txtName.getText(), txtDescription.getText());
     }
 
    

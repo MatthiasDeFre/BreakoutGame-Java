@@ -8,6 +8,7 @@ package gui;
 import com.jfoenix.effects.JFXDepthManager;
 import domain.Box;
 import domain.BoxController;
+import domain.PersistMode;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Observable;
@@ -105,7 +106,7 @@ public class BoxOverViewController extends AnchorPane implements Observer {
     private void setBoxToDc()
     {
         dc.setSelectedBox(tblBox.getSelectionModel().getSelectedItem());
-        
+        dc.setManagerMode(PersistMode.UPDATE);
     }
 
 }

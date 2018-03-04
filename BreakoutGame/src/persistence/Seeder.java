@@ -47,13 +47,22 @@ public class Seeder {
          AccessCode a2 = new AccessCode(40);
           AccessCode a3 = new AccessCode(32);
            AccessCode a4 = new AccessCode(556);
-         
+         AccessCode a5 = new AccessCode(1);
+         AccessCode a6 = new AccessCode(23);
+         AccessCode a7 = new AccessCode(32131);
+         AccessCode a8 = new AccessCode(545);
+         AccessCode a9 = new AccessCode(7758);
           List<AccessCode> accesscodes = new ArrayList<>();
           
            accesscodes.add(a1);
            accesscodes.add(a2);
            accesscodes.add(a3);
            accesscodes.add(a4);
+           accesscodes.add(a5);
+            accesscodes.add(a6);
+             accesscodes.add(a7);
+              accesscodes.add(a8);
+               accesscodes.add(a9);
            
            BoBAction action = new BoBAction("Doe iets");
            BoBAction action2 = new BoBAction("Zoek een kist");
