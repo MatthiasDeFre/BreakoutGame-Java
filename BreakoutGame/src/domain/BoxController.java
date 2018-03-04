@@ -9,8 +9,10 @@ import domain.managers.AccessCodeManager;
 import domain.managers.ActionManager;
 import domain.managers.BoxManager;
 import domain.managers.ExerciseManager;
+import domain.managers.IManageable;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Observer;
 import java.util.function.Consumer;
@@ -101,13 +103,22 @@ public class BoxController {
         persistenceController.setPersistMode(persistMode);
     }
     
-      public void addToTempList(Object obj) {
-          boxManager.addObjectToTemp(obj);
-          filters.get(obj.getClass().getSimpleName()).applyFilter();
-      }
-      
-      public void removeFromTempList(Object obj) {
-          boxManager.removeObjectFromTemp(obj);
-         filters.get(obj.getClass().getSimpleName()).applyFilter();
+      public <T extends  IManageable> void addToTempList(List<T> obj) {
+        if (obj.size() > 0)
+        {
+            boxManager.addObjectToTemp(obj);
+            filters.get(obj.get(0).getClass().getSimpleName()).applyFilter();
+        }
+    }
+
+    public <T extends IManageable> void removeFromTempList(List<T> obj)
+    {
+        //Need to retrieve an object because of type erasure
+        if (obj.size() > 0)
+        {
+            String test = obj.get(0).getClass().getSimpleName();
+            boxManager.removeObjectFromTemp(obj);
+            filters.get(test).applyFilter();
+        }
       }
 }

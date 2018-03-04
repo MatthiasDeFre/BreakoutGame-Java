@@ -20,6 +20,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
@@ -59,11 +60,13 @@ public class BoxExerciseListController extends AnchorPane implements Observer{
         }
         this.dc = dc;
         ObservableList exAll = dc.getExercises();
+        tblAllExercise.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         tblAllExercise.setItems(exAll);
         clmALLClass.setCellValueFactory(e -> e.getValue().categoryProperty());
         clmAllName.setCellValueFactory(e -> e.getValue().assignmentProperty());
         
         ObservableList exSel = dc.getTempListExercises();
+         tblSelectedExercise.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         tblSelectedExercise.setItems(exSel);
         clmSelectedClass.setCellValueFactory(e -> e.getValue().categoryProperty());
         clmSelectedName.setCellValueFactory(e -> e.getValue().assignmentProperty());
@@ -82,13 +85,17 @@ public class BoxExerciseListController extends AnchorPane implements Observer{
     @FXML
     private void sendToTemp(ActionEvent event)
     {
-        dc.addToTempList(tblAllExercise.getSelectionModel().getSelectedItem());
+        dc.addToTempList(tblAllExercise.getSelectionModel().getSelectedItems());
+        if(tblAllExercise.getItems().size() > 0) 
+            tblAllExercise.getSelectionModel().select(0);
     }
 
     @FXML
     private void removeFromTemp(ActionEvent event)
     {
-          dc.removeFromTempList(tblSelectedExercise.getSelectionModel().getSelectedItem());
+          dc.removeFromTempList(tblSelectedExercise.getSelectionModel().getSelectedItems());
+           if(tblSelectedExercise.getItems().size() > 0) 
+            tblSelectedExercise.getSelectionModel().select(0);
     }
 
     private void setSelectedEx() {

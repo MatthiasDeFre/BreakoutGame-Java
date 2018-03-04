@@ -85,11 +85,11 @@ public class BoxManager extends Manager<Box>
         setActionsTemp(FXCollections.observableArrayList());
         setExerciseTemp(FXCollections.observableArrayList());*/
     }
-    public void addObjectToTemp(Object object) {
-        tempLists.get(object.getClass().getSimpleName()).add(object);
+    public <T extends IManageable> void addObjectToTemp(List<T> object) {
+        tempLists.get(object.get(0).getClass().getSimpleName()).addAll(object);
     }
-    public void removeObjectFromTemp(Object object) {
-        tempLists.get(object.getClass().getSimpleName()).remove(object);
+    public  <T extends IManageable> void removeObjectFromTemp(List<T> object) {
+        tempLists.get(object.get(0).getClass().getSimpleName()).removeAll(object);
     }
     
     
