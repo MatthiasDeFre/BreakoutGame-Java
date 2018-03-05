@@ -74,6 +74,10 @@ public class Student implements IManageable {
     public String toString() {
         return String.format("%s %s ", this.firstName,this.lastName);
     }
+
+    public void copy(Student student) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
     

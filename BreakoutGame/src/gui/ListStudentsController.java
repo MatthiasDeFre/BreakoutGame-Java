@@ -17,6 +17,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -72,7 +73,11 @@ public class ListStudentsController extends GridPane {
         clmLastName.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getLastName()));
         btnRemove.setOnAction(this::btnRemoveStudent);
         btnAdd.setOnAction(this::btnAddStudent);
-        
+        btnModify.setOnAction(this::btnModifyStudent);
+        tblStudents.getSelectionModel().selectedItemProperty().addListener((obs,oldSelection,newSelection)->{
+            if(newSelection != null)
+                setStudentToDC();
+        });
     }
     
     @FXML
@@ -100,10 +105,19 @@ public class ListStudentsController extends GridPane {
         System.out.printf("eeeeee %s",student.getFirstName());
         listStudents.remove(student);
         dc.deleteStudent(student);
-        
     }
 
+    @FXML
+    private void btnModifyStudent(ActionEvent event) {
+        dc.setManagerMode(PersistMode.UPDATE);
+        Student student= new Student(txtVoornaam.getText(),txtAchternaam.getText());
+        
+    }
     
- 
-
+    private void setStudentToDC()
+    {
+        dc.setManagerMode(PersistMode.UPDATE);
+        dc.setStudent(tblStudents.getSelectionModel().getSelectedItem());
+    }
+    
 }

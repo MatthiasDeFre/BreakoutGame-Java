@@ -54,7 +54,6 @@ public class ExerciseManager extends Manager<Exercise>
         ((Exercise) getSelected()).copy(object);
         System.out.println(((Exercise) getSelected()).getId());
         super.save(object);
-        
     }
 
     @Override

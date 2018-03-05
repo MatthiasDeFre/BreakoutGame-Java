@@ -3,6 +3,7 @@
 
 package domain.managers;
 
+import domain.Exercise;
 import domain.Student;
 import javafx.collections.FXCollections;
 import persistence.PersistenceController;
@@ -29,8 +30,12 @@ public class StudentManager extends Manager<Student>
         getPersistenceController().persistObject(Student.class, getSelected());
     }
     
-    public void removeStudent(Student student)
+    @Override
+    public void save(Student student)
     {
+        ((Student) getSelected()).copy(student);
+        System.out.println(((Exercise) getSelected()).getId());
+        super.save(student);
         
     }
     

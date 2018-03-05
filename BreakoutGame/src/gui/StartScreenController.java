@@ -87,8 +87,8 @@ public class StartScreenController extends GridPane implements Observer {
         clmAssignment.setCellValueFactory(e -> e.getValue().categoryProperty());
         clmDescription.setCellValueFactory(e -> e.getValue().assignmentProperty());
         tblExercises.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-    if (newSelection != null) {
-        setExerciseToDc();
+        if (newSelection != null) {
+            setExerciseToDc();
     }
 });
     }
@@ -101,6 +101,7 @@ public class StartScreenController extends GridPane implements Observer {
 
     @FXML
     private void btnOpdrachtVerwijderenClick(MouseEvent event) {
+        
     }
 
     @FXML
