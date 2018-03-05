@@ -106,6 +106,9 @@ public class BoxManager extends Manager<Box>
     @Override
     public void save(Box object)
     {
+        if(getPersistenceController().getPersistMode() == PersistMode.NEW && getPersistenceController().boxExists(object.getName())) {
+            throw new IllegalArgumentException("Oei de gekozen naam bestaat al: " + object.getName());
+        } 
         ((Box) getSelected() ).copy(object);
         super.save(object);
     }
@@ -120,6 +123,8 @@ public class BoxManager extends Manager<Box>
         setExerciseTemp(item.getExercises().stream().collect(Collectors.toList()));
         super.setSelected(item); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    
     
     
 

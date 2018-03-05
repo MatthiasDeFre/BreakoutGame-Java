@@ -89,7 +89,7 @@ public class BoxOverViewController extends AnchorPane implements Observer {
                                     currentRow.setStyle("-fx-background-color:lightcoral");
                                 } else
                                 {
-                                    currentRow.setStyle("-fx-background-color:yellow");
+                                    currentRow.setStyle("-fx-background-color:none");
                                 }
                                 }
                                 

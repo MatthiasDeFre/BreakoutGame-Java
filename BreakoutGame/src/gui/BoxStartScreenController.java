@@ -5,8 +5,11 @@
  */
 package gui;
 
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXDrawersStack;
+import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.effects.JFXDepthManager;
 import domain.Box;
 import domain.BoxController;
@@ -48,6 +51,11 @@ public class BoxStartScreenController  extends StackPane {
     private HBox hBoxNavBar;
     @FXML
     private JFXDrawer testD;
+    
+    private JFXDialog dialogScreen;
+    
+    private JFXDialogLayout dialogContent;
+    
     public BoxStartScreenController(BoxController dc)
     {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("BoxStartScreen.fxml"));
@@ -80,8 +88,15 @@ public class BoxStartScreenController  extends StackPane {
        testD.setOnDrawerClosed(e -> {
            this.getChildren().remove(testD);
        });
-    //   testD.close();
-       //  this.getChildren().remove(testD);
+
+       dialogScreen = new JFXDialog();
+       dialogContent = new JFXDialogLayout();
+   
+       dialogScreen.setContent(dialogContent);
+       dialogScreen.setDialogContainer(this);
+       
+       boxAccessActionsController.setDialog(dialogScreen);
+       
        this.requestFocus();
         
     }

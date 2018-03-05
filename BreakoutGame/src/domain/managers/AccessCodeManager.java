@@ -6,6 +6,7 @@
 package domain.managers;
 
 import domain.AccessCode;
+import domain.Box;
 import domain.GroupOperation;
 import java.util.List;
 import javafx.collections.FXCollections;
@@ -38,5 +39,12 @@ public class AccessCodeManager extends Manager<AccessCode>{
          getFilteredItems().setPredicate(e -> !accessCodes.contains(e));
          System.out.println("");
      }
+
+    @Override
+    public void save(AccessCode object)
+    {
+        ((AccessCode) getSelected() ).copy(object);
+        super.save(object);
+    }
     
 }

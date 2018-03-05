@@ -41,6 +41,10 @@ public class AccessCode implements Serializable, IManageable {
         setCode(code);
     }
     
+    public void copy(AccessCode accessCode) {
+        setCode(accessCode.getCode());
+    }
+    
      @Column(name="code")
     public int getCode()
     {

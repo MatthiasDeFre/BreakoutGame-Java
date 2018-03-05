@@ -26,6 +26,6 @@ public class BoxRepository extends GenericRepository<Box> {
     public boolean contains(String name) {
         TypedQuery<Box> query =  getEntityManager().createNamedQuery("BoxExists", Box.class);
         query.setParameter("name", name);
-        return query.getSingleResult() != null;
+        return !query.getResultList().isEmpty();
     }
 }

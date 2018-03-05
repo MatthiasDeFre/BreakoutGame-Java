@@ -73,6 +73,10 @@ public class BoxController {
         applyFilters();
     }
     
+    public void setSelectedAccessCode(AccessCode code) {
+        accessCodeManager.setSelected(code);
+    }
+    
     public void addObserverBox(Observer obs) {
         boxManager.addObserver(obs);
     }
@@ -96,8 +100,22 @@ public class BoxController {
     }
     
     public void saveBox(String name, String description) {
-        Box box = new Box(description, name, new HashSet<>(boxManager.getExerciseTemp()), boxManager.getAccessCodesTemp(), boxManager.getActionsTemp());
-        boxManager.save(box);
+        try
+        {
+              Box box = new Box(description, name, new HashSet<>(boxManager.getExerciseTemp()), boxManager.getAccessCodesTemp(), boxManager.getActionsTemp());
+                 boxManager.save(box);
+        } catch (IllegalArgumentException e)
+        {
+            throw new IllegalArgumentException("Je hebt 1 of meerdere velden leeg gelaten");
+        }
+            
+      
+      
+    }
+    
+    public void saveAccessCode(int code) {
+        AccessCode accessCode = new AccessCode(code);
+        accessCodeManager.save(accessCode);
     }
       public void setManagerMode(PersistMode persistMode) {
         persistenceController.setPersistMode(persistMode);

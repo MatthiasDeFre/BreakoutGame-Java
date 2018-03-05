@@ -93,6 +93,9 @@ public class Box implements Serializable, IManageable {
 
     public void setDescription(String description)
     {
+        if(description == null || description.trim().isEmpty()) {
+            throw new IllegalArgumentException();
+        }
         this.description.set(description);
     }
     
@@ -105,6 +108,9 @@ public class Box implements Serializable, IManageable {
    
     public void setName(String name)
     {
+        if(name == null || name.trim().isEmpty()) {
+            throw new IllegalArgumentException();
+        }
         this.name.set(name);
     }
 
@@ -160,7 +166,7 @@ public class Box implements Serializable, IManageable {
     }
    
     public boolean isValidBox() {
-        return getActions().size() -1 == getExercises().size();
+        return getActions().size() == getExercises().size();
     }
     
     public StringProperty nameProperty() {

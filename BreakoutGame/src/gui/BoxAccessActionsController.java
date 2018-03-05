@@ -6,6 +6,8 @@
 package gui;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXPopup;
 import com.jfoenix.controls.JFXPopup.PopupHPosition;
 import com.jfoenix.controls.JFXPopup.PopupVPosition;
@@ -15,6 +17,7 @@ import domain.AccessCode;
 import domain.BoBAction;
 import domain.Box;
 import domain.BoxController;
+import domain.PersistMode;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Observable;
@@ -24,6 +27,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.scene.control.Label;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -79,6 +84,13 @@ public class BoxAccessActionsController extends AnchorPane implements Observer{
     @FXML
     private GridPane grid;
     private StackPane testS;
+    @FXML
+    private HBox hBoxInfo;
+    
+    private JFXTextField txtField;
+    private JFXPopup popup;
+    private JFXDialog dialog;
+    
     public BoxAccessActionsController(BoxController dc)
     {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("BoxAccessActions.fxml"));
@@ -90,6 +102,9 @@ public class BoxAccessActionsController extends AnchorPane implements Observer{
             System.out.printf(ex.getMessage());
         }
         this.dc = dc;
+        
+       
+     
       JFXDepthManager.setDepth(tblAllAccess, 1);
       JFXDepthManager.setDepth(tblSelectedAccess, 1);
       JFXDepthManager.setDepth(tblAllActions, 1);
@@ -100,22 +115,23 @@ public class BoxAccessActionsController extends AnchorPane implements Observer{
       tblAllActions.setItems(dc.getActions());
       clmAllActionName.setCellValueFactory(e -> e.getValue().nameProperty());
       
-         tblAllAccess.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> 
+      tblAllAccess.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection)
+                -> 
                 {
                     if (newSelection != null)
                     {
-                        JFXButton btnSave =  new JFXButton("Save");
-                        btnSave.setOnMouseClicked(e -> {
-                            
-                        });
-                        HBox test = new HBox(new JFXTextField(String.valueOf(newSelection.getCode())));
-                        test.setPrefWidth(tblAllAccess.getWidth());
-                        JFXPopup popup = new JFXPopup(test);
-                        if(tblAllAccess.getSelectionModel().getSelectedIndex() == tblAllAccess.getItems().size() - 1)
-                         popup.show(tblAllAccess, PopupVPosition.TOP, PopupHPosition.LEFT);
-                        else
-                              popup.show(tblAllAccess, PopupVPosition.TOP, PopupHPosition.LEFT);
-                        System.out.println(tblAllAccess.getSelectionModel().getSelectedIndex());
+                        selectAccessCode(newSelection);
+
+                    }
+        });
+
+       tblSelectedAccess.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection)
+                -> 
+                {
+                    if (newSelection != null)
+                    {
+                        selectAccessCode(newSelection);
+
                     }
         });
         tblAllAccess.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -123,6 +139,39 @@ public class BoxAccessActionsController extends AnchorPane implements Observer{
         tblSelectedAccess.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         tblSelectedActions.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
      
+        
+        btnSave.setDisable(true);
+        
+    }
+
+    private void selectAccessCode(AccessCode newSelection)
+    {
+        dc.setManagerMode(PersistMode.UPDATE);
+        dc.setSelectedAccessCode(newSelection);
+        JFXButton btnSaveLoc =  new JFXButton("Save");
+        
+        //  JFXTextField txtField = new JFXTextField(String.valueOf(newSelection.getCode()));
+        popup = new JFXPopup();
+        txtField = new JFXTextField();
+        txtField.setText(String.valueOf(newSelection.getCode()));
+        txtField.setPromptText("Actie veranderen");
+        txtField.setPrefWidth(hBoxInfo.getWidth());
+        txtField.setPrefHeight(USE_COMPUTED_SIZE);
+        txtField.setPadding(new Insets(5));
+        
+     
+        btnSaveLoc.setOnMouseClicked(e -> {
+            dc.saveAccessCode(Integer.valueOf(txtField.getText()));
+        });
+        
+        HBox test = new HBox(txtField, btnSaveLoc);
+        test.setPrefWidth(hBoxInfo.getWidth());
+        
+        
+        
+        popup.setPopupContent(test);
+        
+        popup.show(hBoxInfo, PopupVPosition.TOP, PopupHPosition.LEFT);
     }
 
     @Override
@@ -137,12 +186,24 @@ public class BoxAccessActionsController extends AnchorPane implements Observer{
         
         txtDescription.setText(box.getDescription());
         txtName.setText(box.getName());
+          btnSave.setDisable(false);
     }
 
     @FXML
     private void saveBox(ActionEvent event)
-    {
-        dc.saveBox(txtName.getText(), txtDescription.getText());
+    { 
+        try {
+             dc.saveBox(txtName.getText(), txtDescription.getText());
+        } catch(IllegalArgumentException e) {
+            JFXDialogLayout layout = new JFXDialogLayout();
+            layout.setBody(new Label(e.getMessage()));
+            JFXButton okButton = new JFXButton("OK ik zal het niet meer doen");
+            okButton.setOnMouseClicked(e2 -> dialog.close());
+            layout.setActions(okButton);
+            dialog.setContent(layout);
+            dialog.show();
+        }
+       
     }
 
     @FXML
@@ -166,41 +227,21 @@ public class BoxAccessActionsController extends AnchorPane implements Observer{
     @FXML
     private void removeAction(ActionEvent event)
     {
-        dc.removeFromTempList(tblSelectedActions.getSelectionModel().getSelectedItems());
+        if(tblSelectedActions.getSelectionModel().getSelectedItems().stream().allMatch(e -> !e.getName().equals("Zoek een kist")))
+           dc.removeFromTempList(tblSelectedActions.getSelectionModel().getSelectedItems());
+        else {
+            JFXDialogLayout layout = new JFXDialogLayout();
+            layout.setBody(new Label("Je hebt proberen de actie schatkist zoeken te verwijderen, deze actie is verplicht op te namen bij elke box(tm)"));
+            JFXButton okButton = new JFXButton("OK ik zal het niet meer doen");
+            okButton.setOnMouseClicked(e -> dialog.close());
+            layout.setActions(okButton);
+            dialog.setContent(layout);
+            dialog.show();
+        }
     }
 
-    private void test(ActionEvent event)
-    {
-          JFXPopup popup = new JFXPopup(hBoxActions);
-          hBoxActions.setPrefHeight(300);
-             hBoxActions.setPrefWidth(300);
-          popup.setWidth(20000);
-          popup.setHeight(20000);
-          popup.show(grid);
-    }
-
-    private void showAccess(ActionEvent event)
-    {
-      /*   JFXPopup popup = new JFXPopup(hboxAccess);
-          hboxAccess.setPrefHeight(300);
-             hboxAccess.setPrefWidth(300);
-          popup.setWidth(20000);
-          popup.setHeight(20000);
-             hboxAccess.setVisible(true);
-          popup.show(grid);*/
-        hboxAccess.setVisible(true);
-        testS.getChildren().add(hboxAccess);          
-    }
-
-    private void showActions(ActionEvent event)
-    {
-         JFXPopup popup = new JFXPopup(hBoxActions);
-          hBoxActions.setPrefHeight(300);
-             hBoxActions.setPrefWidth(300);
-          popup.setWidth(20000);
-          popup.setHeight(20000);
-            hBoxActions.setVisible(true);
-          popup.show(grid);
+    public void setDialog(JFXDialog dialogLayout) {
+        dialog = dialogLayout;
     }
 
    

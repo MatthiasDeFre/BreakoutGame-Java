@@ -90,4 +90,8 @@ public class PersistenceController {
        IGenericRepository repository = repositories.get(type.getSimpleName());
        repository.delete(object);
     }
+    
+    public boolean boxExists(String name) {
+        return ((BoxRepository) repositories.get(Box.class.getSimpleName())).contains(name);
+    }
 }
