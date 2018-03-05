@@ -46,7 +46,11 @@ public class Box implements Serializable, IManageable {
    public Box() {
        //Treasurechest
        actions = new ArrayList<>();
-       actions.add(new BoBAction());
+       BoBAction boBAction = new BoBAction("Zoek een kist");
+       boBAction.setId(1);
+       actions.add(boBAction);
+       exercises = new HashSet<>();
+       accessCodes = new ArrayList<>();
    }
 
     public Box(String description, String name, Set<Exercise> exercises, List<AccessCode> accessCodes, List<BoBAction> actions)
@@ -60,6 +64,8 @@ public class Box implements Serializable, IManageable {
     
     public void copy(Box box) {
         setDescription(box.getDescription());
+        //Needed to update table..
+        setName("RESET");
         setName(box.getName());
         setExercises(new HashSet<>(box.getExercises()));
         setAccessCodes(new ArrayList<>(box.getAccessCodes()));

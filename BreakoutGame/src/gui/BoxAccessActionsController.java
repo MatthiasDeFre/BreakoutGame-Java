@@ -24,11 +24,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 
 /**
  * FXML Controller class
@@ -65,6 +68,17 @@ public class BoxAccessActionsController extends AnchorPane implements Observer{
     private JFXButton btnSave;
     @FXML
     private HBox hBoxActions;
+    @FXML
+    private JFXButton btnAddAccess;
+    @FXML
+    private JFXButton btnRemoveAccess;
+    @FXML
+    private JFXButton btnAddAction;
+    @FXML
+    private JFXButton btnRemoveAction;
+    @FXML
+    private GridPane grid;
+    private StackPane testS;
     public BoxAccessActionsController(BoxController dc)
     {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("BoxAccessActions.fxml"));
@@ -76,8 +90,10 @@ public class BoxAccessActionsController extends AnchorPane implements Observer{
             System.out.printf(ex.getMessage());
         }
         this.dc = dc;
-      JFXDepthManager.setDepth(hboxAccess, 5);
-            JFXDepthManager.setDepth(hBoxActions, 5);
+      JFXDepthManager.setDepth(tblAllAccess, 1);
+      JFXDepthManager.setDepth(tblSelectedAccess, 1);
+      JFXDepthManager.setDepth(tblAllActions, 1);
+      JFXDepthManager.setDepth(tblSelectedActions, 1);
       tblAllAccess.setItems(dc.getAccessCodes());
       clmAllAccessName.setCellValueFactory(e -> e.getValue().codeProperty().asObject());
     
@@ -88,7 +104,11 @@ public class BoxAccessActionsController extends AnchorPane implements Observer{
                 {
                     if (newSelection != null)
                     {
-                        HBox test = new HBox(new JFXTextField(String.valueOf(newSelection.getCode())), new JFXButton("Save"));
+                        JFXButton btnSave =  new JFXButton("Save");
+                        btnSave.setOnMouseClicked(e -> {
+                            
+                        });
+                        HBox test = new HBox(new JFXTextField(String.valueOf(newSelection.getCode())));
                         test.setPrefWidth(tblAllAccess.getWidth());
                         JFXPopup popup = new JFXPopup(test);
                         if(tblAllAccess.getSelectionModel().getSelectedIndex() == tblAllAccess.getItems().size() - 1)
@@ -98,7 +118,11 @@ public class BoxAccessActionsController extends AnchorPane implements Observer{
                         System.out.println(tblAllAccess.getSelectionModel().getSelectedIndex());
                     }
         });
-      
+        tblAllAccess.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        tblAllActions.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        tblSelectedAccess.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        tblSelectedActions.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+     
     }
 
     @Override
@@ -119,6 +143,64 @@ public class BoxAccessActionsController extends AnchorPane implements Observer{
     private void saveBox(ActionEvent event)
     {
         dc.saveBox(txtName.getText(), txtDescription.getText());
+    }
+
+    @FXML
+    private void addAccess(ActionEvent event)
+    {
+        dc.addToTempList(tblAllAccess.getSelectionModel().getSelectedItems());
+    }
+
+    @FXML
+    private void removeAccess(ActionEvent event)
+    {
+        dc.removeFromTempList(tblSelectedAccess.getSelectionModel().getSelectedItems());
+    }
+
+    @FXML
+    private void addAction(ActionEvent event)
+    {
+        dc.addToTempList(tblAllActions.getSelectionModel().getSelectedItems());
+    }
+
+    @FXML
+    private void removeAction(ActionEvent event)
+    {
+        dc.removeFromTempList(tblSelectedActions.getSelectionModel().getSelectedItems());
+    }
+
+    private void test(ActionEvent event)
+    {
+          JFXPopup popup = new JFXPopup(hBoxActions);
+          hBoxActions.setPrefHeight(300);
+             hBoxActions.setPrefWidth(300);
+          popup.setWidth(20000);
+          popup.setHeight(20000);
+          popup.show(grid);
+    }
+
+    private void showAccess(ActionEvent event)
+    {
+      /*   JFXPopup popup = new JFXPopup(hboxAccess);
+          hboxAccess.setPrefHeight(300);
+             hboxAccess.setPrefWidth(300);
+          popup.setWidth(20000);
+          popup.setHeight(20000);
+             hboxAccess.setVisible(true);
+          popup.show(grid);*/
+        hboxAccess.setVisible(true);
+        testS.getChildren().add(hboxAccess);          
+    }
+
+    private void showActions(ActionEvent event)
+    {
+         JFXPopup popup = new JFXPopup(hBoxActions);
+          hBoxActions.setPrefHeight(300);
+             hBoxActions.setPrefWidth(300);
+          popup.setWidth(20000);
+          popup.setHeight(20000);
+            hBoxActions.setVisible(true);
+          popup.show(grid);
     }
 
    

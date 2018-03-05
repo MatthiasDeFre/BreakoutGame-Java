@@ -7,6 +7,7 @@ package domain;
 
 import domain.managers.IManageable;
 import java.io.Serializable;
+import java.util.Objects;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javax.persistence.Column;
@@ -65,6 +66,37 @@ public class BoBAction implements IManageable, Serializable {
     
     public StringProperty nameProperty() {
         return name;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int hash = 3;
+        hash = 37 * hash + Objects.hashCode(this.getName());
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (this == obj)
+        {
+            return true;
+        }
+        if (obj == null)
+        {
+            return false;
+        }
+        if (getClass() != obj.getClass())
+        {
+            return false;
+        }
+        final BoBAction other = (BoBAction) obj;
+        if (!Objects.equals(this.getName(), other.getName()))
+        {
+            return false;
+        }
+        return true;
     }
     
 }

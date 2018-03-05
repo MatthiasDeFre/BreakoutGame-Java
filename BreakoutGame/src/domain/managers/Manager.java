@@ -82,6 +82,8 @@ public abstract class Manager<T extends domain.managers.IManageable> implements 
     }
     public void delete() {
         persistenceController.deleteObject(type, selected);
+        items.remove(selected);
+      
     }
 
     @Override

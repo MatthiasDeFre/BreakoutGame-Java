@@ -1,6 +1,6 @@
 .root {
     -fx-font-family: Roboto;
-    src: "/resources/roboto/Roboto-Regular.ttf";
+    src: "gui/assets/fonts/Roboto-Regular.ttf";
 }
 
 

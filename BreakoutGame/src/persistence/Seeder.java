@@ -68,8 +68,8 @@ public class Seeder {
            BoBAction action2 = new BoBAction("Zoek een kist");
            
            List<BoBAction> acs = new ArrayList<>();
-           acs.add(action);
            acs.add(action2);
+           acs.add(action);
           
            List<Exercise> test = new ArrayList();
            test.add(ex1);

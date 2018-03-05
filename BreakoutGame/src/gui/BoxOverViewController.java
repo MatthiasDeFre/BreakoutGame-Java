@@ -5,6 +5,7 @@
  */
 package gui;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.effects.JFXDepthManager;
 import domain.Box;
 import domain.BoxController;
@@ -14,6 +15,7 @@ import java.net.URL;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -44,6 +46,12 @@ public class BoxOverViewController extends AnchorPane implements Observer {
     private TableColumn<Box, String> clmDescription;
 
     private BoxController dc;
+    @FXML
+    private JFXButton btnNew;
+    @FXML
+    private JFXButton btnCopy;
+    @FXML
+    private JFXButton btnRemove;
 
     public BoxOverViewController(BoxController dc)
     {
@@ -58,7 +66,8 @@ public class BoxOverViewController extends AnchorPane implements Observer {
             System.out.printf(ex.getMessage());
         }
         this.dc = dc;
-        JFXDepthManager.setDepth(tblBox, 20);
+        JFXDepthManager.setDepth(tblBox, 1);
+        
         tblBox.setItems(dc.getBoxes());
         clmName.setCellFactory(e -> 
                 {
@@ -74,13 +83,16 @@ public class BoxOverViewController extends AnchorPane implements Observer {
 
                             if (!isEmpty())
                             {
-                                if (!currentRow.getItem().isValidBox())
+                              if(currentRow.getItem() != null) {
+                                    if (!currentRow.getItem().isValidBox())
                                 {
                                     currentRow.setStyle("-fx-background-color:lightcoral");
                                 } else
                                 {
-                                    currentRow.setStyle("-fx-background-color:white");
+                                    currentRow.setStyle("-fx-background-color:yellow");
                                 }
+                                }
+                                
                             }
                         }
                     };
@@ -108,6 +120,29 @@ public class BoxOverViewController extends AnchorPane implements Observer {
     {
         dc.setSelectedBox(tblBox.getSelectionModel().getSelectedItem());
         dc.setManagerMode(PersistMode.UPDATE);
+    }
+
+    @FXML
+    private void createNewBox(ActionEvent event)
+    {
+        dc.setManagerMode(PersistMode.NEW);
+        dc.setSelectedBox(new Box());
+    }
+
+    @FXML
+    private void copySelected(ActionEvent event)
+    {
+        dc.setManagerMode(PersistMode.NEW);
+        Box box = new Box();
+        box.copy(tblBox.getSelectionModel().getSelectedItem());
+        dc.setSelectedBox(box);
+    }
+
+    @FXML
+    private void removeSelected(ActionEvent event)
+    {
+        dc.removeBox();
+        dc.setSelectedBox(new Box());
     }
 
 }

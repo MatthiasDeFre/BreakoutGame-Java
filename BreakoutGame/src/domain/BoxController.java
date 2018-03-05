@@ -121,4 +121,8 @@ public class BoxController {
             filters.get(test).applyFilter();
         }
       }
+    
+    public void removeBox() {
+        boxManager.delete();
+    }
 }
