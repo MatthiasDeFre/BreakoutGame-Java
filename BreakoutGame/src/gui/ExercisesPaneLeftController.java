@@ -6,6 +6,7 @@
 package gui;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXColorPicker;
 import com.jfoenix.effects.JFXDepthManager;
 import domain.Exercise;
 import domain.ExerciseDomainController;
@@ -16,14 +17,21 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 
 /**
  * FXML Controller class
@@ -50,6 +58,8 @@ public class ExercisesPaneLeftController extends AnchorPane {
     private ObservableList<Exercise> listExercices;
     @FXML
     private AnchorPane AnchorPane;
+    @FXML
+    private JFXColorPicker colorPicker;
 
     public ExercisesPaneLeftController(ExerciseDomainController dc) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ExercisesPaneLeft.fxml"));
@@ -93,6 +103,12 @@ public class ExercisesPaneLeftController extends AnchorPane {
     private void setExerciseToDc() {
         dc.setManagerMode(PersistMode.UPDATE);
         dc.setExercise(tblExercises.getSelectionModel().getSelectedItem());
+    }
+
+    @FXML
+    private void colorPickerOnAction(ActionEvent event) {
+        Color selectedColor =  colorPicker.getValue();
+        tblExercises.setBackground(new Background(new BackgroundFill(Paint.valueOf(selectedColor.toString()), CornerRadii.EMPTY, Insets.EMPTY)));
     }
 
 }

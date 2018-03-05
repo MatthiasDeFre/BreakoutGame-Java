@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXColorPicker?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
 
-<fx:root id="AnchorPane" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #a5acb8;" type="AnchorPane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root id="AnchorPane" minWidth="600.0" prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #a5acb8;" type="AnchorPane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TableView fx:id="tblExercises" layoutX="56.0" layoutY="51.0" prefHeight="311.0" prefWidth="287.0" stylesheets="@assets/css/jfoenix-components.css" AnchorPane.bottomAnchor="38.0" AnchorPane.leftAnchor="56.0" AnchorPane.rightAnchor="257.0" AnchorPane.topAnchor="51.0">
+      <TableView fx:id="tblExercises" layoutX="56.0" layoutY="51.0" prefHeight="363.0" prefWidth="490.0" stylesheets="@assets/css/jfoenix-components.css" AnchorPane.bottomAnchor="86.0" AnchorPane.leftAnchor="56.0" AnchorPane.rightAnchor="56.0" AnchorPane.topAnchor="51.0">
         <columns>
           <TableColumn fx:id="clmSection" prefWidth="75.0" text="Vak" />
           <TableColumn fx:id="clmDescription" prefWidth="75.0" text="Beschrijving" />
@@ -18,16 +23,43 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <VBox layoutX="409.0" layoutY="107.0" prefHeight="200.0" prefWidth="131.0" spacing="50.0" AnchorPane.bottomAnchor="93.0" AnchorPane.leftAnchor="409.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="107.0">
+      <Label layoutX="233.0" layoutY="14.0" text="Opdrachten">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <HBox layoutX="48.0" layoutY="442.0" prefHeight="27.0" prefWidth="507.0" spacing="30.0" AnchorPane.bottomAnchor="31.0" AnchorPane.leftAnchor="48.0" AnchorPane.rightAnchor="48.0">
          <children>
-            <JFXButton fx:id="btnCreateExercise" buttonType="RAISED" onMouseClicked="#btnCreateExerciseOnClick" prefHeight="25.0" prefWidth="133.0" style="-fx-background-color: #c7cfdd;" text="Opdracht aanmaken">
+            <JFXButton fx:id="btnCreateExercise" buttonType="RAISED" onMouseClicked="#btnCreateExerciseOnClick" prefHeight="25.0" prefWidth="155.0" style="-fx-background-color: #c7cfdd;" text="Opdracht aanmaken">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
+               <graphic>
+                  <ImageView fitHeight="15.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@assets/img/createIcon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </JFXButton>
-            <JFXButton fx:id="btnCopyExercise" buttonType="RAISED" onMouseClicked="#btnCopyExerciseOnClick" prefHeight="25.0" prefWidth="135.0" style="-fx-background-color: #c7cfdd;" text="Opdracht kopiëren" />
-            <JFXButton fx:id="btnDeleteExercise" buttonType="RAISED" onMouseClicked="#btnDeleteExerciseOnClick" prefHeight="25.0" prefWidth="136.0" style="-fx-background-color: #c7cfdd;" text="Opdracht verwijderen" />
+            <JFXButton fx:id="btnCopyExercise" buttonType="RAISED" onMouseClicked="#btnCopyExerciseOnClick" prefHeight="25.0" prefWidth="159.0" style="-fx-background-color: #c7cfdd;" text="Opdracht kopiëren">
+               <graphic>
+                  <ImageView fitHeight="15.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@assets/img/modifyIcon.png" />
+                     </image>
+                  </ImageView>
+               </graphic></JFXButton>
+            <JFXButton fx:id="btnDeleteExercise" buttonType="RAISED" onMouseClicked="#btnDeleteExerciseOnClick" prefHeight="25.0" prefWidth="166.0" style="-fx-background-color: #c7cfdd;" text="Opdracht verwijderen">
+               <graphic>
+                  <ImageView fitHeight="15.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@assets/img/delIcon.png" />
+                     </image>
+                  </ImageView>
+               </graphic></JFXButton>
          </children>
-      </VBox>
+      </HBox>
+      <JFXColorPicker fx:id="colorPicker" layoutX="444.0" layoutY="32.0" onAction="#colorPickerOnAction" opacity="0.7" promptText="Kleur" />
    </children>
 </fx:root>
