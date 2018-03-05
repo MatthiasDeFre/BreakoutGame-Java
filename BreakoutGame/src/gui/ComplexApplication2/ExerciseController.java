@@ -28,7 +28,7 @@ import javafx.scene.text.Font;
  *
  * @author Alexander
  */
-public class ComplexApplication_cssController extends VBox {
+public class ExerciseController extends VBox {
 
     @FXML
     private Color x2;
@@ -53,9 +53,9 @@ public class ComplexApplication_cssController extends VBox {
     @FXML
     private AnchorPane anchor2;
 
-    public ComplexApplication_cssController(ExerciseDomainController dc) {
+    public ExerciseController(ExerciseDomainController dc) {
       
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("ComplexApplication_css.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Exercise.fxml"));
         loader.setRoot(this);
         loader.setController(this);
         try {

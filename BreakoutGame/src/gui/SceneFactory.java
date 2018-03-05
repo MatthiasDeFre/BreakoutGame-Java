@@ -9,7 +9,7 @@ import domain.ListStudentController;
 import domain.SceneName;
 import static domain.SceneName.*;
 import domain.ExerciseDomainController;
-import gui.ComplexApplication2.ComplexApplication_cssController;
+import gui.ComplexApplication2.ExerciseController;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
@@ -24,9 +24,7 @@ public class SceneFactory {
 
     public SceneFactory(ExerciseDomainController dc) {
         add(STARTSCREEN, () -> new Scene(new StartScreenController(dc)));
-        add(EXERCISESCREEN, () -> new Scene(new ExerciseDetailScreenController(dc)));
-        add(EXERCISEMAINSCREEN, () -> new Scene(new gui.ExerciseController(dc)));
-        add(EXERCISEMAINSCREEN2, () -> new Scene(new ComplexApplication_cssController(dc)));
+        add(EXERCISEMAINSCREEN2, () -> new Scene(new ExerciseController(dc)));
     }
     
     public SceneFactory(ListStudentController dc)
