@@ -9,6 +9,7 @@ import domain.Exercise;
 import domain.ListStudentController;
 import domain.Student;
 import domain.ExerciseDomainController;
+import domain.PersistMode;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -45,13 +46,15 @@ public class ListStudentsController extends GridPane {
     private TextField lblVoornaam;
     private TextField lblAchternaam;
     @FXML
-    private Button btnRemoveStudent;
-    @FXML
     private TextField txtVoornaam;
     @FXML
     private TextField txtAchternaam;
     @FXML
     private Button btnAdd;
+    @FXML
+    private Button btnRemove;
+    @FXML
+    private Button btnModify;
     
     public ListStudentsController(ListStudentController dc) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ListStudents.fxml"));
@@ -67,25 +70,39 @@ public class ListStudentsController extends GridPane {
         tblStudents.setItems(listStudents);
         clmFirstName.setCellValueFactory(e->new SimpleStringProperty(e.getValue().getFirstName()));
         clmLastName.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getLastName()));
+        btnRemove.setOnAction(this::btnRemoveStudent);
         btnAdd.setOnAction(this::btnAddStudent);
+        
     }
     
     @FXML
     private void btnAddStudent(ActionEvent event) {
+        dc.setManagerMode(PersistMode.NEW);
         Student student= new Student(txtVoornaam.getText(),txtAchternaam.getText());
-        
         dc.setStudent(student);
         listStudents.add(student);
-        dc.createUser(student);
-        System.out.printf("%s %s is added",student.getFirstName(),student.getLastName());
-        
+//        Student student= new Student(txtVoornaam.getText(),txtAchternaam.getText());
+//        dc.setStudent(student);
+//        listStudents.add(student);
+//        dc.createUser(student);
+        System.out.printf("%s %s is added %n",student.getFirstName(),student.getLastName());
     }
     
-    private void btnRemoveStudent(MouseEvent event)
+    @FXML
+    private void btnRemoveStudent(ActionEvent event)
     {
-        tblStudents.getSelectionModel().getSelectedIndex();
+        //tblStudents.getSelectionModel().getSelectedIndex();
+//        Student student=new Student(tblStudents.getSelectionModel().getSelectedItem().getFirstName(),tblStudents.getSelectionModel().getSelectedItem().getLastName());
+//        System.out.printf("%s %s is verwijderd",student.getFirstName(),student.getLastName());
+//        dc.removeUser(student);
+        dc.setManagerMode(PersistMode.REMOVE);
+        Student student= tblStudents.getSelectionModel().getSelectedItem();
+        System.out.printf("eeeeee %s",student.getFirstName());
+        listStudents.remove(student);
+        dc.deleteStudent(student);
         
     }
+
     
  
 

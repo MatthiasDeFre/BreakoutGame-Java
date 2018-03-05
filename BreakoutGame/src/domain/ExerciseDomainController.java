@@ -53,7 +53,7 @@ public class ExerciseDomainController  {
        // setChanged();
        // notifyObservers(exercise);
     }
-    
+        
   //  public void 
     public ObservableList<GroupOperation> getGroupOperationsTemp() {
         return exerciseManager.getGroupOperationsTemp();

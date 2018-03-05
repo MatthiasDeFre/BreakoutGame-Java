@@ -14,20 +14,18 @@ import persistence.PersistenceController;
  *
  * @author geers
  */
-public class ListStudentController extends Observable{
+public class ListStudentController{
     private StudentManager studentManager;
     private PersistenceController persistenceController;
-
+  
     public ListStudentController() {
         this.persistenceController = new PersistenceController();
         this.studentManager = new StudentManager(persistenceController);
         
     }
 
-    
-    public void createUser(Student student)
-    {
-        studentManager.addStudent(student);
+    public void setManagerMode(PersistMode persistMode) {
+        persistenceController.setPersistMode(persistMode);
     }
     
      public List<Student> getListAllStudents()
@@ -43,4 +41,10 @@ public class ListStudentController extends Observable{
     {
         studentManager.setSelected(student);
     }
+    
+    public void deleteStudent(Student student)
+    {
+        studentManager.delete();
+    }
+
 }

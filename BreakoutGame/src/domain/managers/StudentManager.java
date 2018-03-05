@@ -29,4 +29,15 @@ public class StudentManager extends Manager<Student>
         getPersistenceController().persistObject(Student.class, getSelected());
     }
     
+    public void removeStudent(Student student)
+    {
+        
+    }
+    
+    @Override
+    public void setSelected(Student student)
+    {
+        super.setSelected(student);
+    }
+    
 }

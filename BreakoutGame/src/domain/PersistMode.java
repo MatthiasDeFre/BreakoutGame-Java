@@ -11,5 +11,6 @@ package domain;
  */
 public enum PersistMode {
     UPDATE,
-    NEW
+    NEW,
+    REMOVE
 }
