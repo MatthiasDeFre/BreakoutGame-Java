@@ -49,7 +49,7 @@
         </Menu>
       </menus>
     </MenuBar>
-    <SplitPane fx:id="splitPane" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS" />
+    <SplitPane id="pane" fx:id="splitPane" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" stylesheets="@../assets/css/style_1.css" VBox.vgrow="ALWAYS" />
   </children>
   <stylesheets>
     <URL value="@ComplexApplication.css" />

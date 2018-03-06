@@ -78,7 +78,10 @@ public class ExerciseController extends VBox {
         splitPane.getItems().add(screen2);
         splitPane.getItems().add(screen3);
 
-        this.setStyle("-fx-background-image: url('https://i.imgur.com/E1METw5.jpg')");
+        String image = ExerciseController.class.getResource("boeken.jpg").toExternalForm();
+        splitPane.setStyle("-fx-background-image: url('" + image + "'); " +
+           "-fx-background-position: center center; " +
+           "-fx-background-repeat: stretch;");
     }
 
 }

@@ -12,9 +12,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<fx:root id="AnchorPane" minWidth="600.0" prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #a5acb8;" type="AnchorPane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root id="pane" minWidth="600.0" prefHeight="500.0" prefWidth="600.0" stylesheets="@assets/css/style_1.css" type="AnchorPane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TableView fx:id="tblExercises" layoutX="56.0" layoutY="51.0" prefHeight="363.0" prefWidth="490.0" stylesheets="@assets/css/jfoenix-components.css" AnchorPane.bottomAnchor="86.0" AnchorPane.leftAnchor="56.0" AnchorPane.rightAnchor="56.0" AnchorPane.topAnchor="51.0">
+      <TableView fx:id="tblExercises" layoutX="56.0" layoutY="51.0" prefHeight="363.0" prefWidth="490.0" stylesheets="@assets/css/jfoenix-components.css" AnchorPane.bottomAnchor="200.0" AnchorPane.leftAnchor="56.0" AnchorPane.rightAnchor="56.0" AnchorPane.topAnchor="51.0">
         <columns>
           <TableColumn fx:id="clmSection" prefWidth="75.0" text="Vak" />
           <TableColumn fx:id="clmDescription" prefWidth="75.0" text="Beschrijving" />
