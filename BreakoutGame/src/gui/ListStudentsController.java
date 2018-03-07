@@ -12,6 +12,7 @@ import domain.ExerciseDomainController;
 import domain.PersistMode;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Observable;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -56,6 +57,8 @@ public class ListStudentsController extends GridPane {
     private Button btnRemove;
     @FXML
     private Button btnModify;
+    @FXML
+    private Button btnSave;
     
     public ListStudentsController(ListStudentController dc) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ListStudents.fxml"));
@@ -74,6 +77,8 @@ public class ListStudentsController extends GridPane {
         btnRemove.setOnAction(this::btnRemoveStudent);
         btnAdd.setOnAction(this::btnAddStudent);
         btnModify.setOnAction(this::btnModifyStudent);
+        btnSave.setOnAction(this::btnSaveStudent);
+        
         tblStudents.getSelectionModel().selectedItemProperty().addListener((obs,oldSelection,newSelection)->{
             if(newSelection != null)
                 setStudentToDC();
@@ -100,11 +105,12 @@ public class ListStudentsController extends GridPane {
 //        Student student=new Student(tblStudents.getSelectionModel().getSelectedItem().getFirstName(),tblStudents.getSelectionModel().getSelectedItem().getLastName());
 //        System.out.printf("%s %s is verwijderd",student.getFirstName(),student.getLastName());
 //        dc.removeUser(student);
-        dc.setManagerMode(PersistMode.REMOVE);
-        Student student= tblStudents.getSelectionModel().getSelectedItem();
-        System.out.printf("eeeeee %s",student.getFirstName());
-        listStudents.remove(student);
-        dc.deleteStudent(student);
+//        dc.setManagerMode(PersistMode.REMOVE);
+//        Student student= tblStudents.getSelectionModel().getSelectedItem();
+//        System.out.printf("eeeeee %s",student.getFirstName());
+//        listStudents.remove(student);
+//        dc.deleteStudent(student);
+
     }
 
     @FXML
@@ -118,6 +124,19 @@ public class ListStudentsController extends GridPane {
     {
         dc.setManagerMode(PersistMode.UPDATE);
         dc.setStudent(tblStudents.getSelectionModel().getSelectedItem());
+    }
+    
+    public void update(Observable o, Object obj)
+    {
+        Student student=(Student) obj;
+        
+    }
+
+    @FXML
+    private void btnSaveStudent(ActionEvent event) {
+         Student student=new Student(txtVoornaam.getText(),txtAchternaam.getText());
+         dc.saveStudent(txtVoornaam.getText(),txtAchternaam.getText());
+         listStudents.add(student);
     }
     
 }

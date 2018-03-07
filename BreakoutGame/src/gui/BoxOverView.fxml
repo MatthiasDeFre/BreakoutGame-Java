@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import com.jfoenix.controls.*?>
-<?import javafx.scene.paint.*?>
-<?import javafx.scene.text.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
 
-<fx:root maxWidth="800.0" prefHeight="618.0" prefWidth="500.0" stylesheets="@assets/css/jfoenix-components.css" type="AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxWidth="800.0" prefHeight="618.0" prefWidth="500.0" stylesheets="@assets/css/jfoenix-components.css" type="AnchorPane" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" minWidth="60.0" prefWidth="-1.0" style="&#10;" text="Overzicht boxen" textAlignment="CENTER" wrapText="false">
          <font>
@@ -33,7 +33,7 @@
          <children>
             <JFXButton fx:id="btnNew" onAction="#createNewBox" prefHeight="25.0" styleClass="button-raised" text="Maak nieuw" />
             <JFXButton fx:id="btnCopy" onAction="#copySelected" prefHeight="25.0" styleClass="button-raised" text="Kopieer" />
-            <JFXButton fx:id="btnRemove" onAction="#removeSelected" prefHeight="25.0" styleClass="button-raised" text="Verwijder" />
+            <JFXButton fx:id="btnRemove" onAction="#removeSelected" prefHeight="25.0" styleClass="button-raised" text="Verwijder" textFill="#b72323" />
          </children>
          <padding>
             <Insets left="10.0" right="10.0" />

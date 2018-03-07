@@ -47,4 +47,8 @@ public class ListStudentController{
         studentManager.delete();
     }
 
+    public void saveStudent(String voornaam, String achternaam) {
+        studentManager.save(new Student(voornaam,achternaam));
+    }
+
 }

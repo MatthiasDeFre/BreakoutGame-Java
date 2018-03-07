@@ -76,7 +76,8 @@ public class Student implements IManageable {
     }
 
     public void copy(Student student) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        setFirstName(student.getFirstName());
+        setLastName(student.getLastName());
     }
     
     

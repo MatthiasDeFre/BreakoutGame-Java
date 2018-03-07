@@ -23,8 +23,10 @@ public class SceneFactory {
     private final Map<SceneName, Supplier<Scene>> factory = new HashMap();
 
     public SceneFactory(ExerciseDomainController dc) {
+        add(MAINSCREEN,()->new Scene(new MainScreenController(dc)));
         add(STARTSCREEN, () -> new Scene(new StartScreenController(dc)));
         add(EXERCISEMAINSCREEN2, () -> new Scene(new ExerciseController(dc)));
+        
     }
     
     public SceneFactory(ListStudentController dc)

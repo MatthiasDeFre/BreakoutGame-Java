@@ -20,7 +20,7 @@ public class StudentManager extends Manager<Student>
     public StudentManager(PersistenceController persistence)
     {
           super(Student.class, persistence);
-        setItems(FXCollections.observableArrayList(persistence.getAllOfType(Student.class)));
+            setItems(FXCollections.observableArrayList(persistence.getAllOfType(Student.class)));
     }
     
     public void addStudent(Student object)
@@ -34,7 +34,7 @@ public class StudentManager extends Manager<Student>
     public void save(Student student)
     {
         ((Student) getSelected()).copy(student);
-        System.out.println(((Exercise) getSelected()).getId());
+        System.out.println(((Student) getSelected()).getId());
         super.save(student);
         
     }

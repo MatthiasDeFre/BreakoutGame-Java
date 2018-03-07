@@ -34,5 +34,6 @@
       <Label text="achternaam" GridPane.rowIndex="1" />
       <Button fx:id="btnRemove" mnemonicParsing="false" onAction="#btnRemoveStudent" text="Remove Student" GridPane.columnIndex="1" GridPane.rowIndex="3" />
       <Button fx:id="btnModify" mnemonicParsing="false" onAction="#btnModifyStudent" text="Modify Student" GridPane.rowIndex="3" />
+      <Button fx:id="btnSave" mnemonicParsing="false" onAction="#btnSaveStudent" text="Button" GridPane.rowIndex="1" />
    </children>
 </fx:root>
