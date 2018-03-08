@@ -5,6 +5,7 @@
  */
 package gui;
 
+import domain.BoxController;
 import domain.SceneName;
 import domain.ExerciseDomainController;
 import javafx.application.Application;
@@ -21,6 +22,7 @@ import util.LangConfig;
 import static javafx.application.Application.launch;
 import static javafx.application.Application.launch;
 import static javafx.application.Application.launch;
+import persistence.PersistenceController;
 
 /**
  *
@@ -29,25 +31,23 @@ import static javafx.application.Application.launch;
 public class Startup extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage stage) throws Exception {
 
-        Seeder.seedDatabaseWithStartData();
-        LangConfig.setLang();
-
-//        StartScreenController root = new StartScreenController();
-//        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-//        Scene scene = new Scene(root, primaryScreenBounds.getMinX(), primaryScreenBounds.getMinY());
-
-        SceneController2 sc2 = new SceneController2(new ExerciseDomainController(), primaryStage);
+       //   Seeder.seedDatabaseWithStartData();
+           LangConfig.setLang();
         
+        Scene scene = new Scene(new MainScreenController(new ExerciseDomainController()));
+        scene.getStylesheets().add(StartupMain.class.getResource("assets/css/jfoenix-components.css").toExternalForm());
+        SceneController4 sc4=new SceneController4(new ExerciseDomainController(), new BoxController(new PersistenceController()), stage, scene);
         Image icon = new Image("/gui/assets/img/icon.png");
-        primaryStage.getIcons().add(icon);
-        primaryStage.setTitle("BOB Manager");
-//        primaryStage.setScene(scene);
-        sc2.createScene(SceneName.EXERCISEMAINSCREEN2);
-        sc2.switchScene(SceneName.EXERCISEMAINSCREEN2);
-        primaryStage.setResizable(true);
-        primaryStage.show();
+        stage.getIcons().add(icon);
+        stage.setTitle("BOB Manager");
+      //  sc4.createScene(SceneName.BOXSCREEN);
+       // sc4.switchScene(SceneName.BOXSCREEN);
+    
+ //         stage.setMaximized(true);
+        stage.setResizable(true);
+        stage.show();
     }
 
     public static void main(String[] args) {

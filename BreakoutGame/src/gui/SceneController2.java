@@ -27,11 +27,11 @@ public class SceneController2 {
     public SceneController2(ExerciseDomainController dc, Stage primaryStage) {
         this.dc = dc;
         this.primaryStage = primaryStage;
-        sf = new SceneFactory(dc);
+ //       sf = new SceneFactory(dc);
     }
     
     public static void createScene(SceneName sn) {
-        scene = sf.createScene(sn);
+  //      scene = sf.createScene(sn);
     } 
 
     public static void switchScene(SceneName sn) {

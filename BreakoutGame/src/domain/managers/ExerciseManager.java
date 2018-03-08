@@ -37,7 +37,9 @@ public class ExerciseManager extends Manager<Exercise>
     public void addGroupOperationTemp(GroupOperation groupOperation) {
         groupOperationsTemp.add(groupOperation);
     }
-    
+    public void removeGroupOperationTemp(GroupOperation groupOperation) {
+        groupOperationsTemp.remove(groupOperation);
+    }
     public ObservableList<GroupOperation> getGroupOperationsTemp() {
         return groupOperationsTemp;
     }
@@ -51,6 +53,7 @@ public class ExerciseManager extends Manager<Exercise>
     @Override
     public void save(Exercise object)
     {
+         getPersistenceController().setPersistMode(getManagerMode());
         ((Exercise) getSelected()).copy(object);
         System.out.println(((Exercise) getSelected()).getId());
         super.save(object);

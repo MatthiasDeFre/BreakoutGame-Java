@@ -8,6 +8,7 @@ package gui;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXColorPicker;
 import com.jfoenix.effects.JFXDepthManager;
+import domain.Box;
 import domain.Exercise;
 import domain.ExerciseDomainController;
 import domain.PersistMode;
@@ -83,8 +84,7 @@ public class ExercisesPaneLeftController extends AnchorPane {
             }
         });
         
-        JFXDepthManager.setDepth(tblExercises, 3);
-        //gggg
+        JFXDepthManager.setDepth(tblExercises, 1);
     }
 
     @FXML
@@ -95,10 +95,17 @@ public class ExercisesPaneLeftController extends AnchorPane {
 
     @FXML
     private void btnCopyExerciseOnClick(MouseEvent event) {
+        dc.setManagerMode(PersistMode.NEW);
+        Exercise box = new Exercise(tblExercises.getSelectionModel().getSelectedItem());
+      //  box.copy();
+        box.setName(box.getName() + "_" + "COPY");
+        dc.setExercise(box);
     }
 
     @FXML
     private void btnDeleteExerciseOnClick(MouseEvent event) {
+        dc.deleteExercise();
+        dc.setExercise(new Exercise());
     }
 
     private void setExerciseToDc() {

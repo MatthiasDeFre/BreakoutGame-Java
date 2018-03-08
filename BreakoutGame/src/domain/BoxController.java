@@ -10,6 +10,7 @@ import domain.managers.ActionManager;
 import domain.managers.BoxManager;
 import domain.managers.ExerciseManager;
 import domain.managers.IManageable;
+import domain.managers.Manager;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -31,8 +32,9 @@ public class BoxController {
     private BoxManager boxManager;
     private ExerciseManager exerciseManager;
     private ActionManager actionManager;
-    private AccessCodeManager accessCodeManager;
+   private AccessCodeManager accessCodeManager;
     
+    private Map<String, Manager> managers;
     private Map<String, ManagerFilter> filters;
 
     public BoxController(PersistenceController pc)
@@ -40,7 +42,7 @@ public class BoxController {
         persistenceController = pc;
         boxManager= new BoxManager(persistenceController);
         exerciseManager = new ExerciseManager(persistenceController);
-        actionManager = new ActionManager(persistenceController);
+       actionManager = new ActionManager(persistenceController);
         accessCodeManager = new AccessCodeManager(persistenceController);
         
         filters = new HashMap<>();
@@ -49,10 +51,16 @@ public class BoxController {
         filters.put(BoBAction.class.getSimpleName(), () ->  actionManager.changeFilter(boxManager.getActionsTemp()));
         filters.put(AccessCode.class.getSimpleName(), () -> accessCodeManager.changeFilter(boxManager.getAccessCodesTemp()));
         
+        managers = new HashMap<>();
+        
+        managers.put(Box.class.getSimpleName(), boxManager);
+        managers.put(Exercise.class.getSimpleName(), exerciseManager);
+        managers.put(BoBAction.class.getSimpleName(), actionManager);
+        managers.put(AccessCode.class.getSimpleName(), accessCodeManager);
     }
     
     
-    public FilteredList getBoxes() {
+   /* public FilteredList getBoxes() {
         return boxManager.getFilteredItems();
     }
     
@@ -66,21 +74,33 @@ public class BoxController {
     
     public FilteredList getAccessCodes() {
         return accessCodeManager.getFilteredItems();
+    }*/
+    
+    public FilteredList getFilteredItems(Class<? extends IManageable> className) {
+        return managers.get(className.getSimpleName()).getFilteredItems();
     }
     
-    public void setSelectedBox(Box box) {
+   /* public void setSelectedBox(Box box) {
         boxManager.setSelected(box);
         applyFilters();
     }
     
     public void setSelectedAccessCode(AccessCode code) {
         accessCodeManager.setSelected(code);
-    }
+    }*/
     
     public void addObserverBox(Observer obs) {
         boxManager.addObserver(obs);
     }
     
+    public void setSelectedItem(IManageable obj) {
+        managers.get(obj.getClass().getSimpleName()).setSelected(obj);
+        applyFilters();
+    }
+    
+ /*   public void addObserver(String className, Observer object) {
+        managers.get(className).addObserver(object);
+    }*/
     public ObservableList<AccessCode> getTempListAccessCodes() {
         return boxManager.getAccessCodesTemp();
     }
@@ -117,8 +137,9 @@ public class BoxController {
         AccessCode accessCode = new AccessCode(code);
         accessCodeManager.save(accessCode);
     }
-      public void setManagerMode(PersistMode persistMode) {
-        persistenceController.setPersistMode(persistMode);
+      public void setManagerMode(Class<? extends IManageable> className, PersistMode persistMode) {
+          System.out.println(className.getSimpleName());
+       managers.get(className.getSimpleName()).setManagerMode(persistMode);
     }
     
       public <T extends  IManageable> void addToTempList(List<T> obj) {

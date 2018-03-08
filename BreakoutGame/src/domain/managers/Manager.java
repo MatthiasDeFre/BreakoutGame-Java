@@ -34,6 +34,9 @@ public abstract class Manager<T extends domain.managers.IManageable> implements 
     private ObservableList<T> items;
     private FilteredList<T> itemsFiltered;
     private PersistenceController persistenceController;
+    
+    private PersistMode mode;
+    
     protected Manager(Class<T> type, PersistenceController persistenceController)
     {
       //  setItems(FXCollections.observableArrayList());
@@ -100,5 +103,12 @@ public abstract class Manager<T extends domain.managers.IManageable> implements 
     
     public void notifyObservers(T object) {
         observers.forEach(e -> e.update(null, object));
+    }
+    
+    public PersistMode getManagerMode() {
+        return mode;
+    }
+    public void setManagerMode(PersistMode mode) {
+        this.mode = mode;
     }
 }

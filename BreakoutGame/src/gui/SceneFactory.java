@@ -5,6 +5,7 @@
  */
 package gui;
 
+import domain.BoxController;
 import domain.ListStudentController;
 import domain.SceneName;
 import static domain.SceneName.*;
@@ -13,6 +14,7 @@ import gui.ComplexApplication2.ExerciseController;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 
 /**
@@ -20,26 +22,27 @@ import javafx.scene.Scene;
  * @author Alexander
  */
 public class SceneFactory {
-    private final Map<SceneName, Supplier<Scene>> factory = new HashMap();
+    private final Map<SceneName, Supplier<Parent>> factory = new HashMap();
 
-    public SceneFactory(ExerciseDomainController dc) {
-        add(MAINSCREEN,()->new Scene(new MainScreenController(dc)));
-        add(STARTSCREEN, () -> new Scene(new StartScreenController(dc)));
-        add(EXERCISEMAINSCREEN2, () -> new Scene(new ExerciseController(dc)));
+    public SceneFactory(ExerciseDomainController dc, BoxController dc2) {
+        add(MAINSCREEN,()-> new MainScreenController(dc));
+        add(STARTSCREEN, () -> new StartScreenController(dc));
+        add(EXERCISEMAINSCREEN2, () -> new ExerciseController(dc));
+        add(BOXSCREEN, () ->new BoxStartScreenController(dc2));
         
     }
     
     public SceneFactory(ListStudentController dc)
     {
-        add(STUDENTSSCREEN, () -> new Scene(new ListStudentsController(dc)));
+     //   add(STUDENTSSCREEN, () -> new Scene(new ListStudentsController(dc)));
     }
     
-    private void add(SceneName sn, Supplier<Scene> scene) {
+    private void add(SceneName sn, Supplier<Parent> scene) {
         factory.put(sn, scene);
     }
     
-    public Scene createScene(SceneName sn) {
-        Supplier<Scene> scene = factory.get(sn);
+    public Parent createScene(SceneName sn) {
+        Supplier<Parent> scene = factory.get(sn);
         return scene != null ? scene.get() : null;
     }
     

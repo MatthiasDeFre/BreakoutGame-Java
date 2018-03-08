@@ -59,7 +59,7 @@ public class BoxExerciseListController extends AnchorPane implements Observer{
             System.out.printf(ex.getMessage());
         }
         this.dc = dc;
-        ObservableList exAll = dc.getExercises();
+        ObservableList exAll = dc.getFilteredItems(Exercise.class);
         tblAllExercise.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         tblAllExercise.setItems(exAll);
         clmALLClass.setCellValueFactory(e -> e.getValue().categoryProperty());

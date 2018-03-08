@@ -8,7 +8,6 @@ package gui;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
-import com.jfoenix.effects.JFXDepthManager;
 import domain.Category;
 import domain.Exercise;
 import domain.ExerciseDomainController;
@@ -24,7 +23,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
@@ -58,8 +56,6 @@ public class ExerciseDetailsPaneMidController extends AnchorPane implements Obse
     private JFXTextField txfOpdracht;
     @FXML
     private JFXButton btnAssignment;
-    @FXML
-    private VBox vboxInfo;
 
     public ExerciseDetailsPaneMidController(ExerciseDomainController dc) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ExerciseDetailsPaneMid.fxml"));
@@ -90,12 +86,9 @@ public class ExerciseDetailsPaneMidController extends AnchorPane implements Obse
         cmbCategory.getSelectionModel().selectedItemProperty().addListener((o, ol, nw) -> {
             System.out.println(cmbCategory.getValue().getDescription());
         });
+
     }
 
-    @FXML
-    private void btnSaveExOnAction(ActionEvent event) {
-        // dc.saveExercise(txtEx.getText(), txtAnw.getText(), txtFeedback.getText(), txtAssignment.getText(), cmbCategory.getSelectionModel().getSelectedIndex());
-    }
 
     @Override
     public void update(Observable o, Object obj) {
@@ -104,6 +97,8 @@ public class ExerciseDetailsPaneMidController extends AnchorPane implements Obse
         txtEx.setText(exercise.getName());
         //    txtCat.setText(exercise.getCategoryDescription());
         cmbCategory.getSelectionModel().select(exercise.getCategory());
+        txfOpdracht.setText(exercise.getAssignment());
+        txfFeedback.setText(exercise.getFeedback());
         //     tblViewGroupOperations.setItems(exercise.getGroupOperationsObservableList()); //deze gebruiken
         //clmCat.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getCategory().getDescription()));
         //  clmValue.setCellValueFactory(e -> new SimpleStringProperty(String.valueOf(e.getValue().getDescription()))); //deze gebruiken
@@ -130,6 +125,12 @@ public class ExerciseDetailsPaneMidController extends AnchorPane implements Obse
 
         File selectedFile = fileChooser.showOpenDialog(new Stage()); //moet nog aangepast worden
         txfOpdracht.setText(selectedFile.getPath());
+    }
+
+    @FXML
+    private void btnSaveExOnAction(ActionEvent event)
+    {
+        dc.saveExercise(txtEx.getText(), txtAnw.getText(), txfFeedback.getText(), txfOpdracht.getText(), cmbCategory.getSelectionModel().getSelectedIndex());
     }
 
 }

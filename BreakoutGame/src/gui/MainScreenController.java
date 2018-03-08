@@ -23,6 +23,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
@@ -42,6 +43,12 @@ public class MainScreenController extends AnchorPane implements Observer{
     private JFXButton btnExercise;
     @FXML
     private HBox hBox;
+    @FXML
+    private Label lblTitle;
+    @FXML
+    private Label lblTeam;
+    @FXML
+    private Label lblVersion;
 
     public MainScreenController(ExerciseDomainController dc) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("MainScreen.fxml"));
@@ -55,19 +62,20 @@ public class MainScreenController extends AnchorPane implements Observer{
 
         this.dc=dc;
         hBox.setAlignment(Pos.CENTER);
-//        btnBox.setOnAction(this::btnBoxStartScreen);
-//        btnAnder.setOnAction(this::btnAnderScreen);
-//         String image = MainScreenController.class.getResource("boeken.jpg").toExternalForm();
-//        AnchorPane.setStyle("-fx-background-image: url('" + image + "'); " +
-//           "-fx-background-position: center center; " +
-//           "-fx-background-repeat: stretch;");
+        lblTitle.setAlignment(Pos.TOP_CENTER);
+        lblTeam.setAlignment(Pos.BOTTOM_RIGHT);
+        lblVersion.setAlignment(Pos.BOTTOM_LEFT);
+        this.requestFocus();
+    String image = MainScreenController.class.getResource("boeken.jpg").toExternalForm();
+      this.setStyle("-fx-background-image: url('" + image + "'); " +
+           "-fx-background-position: center center; " +
+           "-fx-background-repeat: stretch;");
     }
 
-    
     @FXML
     private void btnBoxStartScreen(ActionEvent event) {
-        SceneController4.createScene(SceneName.STARTSCREEN);
-        SceneController4.switchScene(SceneName.STARTSCREEN);
+        SceneController4.createScene(SceneName.BOXSCREEN);
+        SceneController4.switchScene(SceneName.BOXSCREEN);
     }
 
     @Override
@@ -78,6 +86,6 @@ public class MainScreenController extends AnchorPane implements Observer{
     @FXML
     private void btnExerciseStart(ActionEvent event) {
         SceneController4.createScene(SceneName.EXERCISEMAINSCREEN2);
-     SceneController4.switchScene(SceneName.EXERCISEMAINSCREEN2);
+        SceneController4.switchScene(SceneName.EXERCISEMAINSCREEN2);
     }
 }

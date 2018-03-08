@@ -5,9 +5,11 @@
  */
 package gui;
 
+import domain.BoxController;
 import domain.ExerciseDomainController;
 import domain.ListStudentController;
 import domain.SceneName;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -20,20 +22,26 @@ public class SceneController4 {
     private static Stage primaryStage;
     private static SceneFactory sf;
     private static Scene scene; 
+    private static Parent parent;
 
-    public SceneController4(ExerciseDomainController dc, ListStudentController dc2,Stage primaryStage) {
+    public SceneController4(ExerciseDomainController dc, BoxController dc2,Stage primaryStage, Scene scene) {
         this.dc = dc;
         this.primaryStage = primaryStage;
-        sf = new SceneFactory(dc);
+        sf = new SceneFactory(dc, dc2);
+        this.scene = scene;
+        primaryStage.setScene(scene);
     }
     
     
     public static void createScene(SceneName sn) {
-        scene = sf.createScene(sn);
+        primaryStage.setMaximized(true);
+      parent = sf.createScene(sn);
     } 
 
     public static void switchScene(SceneName sn) {
-
-        primaryStage.setScene(scene);
+    primaryStage.setMaximized(true);
+        scene.setRoot(parent);
+      //  primaryStage.setScene(scene);
+     //   primaryStage.setMaximized(true);
     }
 }

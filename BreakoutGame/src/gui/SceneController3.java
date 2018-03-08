@@ -29,7 +29,7 @@ public class SceneController3 {
     
     
     public static void createScene(SceneName sn) {
-        scene = sf.createScene(sn);
+    //    scene = sf.createScene(sn);
     } 
 
     public static void switchScene(SceneName sn) {

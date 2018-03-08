@@ -74,10 +74,10 @@ public class ExerciseDomainController  {
         exerciseManager.delete();
     }
     public void deleteExercise(Exercise exercise) {
-     //   exerciseManager.delete(exercise);
+      //  exerciseManager.delete(exercise);
     }
     public void setManagerMode(PersistMode persistMode) {
-        persistenceController.setPersistMode(persistMode);
+        exerciseManager.setManagerMode(persistMode);
     }
     
     public void addObserverExercise(Observer obs) {
@@ -92,5 +92,15 @@ public class ExerciseDomainController  {
      }
      public void removeObserverGroupOperation(Observer obs) {
          groupOperationManager.removeObserver(obs);
+     }
+     
+     public void addToGroupTemp(GroupOperation temp) {
+         exerciseManager.addGroupOperationTemp(temp);
+         groupOperationManager.changeFilter(exerciseManager.getGroupOperationsTemp());
+     }
+     
+     public void removeToGroupTemp(GroupOperation temp) {
+         exerciseManager.removeGroupOperationTemp(temp);
+         groupOperationManager.changeFilter(exerciseManager.getGroupOperationsTemp());
      }
 }

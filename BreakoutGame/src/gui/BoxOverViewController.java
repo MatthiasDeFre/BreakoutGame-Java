@@ -15,6 +15,7 @@ import java.net.URL;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -68,8 +69,8 @@ public class BoxOverViewController extends AnchorPane implements Observer {
         this.dc = dc;
         JFXDepthManager.setDepth(tblBox, 1);
         
-        tblBox.setItems(dc.getBoxes());
-        clmName.setCellFactory(e -> 
+        tblBox.setItems(dc.getFilteredItems(Box.class));
+       /* clmName.setCellFactory(e -> 
                 {
                     return new TableCell<Box, String>() {
                         @Override
@@ -96,7 +97,7 @@ public class BoxOverViewController extends AnchorPane implements Observer {
                             }
                         }
                     };
-        });
+        });*/
         clmDescription.setCellValueFactory(e -> e.getValue().descriptionProperty());
         clmName.setCellValueFactory(e -> e.getValue().nameProperty());
         tblBox.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> 
@@ -106,6 +107,9 @@ public class BoxOverViewController extends AnchorPane implements Observer {
                         setBoxToDc();
                     }
         });
+        
+        btnRemove.disableProperty().bind(Bindings.size(tblBox.getItems()).isEqualTo(0));
+        btnCopy.disableProperty().bind(Bindings.size(tblBox.getItems()).isEqualTo(0));
         
     }
 
@@ -118,31 +122,34 @@ public class BoxOverViewController extends AnchorPane implements Observer {
 
     private void setBoxToDc()
     {
-        dc.setSelectedBox(tblBox.getSelectionModel().getSelectedItem());
-        dc.setManagerMode(PersistMode.UPDATE);
+        dc.setSelectedItem(tblBox.getSelectionModel().getSelectedItem());
+        dc.setManagerMode(Box.class, PersistMode.UPDATE);
     }
 
     @FXML
     private void createNewBox(ActionEvent event)
     {
-        dc.setManagerMode(PersistMode.NEW);
-        dc.setSelectedBox(new Box());
+        dc.setManagerMode(Box.class, PersistMode.NEW);
+        dc.setSelectedItem(new Box());
     }
 
     @FXML
     private void copySelected(ActionEvent event)
     {
-        dc.setManagerMode(PersistMode.NEW);
+        dc.setManagerMode(Box.class, PersistMode.NEW);
         Box box = new Box();
         box.copy(tblBox.getSelectionModel().getSelectedItem());
-        dc.setSelectedBox(box);
+        box.setName(box.getName() + "_" + "COPY");
+        dc.setSelectedItem(box);
     }
 
     @FXML
     private void removeSelected(ActionEvent event)
     {
         dc.removeBox();
-        dc.setSelectedBox(new Box());
+        dc.setSelectedItem(new Box());
+        tblBox.getSelectionModel().clearSelection();
+        tblBox.getSelectionModel().selectNext();
     }
 
 }
