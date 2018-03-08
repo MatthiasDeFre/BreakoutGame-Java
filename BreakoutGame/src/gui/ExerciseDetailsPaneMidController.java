@@ -11,6 +11,7 @@ import com.jfoenix.controls.JFXTextField;
 import domain.Category;
 import domain.Exercise;
 import domain.ExerciseDomainController;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Observable;
@@ -21,6 +22,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 import javafx.util.StringConverter;
 
 /**
@@ -33,10 +39,6 @@ public class ExerciseDetailsPaneMidController extends AnchorPane implements Obse
     @FXML
     private JFXTextField txtAnw;
     @FXML
-    private JFXButton fcFeedback;
-    @FXML
-    private JFXButton fcAssignment;
-    @FXML
     private JFXComboBox<Category> cmbCategory;
     @FXML
     private JFXTextField txtEx;
@@ -44,6 +46,16 @@ public class ExerciseDetailsPaneMidController extends AnchorPane implements Obse
     private JFXButton btnSave;
 
     private ExerciseDomainController dc;
+    @FXML
+    private AnchorPane pane;
+    @FXML
+    private JFXTextField txfFeedback;
+    @FXML
+    private JFXButton btnFeedback;
+    @FXML
+    private JFXTextField txfOpdracht;
+    @FXML
+    private JFXButton btnAssignment;
 
     public ExerciseDetailsPaneMidController(ExerciseDomainController dc) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ExerciseDetailsPaneMid.fxml"));
@@ -78,14 +90,6 @@ public class ExerciseDetailsPaneMidController extends AnchorPane implements Obse
     }
 
     @FXML
-    private void fcFeedbackOnAction(ActionEvent event) {
-    }
-
-    @FXML
-    private void fcAssignmentOnAction(ActionEvent event) {
-    }
-
-    @FXML
     private void btnSaveExOnAction(ActionEvent event) {
         // dc.saveExercise(txtEx.getText(), txtAnw.getText(), txtFeedback.getText(), txtAssignment.getText(), cmbCategory.getSelectionModel().getSelectedIndex());
     }
@@ -101,6 +105,28 @@ public class ExerciseDetailsPaneMidController extends AnchorPane implements Obse
         //clmCat.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getCategory().getDescription()));
         //  clmValue.setCellValueFactory(e -> new SimpleStringProperty(String.valueOf(e.getValue().getDescription()))); //deze gebruiken
 
+    }
+
+    @FXML
+    private void btnFeedbackOnAction(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Resource File");
+        fileChooser.getExtensionFilters().addAll(
+                new ExtensionFilter("PDF Files", "*.pdf"));
+
+        File selectedFile = fileChooser.showOpenDialog(new Stage()); //moet nog aangepast worden
+        txfFeedback.setText(selectedFile.getPath());
+    }
+
+    @FXML
+    private void btnAssignmentOnAction(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Resource File");
+        fileChooser.getExtensionFilters().addAll(
+                new ExtensionFilter("PDF Files", "*.pdf"));
+
+        File selectedFile = fileChooser.showOpenDialog(new Stage()); //moet nog aangepast worden
+        txfOpdracht.setText(selectedFile.getPath());
     }
 
 }

@@ -19,12 +19,12 @@
                </font></JFXTextField>
             <HBox prefHeight="34.0" prefWidth="336.0">
                <children>
-                  <JFXTextField alignment="TOP_LEFT" focusColor="BLACK" labelFloat="true" prefHeight="25.0" prefWidth="315.0" promptText="Feedback" styleClass="test" stylesheets="@assets/css/jfoenix-components.css">
+                  <JFXTextField fx:id="txfFeedback" alignment="TOP_LEFT" focusColor="BLACK" labelFloat="true" prefHeight="25.0" prefWidth="315.0" promptText="Feedback" styleClass="test" stylesheets="@assets/css/jfoenix-components.css">
                      <font>
                         <Font name="Roboto Regular" size="18.0" />
                      </font>
                   </JFXTextField>
-                  <JFXButton fx:id="fcFeedback" buttonType="RAISED" onAction="#fcFeedbackOnAction" prefHeight="40.0" prefWidth="152.0" style="-fx-background-color: #c7cfdd;" text="Bladeren">
+                  <JFXButton fx:id="btnFeedback" buttonType="RAISED" onAction="#btnFeedbackOnAction" prefHeight="40.0" prefWidth="152.0" style="-fx-background-color: #c7cfdd;" text="Bladeren">
                      <font>
                         <Font name="Roboto Regular" size="18.0" />
                      </font></JFXButton>
@@ -32,11 +32,11 @@
             </HBox>
             <HBox prefHeight="35.0" prefWidth="336.0">
                <children>
-                  <JFXTextField alignment="TOP_LEFT" focusColor="BLACK" labelFloat="true" prefHeight="25.0" prefWidth="323.0" promptText="Opdracht" styleClass="test" stylesheets="@assets/css/jfoenix-components.css">
+                  <JFXTextField fx:id="txfOpdracht" alignment="TOP_LEFT" focusColor="BLACK" labelFloat="true" prefHeight="25.0" prefWidth="323.0" promptText="Opdracht" styleClass="test" stylesheets="@assets/css/jfoenix-components.css">
                      <font>
                         <Font name="Roboto Regular" size="18.0" />
                      </font></JFXTextField>
-                  <JFXButton fx:id="fcAssignment" buttonType="RAISED" onAction="#fcAssignmentOnAction" prefHeight="42.0" prefWidth="156.0" style="-fx-background-color: #c7cfdd;" text="Bladeren">
+                  <JFXButton fx:id="btnAssignment" buttonType="RAISED" onAction="#btnAssignmentOnAction" prefHeight="42.0" prefWidth="156.0" style="-fx-background-color: #c7cfdd;" text="Bladeren">
                      <font>
                         <Font name="Roboto Regular" size="18.0" />
                      </font></JFXButton>
