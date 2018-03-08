@@ -7,6 +7,7 @@ package gui;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.effects.JFXDepthManager;
 import domain.Exercise;
 import domain.ExerciseDomainController;
 import domain.GroupOperation;
@@ -66,6 +67,9 @@ public class ExercisesGroupOperationsPaneRightController extends AnchorPane impl
         clmDescription.setCellValueFactory(e -> e.getValue().descriptionProperty());
         tblViewGroupOperations.setItems(dc.getGroupOperations());
         System.out.println(dc.getGroupOperations());
+
+        JFXDepthManager.setDepth(tblViewGroupOperations, 3);
+        JFXDepthManager.setDepth(tblViewSelectedGroupOperations, 3);
 
     }
 

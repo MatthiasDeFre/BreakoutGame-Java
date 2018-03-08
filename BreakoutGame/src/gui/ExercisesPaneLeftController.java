@@ -83,7 +83,7 @@ public class ExercisesPaneLeftController extends AnchorPane {
             }
         });
         
-        JFXDepthManager.setDepth(tblExercises, 1);
+        JFXDepthManager.setDepth(tblExercises, 3);
     }
 
     @FXML

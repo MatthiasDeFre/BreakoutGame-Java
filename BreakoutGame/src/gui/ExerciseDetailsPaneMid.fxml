@@ -11,8 +11,9 @@
 
 <fx:root id="pane" minHeight="800.0" minWidth="500.0" prefHeight="800.0" prefWidth="500.0" stylesheets="@assets/css/style_1.css" type="AnchorPane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox layoutX="45.0" layoutY="258.0" prefHeight="465.0" prefWidth="410.0" spacing="35.0" styleClass="test2" stylesheets="@assets/css/style_1.css" AnchorPane.bottomAnchor="77.0" AnchorPane.leftAnchor="45.0" AnchorPane.rightAnchor="45.0" AnchorPane.topAnchor="258.0">
+      <VBox fx:id="vboxInfo" layoutX="45.0" layoutY="176.0" prefHeight="465.0" prefWidth="410.0" spacing="35.0" styleClass="test2" stylesheets="@assets/css/style_1.css" AnchorPane.bottomAnchor="159.0" AnchorPane.leftAnchor="45.0" AnchorPane.rightAnchor="45.0" AnchorPane.topAnchor="176.0">
          <children>
+            <Label />
             <JFXTextField fx:id="txtEx" alignment="BOTTOM_CENTER" labelFloat="true" promptText="Naam" styleClass="test" stylesheets="@assets/css/jfoenix-components.css" unFocusColor="BLACK">
                <font>
                   <Font name="Roboto Regular" size="18.0" />
@@ -53,7 +54,7 @@
                </font></JFXButton>
          </children>
       </VBox>
-      <Label layoutX="211.0" layoutY="21.0" text="Details">
+      <Label layoutX="211.0" layoutY="21.0" text="Details" AnchorPane.leftAnchor="211.0" AnchorPane.rightAnchor="211.0">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>

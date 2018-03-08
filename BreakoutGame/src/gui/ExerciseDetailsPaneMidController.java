@@ -8,6 +8,7 @@ package gui;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.effects.JFXDepthManager;
 import domain.Category;
 import domain.Exercise;
 import domain.ExerciseDomainController;
@@ -23,6 +24,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
@@ -56,6 +58,8 @@ public class ExerciseDetailsPaneMidController extends AnchorPane implements Obse
     private JFXTextField txfOpdracht;
     @FXML
     private JFXButton btnAssignment;
+    @FXML
+    private VBox vboxInfo;
 
     public ExerciseDetailsPaneMidController(ExerciseDomainController dc) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ExerciseDetailsPaneMid.fxml"));
@@ -86,7 +90,6 @@ public class ExerciseDetailsPaneMidController extends AnchorPane implements Obse
         cmbCategory.getSelectionModel().selectedItemProperty().addListener((o, ol, nw) -> {
             System.out.println(cmbCategory.getValue().getDescription());
         });
-
     }
 
     @FXML
