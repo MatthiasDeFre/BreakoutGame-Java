@@ -6,6 +6,8 @@
 package domain;
 
 import domain.managers.IManageable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -13,6 +15,21 @@ import domain.managers.IManageable;
  */
 public class Classroom implements IManageable {
 
+  
+
+    private List<Student> students;
+    private String name;
+    public Classroom(String name)
+    {
+       this((name), new ArrayList<>());
+    }
+
+    public Classroom(String name, List<Student> students)
+    {
+        this.name = name;
+        this.students = students;
+    }
+      
     @Override
     public long getId()
     {

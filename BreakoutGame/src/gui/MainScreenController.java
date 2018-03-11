@@ -61,10 +61,10 @@ public class MainScreenController extends AnchorPane implements Observer{
         }
 
         this.dc=dc;
-        hBox.setAlignment(Pos.CENTER);
-        lblTitle.setAlignment(Pos.TOP_CENTER);
-        lblTeam.setAlignment(Pos.BOTTOM_RIGHT);
-        lblVersion.setAlignment(Pos.BOTTOM_LEFT);
+   //     hBox.setAlignment(Pos.CENTER);
+  //      lblTitle.setAlignment(Pos.TOP_CENTER);
+  //      lblTeam.setAlignment(Pos.BOTTOM_RIGHT);
+  //      lblVersion.setAlignment(Pos.BOTTOM_LEFT);
         this.requestFocus();
     String image = MainScreenController.class.getResource("boeken.jpg").toExternalForm();
       this.setStyle("-fx-background-image: url('" + image + "'); " +

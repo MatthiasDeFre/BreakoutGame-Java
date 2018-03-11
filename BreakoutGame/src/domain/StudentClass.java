@@ -29,7 +29,7 @@ public class StudentClass {
     private String studentClassName;
     
     @OneToMany(mappedBy="StudentClass")
-    private Set<Student> students= new HashSet<>();
+    private Set<Student> students;
 
     public Set<Student> getStudents() {
         return Collections.unmodifiableSet(students);
@@ -39,11 +39,18 @@ public class StudentClass {
     {
         
     }
-
-    public StudentClass(String StudentClassName) {
-        setStudentClassName(StudentClassName);
+    
+    public StudentClass(String studentClassName) {
+        this(studentClassName, new HashSet<>());
     }
 
+    public StudentClass(String studentClassName, Set<Student> students)
+    {
+        setStudentClassName(studentClassName);
+        this.students = students;
+    }
+
+    
     public String getStudentClassName() {
         return studentClassName;
     }

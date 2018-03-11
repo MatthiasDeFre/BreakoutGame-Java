@@ -34,12 +34,13 @@ public class SceneController4 {
     
     
     public static void createScene(SceneName sn) {
-        primaryStage.setMaximized(true);
+     // primaryStage.setMaximized(true);
       parent = sf.createScene(sn);
     } 
 
     public static void switchScene(SceneName sn) {
     primaryStage.setMaximized(true);
+ 
         scene.setRoot(parent);
       //  primaryStage.setScene(scene);
      //   primaryStage.setMaximized(true);

@@ -6,6 +6,8 @@
 package domain;
 
 import domain.managers.IManageable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -13,6 +15,29 @@ import domain.managers.IManageable;
  */
 public class Group implements IManageable {
 
+    
+    private String name;
+    private List<Student> students;
+    private Path path;
+
+    public Group(String name)
+    {
+        this(name, new ArrayList<>());
+    }
+
+    public Group(String name, List<Student> students)
+    {
+        this.name = name;
+        this.students = students;
+        
+    }
+    
+    
+    
+    public void setPath(Path path) {
+        this.path = path;
+    }
+    
     @Override
     public long getId()
     {
@@ -23,6 +48,14 @@ public class Group implements IManageable {
     public void setId(long id)
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public void testToString() {
+        System.out.println(path.getToStringTest());
+    }
+    
+    public void addStudent(Student student) {
+        students.add(student);
     }
     
 }
