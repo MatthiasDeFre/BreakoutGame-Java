@@ -25,6 +25,7 @@
                         <Insets bottom="5.0" />
                      </HBox.margin>
                   </ImageView>
+                  <JFXButton fx:id="btnFilters" onAction="#applyFilters" text="Filters" />
                   <JFXButton ripplerFill="#6f0606" style="-fx-background-color: wsparent;" text="SCHERM 1" />
                   <JFXButton style="-fx-background-color: tra,sparent;" text="SCHERM 2" />
                   <JFXButton style="-fx-background-color: tra,sparent;" text="SCHERM 3" />
@@ -55,5 +56,6 @@
          </children>
       </VBox>
       <JFXDrawer fx:id="testD" defaultDrawerSize="450.0" prefHeight="400.0" prefWidth="343.0" />
+      <JFXDrawer fx:id="filterDrawer" defaultDrawerSize="450.0" prefHeight="400.0" prefWidth="343.0" />
    </children>
 </fx:root>

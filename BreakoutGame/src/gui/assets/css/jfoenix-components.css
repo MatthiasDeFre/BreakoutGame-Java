@@ -454,3 +454,8 @@
     -fx-font-family: Roboto;
     -fx-font-size: 20px;
 }
+
+.list-cell {
+     -fx-padding: 10px;
+    
+}

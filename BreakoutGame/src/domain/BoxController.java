@@ -164,4 +164,21 @@ public class BoxController {
     public void removeBox() {
         boxManager.delete();
     }
+    
+    public ObservableList getClasses() {
+        return exerciseManager.getCategories();
+    }
+    
+    public void applyExerciseFilter(Category cat) {
+       
+    }
+    public void addCategoryToFilter(Category cat) {
+        exerciseManager.addCategoryToFilter(cat);
+         exerciseManager.changeFilter(boxManager.getExerciseTemp());
+    }
+        public void removeCategoryToFilter(Category cat) {
+        exerciseManager.removeCategoryToFilter(cat);
+         exerciseManager.changeFilter(boxManager.getExerciseTemp());
+    }
+    
 }

@@ -18,6 +18,7 @@ public class ExerciseManager extends Manager<Exercise>
 {
     private ObservableList<GroupOperation> groupOperationsTemp;
     private ObservableList<Category> categories;
+    private ObservableList<Category> filterCat;
     protected ExerciseManager()
     {
         super(Exercise.class, new PersistenceController());
@@ -32,6 +33,7 @@ public class ExerciseManager extends Manager<Exercise>
         setItems(FXCollections.observableList(persistence.getAllOfType(Exercise.class)));
         groupOperationsTemp = FXCollections.observableArrayList();
         categories = FXCollections.observableArrayList(persistence.getAllOfType(Category.class));
+        filterCat = FXCollections.observableArrayList(categories);
     }
 
     public void addGroupOperationTemp(GroupOperation groupOperation) {
@@ -67,10 +69,28 @@ public class ExerciseManager extends Manager<Exercise>
       
     }
      public void changeFilter(List<Exercise> exercises) {
-         getFilteredItems().setPredicate(e -> !exercises.contains(e));
+         getFilteredItems().setPredicate(e -> !exercises.contains(e) && filterCat.contains((Category)e.categoryProperty().get()));
          System.out.println("");
      }
+     
+     public void addCategoryToFilter(Category cat) {
+         if(filterCat.size() == categories.size()) 
+                 filterCat.removeAll(categories);
+         if(cat != null && !filterCat.contains(cat)) {
+          
+             filterCat.add(cat);
+         }
+           
+     }
     
-
+      public void removeCategoryToFilter(Category cat) {
+         if(cat != null && filterCat.contains(cat)) {
+               filterCat.remove(cat);
+               if(filterCat.isEmpty())
+                   filterCat.addAll(categories);
+         }
+           
+     }
+    
     
 }

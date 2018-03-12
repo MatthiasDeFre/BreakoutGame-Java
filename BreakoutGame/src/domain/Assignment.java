@@ -18,9 +18,9 @@ public class Assignment {
     private int referenceNr;
     private Exercise exercise;
     private GroupOperation groupOperation;
-    private AccessCode accessCode;
+    private int accessCode;
     private AnwserBehaviour anwserBehaviour;
-    public Assignment(int referenceNr, Exercise exercise, GroupOperation groupOperation, AccessCode accessCode)
+    public Assignment(int referenceNr, Exercise exercise, GroupOperation groupOperation, int accessCode)
     {
         this.referenceNr = referenceNr;
         this.groupOperation = groupOperation;
@@ -63,12 +63,12 @@ public class Assignment {
         this.groupOperation = groupOperation;
     }
 
-    public AccessCode getAccessCode()
+    public int getAccessCode()
     {
         return accessCode;
     }
 
-    public void setAccessCode(AccessCode accessCode)
+    public void setAccessCode(int accessCode)
     {
         this.accessCode = accessCode;
     }

@@ -5,6 +5,7 @@
  */
 package gui;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXDrawer;
@@ -17,6 +18,7 @@ import gui.ComplexApplication2.ExerciseController;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -56,6 +58,10 @@ public class BoxStartScreenController  extends StackPane {
     private JFXDialog dialogScreen;
     
     private JFXDialogLayout dialogContent;
+    @FXML
+    private JFXButton btnFilters;
+    @FXML
+    private JFXDrawer filterDrawer;
     
     public BoxStartScreenController(BoxController dc)
     {
@@ -96,12 +102,16 @@ public class BoxStartScreenController  extends StackPane {
      
      
         testD.setSidePane(new NavigationMenuController());
+        filterDrawer.setSidePane(new FiltersBoxController(dc));
          this.getChildren().remove(testD);
+         this.getChildren().remove(filterDrawer);
      //  testD.open();
        testD.setOnDrawerClosed(e -> {
            this.getChildren().remove(testD);
        });
-
+       filterDrawer.setOnDrawerClosed(e -> {
+           this.getChildren().remove(filterDrawer);
+       });
        dialogScreen = new JFXDialog();
        dialogContent = new JFXDialogLayout();
    
@@ -121,6 +131,19 @@ public class BoxStartScreenController  extends StackPane {
         this.getChildren().add(testD);
         testD.open();
     }
+
+ 
+ 
+
+    @FXML
+    private void applyFilters(ActionEvent event)
+    {
+           this.getChildren().add(filterDrawer);
+        dc.applyFilters();
+        filterDrawer.open();
+    }
+
+ 
 
     
     

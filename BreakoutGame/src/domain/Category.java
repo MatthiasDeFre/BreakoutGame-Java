@@ -38,6 +38,13 @@ public class Category implements Serializable {
     {
         setName(name);
     }
+
+    public String getName()
+    {
+        return name;
+    }
+    
+    
     public void setName(String name) {
         if(name != null && !name.trim().isEmpty()) {
             this.name = name;

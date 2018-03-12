@@ -15,8 +15,11 @@ import domain.Session;
 import domain.Student;
 import domain.StudentClass;
 import domain.managers.GroupManager;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -168,12 +171,12 @@ public class StartUp2 {
         BoBAction action2 = new BoBAction("Zoek een kist");
 
         List<BoBAction> acs = new ArrayList<>();
-        acs.add(action2);
-        acs.add(action3);
+        acs.add(action);
+        
         acs.add(action4);
         acs.add(action5);
         acs.add(action6);
-        acs.add(action);
+        acs.add(action2);
 
         List<Exercise> test = new ArrayList();
         test.add(ex1);
@@ -185,11 +188,13 @@ public class StartUp2 {
         List<Group> groups = new ArrayList<>();
         groups.add(group2);
         groups.add(group1);
-        Session session = new Session(box, groups, "something something", studentClass, "Test session");
-        session.generatePaths();
-        session.testToString();
+       
+
      //   GroupManager groupManager = new GroupManager(new PersistenceController());
-        List<Group> groups2 = GroupManager.generateRandomGroups(studentClass, 4);
+        List<Group> groups2 = GroupManager.generateRandomGroups(studentClass, 22);
+         Session session = new Session(box, groups2, "something something", studentClass, "Test session", LocalDate.now(), true, true);
+       // session.generatePaths();
+                
         System.out.println("");
     }
 

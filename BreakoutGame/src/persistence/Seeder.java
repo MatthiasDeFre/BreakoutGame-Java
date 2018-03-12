@@ -12,8 +12,10 @@ import domain.Category;
 import domain.Exercise;
 import domain.GroupOperation;
 import domain.OperationCategory;
+import domain.Session;
 import domain.Student;
 import domain.StudentClass;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -75,6 +77,8 @@ public class Seeder {
            test.add(ex1);
         Box box = new Box("Box voor 22/05","BoxMDF1", new HashSet<>(test), accesscodes, acs);
         
+        Session session = new Session(box, null, "NIEUWE OMSCHRIJVING", studentClass, "NIEUWE NAAM", LocalDate.now(), true, true);
+        
         EntityManagerFactory emf = JPAUtil.getEntityManagerFactory();
         EntityManager em = emf.createEntityManager();
         
@@ -105,7 +109,7 @@ public class Seeder {
         em.persist(studentClass);
         em.persist(student);
         
-        
+        em.persist(session);
 
         
         em.getTransaction().commit();

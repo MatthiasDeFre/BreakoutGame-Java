@@ -25,7 +25,7 @@ public class Path {
     public String getToStringTest() {
         StringBuilder path = new StringBuilder();
         assignments.forEach(e -> {
-            path.append(e.getReferenceNr()).append(" ").append(e.getExercise().getAssignment()).append(" ").append(e.getGroupOperation().getDescription()).append(" ").append(e.getAnwser()).append(" ").append(actions.get(counter++).getName()).append(" ").append(e.getAccessCode() != null ? e.getAccessCode().getCode() : "Geen code nodig , laatste actie").append("\n");
+            path.append(e.getReferenceNr()).append(" ").append(e.getExercise().getAssignment()).append(" ").append(e.getGroupOperation().getDescription()).append(" ").append(e.getAnwser()).append(" ").append(actions.get(counter++).getName()).append(" ").append(e.getAccessCode() != 0 ? e.getAccessCode() : "Geen code nodig , laatste actie").append("\n");
             
         });
         return path.toString();

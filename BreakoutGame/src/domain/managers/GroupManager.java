@@ -46,7 +46,7 @@ public class GroupManager extends Manager<Group>
             groups.add(new Group("Groep " + ++counter, studentsToBeAdded));
         }
         //classroom % amount != 0
-        if(Math.ceil((double) students.size() / 2) >= groupSize / 2) {
+        if(Math.ceil((double) students.size() / 2) >= Math.ceil((double)groupSize / 2)) {
             groups.add(new Group("Groep " + ++counter, students));
         } else {
             int counterRemaining = 0;
