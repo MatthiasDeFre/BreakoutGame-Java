@@ -49,7 +49,7 @@ public class Exercise implements IManageable, Serializable {
     private SimpleObjectProperty<Category> category = new SimpleObjectProperty<>();
     
     private List<GroupOperation> groupOperations;
-
+    private List<Goal> goals;
     /*   @Transient
     private ObservableList<GroupOperation> groupOperationsTemp;*/
     //  GroupOperation groupOperation;
@@ -67,6 +67,18 @@ public class Exercise implements IManageable, Serializable {
         setCategory(category);
         groupOperations = new ArrayList<>(operations);
         //     groupOperationsTemp = FXCollections.observableArrayList(groupOperations);
+    }
+    
+    //NEW GOALS TODO
+    public Exercise(String name, String answer, String feedback, String assignment, Category category, List<GroupOperation> operations, List<Goal> goals)
+    {
+        setName(name);
+        setAnswer(answer);
+        setFeedback(feedback);
+        setAssignment(assignment);
+        setCategory(category);
+        groupOperations = new ArrayList<>(operations);
+        this.goals = new ArrayList<>(goals);
     }
 
     //Creating / copying
@@ -171,7 +183,7 @@ public class Exercise implements IManageable, Serializable {
             this.feedback = feedback.trim();
         } else
         {
-            this.feedback = null;
+           throw new IllegalArgumentException("Feedback moet ingevuld zijn");
         }
     }
     
@@ -197,11 +209,25 @@ public class Exercise implements IManageable, Serializable {
         }
     }
     
+    @ManyToMany
+    @JoinColumn(name = "exercisegoals")
+    public List<Goal> getGoals()
+    {
+        return goals;
+    }
+
+    public void setGoals(List<Goal> goals)
+    {
+        this.goals = goals;
+    }
+    
+    
     public String getCategoryDescription()
     {
         return category.get().getDescription();
     }
-    
+
+  
     @Override
     public String toString()
     {

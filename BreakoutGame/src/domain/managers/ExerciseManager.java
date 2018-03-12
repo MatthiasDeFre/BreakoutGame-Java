@@ -6,6 +6,7 @@ package domain.managers;
 import domain.AccessCode;
 import domain.Category;
 import domain.Exercise;
+import domain.Goal;
 import domain.GroupOperation;
 import domain.PersistMode;
 import java.util.List;
@@ -17,6 +18,7 @@ import persistence.PersistenceController;
 public class ExerciseManager extends Manager<Exercise>
 {
     private ObservableList<GroupOperation> groupOperationsTemp;
+    private ObservableList<Goal> goalsTemp;
     private ObservableList<Category> categories;
     private ObservableList<Category> filterCat;
     protected ExerciseManager()
@@ -24,6 +26,7 @@ public class ExerciseManager extends Manager<Exercise>
         super(Exercise.class, new PersistenceController());
       //  setItems(FXCollections.observableList(persistence.getAllOfType(Exercise.class)));
       groupOperationsTemp = FXCollections.observableArrayList();
+      goalsTemp = FXCollections.observableArrayList();
       
     }
 

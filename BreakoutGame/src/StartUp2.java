@@ -27,6 +27,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import persistence.JPAUtil;
 import persistence.PersistenceController;
+import util.PDFGenerator;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -78,11 +79,11 @@ public class StartUp2 {
         Category dutch = new Category("DUTCH");
         Category geography = new Category("GEOGRAPHY");
 
-        Exercise ex1 = new Exercise("RANDOM NAME", "10", null, "Hoeveel is 5 + 5?", math, Arrays.asList(goArray));
+        Exercise ex1 = new Exercise("RANDOM NAME", "10", "test", "Hoeveel is 5 + 5?", math, Arrays.asList(goArray));
         Exercise ex2 = new Exercise("ANOTHER RANDOM NAME", "2003", "Zoek via wikipedia naar het correcte antwoord.", "In welk jaar is het boek De Davinci Code uitgegeven", dutch, (Arrays.asList(goArray)).subList(0, 3));
-        Exercise ex3 = new Exercise("RANDOM NAME", "1", null, "test1?", math, Arrays.asList(goArray));
-        Exercise ex4 = new Exercise("RANDOM NAME", "2", null, "test2?", math, Arrays.asList(goArray));
-        Exercise ex5 = new Exercise("RANDOM NAME", "3", null, "Hoeveel is 5 + 5?", math, Arrays.asList(goArray));
+        Exercise ex3 = new Exercise("RANDOM NAME", "1",  "test", "test1?", math, Arrays.asList(goArray));
+        Exercise ex4 = new Exercise("RANDOM NAME", "2",  "test", "test2?", math, Arrays.asList(goArray));
+        Exercise ex5 = new Exercise("RANDOM NAME", "3",  "test", "Hoeveel is 5 + 5?", math, Arrays.asList(goArray));
      
         Student student = new Student("Jelle", "Geers");
         Set<Student> students = new HashSet<>(Arrays.asList(new Student[]
@@ -196,6 +197,8 @@ public class StartUp2 {
        // session.generatePaths();
                 
         System.out.println("");
+        PDFGenerator edf = new PDFGenerator();
+        edf.generateGroupPathDocument("something");
     }
 
 }

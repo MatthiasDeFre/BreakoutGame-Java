@@ -25,7 +25,7 @@ public class PDFGenerator
 
     public PDFGenerator()
     {
-        setFont(PDType1Font.TIMES_ROMAN);
+       setFont(PDType1Font.TIMES_ROMAN);
         setFontSize(12);
         setRightOffset(30);
         setLeftOffset(new PDPage().getMediaBox().getHeight()- 20);
