@@ -36,7 +36,7 @@ public class SessionModifyPaneRightController extends AnchorPane {
         } catch (IOException ex) {
             System.out.printf(ex.getMessage());
         }
-
+//xxx
         this.dc = dc;
 //        btnTest.getStylesheets().add("bootstrapfx.css");
 //        btnTest.getStyleClass().setAll("btn", "btn-danger");
