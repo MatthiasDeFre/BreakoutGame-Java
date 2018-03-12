@@ -11,6 +11,8 @@ import gui.ExerciseDetailsPaneMidController;
 import gui.ExercisesGroupOperationsPaneRightController;
 import gui.ExercisesPaneLeftController;
 import gui.GroupScreenController;
+import gui.SessionModifyPaneLeftController;
+import gui.SessionModifyPaneRightController;
 import gui.StartScreenController;
 import java.io.IOException;
 import java.net.URL;
@@ -40,6 +42,9 @@ public class ExerciseController extends VBox {
     private ExerciseDetailsPaneMidController screen2;
     private ExercisesGroupOperationsPaneRightController screen3;
 
+    private SessionModifyPaneRightController test;
+    private SessionModifyPaneLeftController test2;
+
     private ExerciseDomainController dc;
     @FXML
     private SplitPane splitPane;
@@ -67,21 +72,26 @@ public class ExerciseController extends VBox {
         screen2 = new ExerciseDetailsPaneMidController(dc);
         screen3 = new ExercisesGroupOperationsPaneRightController(dc);
 
+        test = new SessionModifyPaneRightController(dc);
+        test2 = new SessionModifyPaneLeftController(dc);
+
 //        testScreen = new TestScreenController(dc);
 //        exerciseDetailScreen = new ExerciseDetailScreenController(dc);
 //        this.add(startScreen, 0, 0);
 //        this.add(testScreen, 1, 0);
         dc.addObserverExercise(screen2);
         dc.addObserverExercise(screen3);
-        
-        splitPane.getItems().add(screen1);
-        splitPane.getItems().add(screen2);
-        splitPane.getItems().add(screen3);
+
+//        splitPane.getItems().add(screen1);
+//        splitPane.getItems().add(screen2);
+//        splitPane.getItems().add(screen3);
+        splitPane.getItems().add(test2);
+        splitPane.getItems().add(test);
 
         String image = ExerciseController.class.getResource("boeken.jpg").toExternalForm();
-        splitPane.setStyle("-fx-background-image: url('" + image + "'); " +
-           "-fx-background-position: center center; " +
-           "-fx-background-repeat: stretch;");
+        splitPane.setStyle("-fx-background-image: url('" + image + "'); "
+                + "-fx-background-position: center center; "
+                + "-fx-background-repeat: stretch;");
     }
 
 }
