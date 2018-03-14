@@ -46,32 +46,8 @@ public class Seeder {
               new Goal("E45"),
                new Goal("E74"),
                 new Goal("D65"),
-                 new Goal("B56"),
-                  new Goal("QDQSSQDQ"),
-                   new Goal("DSQDQDQ"),
-                    new Goal("dsfdsfds"),
-                       new Goal("SDFSDFS"),
-                 new Goal("FDSFDSDS"),
-                  new Goal("DSFDSFDS"),
-                   new Goal("FDSDSFDS"),
-                     new Goal("FDSFS"),
-                new Goal("FDSFSDF"),
-                 new Goal("FDSFDS6"),
-                  new Goal("ODSS6"),
-                   new Goal("QSFDS0"),
-                    new Goal("CSFDDS"),
-                       new Goal("SDFDS"),
-                 new Goal("FDDSFS"),
-                  new Goal("DSDD"),
-                    new Goal("Ed7d4d"),
-                new Goal("D6ddddddd5"),
-                 new Goal("Bddd5ddd6"),
-                  new Goal("Oddddddd66"),
-                   new Goal("Q2ddddd0"),
-                    new Goal("Cddd1"),
-                       new Goal("Dddd65"),
-                 new Goal("B5dddd6"),
-                  new Goal("O6dd")
+                 new Goal("B56")
+                  
         }));
         
         

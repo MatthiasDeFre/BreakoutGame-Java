@@ -463,3 +463,11 @@
 .goalArea {
     -fx-font-size: 2em;
 }
+
+.goalArea:empty {
+    -fx-font-size: 1.75em;
+    -fx-prompt-text-fill: #98999b;
+}
+.closeButton {
+    -fx-background-color: #112959;
+}

@@ -17,11 +17,14 @@ import domain.BoxController;
 import gui.ComplexApplication2.ExerciseController;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -29,6 +32,8 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -102,7 +107,14 @@ public class BoxStartScreenController  extends StackPane {
      
      
         testD.setSidePane(new NavigationMenuController());
-        filterDrawer.setSidePane(new FiltersBoxController(dc));
+        List<Node> filterActions = new ArrayList<>();
+        JFXButton closeFilter = new JFXButton("Sluit filters");
+        closeFilter.getStyleClass().add("closeButton");
+        closeFilter.setOnAction(e -> {
+           filterDrawer.close();
+        });
+        filterActions.add(closeFilter);
+        filterDrawer.setSidePane(new FiltersBoxController(dc, filterActions));
          this.getChildren().remove(testD);
          this.getChildren().remove(filterDrawer);
      //  testD.open();

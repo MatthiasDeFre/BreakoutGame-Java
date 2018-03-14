@@ -5,6 +5,7 @@
  */
 package gui;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXListCell;
 import com.jfoenix.controls.JFXListView;
@@ -17,19 +18,23 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableValue;
+import javafx.css.PseudoClass;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.cell.CheckBoxListCell;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 
@@ -49,8 +54,15 @@ public class FiltersBoxController extends AnchorPane {
     private VBox vboxGoals;
     @FXML
     private JFXTextArea txtGoalFilter;
+    @FXML
+    private HBox hboxActions;
 
     public FiltersBoxController(BoxController dc)
+    {
+        this(dc, new ArrayList<>());
+    }
+    
+    public FiltersBoxController(BoxController dc, List<Node> actions)
     {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("FiltersBox.fxml"));
         loader.setRoot(this);
@@ -90,7 +102,13 @@ public class FiltersBoxController extends AnchorPane {
             vboxClasses.getChildren().add(c);
         });
         
-        
+        txtGoalFilter.setPromptText("Type hier de doelstellingcodes in: ");
+        txtGoalFilter.setLabelFloat(false);
+        PseudoClass empty = PseudoClass.getPseudoClass("empty");
+txtGoalFilter.pseudoClassStateChanged(empty, true);
+txtGoalFilter.textProperty().addListener((obs, oldText, newText) -> {
+    txtGoalFilter.pseudoClassStateChanged(empty, newText.isEmpty());
+});
         
        /*  dc.getGoals().forEach(e -> {
             JFXCheckBox c = new JFXCheckBox(((Goal)e).getCode());
@@ -119,7 +137,7 @@ public class FiltersBoxController extends AnchorPane {
            });
            return test;
        });*/
-
+        hboxActions.getChildren().addAll(actions);
     }
 
     @FXML
