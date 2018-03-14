@@ -201,7 +201,7 @@ public class Box implements Serializable, IManageable {
             return false;
         }
         final Box other = (Box) obj;
-        if (!Objects.equals(this.name, other.name))
+        if (!Objects.equals(this.getName(), other.getName()))
         {
             return false;
         }

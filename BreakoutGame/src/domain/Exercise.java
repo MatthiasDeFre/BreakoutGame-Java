@@ -8,8 +8,10 @@ package domain;
 import domain.managers.IManageable;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Observable;
+import java.util.Set;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -49,7 +51,7 @@ public class Exercise implements IManageable, Serializable {
     private SimpleObjectProperty<Category> category = new SimpleObjectProperty<>();
     
     private List<GroupOperation> groupOperations;
-    private List<Goal> goals;
+    private Set<Goal> goals;
     /*   @Transient
     private ObservableList<GroupOperation> groupOperationsTemp;*/
     //  GroupOperation groupOperation;
@@ -70,7 +72,7 @@ public class Exercise implements IManageable, Serializable {
     }
     
     //NEW GOALS TODO
-    public Exercise(String name, String answer, String feedback, String assignment, Category category, List<GroupOperation> operations, List<Goal> goals)
+    public Exercise(String name, String answer, String feedback, String assignment, Category category, List<GroupOperation> operations, Set<Goal> goals)
     {
         setName(name);
         setAnswer(answer);
@@ -78,7 +80,7 @@ public class Exercise implements IManageable, Serializable {
         setAssignment(assignment);
         setCategory(category);
         groupOperations = new ArrayList<>(operations);
-        this.goals = new ArrayList<>(goals);
+        this.goals = new HashSet<>(goals);
     }
 
     //Creating / copying
@@ -211,12 +213,12 @@ public class Exercise implements IManageable, Serializable {
     
     @ManyToMany
     @JoinColumn(name = "exercisegoals")
-    public List<Goal> getGoals()
+    public Set<Goal> getGoals()
     {
         return goals;
     }
 
-    public void setGoals(List<Goal> goals)
+    public void setGoals(Set<Goal> goals)
     {
         this.goals = goals;
     }

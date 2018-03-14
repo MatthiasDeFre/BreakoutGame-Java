@@ -19,6 +19,7 @@ import java.util.Observer;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
 import javafx.collections.transformation.FilteredList;
 import persistence.PersistenceController;
 
@@ -110,6 +111,13 @@ public class BoxController {
       public ObservableList<BoBAction> getTempListBoBActions() {
         return  boxManager.getActionsTemp();
     }
+    
+      public ObservableList<Goal> getGoals() {
+          return exerciseManager.getGoals();
+      }
+    public ObservableList<Goal> getListGoal() {
+        return boxManager.getGoals();
+    }
       
     public void applyFilters() {
      //   ManagerFilter test = () -> exerciseManager.changeFilter(boxManager.getExerciseTemp());
@@ -117,6 +125,11 @@ public class BoxController {
     //    actionManager.changeFilter(boxManager.getActionsTemp());
       //  accessCodeManager.changeFilter(boxManager.getAccessCodesTemp());
         filters.entrySet().forEach(e -> e.getValue().applyFilter());
+    }
+    
+    public void changeGoalFilter(List<String> goals) {
+        exerciseManager.changeGoalFilter(goals);
+        exerciseManager.changeFilter(boxManager.getExerciseTemp());
     }
     
     public void saveBox(String name, String description) {

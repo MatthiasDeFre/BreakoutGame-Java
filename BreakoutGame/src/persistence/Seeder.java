@@ -10,6 +10,7 @@ import domain.BoBAction;
 import domain.Box;
 import domain.Category;
 import domain.Exercise;
+import domain.Goal;
 import domain.GroupOperation;
 import domain.OperationCategory;
 import domain.Session;
@@ -23,6 +24,7 @@ import java.util.List;
 import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import persistence.repositories.BoxRepository;
 
 /**
@@ -38,11 +40,47 @@ public class Seeder {
         Category dutch=new Category("DUTCH");
         Category geography=new Category("GEOGRAPHY");
         
+           Set<Goal> goals = new HashSet<>(Arrays.asList(new Goal[] {
+            new Goal("C50"),
+             new Goal("C1"),
+              new Goal("E45"),
+               new Goal("E74"),
+                new Goal("D65"),
+                 new Goal("B56"),
+                  new Goal("QDQSSQDQ"),
+                   new Goal("DSQDQDQ"),
+                    new Goal("dsfdsfds"),
+                       new Goal("SDFSDFS"),
+                 new Goal("FDSFDSDS"),
+                  new Goal("DSFDSFDS"),
+                   new Goal("FDSDSFDS"),
+                     new Goal("FDSFS"),
+                new Goal("FDSFSDF"),
+                 new Goal("FDSFDS6"),
+                  new Goal("ODSS6"),
+                   new Goal("QSFDS0"),
+                    new Goal("CSFDDS"),
+                       new Goal("SDFDS"),
+                 new Goal("FDDSFS"),
+                  new Goal("DSDD"),
+                    new Goal("Ed7d4d"),
+                new Goal("D6ddddddd5"),
+                 new Goal("Bddd5ddd6"),
+                  new Goal("Oddddddd66"),
+                   new Goal("Q2ddddd0"),
+                    new Goal("Cddd1"),
+                       new Goal("Dddd65"),
+                 new Goal("B5dddd6"),
+                  new Goal("O6dd")
+        }));
+        
+        
         Exercise ex1 = new Exercise("RANDOM NAME", "10",  "test", "Hoeveel is 5 + 5?", math, Arrays.asList(goArray));
-        Exercise ex2 = new Exercise("ANOTHER RANDOM NAME", "2003", "Zoek via wikipedia naar het correcte antwoord.", "In welk jaar is het boek De Davinci Code uitgegeven", dutch, (Arrays.asList(goArray)).subList(0, 3));
+        Exercise ex2 = new Exercise("ANOTHER RANDOM NAME", "2003", "Zoek via wikipedia naar het correcte antwoord.", "In welk jaar is het boek De Davinci Code uitgegeven", dutch, (Arrays.asList(goArray)).subList(0, 3), goals);
         StudentClass studentClass=new StudentClass("2c1");
         Student student=new Student("Jelle","Geers");
         Set<Exercise> exercises = new HashSet<>();
+     
         exercises.add(ex2);
         exercises.add(ex1);
         AccessCode a1 = new AccessCode(52);
@@ -75,11 +113,12 @@ public class Seeder {
           
            List<Exercise> test = new ArrayList();
            test.add(ex1);
+           test.add(ex2);
         Box box = new Box("Box voor 22/05","BoxMDF1", new HashSet<>(test), accesscodes, acs);
         
         Session session = new Session(box, null, "NIEUWE OMSCHRIJVING", studentClass, "NIEUWE NAAM", LocalDate.now(), true, true);
         
-        EntityManagerFactory emf = JPAUtil.getEntityManagerFactory();
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("BreakoutGamePU");
         EntityManager em = emf.createEntityManager();
         
         em.getTransaction().begin();
@@ -91,6 +130,9 @@ public class Seeder {
         em.persist(math);
         em.persist(dutch);
         em.persist(geography);
+        
+        //Seeding goals
+        goals.forEach(e -> em.persist(e));
         
         //Seeding exercises
         em.persist(ex1);
@@ -114,6 +156,7 @@ public class Seeder {
         
         em.getTransaction().commit();
         em.close();
+     
     //    emf.close();
         BoxRepository boxRepository = new BoxRepository();
         System.out.println(boxRepository.contains("BoxMDF1"));

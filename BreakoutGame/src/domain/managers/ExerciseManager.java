@@ -9,7 +9,10 @@ import domain.Exercise;
 import domain.Goal;
 import domain.GroupOperation;
 import domain.PersistMode;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import persistence.PersistenceController;
@@ -21,6 +24,8 @@ public class ExerciseManager extends Manager<Exercise>
     private ObservableList<Goal> goalsTemp;
     private ObservableList<Category> categories;
     private ObservableList<Category> filterCat;
+    private ObservableList<Goal> goals;
+    private List<String> goalFilter;
     protected ExerciseManager()
     {
         super(Exercise.class, new PersistenceController());
@@ -36,7 +41,9 @@ public class ExerciseManager extends Manager<Exercise>
         setItems(FXCollections.observableList(persistence.getAllOfType(Exercise.class)));
         groupOperationsTemp = FXCollections.observableArrayList();
         categories = FXCollections.observableArrayList(persistence.getAllOfType(Category.class));
+        goals = FXCollections.observableArrayList(persistence.getAllOfType(Goal.class).stream().sorted().collect(Collectors.toList()));
         filterCat = FXCollections.observableArrayList(categories);
+        goalFilter = new ArrayList<>();
     }
 
     public void addGroupOperationTemp(GroupOperation groupOperation) {
@@ -55,6 +62,10 @@ public class ExerciseManager extends Manager<Exercise>
     public Category getCategory(int id) {
         return categories.get(id);
     }
+    
+    public ObservableList<Goal> getGoals() {
+        return goals;
+    }
     @Override
     public void save(Exercise object)
     {
@@ -72,7 +83,8 @@ public class ExerciseManager extends Manager<Exercise>
       
     }
      public void changeFilter(List<Exercise> exercises) {
-         getFilteredItems().setPredicate(e -> !exercises.contains(e) && filterCat.contains((Category)e.categoryProperty().get()));
+         getFilteredItems().setPredicate(e -> !exercises.contains(e) && filterCat.contains((Category)e.categoryProperty().get()) && 
+                 (!Collections.disjoint(e.getGoals().stream().map(e2 -> e2.getCode().toLowerCase()).collect(Collectors.toList()), goalFilter) || goalFilter.isEmpty()));
          System.out.println("");
      }
      
@@ -94,6 +106,10 @@ public class ExerciseManager extends Manager<Exercise>
          }
            
      }
-    
+     
+      public void changeGoalFilter(List<String> goals) {
+          
+          this.goalFilter = goals;
+      }
     
 }

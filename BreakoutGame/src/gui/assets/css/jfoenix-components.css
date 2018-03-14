@@ -459,3 +459,7 @@
      -fx-padding: 10px;
     
 }
+
+.goalArea {
+    -fx-font-size: 2em;
+}

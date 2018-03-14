@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 import persistence.PersistenceController;
 import persistence.Seeder;
 import util.LangConfig;
+import static javafx.application.Application.launch;
 
 /**
  *

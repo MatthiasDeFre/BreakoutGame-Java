@@ -8,10 +8,15 @@ package gui;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXListCell;
 import com.jfoenix.controls.JFXListView;
+import com.jfoenix.controls.JFXTextArea;
 import domain.BoxController;
 import domain.Category;
+import domain.Goal;
+import gui.components.CheckboxTest;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -19,9 +24,11 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.cell.CheckBoxListCell;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
@@ -37,8 +44,11 @@ public class FiltersBoxController extends AnchorPane {
     private VBox vboxClasses;
 
     private BoxController dc;
-    @FXML
     private JFXListView<Category> lstClasses;
+    @FXML
+    private VBox vboxGoals;
+    @FXML
+    private JFXTextArea txtGoalFilter;
 
     public FiltersBoxController(BoxController dc)
     {
@@ -53,8 +63,8 @@ public class FiltersBoxController extends AnchorPane {
             System.out.printf(ex.getMessage());
         }
         this.dc = dc;
-        lstClasses.setItems(dc.getClasses());
-        lstClasses.setCellFactory(CheckBoxListCell.forListView((Category item)
+//        lstClasses.setItems(dc.getClasses());
+        /*lstClasses.setCellFactory(CheckBoxListCell.forListView((Category item)
                 -> 
                 {
                     BooleanProperty observable = new SimpleBooleanProperty();
@@ -68,13 +78,36 @@ public class FiltersBoxController extends AnchorPane {
                                     dc.removeCategoryToFilter(item);
                     });
                     return observable;
-        }));
+        }));*/
+        dc.getClasses().forEach(e -> {
+            JFXCheckBox c = new JFXCheckBox(((Category)e).getDescription());
+            c.setOnAction(e2 -> {
+                if(c.isSelected())
+                  dc.addCategoryToFilter((Category) e);
+                else
+                  dc.removeCategoryToFilter((Category) e);
+            });
+            vboxClasses.getChildren().add(c);
+        });
         
-    /*    lstClasses.setCellFactory(e -> {
+        
+        
+       /*  dc.getGoals().forEach(e -> {
+            JFXCheckBox c = new JFXCheckBox(((Goal)e).getCode());
+            c.setOnAction(e2 -> {
+                if(c.isSelected())
+                    System.out.println("in");
+                else
+                    System.out.println("out");
+            });
+            vboxGoals.getChildren().add(c);
+        });*/
+        /*lstClasses.setCellFactory(e -> {
            CheckBoxListCell test = new CheckBoxListCell();
-            System.out.println(test.itemProperty().getBean().getCheckBox());
+           
+          //  System.out.println(test.itemProperty().getBean().getCheckBox());
             test.getItem();
-           test.setGraphic(new JFXListCell());
+           test.setSkin(new JFXCheckBox().getSkin());
            test.setSelectedStateCallback(e2 -> {
                 BooleanProperty observable = new SimpleBooleanProperty();
                     observable.addListener((obs, wasSelected, isNowSelected) -> 
@@ -87,6 +120,19 @@ public class FiltersBoxController extends AnchorPane {
            return test;
        });*/
 
+    }
+
+    @FXML
+    private void changeGoalFilter(KeyEvent event)
+    {
+        System.out.println(System.getProperty("line.separator"));
+        String filterText = txtGoalFilter.getText().toLowerCase().replaceAll(" ", "").replaceAll(System.getProperty("line.separator"), ";").replaceAll("\n", ";").replaceAll("\r", ";");
+        System.out.println(filterText);
+      
+        if(!filterText.equals("")) 
+            dc.changeGoalFilter(Arrays.asList(filterText.split(";")));
+        else
+            dc.changeGoalFilter(new ArrayList<>());
     }
 
 }
