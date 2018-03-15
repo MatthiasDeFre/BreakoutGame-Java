@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
@@ -10,15 +16,12 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<fx:root maxWidth="800.0" prefHeight="618.0" prefWidth="500.0" stylesheets="@assets/css/jfoenix-components.css" type="AnchorPane" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxWidth="800.0" prefHeight="618.0" prefWidth="500.0" stylesheets="@assets/css/jfoenix-components.css" type="AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" minWidth="60.0" prefWidth="-1.0" style="&#10;" text="Overzicht boxen" textAlignment="CENTER" wrapText="false">
          <font>
             <Font size="18.0" fx:id="x1" />
          </font>
-         <textFill>
-            <Color blue="0.624" green="0.624" red="0.624" fx:id="x2" />
-         </textFill>
       </Label>
       <TableView fx:id="tblBox" layoutX="59.0" layoutY="138.0" prefHeight="355.0" AnchorPane.bottomAnchor="110.0" AnchorPane.leftAnchor="125.0" AnchorPane.rightAnchor="45.0" AnchorPane.topAnchor="109.0">
          <columnResizePolicy>

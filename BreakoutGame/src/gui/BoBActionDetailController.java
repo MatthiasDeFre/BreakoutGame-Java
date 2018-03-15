@@ -80,10 +80,16 @@ public class BoBActionDetailController extends AnchorPane implements Observer{
     public void update(Observable o, Object arg)
     {
         
-        btnRemove.setDisable(false);
+       
+        BoBAction action = (BoBAction) arg;
+        if(!action.getName().equals("Zoek een kist")) {
+             btnRemove.setDisable(false);
         btnSave.disableProperty().bind(txtActionName.textProperty().isEmpty());
        txtActionName.setDisable(false);
-        BoBAction action = (BoBAction) arg;
+        } else {
+              btnRemove.setDisable(true);
+        }
+        
         txtActionName.setText(action.getName());
         
     }

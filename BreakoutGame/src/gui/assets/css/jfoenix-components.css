@@ -466,6 +466,7 @@
 
 .textFieldWhite {
      -fx-text-fill: whitesmoke;
+      -fx-background-color: transparent;
 }
 .goalArea {
     -fx-font-size: 2em;

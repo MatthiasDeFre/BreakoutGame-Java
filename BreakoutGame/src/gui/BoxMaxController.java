@@ -12,6 +12,7 @@ import com.jfoenix.controls.JFXPopup;
 import com.jfoenix.controls.JFXTabPane;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.effects.JFXDepthManager;
+import com.jfoenix.validation.RequiredFieldValidator;
 import domain.AccessCode;
 import domain.BoBAction;
 import domain.Box;
@@ -294,7 +295,8 @@ public class BoxMaxController extends AnchorPane implements Observer{
         btnRemoveAction.disableProperty().bind(Bindings.size(tblSelectedActions.getItems()).lessThan(2));
         
         //Action management
-       vBoxCollections.getChildren().add(new BoBActionDetailController(dc));
+        vBoxCollections.getChildren().add(new BoBActionDetailController(dc));
+   //   vBoxCollections.getChildren().add(new GroupOperationDetailController());
            tblAllActions.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> 
                 {
                     if (newSelection != null)
@@ -313,6 +315,10 @@ public class BoxMaxController extends AnchorPane implements Observer{
                        
                     }
         });
+             
+             
+        //Validation
+  
     }
 
     @Override
@@ -332,7 +338,10 @@ public class BoxMaxController extends AnchorPane implements Observer{
             txtName.requestFocus();
         
         txtName.setText(box.getName());
-        btnSave.setDisable(false);
+        System.out.println(txtDescription.textProperty().isEmpty());
+        System.out.println(txtName.textProperty().isEmpty());
+        btnSave.disableProperty().bind(Bindings.or(txtDescription.textProperty().isEmpty(), txtName.textProperty().isEmpty()));
+        //btnSave.setDisable(false);
            
         //Bind add buttons
       

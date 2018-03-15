@@ -26,4 +26,14 @@ public enum OperationCategory {
     public String getDescription() {
         return LangConfig.getString(key+"DESC");
     }
+  /*  public String getSort() {
+        return LangConfig.getString(key);
+    }*/
+
+    @Override
+    public String toString()
+    {
+       return LangConfig.getString(key);
+    }
+    
 }
