@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<fx:root id="AnchorPane" type="AnchorPane" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+   <children>
+      <VBox layoutX="152.0" layoutY="129.0" spacing="35.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <JFXComboBox maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS" />
+            <HBox />
+            <HBox alignment="TOP_RIGHT" spacing="20.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <JFXButton fx:id="btnNew" onAction="#addNewAction" styleClass="button-raised" text="Nieuwe actie" />
+                  <JFXButton fx:id="btnSave" onAction="#saveAction" styleClass="button-raised" text="Opslaan actie" />
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+         </padding>
+      </VBox>
+   </children>
+</fx:root>

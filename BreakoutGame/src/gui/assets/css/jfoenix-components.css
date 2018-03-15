@@ -460,6 +460,13 @@
     
 }
 
+.textFieldBiggerSize {
+     -fx-font-size: 2em;
+}
+
+.textFieldWhite {
+     -fx-text-fill: whitesmoke;
+}
 .goalArea {
     -fx-font-size: 2em;
 }

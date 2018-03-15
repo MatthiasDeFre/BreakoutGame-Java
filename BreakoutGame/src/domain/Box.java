@@ -24,6 +24,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OrderColumn;
 import javax.persistence.Transient;
 
 /**
@@ -42,6 +43,7 @@ public class Box implements Serializable, IManageable {
    
    private List<AccessCode> accessCodes;
    
+  
    private List<BoBAction> actions;
    
    public Box() {
@@ -138,6 +140,7 @@ public class Box implements Serializable, IManageable {
     }
 
     @ManyToMany
+    @OrderColumn
     public List<BoBAction> getActions()
     {
         return actions;

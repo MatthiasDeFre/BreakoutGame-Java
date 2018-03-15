@@ -160,9 +160,9 @@ public class BoxAccessActionsController extends AnchorPane implements Observer{
         txtField.setPadding(new Insets(5));
         
      
-        btnSaveLoc.setOnMouseClicked(e -> {
+   /*     btnSaveLoc.setOnMouseClicked(e -> {
             dc.saveAccessCode(Integer.valueOf(txtField.getText()));
-        });
+        });*/
         
         HBox test = new HBox(txtField, btnSaveLoc);
         test.setPrefWidth(hBoxInfo.getWidth());

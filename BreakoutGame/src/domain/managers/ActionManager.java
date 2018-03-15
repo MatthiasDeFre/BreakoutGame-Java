@@ -30,4 +30,14 @@ public class ActionManager extends Manager<BoBAction>
          System.out.println("");
      }
 
+    @Override
+    public void save(BoBAction object)
+    {
+        getPersistenceController().setPersistMode(getManagerMode());
+       ((BoBAction) getSelected() ).copy(object);
+        super.save(object); //To change body of generated methods, choose Tools | Templates.
+    }
+     
+     
+
 }

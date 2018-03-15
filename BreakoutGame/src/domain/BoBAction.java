@@ -32,7 +32,15 @@ public class BoBAction implements IManageable, Serializable {
     {
         setName(name);
     }
-
+    
+    
+    public BoBAction(BoBAction action) {
+        copy(action);
+    }
+    
+    public void copy(BoBAction action) {
+        setName(action.getName());
+    }
     @Column(name="name")
     public String getName()
     {

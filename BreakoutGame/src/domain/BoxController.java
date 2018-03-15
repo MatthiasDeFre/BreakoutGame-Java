@@ -94,9 +94,14 @@ public class BoxController {
         boxManager.addObserver(obs);
     }
     
+    public void addObserverAction(Observer obs) {
+        actionManager.addObserver(obs);
+    }
+    
     public void setSelectedItem(IManageable obj) {
         managers.get(obj.getClass().getSimpleName()).setSelected(obj);
-        applyFilters();
+        if(obj.getClass().getSimpleName().equals(Box.class.getSimpleName()))
+            applyFilters();
     }
     
  /*   public void addObserver(String className, Observer object) {
@@ -146,9 +151,9 @@ public class BoxController {
       
     }
     
-    public void saveAccessCode(int code) {
-        AccessCode accessCode = new AccessCode(code);
-        accessCodeManager.save(accessCode);
+    public void saveAction(String name) {
+        BoBAction action = new BoBAction(name);
+        actionManager.save(action);
     }
       public void setManagerMode(Class<? extends IManageable> className, PersistMode persistMode) {
           System.out.println(className.getSimpleName());
@@ -177,7 +182,9 @@ public class BoxController {
     public void removeBox() {
         boxManager.delete();
     }
-    
+    public void removeAction() {
+        actionManager.delete();
+    }
     public ObservableList getClasses() {
         return exerciseManager.getCategories();
     }

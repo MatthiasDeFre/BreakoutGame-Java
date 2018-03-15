@@ -45,11 +45,14 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
@@ -69,14 +72,7 @@ public class BoxMaxController extends AnchorPane implements Observer{
     private JFXTextField txtName;
     @FXML
     private JFXTextField txtDescription;
-    @FXML
-    private TableView<AccessCode> tblAllAccess;
-    @FXML
-    private TableColumn<AccessCode, Integer> clmAllAccessName;
-    @FXML
-    private TableView<AccessCode> tblSelectedAccess;
-    @FXML
-    private TableColumn<AccessCode, Integer> clmSelectedAccessNavme;
+   
     @FXML
     private TableView<BoBAction> tblAllActions;
     @FXML
@@ -88,23 +84,16 @@ public class BoxMaxController extends AnchorPane implements Observer{
 
     private BoxController dc;
     @FXML
-    private HBox hboxAccess;
-    @FXML
     private JFXButton btnSave;
     @FXML
     private HBox hBoxActions;
-    @FXML
     private JFXButton btnAddAccess;
-    @FXML
     private JFXButton btnRemoveAccess;
     @FXML
     private JFXButton btnAddAction;
     @FXML
     private JFXButton btnRemoveAction;
-    @FXML
-    private GridPane grid;
     private StackPane testS;
-    @FXML
     private HBox hBoxInfo;
     
     private JFXTextField txtField;
@@ -137,10 +126,6 @@ public class BoxMaxController extends AnchorPane implements Observer{
     @FXML
     private TableColumn<Exercise, String> clmSelectedName1;
     @FXML
-    private TableView<AccessCode> tblSelectedAccess1;
-    @FXML
-    private TableColumn<AccessCode, Integer> clmSelectedAccessNavme1;
-    @FXML
     private TableView<BoBAction> tblSelectedActions1;
     @FXML
     private TableColumn<BoBAction, String> clmSelectedActionName1;
@@ -154,6 +139,8 @@ public class BoxMaxController extends AnchorPane implements Observer{
     private TableView<Goal> tblGoals;
     @FXML
     private TableColumn<Goal, String> clmCode;
+    @FXML
+    private VBox vBoxCollections;
 
     public BoxMaxController(BoxController dc)
     {
@@ -169,40 +156,47 @@ public class BoxMaxController extends AnchorPane implements Observer{
         }
         this.dc = dc;
         
+       /*ImageView img = new ImageView("gui/assets/img/home.png");
+       img.setFitHeight(100);
+       img.setFitWidth(100);
+       btnAddAccess.setGraphic(img);*/
+
         //Things you just have to accept
        hackTooltipStartTiming(new Tooltip());
-            JFXDepthManager.setDepth(tblAllAccess, 1);
-      JFXDepthManager.setDepth(tblSelectedAccess, 1);
+          
+     
       JFXDepthManager.setDepth(tblAllActions, 1);
       JFXDepthManager.setDepth(tblSelectedActions, 1);
       //End those things
       
       
       //All access
-      tblAllAccess.setItems(dc.getFilteredItems(AccessCode.class));
-      clmAllAccessName.setCellValueFactory(e -> e.getValue().codeProperty().asObject());
+    
     
       //All action
       tblAllActions.setItems(dc.getFilteredItems(BoBAction.class));
       clmAllActionName.setCellValueFactory(e -> e.getValue().nameProperty());
       
       
-        tblAllAccess.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+      
         tblAllActions.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        tblSelectedAccess.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+      
         tblSelectedActions.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
      
         
         btnSave.setDisable(true);
         
-        btnAddAccess.disableProperty().bind(Bindings.size(tblAllAccess.getItems()).isEqualTo(0));
+        
+      //  btnAddAccess.disableProperty().bind(Bindings.size(tblAllAccess.getItems()).isEqualTo(0));
     
       //  System.out.println(tblSelectedAccess.getItems());
-        btnAddAction.disableProperty().bind(Bindings.size(tblAllActions.getItems()).isEqualTo(0));
+       // btnAddAction.disableProperty().bind(Bindings.size(tblAllActions.getItems()).isEqualTo(0));
       
-        
+       
+        btnAddAction.setDisable(true);
+        btnSendToTemp.setDisable(true);
         btnRemoveAction.setDisable(true);
-        btnRemoveAccess.setDisable(true);
+      
         
         //Exercise
         ObservableList exAll = dc.getFilteredItems(Exercise.class);
@@ -221,7 +215,7 @@ public class BoxMaxController extends AnchorPane implements Observer{
          tblGoals.setItems(dc.getListGoal());
          clmCode.setCellValueFactory(e -> e.getValue().code());
         
-        btnSendToTemp.disableProperty().bind(Bindings.size(exAll).isEqualTo(0));
+        
         btnRemoveFromTemp.disableProperty().bind(Bindings.size(exSel).isEqualTo(0));
         
        
@@ -269,8 +263,7 @@ public class BoxMaxController extends AnchorPane implements Observer{
         tblSelectedActions.setItems(dc.getTempListBoBActions());
         clmSelectedActionName.setCellValueFactory(e -> e.getValue().nameProperty());
        
-         tblSelectedAccess.setItems(dc.getTempListAccessCodes());
-          clmSelectedAccessNavme.setCellValueFactory(e -> e.getValue().codeProperty().asObject());
+        
         //;
        
         
@@ -285,52 +278,41 @@ public class BoxMaxController extends AnchorPane implements Observer{
        //Overview tables
          tblSelectedExercise1.itemsProperty().bind(tblSelectedExercise.itemsProperty());
          tblSelectedExercise1.rowFactoryProperty().bind(tblSelectedExercise.rowFactoryProperty());
-           tblSelectedAccess1.itemsProperty().bind(tblSelectedAccess.itemsProperty());
+          
            tblSelectedActions1.itemsProperty().bind(tblSelectedActions.itemsProperty());
         
            //Overview columns
           
            clmSelectedClass1.cellValueFactoryProperty().bind(clmSelectedClass.cellValueFactoryProperty());
             clmSelectedName1.cellValueFactoryProperty().bind(clmSelectedName.cellValueFactoryProperty());
-           clmSelectedAccessNavme1.cellValueFactoryProperty().bind(clmSelectedAccessNavme.cellValueFactoryProperty());
+     
            clmSelectedActionName1.cellValueFactoryProperty().bind(clmSelectedActionName.cellValueFactoryProperty());
            
 //         clmSelectedClass.setCellFactory(e -> e);
-        btnRemoveAccess.disableProperty().bind(Bindings.size(tblSelectedAccess.getItems()).isEqualTo(0));
+       
         System.out.println(tblSelectedActions.getItems().size());
         btnRemoveAction.disableProperty().bind(Bindings.size(tblSelectedActions.getItems()).lessThan(2));
-    }
-
-    
-
-     private void selectAccessCode(AccessCode newSelection)
-    {
-   //     dc.setManagerMode(PersistMode.UPDATE);
-        dc.setSelectedItem(newSelection);
-        JFXButton btnSaveLoc =  new JFXButton("Save");
         
-        //  JFXTextField txtField = new JFXTextField(String.valueOf(newSelection.getCode()));
-        popup = new JFXPopup();
-        txtField = new JFXTextField();
-        txtField.setText(String.valueOf(newSelection.getCode()));
-        txtField.setPromptText("Actie veranderen");
-        txtField.setPrefWidth(hBoxInfo.getWidth());
-        txtField.setPrefHeight(USE_COMPUTED_SIZE);
-        txtField.setPadding(new Insets(5));
-        
-     
-        btnSaveLoc.setOnMouseClicked(e -> {
-            dc.saveAccessCode(Integer.valueOf(txtField.getText()));
+        //Action management
+       vBoxCollections.getChildren().add(new BoBActionDetailController(dc));
+           tblAllActions.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> 
+                {
+                    if (newSelection != null)
+                    {
+                        dc.setManagerMode(BoBAction.class, PersistMode.UPDATE);
+                        dc.setSelectedItem(newSelection);
+                       
+                    }
         });
-        
-        HBox test = new HBox(txtField, btnSaveLoc);
-        test.setPrefWidth(hBoxInfo.getWidth());
-        
-        
-        
-        popup.setPopupContent(test);
-        
-        popup.show(hBoxInfo, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT);
+             tblSelectedActions.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> 
+                {
+                    if (newSelection != null)
+                    {
+                        dc.setManagerMode(BoBAction.class, PersistMode.UPDATE);
+                        dc.setSelectedItem(newSelection);
+                       
+                    }
+        });
     }
 
     @Override
@@ -352,6 +334,11 @@ public class BoxMaxController extends AnchorPane implements Observer{
         txtName.setText(box.getName());
         btnSave.setDisable(false);
            
+        //Bind add buttons
+      
+        btnAddAction.disableProperty().bind(Bindings.size(tblAllActions.getItems()).isEqualTo(0));
+        btnSendToTemp.disableProperty().bind(Bindings.size(tblAllExercise.getItems()).isEqualTo(0));
+        
      //   txtName1.setText(box.getName());
        // txtDescription1.setText(box.getDescription());
        
@@ -377,17 +364,7 @@ public class BoxMaxController extends AnchorPane implements Observer{
        
     }
 
-    @FXML
-    private void addAccess(ActionEvent event)
-    {
-        dc.addToTempList(tblAllAccess.getSelectionModel().getSelectedItems());
-    }
-
-    @FXML
-    private void removeAccess(ActionEvent event)
-    {
-        dc.removeFromTempList(tblSelectedAccess.getSelectionModel().getSelectedItems());
-    }
+  
 
     @FXML
     private void addAction(ActionEvent event)
