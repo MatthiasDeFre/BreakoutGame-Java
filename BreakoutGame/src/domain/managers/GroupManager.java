@@ -10,23 +10,28 @@ import domain.StudentClass;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Observable;
 import java.util.stream.IntStream;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import persistence.PersistenceController;
 
 
 public class GroupManager extends Manager<Group>
 {
 
+  
+    
     protected GroupManager()
     {
-          super(Group.class, new PersistenceController());
+         this(new PersistenceController());
     }
     
     public GroupManager(PersistenceController persistence)
     {
           super(Group.class, persistence);
         setItems(FXCollections.observableArrayList(persistence.getAllOfType(Group.class)));
+           
     }
     
     public static List<Group> generateRandomGroups(StudentClass studentClass, int amount) {
@@ -70,5 +75,5 @@ public class GroupManager extends Manager<Group>
         return groups;
     }
     
-    
+  
 }

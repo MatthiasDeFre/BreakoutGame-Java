@@ -13,29 +13,31 @@ import domain.Path;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Observable;
 import java.util.Random;
 import java.util.stream.IntStream;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import persistence.PersistenceController;
 
 
 public class SessionManager extends Manager<Session>
 {
+    private ObservableList<Group> tempGroups;
 
     protected SessionManager()
     {
-          super(Session.class, new PersistenceController());
+         this(new PersistenceController());
     }
     public SessionManager(PersistenceController persistence)
     {
           super(Session.class, persistence);
         setItems(FXCollections.observableArrayList(persistence.getAllOfType(Session.class)));
+        tempGroups = FXCollections.observableArrayList();
     }
     
-     public static void generatePaths(Session session) {
-        List<Group> groups = session.getGroups();
-        Box box = session.getBox();
-        groups.stream().forEach(e -> {
+     public static void generatePaths(List<Group> groups, Box box) {
+         groups.stream().forEach(e -> {
             List<Assignment> assignments = new ArrayList<>();
             List<Exercise> shuffledExercises = new ArrayList<>(box.getExercises());
             Collections.shuffle(shuffledExercises);
@@ -52,6 +54,21 @@ public class SessionManager extends Manager<Session>
             Path path = new Path(assignments, box.getActions());
             e.setPath(path);
         });
+     }
+     public static void generatePaths(Session session) {
+        List<Group> groups = session.getGroups();
+        Box box = session.getBox();
+        SessionManager.generatePaths(groups, box);
+        
     }
-
+     public ObservableList getTempGroups() {
+         return tempGroups;
+     }
+     
+     public void clearTempGroups() {
+         tempGroups.clear();
+     }
+     public void addAllToTempGroup(List<Group> groups) {
+         tempGroups.addAll(groups);
+     }
 }

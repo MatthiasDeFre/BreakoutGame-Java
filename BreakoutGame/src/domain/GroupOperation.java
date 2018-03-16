@@ -35,46 +35,14 @@ public class GroupOperation implements IManageable {
      * Standard constructor
      * Used for JPA
      */
-    protected GroupOperation() {
+    public GroupOperation() {
         
     }
 
-    @Override
-    public int hashCode()
-    {
-        int hash = 7;
-        hash = 23 * hash + Objects.hashCode(this.category);
-        hash = 23 * hash + Objects.hashCode(this.valueString);
-        return hash;
+    public GroupOperation(GroupOperation groupOperation) {
+        copy(groupOperation);
     }
-
-    @Override
-    public boolean equals(Object obj)
-    {
-        if (this == obj)
-        {
-            return true;
-        }
-        if (obj == null)
-        {
-            return false;
-        }
-        if (getClass() != obj.getClass())
-        {
-            return false;
-        }
-        final GroupOperation other = (GroupOperation) obj;
-        if (!Objects.equals(this.valueString, other.valueString))
-        {
-            return false;
-        }
-        if (this.category != other.category)
-        {
-            return false;
-        }
-        return true;
-    }
-    
+   
     public GroupOperation(OperationCategory category, String value)
     {
         this.category = category;
@@ -130,5 +98,44 @@ public class GroupOperation implements IManageable {
     public StringProperty descriptionProperty() {
         return description;
     }
+    
+    
+    
+     @Override
+    public int hashCode()
+    {
+        int hash = 7;
+        hash = 23 * hash + Objects.hashCode(this.category);
+        hash = 23 * hash + Objects.hashCode(this.valueString);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (this == obj)
+        {
+            return true;
+        }
+        if (obj == null)
+        {
+            return false;
+        }
+        if (getClass() != obj.getClass())
+        {
+            return false;
+        }
+        final GroupOperation other = (GroupOperation) obj;
+        if (!Objects.equals(this.valueString, other.valueString))
+        {
+            return false;
+        }
+        if (this.category != other.category)
+        {
+            return false;
+        }
+        return true;
+    }
+    
     
 }

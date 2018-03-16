@@ -53,6 +53,10 @@ public class ExerciseDomainController  {
        // setChanged();
        // notifyObservers(exercise);
     }
+    
+    public void setGroupOperation(GroupOperation groupOperation) {
+        groupOperationManager.setSelected(groupOperation);
+    }
         
   //  public void 
     public ObservableList<GroupOperation> getGroupOperationsTemp() {
@@ -70,14 +74,26 @@ public class ExerciseDomainController  {
     public void saveExercise(String name, String answer, String feedback, String assignment, int categoryId) {
         exerciseManager.save(new Exercise(name, answer, feedback, assignment, exerciseManager.getCategory(categoryId), exerciseManager.getGroupOperationsTemp()));
     }
+    
+    public void saveGroupOperation(OperationCategory cat, List<String> valueString) {
+        groupOperationManager.save(new GroupOperation(cat, valueString.stream().collect(Collectors.joining("%"))));
+    }
     public void deleteExercise() {
         exerciseManager.delete();
     }
+    
+    public void deleteGroupOperation() {
+        groupOperationManager.delete();
+    }
+    
     public void deleteExercise(Exercise exercise) {
       //  exerciseManager.delete(exercise);
     }
     public void setManagerMode(PersistMode persistMode) {
         exerciseManager.setManagerMode(persistMode);
+    }
+    public void setManagerModeGroupOp(PersistMode persistMode) {
+        groupOperationManager.setManagerMode(persistMode);
     }
     
     public void addObserverExercise(Observer obs) {

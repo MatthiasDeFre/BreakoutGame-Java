@@ -18,6 +18,7 @@ import domain.BoBAction;
 import domain.Box;
 import domain.BoxController;
 import domain.Exercise;
+import domain.ExerciseDomainController;
 import domain.Goal;
 import domain.PersistMode;
 import java.io.File;
@@ -295,8 +296,8 @@ public class BoxMaxController extends AnchorPane implements Observer{
         btnRemoveAction.disableProperty().bind(Bindings.size(tblSelectedActions.getItems()).lessThan(2));
         
         //Action management
-        vBoxCollections.getChildren().add(new BoBActionDetailController(dc));
-   //   vBoxCollections.getChildren().add(new GroupOperationDetailController());
+    //    vBoxCollections.getChildren().add(new BoBActionDetailController(dc));
+     vBoxCollections.getChildren().add(new GroupOperationDetailController(new ExerciseDomainController()));
            tblAllActions.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> 
                 {
                     if (newSelection != null)
@@ -340,8 +341,8 @@ public class BoxMaxController extends AnchorPane implements Observer{
         txtName.setText(box.getName());
         System.out.println(txtDescription.textProperty().isEmpty());
         System.out.println(txtName.textProperty().isEmpty());
-        btnSave.disableProperty().bind(Bindings.or(txtDescription.textProperty().isEmpty(), txtName.textProperty().isEmpty()));
-        //btnSave.setDisable(false);
+      //  btnSave.disableProperty().bind(Bindings.or(txtDescription.textProperty().isEmpty(), txtName.textProperty().isEmpty()));
+        btnSave.setDisable(false);
            
         //Bind add buttons
       

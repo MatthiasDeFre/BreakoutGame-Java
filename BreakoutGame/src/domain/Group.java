@@ -6,19 +6,34 @@
 package domain;
 
 import domain.managers.IManageable;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 /**
  *
  * @author geers
  */
-public class Group implements IManageable {
+@Entity(name = "SessionGroup")
+public class Group implements IManageable, Serializable {
 
     
     private String name;
     private List<Student> students;
+    
+   @OneToOne(cascade = CascadeType.ALL)
     private Path path;
+    @Id
+    private long id;
+
+    public Group()
+    {
+    }
 
     public Group(String name)
     {
@@ -51,11 +66,13 @@ public class Group implements IManageable {
     }
     
     public void testToString() {
-        System.out.println(path.getToStringTest());
+   //     System.out.println(path.getToStringTest());
     }
     
     public void addStudent(Student student) {
         students.add(student);
     }
-    
+    public void removeStudent(Student student) {
+        students.remove(student);
+    }
 }

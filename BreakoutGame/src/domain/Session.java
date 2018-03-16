@@ -16,11 +16,13 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.IntStream;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -41,7 +43,7 @@ public class Session implements IManageable, Serializable {
     @ManyToOne
     private Box box;
    
-   
+   @OneToMany(cascade = CascadeType.ALL)
     private List<Group> groups;
     private String description;
 
@@ -54,6 +56,8 @@ public class Session implements IManageable, Serializable {
     private boolean tile;
     private boolean feedback;
 
+    private SessionStatus sessionStatus;
+    
     protected Session()
     {
     }
@@ -68,6 +72,7 @@ public class Session implements IManageable, Serializable {
        setActivationDate(activationDate);
         setFeedback(feedback);
         this.tile = tile;
+        sessionStatus = SessionStatus.SCHEDULED;
     
     }
     
@@ -173,8 +178,13 @@ public class Session implements IManageable, Serializable {
     }
     
     
+    public SessionStatus getSessionStatus() {
+        return sessionStatus;
+    }
     
-    
+    public void setSessionStatus(SessionStatus sessionStatus) {
+        this.sessionStatus = sessionStatus;
+    }
   /*  @Transient
    public void testToString() {
         groups.forEach(e -> e.testToString());

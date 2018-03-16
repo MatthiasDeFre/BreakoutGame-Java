@@ -8,7 +8,11 @@ package gui;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
+import domain.ExerciseDomainController;
+import domain.GroupOperation;
 import domain.OperationCategory;
+import domain.PersistMode;
+import gui.ComplexApplication2.ExerciseController;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -47,7 +51,11 @@ public class GroupOperationDetailController extends AnchorPane{
     @FXML
     private JFXComboBox<OperationCategory> cmbGrouOpSorts;
 
-    public GroupOperationDetailController()
+    private List<TextField> textFields;
+    
+    private ExerciseDomainController dc;
+    
+    public GroupOperationDetailController(ExerciseDomainController dc)
     {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("GroupOperationDetail.fxml"));
         loader.setRoot(this);
@@ -60,6 +68,8 @@ public class GroupOperationDetailController extends AnchorPane{
             System.out.printf(ex.getMessage());
         }
      
+        this.dc = dc;
+        textFields = new ArrayList<>();
         //cmbGrouOpSorts.setItems(FXCollections.observableArrayList(Arrays.stream(OperationCategory.values()).map(e -> e.getSort()).collect(Collectors.toList())));
         cmbGrouOpSorts.setItems(FXCollections.observableArrayList(OperationCategory.values()));
         cmbGrouOpSorts.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> 
@@ -70,6 +80,7 @@ public class GroupOperationDetailController extends AnchorPane{
                         hBoxGroupOpContent.setStyle("-fx-border-radius: 0.5; -fx-border-color: black; -fx-background-color: lightgrey");
                         hBoxGroupOpContent.getChildren().clear();
                         hBoxGroupOpContent.getChildren().addAll(getGroupOperationInput());
+                       
                     
                     }
         });
@@ -77,12 +88,15 @@ public class GroupOperationDetailController extends AnchorPane{
     @FXML
     private void addNewGroupOp(ActionEvent event)
     {
+        dc.setManagerModeGroupOp(PersistMode.NEW);
+        dc.setGroupOperation(new GroupOperation());
         
     }
 
     @FXML
     private void saveGroupOp(ActionEvent event)
     {
+        dc.saveGroupOperation(cmbGrouOpSorts.getSelectionModel().getSelectedItem(), textFields.stream().map(TextField::getText).collect(Collectors.toList()));
     }
     
     private List<Node> getGroupOperationInput() {
@@ -91,6 +105,7 @@ public class GroupOperationDetailController extends AnchorPane{
         String WITH_DELIMITER = "((?<=%1$s)|(?=%1$s))";
        String[] description = cmbGrouOpSorts.getSelectionModel().getSelectedItem().getDescription().split(String.format(WITH_DELIMITER, "%s"));
        
+        textFields.clear();
         JFXTextField input;
         Label words;
        for (String string : description)
@@ -99,6 +114,7 @@ public class GroupOperationDetailController extends AnchorPane{
                 input = new JFXTextField();
                 input.setPrefWidth(50);
          //       input.getStyleClass().add("textFieldWhite");
+                textFields.add(input);
                 nodes.add(input);
               //  hBoxGroupOpContent.getChildren().add(input);
             } else {
@@ -111,6 +127,12 @@ public class GroupOperationDetailController extends AnchorPane{
                
         }
        return nodes;
+    }
+
+    @FXML
+    private void deleteGroupOp(ActionEvent event)
+    {
+        dc.deleteGroupOperation();
     }
     
 }

@@ -30,7 +30,9 @@ public class GroupOperationManager extends Manager<GroupOperation>
     @Override
     public void save(GroupOperation object)
     {
+          getPersistenceController().setPersistMode(getManagerMode());
         ((GroupOperation) getSelected()).copy(object);
+        super.save(object);
     }
     private boolean returnvalue;
      public void changeFilter(List<GroupOperation> categories) {
