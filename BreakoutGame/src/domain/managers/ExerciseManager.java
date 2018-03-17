@@ -42,6 +42,7 @@ public class ExerciseManager extends Manager<Exercise>
         groupOperationsTemp = FXCollections.observableArrayList();
         categories = FXCollections.observableArrayList(persistence.getAllOfType(Category.class));
         goals = FXCollections.observableArrayList(persistence.getAllOfType(Goal.class).stream().sorted().collect(Collectors.toList()));
+        goalsTemp = FXCollections.observableArrayList();
         filterCat = FXCollections.observableArrayList(categories);
         goalFilter = new ArrayList<>();
     }
@@ -52,10 +53,20 @@ public class ExerciseManager extends Manager<Exercise>
     public void removeGroupOperationTemp(GroupOperation groupOperation) {
         groupOperationsTemp.remove(groupOperation);
     }
+    
+    public void addGoalTemp(Goal goal) {
+        goalsTemp.add(goal);
+    }
+    
+    public void removeGoalTemp(Goal goal) {
+        goalsTemp.remove(goal);
+    }
     public ObservableList<GroupOperation> getGroupOperationsTemp() {
         return groupOperationsTemp;
     }
-    
+    public ObservableList<Goal> getGoalsTemp() {
+        return goalsTemp;
+    }
     public ObservableList<Category> getCategories() {
         return categories;
     }
@@ -78,7 +89,8 @@ public class ExerciseManager extends Manager<Exercise>
     @Override
     public void setSelected(Exercise item)
     {
-        groupOperationsTemp = FXCollections.observableArrayList(item.getGroupOperations());
+        groupOperationsTemp.setAll(item.getGroupOperations());
+        goalsTemp.setAll(item.getGoals());
         super.setSelected(item);
       
     }

@@ -296,8 +296,8 @@ public class BoxMaxController extends AnchorPane implements Observer{
         btnRemoveAction.disableProperty().bind(Bindings.size(tblSelectedActions.getItems()).lessThan(2));
         
         //Action management
-    //    vBoxCollections.getChildren().add(new BoBActionDetailController(dc));
-     vBoxCollections.getChildren().add(new GroupOperationDetailController(new ExerciseDomainController()));
+       vBoxCollections.getChildren().add(new BoBActionDetailController(dc));
+   //  vBoxCollections.getChildren().add(new GroupOperationDetailController(new ExerciseDomainController()));
            tblAllActions.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> 
                 {
                     if (newSelection != null)

@@ -46,6 +46,11 @@ public class ExerciseDomainController  {
     public ObservableList getGroupOperations() {
         return groupOperationManager.getFilteredItems();
     }
+    
+    public ObservableList getGoals() {
+        return exerciseManager.getGoals();
+    }
+    
     public void setExercise(Exercise exercise) {
         //this.exercise = exercise;
         exerciseManager.setSelected(exercise);
@@ -62,6 +67,10 @@ public class ExerciseDomainController  {
     public ObservableList<GroupOperation> getGroupOperationsTemp() {
         return exerciseManager.getGroupOperationsTemp();
     }
+    
+    public ObservableList<Goal> getGoalsTemp() {
+        return exerciseManager.getGoalsTemp();
+    }
     public ObservableList<Category> getCategories() {
         return exerciseManager.getCategories();
     }
@@ -76,7 +85,7 @@ public class ExerciseDomainController  {
     }
     
     public void saveGroupOperation(OperationCategory cat, List<String> valueString) {
-        groupOperationManager.save(new GroupOperation(cat, valueString.stream().collect(Collectors.joining("%"))));
+        groupOperationManager.save(new GroupOperation(cat, valueString.stream().collect(Collectors.joining("&"))));
     }
     public void deleteExercise() {
         exerciseManager.delete();
@@ -118,5 +127,15 @@ public class ExerciseDomainController  {
      public void removeToGroupTemp(GroupOperation temp) {
          exerciseManager.removeGroupOperationTemp(temp);
          groupOperationManager.changeFilter(exerciseManager.getGroupOperationsTemp());
+     }
+     
+     public void addToGoalTemp(Goal temp) {
+         exerciseManager.addGoalTemp(temp);
+    
+     }
+     
+     public void removeToGoalTemp(Goal temp) {
+         exerciseManager.removeGoalTemp(temp);
+      
      }
 }

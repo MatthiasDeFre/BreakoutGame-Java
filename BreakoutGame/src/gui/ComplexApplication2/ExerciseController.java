@@ -72,8 +72,8 @@ public class ExerciseController extends VBox {
         screen2 = new ExerciseDetailsPaneMidController(dc);
         screen3 = new ExercisesGroupOperationsPaneRightController(dc);
 
-        test = new SessionModifyPaneRightController(dc);
-        test2 = new SessionModifyPaneLeftController(dc);
+        //test = new SessionModifyPaneRightController(dc);
+        //test2 = new SessionModifyPaneLeftController(dc);
 
 //        testScreen = new TestScreenController(dc);
 //        exerciseDetailScreen = new ExerciseDetailScreenController(dc);
@@ -82,11 +82,11 @@ public class ExerciseController extends VBox {
         dc.addObserverExercise(screen2);
         dc.addObserverExercise(screen3);
 
-//        splitPane.getItems().add(screen1);
-//        splitPane.getItems().add(screen2);
-//        splitPane.getItems().add(screen3);
-        splitPane.getItems().add(test2);
-        splitPane.getItems().add(test);
+        splitPane.getItems().add(screen1);
+        splitPane.getItems().add(screen2);
+        splitPane.getItems().add(screen3);
+     //   splitPane.getItems().add(test2);
+       // splitPane.getItems().add(test);
 
         String image = ExerciseController.class.getResource("boeken.jpg").toExternalForm();
         splitPane.setStyle("-fx-background-image: url('" + image + "'); "
