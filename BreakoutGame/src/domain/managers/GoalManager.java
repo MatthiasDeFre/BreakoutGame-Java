@@ -7,6 +7,8 @@ package domain.managers;
 
 import domain.Goal;
 import domain.Group;
+import java.util.List;
+import java.util.Set;
 import javafx.collections.FXCollections;
 import persistence.PersistenceController;
 
@@ -26,5 +28,9 @@ public class GoalManager extends Manager<Goal>{
     {
         super(Goal.class, persistence);
         setItems(FXCollections.observableArrayList(persistence.getAllOfType(Goal.class)));
+    }
+    
+    public void changeFilter(List<Goal> goals) {
+         getFilteredItems().setPredicate(e -> !goals.contains(e));
     }
 }

@@ -7,10 +7,12 @@ package domain;
 
 import domain.managers.GroupOperationManager;
 import domain.managers.ExerciseManager;
+import domain.managers.GoalManager;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Set;
 import java.util.stream.Collectors;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -25,7 +27,7 @@ public class ExerciseDomainController  {
     private PersistenceController persistenceController;
     private GroupOperationManager groupOperationManager;
     private ExerciseManager exerciseManager;
-    
+    private GoalManager goalManager;
 
     private Exercise exercise;
 
@@ -33,6 +35,7 @@ public class ExerciseDomainController  {
         persistenceController = new PersistenceController();
         groupOperationManager = new GroupOperationManager(persistenceController);
         exerciseManager = new ExerciseManager(persistenceController);
+        goalManager = new GoalManager(persistenceController);
     }
 
    public ObservableList<Exercise> getListAllExercisesE() {
@@ -48,7 +51,7 @@ public class ExerciseDomainController  {
     }
     
     public ObservableList getGoals() {
-        return exerciseManager.getGoals();
+        return goalManager.getFilteredItems();
     }
     
     public void setExercise(Exercise exercise) {
@@ -77,6 +80,10 @@ public class ExerciseDomainController  {
     public void changeFilterGroupOperations(List<GroupOperation> groupOperations) {
         groupOperationManager.changeFilter(groupOperations);
     }
+    public void changeFilterGoal(List<Goal> goals) {
+        goalManager.changeFilter(goals);
+    }
+    
     public void saveExercise(Exercise exercise) {
         exerciseManager.save(exercise);
     }
@@ -119,23 +126,25 @@ public class ExerciseDomainController  {
          groupOperationManager.removeObserver(obs);
      }
      
-     public void addToGroupTemp(GroupOperation temp) {
+     public void addToGroupTemp(List<GroupOperation> temp) {
          exerciseManager.addGroupOperationTemp(temp);
          groupOperationManager.changeFilter(exerciseManager.getGroupOperationsTemp());
      }
      
-     public void removeToGroupTemp(GroupOperation temp) {
+     public void removeToGroupTemp(List<GroupOperation> temp) {
          exerciseManager.removeGroupOperationTemp(temp);
          groupOperationManager.changeFilter(exerciseManager.getGroupOperationsTemp());
      }
      
-     public void addToGoalTemp(Goal temp) {
+     public void addToGoalTemp(List<Goal> temp) {
          exerciseManager.addGoalTemp(temp);
+         goalManager.changeFilter(exerciseManager.getGoalsTemp());
     
      }
      
-     public void removeToGoalTemp(Goal temp) {
+     public void removeToGoalTemp(List<Goal> temp) {
          exerciseManager.removeGoalTemp(temp);
+         goalManager.changeFilter(exerciseManager.getGoalsTemp());
       
      }
 }

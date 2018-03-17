@@ -47,19 +47,19 @@ public class ExerciseManager extends Manager<Exercise>
         goalFilter = new ArrayList<>();
     }
 
-    public void addGroupOperationTemp(GroupOperation groupOperation) {
-        groupOperationsTemp.add(groupOperation);
+    public void addGroupOperationTemp(List<GroupOperation> groupOperation) {
+        groupOperationsTemp.addAll(groupOperation);
     }
-    public void removeGroupOperationTemp(GroupOperation groupOperation) {
-        groupOperationsTemp.remove(groupOperation);
-    }
-    
-    public void addGoalTemp(Goal goal) {
-        goalsTemp.add(goal);
+    public void removeGroupOperationTemp(List<GroupOperation> groupOperation) {
+        groupOperationsTemp.removeAll(groupOperation);
     }
     
-    public void removeGoalTemp(Goal goal) {
-        goalsTemp.remove(goal);
+    public void addGoalTemp(List<Goal> goal) {
+        goalsTemp.addAll(goal);
+    }
+    
+    public void removeGoalTemp(List<Goal> goal) {
+        goalsTemp.removeAll(goal);
     }
     public ObservableList<GroupOperation> getGroupOperationsTemp() {
         return groupOperationsTemp;

@@ -18,6 +18,9 @@ import java.net.URL;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
+import javafx.beans.binding.Bindings;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -87,7 +90,8 @@ public class ExercisesGroupOperationsPaneRightController extends AnchorPane impl
         this.dc = dc;
         clmDescription.setCellValueFactory(e -> e.getValue().descriptionProperty());
         tblViewGroupOperations.setItems(dc.getGroupOperations());
-            tblViewSelectedGroupOperations.setItems(dc.getGroupOperationsTemp());
+        ObservableList groupOpTemp = dc.getGroupOperationsTemp();
+       tblViewSelectedGroupOperations.setItems(groupOpTemp);
                clmSelectedDescription.setCellValueFactory(e -> e.getValue().descriptionProperty());
         System.out.println(dc.getGroupOperations());
         
@@ -110,16 +114,24 @@ public class ExercisesGroupOperationsPaneRightController extends AnchorPane impl
         clmAllGoalName.setCellValueFactory(e -> e.getValue().code());
         tblViewSelectedGroals.setItems(dc.getGoalsTemp());
         clmSelectedGoalName.setCellValueFactory(e -> e.getValue().code());
+        
+        btnRight.disableProperty().bind(Bindings.size(groupOpTemp).isEqualTo(0));
+      
+        
     }
 
     @FXML
     private void btnRightOnAction(ActionEvent event) {
-        dc.addToGroupTemp(tblViewGroupOperations.getSelectionModel().getSelectedItem());
+        dc.addToGroupTemp(tblViewGroupOperations.getSelectionModel().getSelectedItems());
+         if(tblViewGroupOperations.getItems().size() > 0) 
+                tblViewGroupOperations.getSelectionModel().select(0);
     }
 
     @FXML
     private void btnLeftOnAction(ActionEvent event) {
-           dc.removeToGroupTemp(tblViewSelectedGroupOperations.getSelectionModel().getSelectedItem());
+           dc.removeToGroupTemp(tblViewSelectedGroupOperations.getSelectionModel().getSelectedItems());
+            if(tblViewSelectedGroupOperations.getItems().size() > 0) 
+                tblViewSelectedGroupOperations.getSelectionModel().select(0);
     }
 
     @Override
@@ -130,19 +142,28 @@ public class ExercisesGroupOperationsPaneRightController extends AnchorPane impl
         //clmCat.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getCategory().getDescription()));
       //deze gebruiken
         dc.changeFilterGroupOperations(exercise.getGroupOperations());
+        dc.changeFilterGoal(exercise.getGoals().stream().collect(Collectors.toList()));
         //     tblViewGroupOperations.setItems(dc.getGroupOperations());
     }
 
     @FXML
     private void addGoalTolTemp(ActionEvent event)
     {
-        dc.addToGoalTemp(tblViewGroals.getSelectionModel().getSelectedItem());
+        
+          dc.addToGoalTemp(tblViewGroals.getSelectionModel().getSelectedItems());
+          if(tblViewGroals.getItems().size() > 0) 
+                tblViewGroals.getSelectionModel().select(0);
+     
     }
 
     @FXML
     private void removeGoalFromTemp(ActionEvent event)
     {
-        dc.removeToGoalTemp(tblViewSelectedGroals.getSelectionModel().getSelectedItem());
+    
+         dc.removeToGoalTemp(tblViewSelectedGroals.getSelectionModel().getSelectedItems());
+         if(tblViewSelectedGroals.getItems().size() > 0) 
+                tblViewSelectedGroals.getSelectionModel().select(0);
+        
     }
 
 }
