@@ -18,7 +18,7 @@
                <children>
                   <JFXButton fx:id="btnNew" onAction="#addNewGroupOp" styleClass="button-raised" text="Nieuwe Groepbewerking" />
                   <JFXButton fx:id="btnSave" onAction="#saveGroupOp" styleClass="button-raised" text="Opslaan Groepbewerking" />
-                  <JFXButton onAction="#deleteGroupOp" text="Verwijder Groepbewerking" />
+                  <JFXButton fx:id="btnRemove" onAction="#deleteGroupOp" text="Verwijder Groepbewerking" />
                </children>
             </HBox>
          </children>

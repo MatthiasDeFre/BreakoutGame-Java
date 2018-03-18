@@ -8,11 +8,14 @@ package domain;
 import domain.managers.IManageable;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Observable;
 import java.util.Set;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -47,9 +50,8 @@ public class Exercise implements IManageable, Serializable {
     private String answer;
     private String feedback;
     private SimpleStringProperty assignment = new SimpleStringProperty();
-    
     private SimpleObjectProperty<Category> category = new SimpleObjectProperty<>();
-    
+    private SimpleIntegerProperty timeInMinutes = new SimpleIntegerProperty(0);
     private List<GroupOperation> groupOperations;
     private Set<Goal> goals;
     /*   @Transient
@@ -67,18 +69,20 @@ public class Exercise implements IManageable, Serializable {
         setFeedback(feedback);
         setAssignment(assignment);
         setCategory(category);
+        setTimeInMinutes(0);
         groupOperations = new ArrayList<>(operations);
         //     groupOperationsTemp = FXCollections.observableArrayList(groupOperations);
     }
     
     //NEW GOALS TODO
-    public Exercise(String name, String answer, String feedback, String assignment, Category category, List<GroupOperation> operations, Set<Goal> goals)
+    public Exercise(String name, String answer, String feedback, String assignment, Category category, List<GroupOperation> operations, Collection<Goal> goals, int timeInMinutes)
     {
         setName(name);
         setAnswer(answer);
         setFeedback(feedback);
         setAssignment(assignment);
         setCategory(category);
+        setTimeInMinutes(timeInMinutes);
         groupOperations = new ArrayList<>(operations);
         this.goals = new HashSet<>(goals);
     }
@@ -91,6 +95,7 @@ public class Exercise implements IManageable, Serializable {
         setFeedback(exercise.getFeedback());
         setAssignment(exercise.getAssignment());
         setCategory(exercise.getCategory());
+        setTimeInMinutes(exercise.getTimeInMinutes());
         groupOperations = new ArrayList<>(exercise.getGroupOperations());
         // groupOperationsTemp = FXCollections.observableArrayList(groupOperations);
     }
@@ -99,6 +104,7 @@ public class Exercise implements IManageable, Serializable {
     {
         category.set(new Category("STANDARD"));
         groupOperations = new ArrayList<>();
+        goals = new HashSet<>();
     }
     
     public Exercise(Exercise ex)
@@ -229,7 +235,20 @@ public class Exercise implements IManageable, Serializable {
         return category.get().getDescription();
     }
 
+    @Column(name = "timeInMinutes")
+    public int getTimeInMinutes()
+    {
+        return timeInMinutes.get();
+    }
+
+    public void setTimeInMinutes(int timeInMinutes)
+    {
+        this.timeInMinutes.set(timeInMinutes);
+    }
+
   
+    
+    
     @Override
     public String toString()
     {
@@ -259,6 +278,10 @@ public class Exercise implements IManageable, Serializable {
     public ObjectProperty categoryProperty()
     {
         return category;
+    }
+    
+    public IntegerProperty timeInMinutesProperty() {
+        return timeInMinutes;
     }
     
 }

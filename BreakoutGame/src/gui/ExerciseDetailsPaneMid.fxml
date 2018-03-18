@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextField?>
@@ -9,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<fx:root id="pane" minHeight="800.0" minWidth="500.0" prefHeight="800.0" prefWidth="500.0" stylesheets="@assets/css/style_1.css" type="AnchorPane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root id="pane" minHeight="800.0" minWidth="500.0" prefHeight="800.0" prefWidth="500.0" stylesheets="@assets/css/style_1.css" type="AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox fx:id="vboxInfo" layoutX="45.0" layoutY="176.0" prefHeight="465.0" prefWidth="410.0" spacing="35.0" styleClass="test2" stylesheets="@assets/css/style_1.css" AnchorPane.bottomAnchor="159.0" AnchorPane.leftAnchor="45.0" AnchorPane.rightAnchor="45.0" AnchorPane.topAnchor="176.0">
          <children>
@@ -48,6 +54,26 @@
                   <Font name="Roboto Regular" size="18.0" />
                </font></JFXTextField>
             <JFXComboBox fx:id="cmbCategory" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="440.0" promptText="Category" />
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="15.0">
+               <children>
+                  <JFXToggleButton fx:id="btnToggleTime" onAction="#changeTimeSelection" text="Gebruik tijd">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <padding>
+                        <Insets bottom="15.0" />
+                     </padding>
+                  </JFXToggleButton>
+                  <JFXTextField fx:id="txtTime" labelFloat="true" promptText="Tijd" styleClass="test" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets right="15.0" />
+                     </HBox.margin>
+                     <padding>
+                        <Insets top="15.0" />
+                     </padding>
+                  </JFXTextField>
+               </children>
+            </HBox>
             <JFXButton fx:id="btnSave" onAction="#btnSaveExOnAction" prefHeight="25.0" prefWidth="159.0" text="Opslaan" translateX="125.0">
                <font>
                   <Font name="Roboto Regular" size="18.0" />

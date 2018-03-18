@@ -93,7 +93,7 @@ public class GroupOperationDetailController extends AnchorPane implements Observ
     private void addNewGroupOp(ActionEvent event)
     {
         dc.setManagerModeGroupOp(PersistMode.NEW);
-        dc.setGroupOperation(new GroupOperation());
+        dc.setSelectedItem(new GroupOperation());
 
     }
 
@@ -101,6 +101,7 @@ public class GroupOperationDetailController extends AnchorPane implements Observ
     private void saveGroupOp(ActionEvent event)
     {
         dc.saveGroupOperation(cmbGrouOpSorts.getSelectionModel().getSelectedItem(), textFields.stream().map(TextField::getText).collect(Collectors.toList()));
+        dc.setManagerMode(GroupOperation.class, PersistMode.UPDATE);
     }
 
     private void generateGroupOperationInputHbox()
@@ -144,6 +145,7 @@ public class GroupOperationDetailController extends AnchorPane implements Observ
     private void deleteGroupOp(ActionEvent event)
     {
         dc.deleteGroupOperation();
+        
     }
 
     @Override

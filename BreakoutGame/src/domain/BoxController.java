@@ -164,7 +164,11 @@ public class BoxController {
         if (obj.size() > 0)
         {
             boxManager.addObjectToTemp(obj);
-            filters.get(obj.get(0).getClass().getSimpleName()).applyFilter();
+            ManagerFilter filter = filters.get(obj.get(0).getClass().getSimpleName());
+            if (filter != null)
+            {
+                filter.applyFilter();
+            }
         }
     }
 
@@ -175,7 +179,11 @@ public class BoxController {
         {
             String test = obj.get(0).getClass().getSimpleName();
             boxManager.removeObjectFromTemp(obj);
-            filters.get(test).applyFilter();
+            ManagerFilter filter = filters.get(obj.get(0).getClass().getSimpleName());
+            if (filter != null)
+            {
+                filter.applyFilter();
+            }
         }
       }
     

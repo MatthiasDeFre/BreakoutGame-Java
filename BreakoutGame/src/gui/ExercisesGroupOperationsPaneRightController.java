@@ -89,11 +89,11 @@ public class ExercisesGroupOperationsPaneRightController extends AnchorPane impl
 //        dc.addObserver(this);
         this.dc = dc;
         clmDescription.setCellValueFactory(e -> e.getValue().descriptionProperty());
-        tblViewGroupOperations.setItems(dc.getGroupOperations());
+        tblViewGroupOperations.setItems(dc.getFilteredItems(GroupOperation.class));
         ObservableList groupOpTemp = dc.getGroupOperationsTemp();
        tblViewSelectedGroupOperations.setItems(groupOpTemp);
                clmSelectedDescription.setCellValueFactory(e -> e.getValue().descriptionProperty());
-        System.out.println(dc.getGroupOperations());
+        System.out.println(dc.getFilteredItems(GroupOperation.class));
         
         GroupOperationDetailController groupOperationDetailController = new GroupOperationDetailController(dc);
         dc.addObserverGroupOperation(groupOperationDetailController);
@@ -105,31 +105,43 @@ public class ExercisesGroupOperationsPaneRightController extends AnchorPane impl
                     if (newSelection != null)
                     {
                         dc.setManagerModeGroupOp(PersistMode.UPDATE);
-                        dc.setGroupOperation(newSelection);
+                        dc.setSelectedItem(newSelection);
                     }
         });
         clmAvailableGrOpName.setCellValueFactory(e -> e.getValue().descriptionProperty());
         
-        tblViewGroals.setItems(dc.getGoals());
+        tblViewGroals.setItems(dc.getFilteredItems(Goal.class));
         clmAllGoalName.setCellValueFactory(e -> e.getValue().code());
         tblViewSelectedGroals.setItems(dc.getGoalsTemp());
         clmSelectedGoalName.setCellValueFactory(e -> e.getValue().code());
         
-        btnRight.disableProperty().bind(Bindings.size(groupOpTemp).isEqualTo(0));
+        btnRight.setDisable(true);
+        btnLeft.disableProperty().bind(Bindings.size(groupOpTemp).isEqualTo(0));
       
+        //Goal editing
+        GoalDetailController goalDetailController = new GoalDetailController(dc);
+        vboxGoal.getChildren().add(goalDetailController);
+        this.dc.addObserverGoal(goalDetailController);
+        tblViewGroals.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> 
+                {
+                    if (newSelection != null)
+                    {
+                        dc.setSelectedItem(newSelection);
+                    }
+        });
         
     }
 
     @FXML
     private void btnRightOnAction(ActionEvent event) {
-        dc.addToGroupTemp(tblViewGroupOperations.getSelectionModel().getSelectedItems());
+        dc.addToTempList(tblViewGroupOperations.getSelectionModel().getSelectedItems());
          if(tblViewGroupOperations.getItems().size() > 0) 
                 tblViewGroupOperations.getSelectionModel().select(0);
     }
 
     @FXML
     private void btnLeftOnAction(ActionEvent event) {
-           dc.removeToGroupTemp(tblViewSelectedGroupOperations.getSelectionModel().getSelectedItems());
+           dc.removeFromTempList(tblViewSelectedGroupOperations.getSelectionModel().getSelectedItems());
             if(tblViewSelectedGroupOperations.getItems().size() > 0) 
                 tblViewSelectedGroupOperations.getSelectionModel().select(0);
     }
@@ -137,6 +149,7 @@ public class ExercisesGroupOperationsPaneRightController extends AnchorPane impl
     @Override
     public void update(Observable o, Object arg) {
         Exercise exercise = (Exercise) arg;
+        btnRight.setDisable(false);
      //deze gebruiken
         //     exercise.addGroupOperationTemp(new GroupOperation(OperationCategory.MULTIPLY, "5"));
         //clmCat.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getCategory().getDescription()));
@@ -150,7 +163,7 @@ public class ExercisesGroupOperationsPaneRightController extends AnchorPane impl
     private void addGoalTolTemp(ActionEvent event)
     {
         
-          dc.addToGoalTemp(tblViewGroals.getSelectionModel().getSelectedItems());
+          dc.addToTempList(tblViewGroals.getSelectionModel().getSelectedItems());
           if(tblViewGroals.getItems().size() > 0) 
                 tblViewGroals.getSelectionModel().select(0);
      
@@ -160,7 +173,7 @@ public class ExercisesGroupOperationsPaneRightController extends AnchorPane impl
     private void removeGoalFromTemp(ActionEvent event)
     {
     
-         dc.removeToGoalTemp(tblViewSelectedGroals.getSelectionModel().getSelectedItems());
+         dc.removeFromTempList(tblViewSelectedGroals.getSelectionModel().getSelectedItems());
          if(tblViewSelectedGroals.getItems().size() > 0) 
                 tblViewSelectedGroals.getSelectionModel().select(0);
         

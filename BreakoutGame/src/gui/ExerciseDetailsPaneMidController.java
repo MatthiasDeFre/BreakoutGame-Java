@@ -8,6 +8,7 @@ package gui;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.JFXToggleButton;
 import domain.Category;
 import domain.Exercise;
 import domain.ExerciseDomainController;
@@ -21,8 +22,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
@@ -56,7 +60,13 @@ public class ExerciseDetailsPaneMidController extends AnchorPane implements Obse
     private JFXTextField txfOpdracht;
     @FXML
     private JFXButton btnAssignment;
-
+    @FXML
+    private VBox vboxInfo;
+    @FXML
+    private JFXTextField txtTime;
+    @FXML
+    private JFXToggleButton btnToggleTime;
+  
     public ExerciseDetailsPaneMidController(ExerciseDomainController dc) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ExerciseDetailsPaneMid.fxml"));
         loader.setRoot(this);
@@ -86,7 +96,9 @@ public class ExerciseDetailsPaneMidController extends AnchorPane implements Obse
         cmbCategory.getSelectionModel().selectedItemProperty().addListener((o, ol, nw) -> {
             System.out.println(cmbCategory.getValue().getDescription());
         });
-
+        
+       txtTime.disableProperty().bind(btnToggleTime.selectedProperty().not());
+      
     }
 
 
@@ -102,6 +114,14 @@ public class ExerciseDetailsPaneMidController extends AnchorPane implements Obse
         //     tblViewGroupOperations.setItems(exercise.getGroupOperationsObservableList()); //deze gebruiken
         //clmCat.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getCategory().getDescription()));
         //  clmValue.setCellValueFactory(e -> new SimpleStringProperty(String.valueOf(e.getValue().getDescription()))); //deze gebruiken
+        if(exercise.getTimeInMinutes() > 0) {
+            btnToggleTime.setSelected(true);
+            txtTime.setText(String.valueOf(exercise.getTimeInMinutes()));
+        } else {
+            btnToggleTime.setSelected(false);
+            txtTime.clear();
+        }
+             
 
     }
 
@@ -130,7 +150,15 @@ public class ExerciseDetailsPaneMidController extends AnchorPane implements Obse
     @FXML
     private void btnSaveExOnAction(ActionEvent event)
     {
-        dc.saveExercise(txtEx.getText(), txtAnw.getText(), txfFeedback.getText(), txfOpdracht.getText(), cmbCategory.getSelectionModel().getSelectedIndex());
+        dc.saveExercise(txtEx.getText(), txtAnw.getText(), txfFeedback.getText(), txfOpdracht.getText(), cmbCategory.getSelectionModel().getSelectedIndex(), Integer.valueOf(txtTime.getText()));
+    }
+
+    @FXML
+    private void changeTimeSelection(ActionEvent event)
+    {
+        if(!btnToggleTime.isSelected()) {
+            txtTime.clear();
+        }
     }
 
 }

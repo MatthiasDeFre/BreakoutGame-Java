@@ -8,8 +8,12 @@ package domain;
 import domain.managers.GroupOperationManager;
 import domain.managers.ExerciseManager;
 import domain.managers.GoalManager;
+import domain.managers.IManageable;
+import domain.managers.Manager;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Set;
@@ -22,129 +26,164 @@ import persistence.PersistenceController;
  *
  * @author geers
  */
-public class ExerciseDomainController  {
+public class ExerciseDomainController {
 
     private PersistenceController persistenceController;
     private GroupOperationManager groupOperationManager;
     private ExerciseManager exerciseManager;
     private GoalManager goalManager;
 
+    private Map<String, Manager> managers;
+    private Map<String, ManagerFilter> filters;
+
     private Exercise exercise;
 
-    public ExerciseDomainController() {
+    public ExerciseDomainController()
+    {
         persistenceController = new PersistenceController();
         groupOperationManager = new GroupOperationManager(persistenceController);
         exerciseManager = new ExerciseManager(persistenceController);
         goalManager = new GoalManager(persistenceController);
+
+        managers = new HashMap<>();
+
+        managers.put(Exercise.class.getSimpleName(), exerciseManager);
+        managers.put(GroupOperation.class.getSimpleName(), groupOperationManager);
+        managers.put(Goal.class.getSimpleName(), goalManager);
+
+        filters = new HashMap<>();
+
+        filters.put(GroupOperation.class.getSimpleName(), () -> groupOperationManager.changeFilter(exerciseManager.getGroupOperationsTemp()));
+        filters.put(Goal.class.getSimpleName(), () -> goalManager.changeFilter(exerciseManager.getGoalsTemp()));
     }
 
-   public ObservableList<Exercise> getListAllExercisesE() {
-        return exerciseManager.getItems();
- }
-    
-    public List<Student> getListAllStudents()
+    public FilteredList getFilteredItems(Class<? extends IManageable> className)
     {
-        return persistenceController.getAllOfType(Student.class);
+        return managers.get(className.getSimpleName()).getFilteredItems();
     }
-    public ObservableList getGroupOperations() {
-        return groupOperationManager.getFilteredItems();
+
+    public void setSelectedItem(IManageable item)
+    {
+        managers.get(item.getClass().getSimpleName()).setSelected(item);
     }
-    
-    public ObservableList getGoals() {
-        return goalManager.getFilteredItems();
-    }
-    
-    public void setExercise(Exercise exercise) {
-        //this.exercise = exercise;
-        exerciseManager.setSelected(exercise);
-        System.out.println(exerciseManager.getCategories());
-       // setChanged();
-       // notifyObservers(exercise);
-    }
-    
-    public void setGroupOperation(GroupOperation groupOperation) {
-        groupOperationManager.setSelected(groupOperation);
-    }
-        
-  //  public void 
-    public ObservableList<GroupOperation> getGroupOperationsTemp() {
+
+    //  public void 
+    public ObservableList<GroupOperation> getGroupOperationsTemp()
+    {
         return exerciseManager.getGroupOperationsTemp();
     }
-    
-    public ObservableList<Goal> getGoalsTemp() {
+
+    public ObservableList<Goal> getGoalsTemp()
+    {
         return exerciseManager.getGoalsTemp();
     }
-    public ObservableList<Category> getCategories() {
+
+    public ObservableList<Category> getCategories()
+    {
         return exerciseManager.getCategories();
     }
-    public void changeFilterGroupOperations(List<GroupOperation> groupOperations) {
+
+    public void changeFilterGroupOperations(List<GroupOperation> groupOperations)
+    {
         groupOperationManager.changeFilter(groupOperations);
     }
-    public void changeFilterGoal(List<Goal> goals) {
+
+    public void changeFilterGoal(List<Goal> goals)
+    {
         goalManager.changeFilter(goals);
     }
-    
-    public void saveExercise(Exercise exercise) {
+
+    public void saveExercise(Exercise exercise)
+    {
         exerciseManager.save(exercise);
     }
-    public void saveExercise(String name, String answer, String feedback, String assignment, int categoryId) {
-        exerciseManager.save(new Exercise(name, answer, feedback, assignment, exerciseManager.getCategory(categoryId), exerciseManager.getGroupOperationsTemp()));
+
+    public void saveExercise(String name, String answer, String feedback, String assignment, int categoryId, int time)
+    {
+        exerciseManager.save(new Exercise(name, answer, feedback, assignment, exerciseManager.getCategory(categoryId), exerciseManager.getGroupOperationsTemp(), exerciseManager.getGoalsTemp(), time));
     }
-    
-    public void saveGroupOperation(OperationCategory cat, List<String> valueString) {
+
+    public void saveGroupOperation(OperationCategory cat, List<String> valueString)
+    {
         groupOperationManager.save(new GroupOperation(cat, valueString.stream().collect(Collectors.joining("&"))));
     }
-    public void deleteExercise() {
+
+    public void deleteExercise()
+    {
         exerciseManager.delete();
     }
-    
-    public void deleteGroupOperation() {
+
+    public void deleteGroupOperation()
+    {
         groupOperationManager.delete();
     }
-    
-    public void deleteExercise(Exercise exercise) {
-      //  exerciseManager.delete(exercise);
+
+    public void deleteExercise(Exercise exercise)
+    {
+        //  exerciseManager.delete(exercise);
     }
-    public void setManagerMode(PersistMode persistMode) {
-        exerciseManager.setManagerMode(persistMode);
+
+    public void setManagerMode(Class<? extends IManageable> className, PersistMode persistMode) {
+          System.out.println(className.getSimpleName());
+       managers.get(className.getSimpleName()).setManagerMode(persistMode);
     }
-    public void setManagerModeGroupOp(PersistMode persistMode) {
+
+    public void setManagerModeGroupOp(PersistMode persistMode)
+    {
         groupOperationManager.setManagerMode(persistMode);
     }
-    
-    public void addObserverExercise(Observer obs) {
+
+    public void addObserverExercise(Observer obs)
+    {
         exerciseManager.addObserver(obs);
     }
 
-     public void addObserverGroupOperation(Observer obs) {
+    public void addObserverGroupOperation(Observer obs)
+    {
         groupOperationManager.addObserver(obs);
     }
-     public void removeObserverExercise(Observer obs) {
-         exerciseManager.removeObserver(obs);
-     }
-     public void removeObserverGroupOperation(Observer obs) {
-         groupOperationManager.removeObserver(obs);
-     }
-     
-     public void addToGroupTemp(List<GroupOperation> temp) {
-         exerciseManager.addGroupOperationTemp(temp);
-         groupOperationManager.changeFilter(exerciseManager.getGroupOperationsTemp());
-     }
-     
-     public void removeToGroupTemp(List<GroupOperation> temp) {
-         exerciseManager.removeGroupOperationTemp(temp);
-         groupOperationManager.changeFilter(exerciseManager.getGroupOperationsTemp());
-     }
-     
-     public void addToGoalTemp(List<Goal> temp) {
-         exerciseManager.addGoalTemp(temp);
-         goalManager.changeFilter(exerciseManager.getGoalsTemp());
-    
-     }
-     
-     public void removeToGoalTemp(List<Goal> temp) {
-         exerciseManager.removeGoalTemp(temp);
-         goalManager.changeFilter(exerciseManager.getGoalsTemp());
-      
-     }
+
+    public void addObserverGoal(Observer goal)
+    {
+        goalManager.addObserver(goal);
+    }
+
+    public void removeObserverExercise(Observer obs)
+    {
+        exerciseManager.removeObserver(obs);
+    }
+
+    public void removeObserverGroupOperation(Observer obs)
+    {
+        groupOperationManager.removeObserver(obs);
+    }
+
+    public <T extends IManageable> void addToTempList(List<T> obj)
+    {
+        if (obj.size() > 0)
+        {
+            exerciseManager.addObjectToTemp(obj);
+            ManagerFilter filter = filters.get(obj.get(0).getClass().getSimpleName());
+            if (filter != null)
+            {
+                filter.applyFilter();
+            }
+        }
+    }
+
+    public <T extends IManageable> void removeFromTempList(List<T> obj)
+    {
+        //Need to retrieve an object because of type erasure
+        if (obj.size() > 0)
+        {
+            String test = obj.get(0).getClass().getSimpleName();
+            exerciseManager.removeObjectFromTemp(obj);
+            ManagerFilter filter = filters.get(obj.get(0).getClass().getSimpleName());
+            if (filter != null)
+            {
+                filter.applyFilter();
+            }
+        }
+    }
+
 }

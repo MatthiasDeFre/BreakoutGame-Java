@@ -7,6 +7,8 @@ package gui;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import domain.ExerciseDomainController;
+import domain.Goal;
 import gui.ComplexApplication2.ExerciseController;
 import java.io.IOException;
 import java.net.URL;
@@ -17,13 +19,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.layout.AnchorPane;
 
 /**
  * FXML Controller class
  *
  * @author Matthias
  */
-public class GoalDetailController implements Observer{
+public class GoalDetailController extends AnchorPane implements Observer{
 
     @FXML
     private JFXTextField txtGoalName;
@@ -32,9 +35,9 @@ public class GoalDetailController implements Observer{
     @FXML
     private JFXButton btnSave;
 
-    private ExerciseController dc;
+    private ExerciseDomainController dc;
 
-    public GoalDetailController(ExerciseController dc)
+    public GoalDetailController(ExerciseDomainController dc)
     {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("GoalDetail.fxml"));
         loader.setRoot(this);
@@ -68,7 +71,8 @@ public class GoalDetailController implements Observer{
     @Override
     public void update(Observable o, Object arg)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Goal goal = (Goal) arg;
+        txtGoalName.setText(goal.getCode());
     }
     
 }

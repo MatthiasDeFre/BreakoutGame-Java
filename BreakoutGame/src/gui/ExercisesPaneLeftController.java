@@ -74,13 +74,13 @@ public class ExercisesPaneLeftController extends AnchorPane {
 
         this.dc = dc;
 //        dc.addObserver(this);
-        listExercices = dc.getListAllExercisesE();
+        listExercices = dc.getFilteredItems(Exercise.class);
         tblExercises.setItems(listExercices);
         clmSection.setCellValueFactory(e -> e.getValue().categoryProperty());
         clmDescription.setCellValueFactory(e -> e.getValue().assignmentProperty());
         tblExercises.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
-                setExerciseToDc();
+                setSelectedItemToDc();
             }
         });
         
@@ -89,28 +89,28 @@ public class ExercisesPaneLeftController extends AnchorPane {
 
     @FXML
     private void btnCreateExerciseOnClick(MouseEvent event) {
-        dc.setManagerMode(PersistMode.NEW);
-        dc.setExercise(new Exercise());
+        dc.setManagerMode(Exercise.class, PersistMode.NEW);
+        dc.setSelectedItem(new Exercise());
     }
 
     @FXML
     private void btnCopyExerciseOnClick(MouseEvent event) {
-        dc.setManagerMode(PersistMode.NEW);
+        dc.setManagerMode(Exercise.class, PersistMode.NEW);
         Exercise box = new Exercise(tblExercises.getSelectionModel().getSelectedItem());
       //  box.copy();
         box.setName(box.getName() + "_" + "COPY");
-        dc.setExercise(box);
+        dc.setSelectedItem(box);
     }
 
     @FXML
     private void btnDeleteExerciseOnClick(MouseEvent event) {
         dc.deleteExercise();
-        dc.setExercise(new Exercise());
+        dc.setSelectedItem(new Exercise());
     }
 
-    private void setExerciseToDc() {
-        dc.setManagerMode(PersistMode.UPDATE);
-        dc.setExercise(tblExercises.getSelectionModel().getSelectedItem());
+    private void setSelectedItemToDc() {
+        dc.setManagerMode(Exercise.class, PersistMode.UPDATE);
+        dc.setSelectedItem(tblExercises.getSelectionModel().getSelectedItem());
     }
 
     @FXML

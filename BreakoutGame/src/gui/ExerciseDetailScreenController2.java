@@ -126,7 +126,7 @@ public class ExerciseDetailScreenController2 extends GridPane implements Observe
       @FXML
     private void saveEx(ActionEvent event)
     {
-           dc.saveExercise(txtEx.getText(), txtAnw.getText(), txtFeedback.getText(), txtAssignment.getText(), cmbCategory.getSelectionModel().getSelectedIndex());
+           dc.saveExercise(txtEx.getText(), txtAnw.getText(), txtFeedback.getText(), txtAssignment.getText(), cmbCategory.getSelectionModel().getSelectedIndex(), 60);
     }
     
 }

@@ -81,7 +81,7 @@ public class StartScreenController extends GridPane implements Observer {
 
         this.dc = dc;
 //        dc.addObserver(this);
-        listExercices =dc.getListAllExercisesE();
+        listExercices =dc.getFilteredItems(Exercise.class);
         lstTest.setItems(listExercices);
         tblExercises.setItems(listExercices);
         clmAssignment.setCellValueFactory(e -> e.getValue().categoryProperty());
@@ -95,8 +95,8 @@ public class StartScreenController extends GridPane implements Observer {
 
     @FXML
     private void btnOpdrachtAanmakenClick(MouseEvent event) {
-        dc.setManagerMode(PersistMode.NEW);
-        dc.setExercise(new Exercise());
+        dc.setManagerMode(Exercise.class, PersistMode.NEW);
+        dc.setSelectedItem(new Exercise());
     }
 
     @FXML
@@ -127,7 +127,7 @@ public class StartScreenController extends GridPane implements Observer {
     }
     
     private void setExerciseToDc() {
-         dc.setManagerMode(PersistMode.UPDATE);
-        dc.setExercise(tblExercises.getSelectionModel().getSelectedItem());
+         dc.setManagerMode(Exercise.class, PersistMode.UPDATE);
+        dc.setSelectedItem(tblExercises.getSelectionModel().getSelectedItem());
     }
 }

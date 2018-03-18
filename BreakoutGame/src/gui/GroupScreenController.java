@@ -52,8 +52,8 @@ public class GroupScreenController extends GridPane implements Observer{
 //        dc.addObserver(this);
         this.dc = dc;
            clmDescription.setCellValueFactory(e -> e.getValue().descriptionProperty());
-        tblViewGroupOperations.setItems(dc.getGroupOperations());
-        System.out.println(dc.getGroupOperations());
+        tblViewGroupOperations.setItems(dc.getFilteredItems(GroupOperation.class));
+        System.out.println(dc.getFilteredItems(GroupOperation.class));
 
     }
 
