@@ -182,7 +182,7 @@ public class StartUp2 {
         List<Exercise> test = new ArrayList();
         test.add(ex1);
         test.add(ex2);
-        Box box = new Box("Box voor 22/05", "BoxMDF1", exercises, accesscodes, acs);
+        Box box = new Box("Box voor 22/05", "BoxMDF1", exercises, acs);
 
         Group group1 = new Group("something");
         Group group2 = new Group("thing");

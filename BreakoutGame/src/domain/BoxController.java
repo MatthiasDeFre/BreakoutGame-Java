@@ -8,9 +8,11 @@ package domain;
 import domain.managers.AccessCodeManager;
 import domain.managers.ActionManager;
 import domain.managers.BoxManager;
+import domain.managers.CategoryManager;
 import domain.managers.ExerciseManager;
 import domain.managers.IManageable;
 import domain.managers.Manager;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -18,6 +20,8 @@ import java.util.Map;
 import java.util.Observer;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
 import javafx.collections.transformation.FilteredList;
@@ -27,14 +31,15 @@ import persistence.PersistenceController;
  *
  * @author Matthias
  */
-public class BoxController {
+public class BoxController implements ExerciseFilter{
     
     private PersistenceController persistenceController;
     private BoxManager boxManager;
     private ExerciseManager exerciseManager;
     private ActionManager actionManager;
    private AccessCodeManager accessCodeManager;
-    
+   private CategoryManager categoryManager; 
+   
     private Map<String, Manager> managers;
     private Map<String, ManagerFilter> filters;
 
@@ -45,12 +50,13 @@ public class BoxController {
         exerciseManager = new ExerciseManager(persistenceController);
        actionManager = new ActionManager(persistenceController);
         accessCodeManager = new AccessCodeManager(persistenceController);
+        categoryManager = new CategoryManager(persistenceController);
         
         filters = new HashMap<>();
         
         filters.put(Exercise.class.getSimpleName(), () -> exerciseManager.changeFilter(boxManager.getExerciseTemp()));
         filters.put(BoBAction.class.getSimpleName(), () ->  actionManager.changeFilter(boxManager.getActionsTemp()));
-        filters.put(AccessCode.class.getSimpleName(), () -> accessCodeManager.changeFilter(boxManager.getAccessCodesTemp()));
+     //   filters.put(AccessCode.class.getSimpleName(), () -> accessCodeManager.changeFilter(boxManager.getAccessCodesTemp()));
         
         managers = new HashMap<>();
         
@@ -58,6 +64,7 @@ public class BoxController {
         managers.put(Exercise.class.getSimpleName(), exerciseManager);
         managers.put(BoBAction.class.getSimpleName(), actionManager);
         managers.put(AccessCode.class.getSimpleName(), accessCodeManager);
+        managers.put(Category.class.getSimpleName(), categoryManager);
     }
     
     
@@ -107,9 +114,9 @@ public class BoxController {
  /*   public void addObserver(String className, Observer object) {
         managers.get(className).addObserver(object);
     }*/
-    public ObservableList<AccessCode> getTempListAccessCodes() {
+  /*  public ObservableList<AccessCode> getTempListAccessCodes() {
         return boxManager.getAccessCodesTemp();
-    }
+    }*/
      public ObservableList<Exercise> getTempListExercises() {
         return boxManager.getExerciseTemp();
     }
@@ -140,7 +147,7 @@ public class BoxController {
     public void saveBox(String name, String description) {
         try
         {
-              Box box = new Box(description, name, new HashSet<>(boxManager.getExerciseTemp()), boxManager.getAccessCodesTemp(), boxManager.getActionsTemp());
+              Box box = new Box(description, name, new HashSet<>(boxManager.getExerciseTemp()), boxManager.getActionsTemp());
                  boxManager.save(box);
         } catch (IllegalArgumentException e)
         {
@@ -179,7 +186,7 @@ public class BoxController {
         {
             String test = obj.get(0).getClass().getSimpleName();
             boxManager.removeObjectFromTemp(obj);
-            ManagerFilter filter = filters.get(obj.get(0).getClass().getSimpleName());
+            ManagerFilter filter = filters.get(test);
             if (filter != null)
             {
                 filter.applyFilter();
@@ -188,15 +195,27 @@ public class BoxController {
       }
     
     public void removeBox() {
-        boxManager.delete();
+        try
+        {
+            boxManager.delete();
+        } catch (Exception ex)
+        {
+            throw new IllegalArgumentException("Je kan deze box niet verwijderen omdat deze zich nog in een sessie bevind");
+        }
     }
     public void removeAction() {
-        actionManager.delete();
-    }
-    public ObservableList getClasses() {
-        return exerciseManager.getCategories();
+        try
+        {
+            actionManager.delete();
+        } catch (Exception ex)
+        {
+           throw new IllegalArgumentException("Je kan deze actie niet verwijderen omdat deze nog in een box zit");
+        }
     }
     
+    public void changeBoxFilter(String filter) {
+        boxManager.changeBoxNameFilter(filter);
+    }
     public void applyExerciseFilter(Category cat) {
        
     }
@@ -207,6 +226,12 @@ public class BoxController {
         public void removeCategoryToFilter(Category cat) {
         exerciseManager.removeCategoryToFilter(cat);
          exerciseManager.changeFilter(boxManager.getExerciseTemp());
+    }
+
+    @Override
+    public ObservableList<Category> getClasses()
+    {
+        return categoryManager.getFilteredItems();
     }
     
 }

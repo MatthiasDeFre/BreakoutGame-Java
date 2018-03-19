@@ -13,13 +13,14 @@
    <children>
       <VBox layoutX="24.0" layoutY="83.0" prefHeight="317.0" prefWidth="170.0" spacing="10.0">
          <children>
-            <JFXButton prefHeight="25.0" prefWidth="182.0" text="SCHERM 1">
+            <JFXButton onAction="#goToEx" prefHeight="25.0" prefWidth="182.0" style="-fx-background-color: yellow;" styleClass="button-rasied" text="Oefeningen">
                <font>
                   <Font name="Roboto" size="12.0" />
-               </font></JFXButton>
-            <JFXButton prefHeight="25.0" prefWidth="182.0" text="SCHERM 1" />
-            <JFXButton prefHeight="25.0" prefWidth="182.0" text="SCHERM 1" />
-            <JFXButton prefHeight="25.0" prefWidth="182.0" text="SCHERM 1" />
+               </font>
+            </JFXButton>
+            <JFXButton onAction="#goToBox" prefHeight="25.0" prefWidth="182.0" style="-fx-background-color: yellow;" styleClass="button-rasied" text="Boxen" />
+            <JFXButton prefHeight="25.0" prefWidth="182.0" style="-fx-background-color: yellow;" styleClass="button-rasied" text="SCHERM 1" />
+            <JFXButton prefHeight="25.0" prefWidth="182.0" style="-fx-background-color: yellow;" styleClass="button-rasied" text="SCHERM 1" />
          </children>
          <padding>
             <Insets top="20.0" />

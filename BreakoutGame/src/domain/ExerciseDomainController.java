@@ -5,6 +5,8 @@
  */
 package domain;
 
+import com.microsoft.sqlserver.jdbc.SQLServerException;
+import domain.managers.CategoryManager;
 import domain.managers.GroupOperationManager;
 import domain.managers.ExerciseManager;
 import domain.managers.GoalManager;
@@ -17,6 +19,8 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -26,12 +30,13 @@ import persistence.PersistenceController;
  *
  * @author geers
  */
-public class ExerciseDomainController {
+public class ExerciseDomainController implements ExerciseFilter{
 
     private PersistenceController persistenceController;
     private GroupOperationManager groupOperationManager;
     private ExerciseManager exerciseManager;
     private GoalManager goalManager;
+    private CategoryManager categoryManager;
 
     private Map<String, Manager> managers;
     private Map<String, ManagerFilter> filters;
@@ -44,13 +49,15 @@ public class ExerciseDomainController {
         groupOperationManager = new GroupOperationManager(persistenceController);
         exerciseManager = new ExerciseManager(persistenceController);
         goalManager = new GoalManager(persistenceController);
-
+        categoryManager = new CategoryManager(persistenceController);
+        
         managers = new HashMap<>();
 
         managers.put(Exercise.class.getSimpleName(), exerciseManager);
         managers.put(GroupOperation.class.getSimpleName(), groupOperationManager);
         managers.put(Goal.class.getSimpleName(), goalManager);
-
+        managers.put(Category.class.getSimpleName(), categoryManager);
+        
         filters = new HashMap<>();
 
         filters.put(GroupOperation.class.getSimpleName(), () -> groupOperationManager.changeFilter(exerciseManager.getGroupOperationsTemp()));
@@ -78,10 +85,7 @@ public class ExerciseDomainController {
         return exerciseManager.getGoalsTemp();
     }
 
-    public ObservableList<Category> getCategories()
-    {
-        return exerciseManager.getCategories();
-    }
+ 
 
     public void changeFilterGroupOperations(List<GroupOperation> groupOperations)
     {
@@ -99,29 +103,77 @@ public class ExerciseDomainController {
     }
 
     public void saveExercise(String name, String answer, String feedback, String assignment, int categoryId, int time)
-    {
+    {   
+        try {
         exerciseManager.save(new Exercise(name, answer, feedback, assignment, exerciseManager.getCategory(categoryId), exerciseManager.getGroupOperationsTemp(), exerciseManager.getGoalsTemp(), time));
+        } catch(IllegalArgumentException ex) {
+            throw new IllegalArgumentException("Een of meerdere velden zijn leeg ofzo");
+        } catch(Exception ex) {
+            throw new IllegalArgumentException("Deze bestaat al");
+        } 
     }
 
     public void saveGroupOperation(OperationCategory cat, List<String> valueString)
     {
-        groupOperationManager.save(new GroupOperation(cat, valueString.stream().collect(Collectors.joining("&"))));
+        try {
+            groupOperationManager.save(new GroupOperation(cat, valueString.stream().collect(Collectors.joining("&"))));
+        } catch(IllegalArgumentException ex) {
+            throw new IllegalArgumentException("Een of meerdere velden zijn leeg ofzo");
+        } catch(Exception ex) {
+            throw new IllegalArgumentException("Deze bestaat al");
+        } 
+      
     }
-
+    public void saveCategory(String name) {
+        categoryManager.save(new Category(name));
+    }
+    public void saveGoal(String name) {
+        goalManager.save(new Goal(name));
+    }
     public void deleteExercise()
     {
-        exerciseManager.delete();
+        try {
+               exerciseManager.delete();
+        } catch(Exception e) {
+            throw new IllegalArgumentException("Er is een fout opgetreden: deze fout komt meestal voor omdat de oefening zich binnen een box bevind");
+        }
+     
     }
 
     public void deleteGroupOperation()
     {
-        groupOperationManager.delete();
+        try
+        {
+            groupOperationManager.delete();
+        } catch (Exception ex)
+        {
+            throw new IllegalArgumentException("Er is een fout opgetreden: deze fout komt meestal voor omdat de groepsbewerking zich binnen een oefening bevind");
+        }
     }
 
+    public void deleteGoal() {
+        try
+        {
+            goalManager.delete();
+        } catch (Exception ex)
+        {
+            throw new IllegalArgumentException("Er is een fout opgetreden: deze fout komt meestal voor omdat de doelstelling zich binnen een oefening bevind");
+        }
+    }
+    public void deleteCategory() {
+        try
+        {
+            categoryManager.delete();
+        } catch (Exception ex)
+        {
+           throw new IllegalArgumentException("Er is een fout opgetreden: deze fout komt meestal voor omdat het vak zich binnen een oefening bevind");
+        }
+    }
     public void deleteExercise(Exercise exercise)
     {
         //  exerciseManager.delete(exercise);
     }
+    
 
     public void setManagerMode(Class<? extends IManageable> className, PersistMode persistMode) {
           System.out.println(className.getSimpleName());
@@ -133,6 +185,9 @@ public class ExerciseDomainController {
         groupOperationManager.setManagerMode(persistMode);
     }
 
+    public void addObserver(Class<? extends IManageable> className, Observer obs) {
+          managers.get(className.getSimpleName()).addObserver(obs);
+    }
     public void addObserverExercise(Observer obs)
     {
         exerciseManager.addObserver(obs);
@@ -176,14 +231,35 @@ public class ExerciseDomainController {
         //Need to retrieve an object because of type erasure
         if (obj.size() > 0)
         {
+            System.out.println(obj.size());
             String test = obj.get(0).getClass().getSimpleName();
             exerciseManager.removeObjectFromTemp(obj);
-            ManagerFilter filter = filters.get(obj.get(0).getClass().getSimpleName());
+            ManagerFilter filter = filters.get(test);
             if (filter != null)
             {
                 filter.applyFilter();
             }
         }
+    }
+    public void applyFilters() {
+        exerciseManager.changeFilter(new ArrayList<>());
+    }
+    
+        public void addCategoryToFilter(Category cat) {
+        exerciseManager.addCategoryToFilter(cat);
+    
+    }
+        public void removeCategoryToFilter(Category cat) {
+        exerciseManager.removeCategoryToFilter(cat);
+    }
+         public void changeGoalFilter(List<String> goals) {
+        exerciseManager.changeGoalFilter(goals);
+    }
+
+    @Override
+    public ObservableList<Category> getClasses()
+    {
+        return categoryManager.getFilteredItems();
     }
 
 }

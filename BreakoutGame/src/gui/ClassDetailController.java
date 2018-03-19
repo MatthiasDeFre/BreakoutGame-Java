@@ -9,15 +9,15 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXTextField;
-import domain.BoBAction;
-import domain.BoxController;
+import domain.Category;
+import domain.ExerciseDomainController;
+import domain.GroupOperation;
 import domain.PersistMode;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
-import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -30,27 +30,26 @@ import javafx.scene.layout.AnchorPane;
  *
  * @author Matthias
  */
-public class BoBActionDetailController extends AnchorPane implements Observer{
+public class ClassDetailController extends AnchorPane implements Observer{
 
-    /**
-     * Initializes the controller class.
-     */
-    private BoxController dc;
     @FXML
     private AnchorPane AnchorPane;
+    @FXML
+    private JFXTextField txtClassName;
     @FXML
     private JFXButton btnNew;
     @FXML
     private JFXButton btnSave;
     @FXML
-    private JFXTextField txtActionName;
-    @FXML
     private JFXButton btnRemove;
 
+    private ExerciseDomainController dc;
+    
     private JFXDialog dialog;
-    public BoBActionDetailController(BoxController dc, JFXDialog dia)
+
+    public ClassDetailController(ExerciseDomainController dc, JFXDialog dia)
     {
-         FXMLLoader loader = new FXMLLoader(getClass().getResource("BoBActionDetail.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("ClassDetail.fxml"));
         loader.setRoot(this);
         loader.setController(this);
         try {
@@ -59,56 +58,42 @@ public class BoBActionDetailController extends AnchorPane implements Observer{
             System.out.printf(ex.getMessage());
         }
         this.dc = dc;
-        dc.addObserverAction(this);
-        btnSave.setDisable(true);
-        btnRemove.setDisable(true);
-        txtActionName.setDisable(true);
         this.dialog = dia;
     }
-
+    
+    
     @FXML
-    private void addNewAction(ActionEvent event)
+    private void addNewClass(ActionEvent event)
     {
-        dc.setManagerMode(BoBAction.class, PersistMode.NEW);
-        dc.setSelectedItem(new BoBAction());
-        txtActionName.requestFocus();
+        dc.setManagerMode(Category.class, PersistMode.NEW);
+        dc.setSelectedItem(new Category());
     }
 
     @FXML
-    private void saveAction(ActionEvent event)
+    private void saveClass(ActionEvent event)
     {
-        dc.saveAction(txtActionName.getText());
+        dc.saveCategory(txtClassName.getText());
+        dc.setManagerMode(Category.class, PersistMode.UPDATE);
+    }
+
+    @FXML
+    private void removeClass(ActionEvent event)
+    { 
+        try {
+            dc.deleteCategory();
+        } catch(IllegalArgumentException ex) {
+            setErrorDialog(ex);
+        }
     }
 
     @Override
     public void update(Observable o, Object arg)
     {
-        
-       
-        BoBAction action = (BoBAction) arg;
-        if(!action.getName().equals("Zoek een kist")) {
-             btnRemove.setDisable(false);
-        btnSave.disableProperty().bind(txtActionName.textProperty().isEmpty());
-       txtActionName.setDisable(false);
-        } else {
-              btnRemove.setDisable(true);
-        }
-        
-        txtActionName.setText(action.getName());
-        
+        Category cat = (Category) arg;
+        txtClassName.setText(cat.getName());
     }
-
-    @FXML
-    private void removeAction(ActionEvent event)
-    {
-        try {
-            dc.removeAction(); 
-        } catch(IllegalArgumentException ex) {
-            setErrorDialog(ex);
-        }
-      
-    }
-         private void setErrorDialog(Exception ex) {
+    
+    private void setErrorDialog(Exception ex) {
          JFXDialogLayout layout = new JFXDialogLayout();
             layout.setBody(new Label(ex.getMessage()));
             JFXButton okButton = new JFXButton("OK");
@@ -117,9 +102,5 @@ public class BoBActionDetailController extends AnchorPane implements Observer{
             dialog.setContent(layout);
             dialog.show();
     }
-
-  
-    
-    
     
 }

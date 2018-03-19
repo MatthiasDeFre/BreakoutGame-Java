@@ -52,18 +52,18 @@ public class BoxManager extends Manager<Box>
      
     }
 
-    public ObservableList<AccessCode> getAccessCodesTemp()
+  /*  public ObservableList<AccessCode> getAccessCodesTemp()
     {
         return tempLists.get(AccessCode.class.getSimpleName());
     }
 
-    public void setAccessCodesTemp(List<AccessCode> accessCodesTemp)
+   public void setAccessCodesTemp(List<AccessCode> accessCodesTemp)
     {
         //this.accessCodesTemp = accessCodesTemp;
       
         tempLists.get(AccessCode.class.getSimpleName()).setAll(accessCodesTemp);
     }
-
+*/
     public ObservableList<BoBAction> getActionsTemp()
     {
         return tempLists.get(BoBAction.class.getSimpleName());
@@ -91,7 +91,7 @@ public class BoxManager extends Manager<Box>
     private void resetTempCollections() {     
         tempLists.put(Exercise.class.getSimpleName(), FXCollections.observableArrayList());
         tempLists.put(BoBAction.class.getSimpleName(), FXCollections.observableArrayList());
-         tempLists.put(AccessCode.class.getSimpleName(), FXCollections.observableArrayList());
+         //tempLists.put(AccessCode.class.getSimpleName(), FXCollections.observableArrayList());
                 
    /*     setAccessCodesTemp(FXCollections.observableArrayList());
         setActionsTemp(FXCollections.observableArrayList());
@@ -116,7 +116,7 @@ public class BoxManager extends Manager<Box>
     }
     
     
-    public void addAccessCodeTemp(AccessCode accessCode)
+   /* public void addAccessCodeTemp(AccessCode accessCode)
     {
         accessCodesTemp.add(accessCode); 
    }
@@ -124,7 +124,7 @@ public class BoxManager extends Manager<Box>
     public void removeAccessCodeTemp(AccessCode accessCode)
     {
         accessCodesTemp.remove(accessCode);
-    }
+    }*/
 
     @Override
     public void save(Box object)
@@ -139,11 +139,14 @@ public class BoxManager extends Manager<Box>
     }
 
     
+    public void changeBoxNameFilter(String name) {
+        getFilteredItems().setPredicate(e -> e.getName().toLowerCase().contains(name.toLowerCase().trim()));
+    }
     
     @Override
     public void setSelected(Box item)
     {
-        setAccessCodesTemp(item.getAccessCodes());
+      //  setAccessCodesTemp(item.getAccessCodes());
         setActionsTemp(item.getActions());
         setExerciseTemp(item.getExercises().stream().collect(Collectors.toList()));
         resetBoxGoalSet();

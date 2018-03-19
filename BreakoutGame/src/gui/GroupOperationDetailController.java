@@ -7,6 +7,8 @@ package gui;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXTextField;
 import domain.ExerciseDomainController;
 import domain.GroupOperation;
@@ -60,7 +62,8 @@ public class GroupOperationDetailController extends AnchorPane implements Observ
 
     private ExerciseDomainController dc;
 
-    public GroupOperationDetailController(ExerciseDomainController dc)
+    private JFXDialog dialog;
+    public GroupOperationDetailController(ExerciseDomainController dc, JFXDialog dia)
     {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("GroupOperationDetail.fxml"));
         loader.setRoot(this);
@@ -87,6 +90,7 @@ public class GroupOperationDetailController extends AnchorPane implements Observ
 
                     }
         });
+        this.dialog = dia;
     }
 
     @FXML
@@ -144,7 +148,12 @@ public class GroupOperationDetailController extends AnchorPane implements Observ
     @FXML
     private void deleteGroupOp(ActionEvent event)
     {
-        dc.deleteGroupOperation();
+        try {
+                  dc.deleteGroupOperation();
+        } catch(IllegalArgumentException e) {
+            setErrorDialog(e);
+        }
+  
         
     }
 
@@ -159,6 +168,16 @@ public class GroupOperationDetailController extends AnchorPane implements Observ
         IntStream.range(0, values.length).forEach(e -> {
             textFields.get(e).setText(values[e]);
         });
+    }
+    
+        private void setErrorDialog(Exception ex) {
+         JFXDialogLayout layout = new JFXDialogLayout();
+            layout.setBody(new Label(ex.getMessage()));
+            JFXButton okButton = new JFXButton("OK");
+            okButton.setOnMouseClicked(e -> dialog.close());
+            layout.setActions(okButton);
+            dialog.setContent(layout);
+            dialog.show();
     }
 
 }

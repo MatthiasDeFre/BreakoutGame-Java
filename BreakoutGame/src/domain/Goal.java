@@ -35,7 +35,12 @@ public class Goal implements Serializable, IManageable, Comparable<Object> {
         setCode(code);
     }
 
-    
+    public Goal(Goal goal) {
+        copy(goal);
+    }
+    public void copy(Goal goal) {
+        setCode(goal.getCode());
+    }
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

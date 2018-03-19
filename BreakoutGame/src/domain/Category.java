@@ -5,8 +5,11 @@
  */
 package domain;
 
+import domain.managers.IManageable;
 import java.io.Serializable;
 import java.util.Objects;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,42 +22,48 @@ import util.LangConfig;
  * @author Alexander
  */
 @Entity
-public class Category implements Serializable {
+public class Category implements Serializable, IManageable {
     
 //  
 //    MATH("MATH"),
 //    GEOGRAPHY("GEOGRAPHY"),
 //    DUTCH("DUTCH");
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(unique = true)
-    private String name;
+
+    private SimpleStringProperty name = new SimpleStringProperty();
     
-    protected Category() {
+    public Category() {
         
     }
     public Category(String name)    
     {
         setName(name);
     }
+    
+    public Category(Category category) {
+        copy(category);
+    }
+    public void copy(Category category) {
+        setName(category.getName());
+    }
 
+        @Column(name = "name", unique = true)
     public String getName()
     {
-        return name;
+        return name.get();
     }
     
     
     public void setName(String name) {
         if(name != null && !name.trim().isEmpty()) {
-            this.name = name;
+            this.name.set(name);
         } else {
             throw new IllegalArgumentException();
         }
         
     }
     public String getDescription() {
-        return LangConfig.getString(name);
+        return name.get();
     }
 
     @Override
@@ -81,7 +90,7 @@ public class Category implements Serializable {
             return false;
         }
         final Category other = (Category) obj;
-        if (!Objects.equals(this.name, other.name))
+        if (!Objects.equals(this.name.get(), other.name.get()))
         {
             return false;
         }
@@ -91,8 +100,25 @@ public class Category implements Serializable {
     @Override
     public String toString()
     {
-        return LangConfig.getString(name);
+        return name.get();
     }
+    
+    public StringProperty nameProperty() {
+        return name;
+    }
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public long getId()
+    {
+        return id;
+    }
+
+    public void setId(long id)
+    {
+        this.id = id;
+    }
+    
     
     
 }

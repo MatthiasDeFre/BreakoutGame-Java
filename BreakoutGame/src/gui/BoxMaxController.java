@@ -144,7 +144,8 @@ public class BoxMaxController extends AnchorPane implements Observer{
     @FXML
     private VBox vBoxCollections;
 
-    public BoxMaxController(BoxController dc)
+    
+    public BoxMaxController(BoxController dc, JFXDialog dia)
     {
          FXMLLoader loader = new FXMLLoader(getClass().getResource("boxMax.fxml"));
         loader.setRoot(this);
@@ -157,7 +158,7 @@ public class BoxMaxController extends AnchorPane implements Observer{
             System.out.printf(ex.getMessage());
         }
         this.dc = dc;
-        
+        this.dialog = dia;
        /*ImageView img = new ImageView("gui/assets/img/home.png");
        img.setFitHeight(100);
        img.setFitWidth(100);
@@ -296,7 +297,7 @@ public class BoxMaxController extends AnchorPane implements Observer{
         btnRemoveAction.disableProperty().bind(Bindings.size(tblSelectedActions.getItems()).lessThan(2));
         
         //Action management
-       vBoxCollections.getChildren().add(new BoBActionDetailController(dc));
+       vBoxCollections.getChildren().add(new BoBActionDetailController(dc, dia));
    //  vBoxCollections.getChildren().add(new GroupOperationDetailController(new ExerciseDomainController()));
            tblAllActions.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> 
                 {

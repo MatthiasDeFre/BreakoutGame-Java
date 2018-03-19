@@ -5,6 +5,7 @@
  */
 package domain.managers;
 
+import domain.Category;
 import domain.Goal;
 import domain.Group;
 import java.util.List;
@@ -29,6 +30,15 @@ public class GoalManager extends Manager<Goal>{
         super(Goal.class, persistence);
         setItems(FXCollections.observableArrayList(persistence.getAllOfType(Goal.class)));
     }
+
+    @Override
+    public void save(Goal object)
+    {
+         getPersistenceController().setPersistMode(getManagerMode());
+       ((Goal) getSelected() ).copy(object);
+        super.save(object); //To change body of generated methods, choose Tools | Templates.
+    }
+    
     
     public void changeFilter(List<Goal> goals) {
          getFilteredItems().setPredicate(e -> !goals.contains(e));

@@ -36,9 +36,9 @@ public class Seeder {
         
         GroupOperation[] goArray = { new GroupOperation(OperationCategory.MULTIPLY, "1"),  new GroupOperation(OperationCategory.MIN, "1"), new GroupOperation(OperationCategory.PLUS, "1"), new GroupOperation(OperationCategory.MULTIPLY, "2"), new GroupOperation(OperationCategory.MIN, "50"),  new GroupOperation(OperationCategory.PLUS, "10"), new GroupOperation(OperationCategory.SWAPCHAR, "a&b")};
      
-        Category math=new Category("MATH");
-        Category dutch=new Category("DUTCH");
-        Category geography=new Category("GEOGRAPHY");
+        Category math=new Category("Wiskunde");
+        Category dutch=new Category("Nederlands");
+        Category geography=new Category("Aardrijkskunde");
         
            Set<Goal> goals = new HashSet<>(Arrays.asList(new Goal[] {
             new Goal("C50"),
@@ -90,7 +90,7 @@ public class Seeder {
            List<Exercise> test = new ArrayList();
            test.add(ex1);
            test.add(ex2);
-        Box box = new Box("Box voor 22/05","BoxMDF1", new HashSet<>(test), accesscodes, acs);
+        Box box = new Box("Box voor 22/05","BoxMDF1", new HashSet<>(test), acs);
         
         Session session = new Session(box, null, "NIEUWE OMSCHRIJVING", studentClass, "NIEUWE NAAM", LocalDate.now(), true, true);
         

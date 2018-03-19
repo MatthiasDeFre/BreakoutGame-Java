@@ -41,7 +41,7 @@ public class Box implements Serializable, IManageable {
    
    private Set<Exercise> exercises;
    
-   private List<AccessCode> accessCodes;
+  // private List<AccessCode> accessCodes;
    
   
    private List<BoBAction> actions;
@@ -53,15 +53,15 @@ public class Box implements Serializable, IManageable {
        boBAction.setId(1);
        actions.add(boBAction);
        exercises = new HashSet<>();
-       accessCodes = new ArrayList<>();
+  //     accessCodes = new ArrayList<>();
    }
 
-    public Box(String description, String name, Set<Exercise> exercises, List<AccessCode> accessCodes, List<BoBAction> actions)
+    public Box(String description, String name, Set<Exercise> exercises,  List<BoBAction> actions)
     {
         setDescription(description);
         setName(name);
         setExercises(new HashSet<>(exercises));
-        setAccessCodes(new ArrayList<>(accessCodes));
+       // setAccessCodes(new ArrayList<>(accessCodes));
         setActions(new ArrayList<>(actions));
     }
     
@@ -71,7 +71,7 @@ public class Box implements Serializable, IManageable {
         setName("RESET");
         setName(box.getName());
         setExercises(new HashSet<>(box.getExercises()));
-        setAccessCodes(new ArrayList<>(box.getAccessCodes()));
+       // setAccessCodes(new ArrayList<>(box.getAccessCodes()));
         setActions(new ArrayList<>(box.getActions()));
     }
    
@@ -128,16 +128,16 @@ public class Box implements Serializable, IManageable {
         this.exercises = exercises;
     }
 
-    @ManyToMany
+ /*   @ManyToMany
     public List<AccessCode> getAccessCodes()
     {
         return accessCodes;
-    }
+    }*/
 
-    public void setAccessCodes(List<AccessCode> accessCodes)
+  /*  public void setAccessCodes(List<AccessCode> accessCodes)
     {
         this.accessCodes = accessCodes;
-    }
+    }*/
 
     @ManyToMany
     @OrderColumn
@@ -159,12 +159,12 @@ public class Box implements Serializable, IManageable {
         //Check if equal to treasure (cant remove treasure = exception)
         actions.remove(action);
     }
-    public void addAccessCode(AccessCode accessCode) {
+  /* public void addAccessCode(AccessCode accessCode) {
         accessCodes.add(accessCode);
     }
     public void removeAccessCode(AccessCode accessCode) {
         accessCodes.remove(accessCode);
-    }
+    }*/
     public void addExercise(Exercise exercise) {
         exercises.add(exercise);
     }

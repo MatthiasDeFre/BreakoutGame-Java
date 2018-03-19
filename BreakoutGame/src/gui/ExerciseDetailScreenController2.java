@@ -86,7 +86,7 @@ public class ExerciseDetailScreenController2 extends GridPane implements Observe
 
 //        dc.addObserver(this);
         this.dc = dc;
-        cmbCategory.setItems(dc.getCategories());
+        cmbCategory.setItems(dc.getFilteredItems(Category.class));
         StringConverter<Category> converter = new StringConverter<Category>() {
             @Override
             public String toString(Category category) {

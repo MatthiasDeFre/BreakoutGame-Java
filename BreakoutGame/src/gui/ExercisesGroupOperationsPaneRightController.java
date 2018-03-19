@@ -7,7 +7,9 @@ package gui;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXDialog;
 import domain.BoBAction;
+import domain.Category;
 import domain.Exercise;
 import domain.ExerciseDomainController;
 import domain.Goal;
@@ -75,8 +77,16 @@ public class ExercisesGroupOperationsPaneRightController extends AnchorPane impl
     private TableView<Goal> tblViewSelectedGroals;
     @FXML
     private TableColumn<Goal, String> clmSelectedGoalName;
+    @FXML
+    private HBox hboxClasses;
+    @FXML
+    private TableView<Category> tblClasses;
+    @FXML
+    private TableColumn<Category, String> clmClassName;
+    
+    private JFXDialog dialog;
 
-    public ExercisesGroupOperationsPaneRightController(ExerciseDomainController dc) {
+    public ExercisesGroupOperationsPaneRightController(ExerciseDomainController dc, JFXDialog dialog) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ExercisesGroupOperationsPaneRight.fxml"));
         loader.setRoot(this);
         loader.setController(this);
@@ -95,7 +105,7 @@ public class ExercisesGroupOperationsPaneRightController extends AnchorPane impl
                clmSelectedDescription.setCellValueFactory(e -> e.getValue().descriptionProperty());
         System.out.println(dc.getFilteredItems(GroupOperation.class));
         
-        GroupOperationDetailController groupOperationDetailController = new GroupOperationDetailController(dc);
+        GroupOperationDetailController groupOperationDetailController = new GroupOperationDetailController(dc, dialog);
         dc.addObserverGroupOperation(groupOperationDetailController);
         hboxGroupOpActions.getChildren().add(groupOperationDetailController);
         //TODO CHANGE TO FULL LIST
@@ -119,7 +129,7 @@ public class ExercisesGroupOperationsPaneRightController extends AnchorPane impl
         btnLeft.disableProperty().bind(Bindings.size(groupOpTemp).isEqualTo(0));
       
         //Goal editing
-        GoalDetailController goalDetailController = new GoalDetailController(dc);
+        GoalDetailController goalDetailController = new GoalDetailController(dc, dialog);
         vboxGoal.getChildren().add(goalDetailController);
         this.dc.addObserverGoal(goalDetailController);
         tblViewGroals.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> 
@@ -129,6 +139,23 @@ public class ExercisesGroupOperationsPaneRightController extends AnchorPane impl
                         dc.setSelectedItem(newSelection);
                     }
         });
+        
+        ClassDetailController classDetailController = new ClassDetailController(dc, dialog);
+        tblClasses.setItems(dc.getFilteredItems(Category.class));
+        clmClassName.setCellValueFactory(e -> e.getValue().nameProperty());
+        hboxClasses.getChildren().add(classDetailController);
+        dc.addObserver(Category.class, classDetailController);
+        
+        tblClasses.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> 
+                {
+                    if (newSelection != null)
+                    {
+                        dc.setManagerMode(Category.class, PersistMode.UPDATE);
+                        dc.setSelectedItem(newSelection);
+                    }
+        });
+        
+        
         
     }
 
@@ -178,5 +205,8 @@ public class ExercisesGroupOperationsPaneRightController extends AnchorPane impl
                 tblViewSelectedGroals.getSelectionModel().select(0);
         
     }
-
+    
+      public void setDialog(JFXDialog dialogLayout) {
+        dialog = dialogLayout;
+    }
 }

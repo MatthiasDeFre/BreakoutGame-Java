@@ -7,6 +7,8 @@ package gui;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXColorPicker;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.effects.JFXDepthManager;
 import domain.Box;
 import domain.Exercise;
@@ -62,7 +64,8 @@ public class ExercisesPaneLeftController extends AnchorPane {
     @FXML
     private JFXColorPicker colorPicker;
 
-    public ExercisesPaneLeftController(ExerciseDomainController dc) {
+    private JFXDialog dialog; 
+    public ExercisesPaneLeftController(ExerciseDomainController dc, JFXDialog dialog) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ExercisesPaneLeft.fxml"));
         loader.setRoot(this);
         loader.setController(this);
@@ -73,11 +76,12 @@ public class ExercisesPaneLeftController extends AnchorPane {
         }
 
         this.dc = dc;
+        this.dialog = dialog;
 //        dc.addObserver(this);
         listExercices = dc.getFilteredItems(Exercise.class);
         tblExercises.setItems(listExercices);
         clmSection.setCellValueFactory(e -> e.getValue().categoryProperty());
-        clmDescription.setCellValueFactory(e -> e.getValue().assignmentProperty());
+        clmDescription.setCellValueFactory(e -> e.getValue().nameProperty());
         tblExercises.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 setSelectedItemToDc();
@@ -104,8 +108,14 @@ public class ExercisesPaneLeftController extends AnchorPane {
 
     @FXML
     private void btnDeleteExerciseOnClick(MouseEvent event) {
-        dc.deleteExercise();
-        dc.setSelectedItem(new Exercise());
+        
+        try{
+             dc.deleteExercise();
+              dc.setSelectedItem(new Exercise());
+        } catch(IllegalArgumentException ex) {
+            setErrorDialog(ex);
+        }
+      
     }
 
     private void setSelectedItemToDc() {
@@ -119,4 +129,13 @@ public class ExercisesPaneLeftController extends AnchorPane {
         tblExercises.setBackground(new Background(new BackgroundFill(Paint.valueOf(selectedColor.toString()), CornerRadii.EMPTY, Insets.EMPTY)));
     }
 
+         private void setErrorDialog(Exception ex) {
+         JFXDialogLayout layout = new JFXDialogLayout();
+            layout.setBody(new Label(ex.getMessage()));
+            JFXButton okButton = new JFXButton("OK");
+            okButton.setOnMouseClicked(e -> dialog.close());
+            layout.setActions(okButton);
+            dialog.setContent(layout);
+            dialog.show();
+    }
 }

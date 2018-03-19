@@ -78,12 +78,17 @@ public class BoxStartScreenController  extends StackPane {
         } catch (IOException ex) {
             System.out.printf(ex.getMessage());
         }
+          dialogScreen = new JFXDialog();
+       dialogContent = new JFXDialogLayout();
+   
+       dialogScreen.setContent(dialogContent);
+       dialogScreen.setDialogContainer(this);
         this.dc = dc;
-        BoxOverViewController boxOverViewController = new BoxOverViewController(dc);
+        BoxOverViewController boxOverViewController = new BoxOverViewController(dc, dialogScreen);
     //    mainPane.getItems().add(new AnchorPane());
         JFXDepthManager.setDepth(hBoxNavBar, 45);
         mainPane.getItems().add(boxOverViewController);
-        BoxMaxController boxMax = new BoxMaxController(dc);
+        BoxMaxController boxMax = new BoxMaxController(dc, dialogScreen);
         JFXDepthManager.setDepth(boxMax, 2);
         mainPane.getItems().add(boxMax);
      //   mainPane.setDividerPosition(0,50);
@@ -124,14 +129,10 @@ public class BoxStartScreenController  extends StackPane {
        filterDrawer.setOnDrawerClosed(e -> {
            this.getChildren().remove(filterDrawer);
        });
-       dialogScreen = new JFXDialog();
-       dialogContent = new JFXDialogLayout();
-   
-       dialogScreen.setContent(dialogContent);
-       dialogScreen.setDialogContainer(this);
+     
        
      //  boxAccessActionsController.setDialog(dialogScreen);
-     boxMax.setDialog(dialogScreen);
+     //boxMax.setDialog(dialogScreen);
      
        this.requestFocus();
         

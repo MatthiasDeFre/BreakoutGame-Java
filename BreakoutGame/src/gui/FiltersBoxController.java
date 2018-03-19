@@ -12,6 +12,7 @@ import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextArea;
 import domain.BoxController;
 import domain.Category;
+import domain.ExerciseFilter;
 import domain.Goal;
 import gui.components.CheckboxTest;
 import java.io.IOException;
@@ -23,6 +24,7 @@ import java.util.ResourceBundle;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ListChangeListener;
 import javafx.css.PseudoClass;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -48,7 +50,7 @@ public class FiltersBoxController extends AnchorPane {
     @FXML
     private VBox vboxClasses;
 
-    private BoxController dc;
+    private ExerciseFilter dc;
     private JFXListView<Category> lstClasses;
     @FXML
     private VBox vboxGoals;
@@ -62,7 +64,7 @@ public class FiltersBoxController extends AnchorPane {
         this(dc, new ArrayList<>());
     }
     
-    public FiltersBoxController(BoxController dc, List<Node> actions)
+    public FiltersBoxController(ExerciseFilter dc, List<Node> actions)
     {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("FiltersBox.fxml"));
         loader.setRoot(this);
@@ -91,6 +93,7 @@ public class FiltersBoxController extends AnchorPane {
                     });
                     return observable;
         }));*/
+     
         dc.getClasses().forEach(e -> {
             JFXCheckBox c = new JFXCheckBox(((Category)e).getDescription());
             c.setOnAction(e2 -> {
@@ -100,6 +103,35 @@ public class FiltersBoxController extends AnchorPane {
                   dc.removeCategoryToFilter((Category) e);
             });
             vboxClasses.getChildren().add(c);
+        });
+        
+        dc.getClasses().addListener((ListChangeListener.Change<? extends Category> ch) ->
+        {
+            while (ch.next())
+            {
+            ch.getAddedSubList().stream().forEach(e -> {
+            JFXCheckBox c = new JFXCheckBox(((Category)e).getDescription());
+            c.setOnAction(e2 -> {
+                if(c.isSelected())
+                  dc.addCategoryToFilter((Category) e);
+                else
+                  dc.removeCategoryToFilter((Category) e);
+            });
+            vboxClasses.getChildren().add(c);
+            });
+            List<Node> toBeRemoved = new ArrayList<>();
+            ch.getRemoved().stream().forEach(e -> {
+               vboxClasses.getChildren().stream().forEach(e2 -> {
+                  if(e2 instanceof CheckBox) {
+                
+                  if(e.getName().equals(((CheckBox) e2).getText())) {
+                      toBeRemoved.add(e2);
+                  }
+                  }
+               });
+            });
+            vboxClasses.getChildren().removeAll(toBeRemoved);
+            }
         });
         
         txtGoalFilter.setPromptText("Type hier de doelstellingcodes in: ");

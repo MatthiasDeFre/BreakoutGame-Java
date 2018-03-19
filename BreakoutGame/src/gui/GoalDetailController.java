@@ -6,9 +6,12 @@
 package gui;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXTextField;
 import domain.ExerciseDomainController;
 import domain.Goal;
+import domain.PersistMode;
 import gui.ComplexApplication2.ExerciseController;
 import java.io.IOException;
 import java.net.URL;
@@ -19,6 +22,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
 /**
@@ -36,8 +40,10 @@ public class GoalDetailController extends AnchorPane implements Observer{
     private JFXButton btnSave;
 
     private ExerciseDomainController dc;
+    
+    private JFXDialog dialog;
 
-    public GoalDetailController(ExerciseDomainController dc)
+    public GoalDetailController(ExerciseDomainController dc, JFXDialog dia)
     {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("GoalDetail.fxml"));
         loader.setRoot(this);
@@ -49,6 +55,7 @@ public class GoalDetailController extends AnchorPane implements Observer{
         }
 
         this.dc = dc;
+        this.dialog = dia;
     }
     
     
@@ -56,16 +63,25 @@ public class GoalDetailController extends AnchorPane implements Observer{
     @FXML
     private void addNewGoal(ActionEvent event)
     {
+        dc.setManagerMode(Goal.class, PersistMode.NEW);
+        dc.setSelectedItem(new Goal());
     }
 
     @FXML
     private void saveGoal(ActionEvent event)
     {
+        dc.saveGoal(txtGoalName.getText());
+        dc.setManagerMode(Goal.class, PersistMode.UPDATE);
     }
 
     @FXML
     private void deleteGoal(ActionEvent event)
     {
+        try {
+            dc.deleteGoal();
+        } catch(IllegalArgumentException e) {
+            setErrorDialog(e);
+        }
     }
 
     @Override
@@ -74,5 +90,16 @@ public class GoalDetailController extends AnchorPane implements Observer{
         Goal goal = (Goal) arg;
         txtGoalName.setText(goal.getCode());
     }
+    
+          private void setErrorDialog(Exception ex) {
+         JFXDialogLayout layout = new JFXDialogLayout();
+            layout.setBody(new Label(ex.getMessage()));
+            JFXButton okButton = new JFXButton("OK");
+            okButton.setOnMouseClicked(e -> dialog.close());
+            layout.setActions(okButton);
+            dialog.setContent(layout);
+            dialog.show();
+    }
+
     
 }

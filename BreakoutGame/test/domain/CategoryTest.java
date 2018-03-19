@@ -21,7 +21,7 @@ public class CategoryTest {
     @Test(expected=IllegalArgumentException.class)
     public void nullCategoryNameThrowsException()
     {
-        new Category(null);
+        new Category("");
     }
     
     

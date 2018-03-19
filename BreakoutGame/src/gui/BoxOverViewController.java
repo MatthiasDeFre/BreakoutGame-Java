@@ -6,6 +6,9 @@
 package gui;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
+import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.effects.JFXDepthManager;
 import domain.Box;
 import domain.BoxController;
@@ -20,10 +23,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -35,8 +40,6 @@ import javafx.scene.text.Font;
  */
 public class BoxOverViewController extends AnchorPane implements Observer {
 
-    @FXML
-    private Color x2;
     @FXML
     private Font x1;
     @FXML
@@ -53,8 +56,11 @@ public class BoxOverViewController extends AnchorPane implements Observer {
     private JFXButton btnCopy;
     @FXML
     private JFXButton btnRemove;
+    @FXML
+    private JFXTextField txtBoxFilter;
 
-    public BoxOverViewController(BoxController dc)
+    private JFXDialog dialog;
+    public BoxOverViewController(BoxController dc, JFXDialog dialog)
     {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("BoxOverView.fxml"));
         loader.setRoot(this);
@@ -67,10 +73,11 @@ public class BoxOverViewController extends AnchorPane implements Observer {
             System.out.printf(ex.getMessage());
         }
         this.dc = dc;
+        this.dialog = dialog;
         JFXDepthManager.setDepth(tblBox, 1);
-        
+
         tblBox.setItems(dc.getFilteredItems(Box.class));
-       /* clmName.setCellFactory(e -> 
+        /* clmName.setCellFactory(e -> 
                 {
                     return new TableCell<Box, String>() {
                         @Override
@@ -100,24 +107,25 @@ public class BoxOverViewController extends AnchorPane implements Observer {
         });*/
         clmDescription.setCellValueFactory(e -> e.getValue().descriptionProperty());
         clmName.setCellValueFactory(e -> e.getValue().nameProperty());
-        tblBox.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> 
+        tblBox.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection)
+                -> 
                 {
                     if (newSelection != null)
                     {
                         setBoxToDc();
                     }
         });
-        
+
         btnRemove.disableProperty().bind(Bindings.size(tblBox.getItems()).isEqualTo(0));
         btnCopy.disableProperty().bind(Bindings.size(tblBox.getItems()).isEqualTo(0));
-        
+
     }
 
     @Override
     public void update(Observable o, Object arg)
     {
-       Box box = (Box) arg;
-       
+        Box box = (Box) arg;
+
     }
 
     private void setBoxToDc()
@@ -146,10 +154,34 @@ public class BoxOverViewController extends AnchorPane implements Observer {
     @FXML
     private void removeSelected(ActionEvent event)
     {
-        dc.removeBox();
-        dc.setSelectedItem(new Box());
-        tblBox.getSelectionModel().clearSelection();
-        tblBox.getSelectionModel().selectNext();
+        try
+        {
+            dc.removeBox();
+            dc.setSelectedItem(new Box());
+            tblBox.getSelectionModel().clearSelection();
+            tblBox.getSelectionModel().selectNext();
+        } catch (IllegalArgumentException e)
+        {
+            setErrorDialog(e);
+        }
+
+    }
+
+    @FXML
+    private void changeBoxNameFilter(KeyEvent event)
+    {
+        dc.changeBoxFilter(txtBoxFilter.getText());
+    }
+
+    private void setErrorDialog(Exception ex)
+    {
+        JFXDialogLayout layout = new JFXDialogLayout();
+        layout.setBody(new Label(ex.getMessage()));
+        JFXButton okButton = new JFXButton("OK");
+        okButton.setOnMouseClicked(e -> dialog.close());
+        layout.setActions(okButton);
+        dialog.setContent(layout);
+        dialog.show();
     }
 
 }

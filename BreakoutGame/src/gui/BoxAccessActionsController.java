@@ -178,7 +178,7 @@ public class BoxAccessActionsController extends AnchorPane implements Observer{
     public void update(Observable o, Object arg)
     {
         Box box = (Box) arg;
-        tblSelectedAccess.setItems(dc.getTempListAccessCodes());
+      //  tblSelectedAccess.setItems(dc.getTempListAccessCodes());
         clmSelectedAccessNavme.setCellValueFactory(e -> e.getValue().codeProperty().asObject());
         
         tblSelectedActions.setItems(dc.getTempListBoBActions());

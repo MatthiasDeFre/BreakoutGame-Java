@@ -117,7 +117,7 @@ public class Exercise implements IManageable, Serializable {
         return !(feedback == null) && !(feedback.isEmpty());
     }
 
-    @Column(name = "name")
+    @Column(name = "name", unique = true)
     public String getName()
     {
         return name.get();
@@ -282,6 +282,9 @@ public class Exercise implements IManageable, Serializable {
     
     public IntegerProperty timeInMinutesProperty() {
         return timeInMinutes;
+    }
+    public StringProperty nameProperty() {
+        return name;
     }
     
 }

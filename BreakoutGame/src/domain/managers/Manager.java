@@ -83,10 +83,9 @@ public abstract class Manager<T extends domain.managers.IManageable> implements 
         if(getPersistenceController().getPersistMode() == PersistMode.NEW)
             getItems().add(getSelected());
     }
-    public void delete() {
-        persistenceController.deleteObject(type, selected);
-        items.remove(selected);
-      
+    public void delete() throws java.lang.reflect.InvocationTargetException {
+              persistenceController.deleteObject(type, selected);
+              items.remove(selected);
     }
 
     @Override

@@ -9,9 +9,14 @@ import domain.BoxController;
 import domain.ExerciseDomainController;
 import domain.ListStudentController;
 import domain.SceneName;
+import javafx.animation.FadeTransition;
+
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  *
@@ -39,10 +44,15 @@ public class SceneController4 {
     } 
 
     public static void switchScene(SceneName sn) {
-    primaryStage.setMaximized(true);
+  
+        primaryStage.setMaximized(true);
  
         scene.setRoot(parent);
       //  primaryStage.setScene(scene);
      //   primaryStage.setMaximized(true);
+    }
+    
+    public static Stage getStage() {
+        return primaryStage;
     }
 }

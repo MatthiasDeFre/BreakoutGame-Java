@@ -38,7 +38,7 @@ public class Startup extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-        Seeder.seedDatabaseWithStartData();
+     Seeder.seedDatabaseWithStartData();
            LangConfig.setLang();
         
         Scene scene = new Scene(new MainScreenController(new ExerciseDomainController()));

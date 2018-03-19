@@ -7,6 +7,8 @@ package gui;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
 import domain.Category;
@@ -15,6 +17,7 @@ import domain.ExerciseDomainController;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.text.NumberFormat;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
@@ -22,6 +25,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -67,7 +71,8 @@ public class ExerciseDetailsPaneMidController extends AnchorPane implements Obse
     @FXML
     private JFXToggleButton btnToggleTime;
   
-    public ExerciseDetailsPaneMidController(ExerciseDomainController dc) {
+    private JFXDialog dialog;
+    public ExerciseDetailsPaneMidController(ExerciseDomainController dc, JFXDialog dialog) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ExerciseDetailsPaneMid.fxml"));
         loader.setRoot(this);
         loader.setController(this);
@@ -79,7 +84,8 @@ public class ExerciseDetailsPaneMidController extends AnchorPane implements Obse
 
 //        dc.addObserver(this);
         this.dc = dc;
-        cmbCategory.setItems(dc.getCategories());
+        this.dialog = dialog;
+        cmbCategory.setItems(dc.getFilteredItems(Category.class));
         StringConverter<Category> converter = new StringConverter<Category>() {
             @Override
             public String toString(Category category) {
@@ -98,7 +104,8 @@ public class ExerciseDetailsPaneMidController extends AnchorPane implements Obse
         });
         
        txtTime.disableProperty().bind(btnToggleTime.selectedProperty().not());
-      
+      txfFeedback.setDisable(true);
+      txfOpdracht.setDisable(true);
     }
 
 
@@ -132,7 +139,7 @@ public class ExerciseDetailsPaneMidController extends AnchorPane implements Obse
         fileChooser.getExtensionFilters().addAll(
                 new ExtensionFilter("PDF Files", "*.pdf"));
 
-        File selectedFile = fileChooser.showOpenDialog(new Stage()); //moet nog aangepast worden
+        File selectedFile = fileChooser.showOpenDialog(SceneController4.getStage()); //moet nog aangepast worden
         txfFeedback.setText(selectedFile.getPath());
     }
 
@@ -143,15 +150,21 @@ public class ExerciseDetailsPaneMidController extends AnchorPane implements Obse
         fileChooser.getExtensionFilters().addAll(
                 new ExtensionFilter("PDF Files", "*.pdf"));
 
-        File selectedFile = fileChooser.showOpenDialog(new Stage()); //moet nog aangepast worden
+        File selectedFile = fileChooser.showOpenDialog(SceneController4.getStage()); //moet nog aangepast worden
         txfOpdracht.setText(selectedFile.getPath());
     }
 
     @FXML
     private void btnSaveExOnAction(ActionEvent event)
     {
-        dc.saveExercise(txtEx.getText(), txtAnw.getText(), txfFeedback.getText(), txfOpdracht.getText(), cmbCategory.getSelectionModel().getSelectedIndex(), Integer.valueOf(txtTime.getText()));
-    }
+        try {
+        dc.saveExercise(txtEx.getText(), txtAnw.getText(), txfFeedback.getText(), txfOpdracht.getText(), cmbCategory.getSelectionModel().getSelectedIndex(), Integer.valueOf(!txtTime.getText().equals("") ? txtTime.getText() : "0"));       
+        } catch(NumberFormatException e) {
+            setErrorDialog(new NumberFormatException("Gelieve een getal in te vullen in het tijd veld"));
+        } catch(IllegalArgumentException e) {
+            setErrorDialog(e);
+        }
+        }
 
     @FXML
     private void changeTimeSelection(ActionEvent event)
@@ -161,4 +174,13 @@ public class ExerciseDetailsPaneMidController extends AnchorPane implements Obse
         }
     }
 
+        private void setErrorDialog(Exception ex) {
+         JFXDialogLayout layout = new JFXDialogLayout();
+            layout.setBody(new Label(ex.getMessage()));
+            JFXButton okButton = new JFXButton("OK");
+            okButton.setOnMouseClicked(e -> dialog.close());
+            layout.setActions(okButton);
+            dialog.setContent(layout);
+            dialog.show();
+    }
 }
