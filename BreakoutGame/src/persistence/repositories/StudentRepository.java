@@ -27,7 +27,7 @@ public class StudentRepository extends GenericRepository<Student> {
     public boolean contains(String classroom, String classnumber) {
         TypedQuery<Student> query =  getEntityManager().createNamedQuery("StudentExists", Student.class);
         query.setParameter("classroom", classroom);
-        query.setParameter("classnumber", query);
+        query.setParameter("classnumber", classnumber);
         return !query.getResultList().isEmpty();
     }
 }

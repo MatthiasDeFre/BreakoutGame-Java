@@ -13,6 +13,7 @@ import java.util.ListIterator;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import persistence.JPAUtil;
+import persistence.PersistenceController;
 
 /**
  *
@@ -20,13 +21,14 @@ import persistence.JPAUtil;
  */
 public class ExcelStudentsImport {
     ExcelStudents excelStudents=new ExcelStudents();
+    PersistenceController persistenceController=new PersistenceController();
     public void AddStudentsExcel()
     {
         List<String> listExcelDataStudents=excelStudents.ImportStudents();
         ListIterator<String> Iterator=listExcelDataStudents.listIterator();
+        
         //Klas opvragen uit excel,deze zit vooraan in de lijst
         String klas=Iterator.next();
-        
         List<Student> listStudents= new ArrayList<>();
         while(Iterator.hasNext())
         {
@@ -35,20 +37,14 @@ public class ExcelStudentsImport {
         }
         
         //Lijst omzetten naar een ListIterator
-        ListIterator<Student>lijstIterator2;
-        lijstIterator2= listStudents.listIterator();
+        ListIterator<Student>lijstIterator2=listStudents.listIterator();
         EntityManager entityManager=JPAUtil.getEntityManagerFactory().createEntityManager();
         entityManager.getTransaction().begin();
         
         while(lijstIterator2.hasNext())
         {
             Student student=lijstIterator2.next();
-            List<Student> result;
-            TypedQuery<Student> queryStudent=entityManager.createNamedQuery("StudentExists",Student.class);
-            queryStudent.setParameter("classroom",student.getClassRoom());
-            queryStudent.setParameter("classnumber", student.getClassNumber());
-            result=queryStudent.getResultList();
-            if(result!=null)
+            if(!persistenceController.StudentExists(student.getClassRoom(), student.getClassNumber())==true)
                 entityManager.persist(student);
             
         }
