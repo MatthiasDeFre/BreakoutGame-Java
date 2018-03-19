@@ -1,28 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTabPane?>
-<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<fx:root id="pane" minWidth="600.0" prefHeight="600.0" prefWidth="600.0" stylesheets="@assets/css/style_1.css" type="AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root id="pane" minWidth="700.0" prefHeight="600.0" prefWidth="600.0" stylesheets="@assets/css/style_1.css" type="AnchorPane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label layoutX="113.0" layoutY="14.0" text="Groepoperaties en doelstellingen" AnchorPane.leftAnchor="113.0" AnchorPane.rightAnchor="112.0">
          <font>
@@ -35,7 +25,7 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="273.0" prefWidth="539.0">
                      <children>
-                        <HBox layoutX="8.0" layoutY="33.0" prefHeight="184.0" prefWidth="522.0" AnchorPane.bottomAnchor="34.0" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="9.0" AnchorPane.topAnchor="33.0">
+                        <HBox layoutX="58.0" layoutY="34.0" prefHeight="384.0" prefWidth="523.0" AnchorPane.bottomAnchor="33.0" AnchorPane.leftAnchor="58.0" AnchorPane.topAnchor="34.0">
                            <children>
                               <TableView fx:id="tblViewGroupOperations" minHeight="-Infinity" minWidth="-Infinity" prefHeight="284.0" prefWidth="227.0" stylesheets="@assets/css/jfoenix-components.css">
                                 <columns>
@@ -72,7 +62,7 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="tblAvailableGrOps" layoutX="26.0" layoutY="26.0" prefHeight="200.0" prefWidth="200.0" stylesheets="@assets/css/jfoenix-components.css" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="26.0" AnchorPane.rightAnchor="313.0" AnchorPane.topAnchor="26.0">
+                        <TableView fx:id="tblAvailableGrOps" layoutX="26.0" layoutY="26.0" prefHeight="400.0" prefWidth="246.0" stylesheets="@assets/css/jfoenix-components.css" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="26.0" AnchorPane.rightAnchor="367.0" AnchorPane.topAnchor="26.0">
                           <columns>
                             <TableColumn fx:id="clmAvailableGrOpName" prefWidth="75.0" text="Beschikbare groepoperaties" />
                           </columns>
@@ -89,9 +79,9 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <VBox fx:id="vboxGoal" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="9.0" AnchorPane.topAnchor="33.0">
+                        <VBox fx:id="vboxGoal" layoutX="57.0" layoutY="29.0" prefHeight="373.0" prefWidth="525.0" AnchorPane.bottomAnchor="49.0" AnchorPane.leftAnchor="57.0" AnchorPane.rightAnchor="57.0" AnchorPane.topAnchor="29.0">
                            <children>
-                              <HBox prefHeight="184.0" prefWidth="522.0" VBox.vgrow="ALWAYS">
+                              <HBox prefHeight="373.0" prefWidth="560.0" VBox.vgrow="ALWAYS">
                                  <children>
                                     <TableView fx:id="tblViewGroals" minHeight="-Infinity" minWidth="-Infinity" prefHeight="284.0" prefWidth="227.0" stylesheets="@assets/css/jfoenix-components.css">
                                        <columnResizePolicy>
@@ -130,9 +120,9 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <HBox spacing="20.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="26.0" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="26.0">
+                        <HBox prefHeight="400.0" prefWidth="579.0" spacing="20.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="26.0" AnchorPane.rightAnchor="34.0" AnchorPane.topAnchor="26.0">
                            <children>
-                              <TableView fx:id="tblClasses" prefWidth="500.0" stylesheets="@assets/css/jfoenix-components.css" HBox.hgrow="ALWAYS">
+                              <TableView fx:id="tblClasses" prefHeight="400.0" prefWidth="514.0" stylesheets="@assets/css/jfoenix-components.css" HBox.hgrow="ALWAYS">
                                  <columnResizePolicy>
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                  </columnResizePolicy>
@@ -140,7 +130,7 @@
                                     <TableColumn fx:id="clmClassName" prefWidth="75.0" text="Vak" />
                                  </columns>
                               </TableView>
-                              <HBox fx:id="hboxClasses" spacing="10.0" />
+                              <HBox fx:id="hboxClasses" prefHeight="400.0" prefWidth="691.0" spacing="10.0" />
                            </children>
                         </HBox>
                      </children>
