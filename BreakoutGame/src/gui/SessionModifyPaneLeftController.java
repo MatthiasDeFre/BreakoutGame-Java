@@ -5,16 +5,25 @@
  */
 package gui;
 
+import domain.Exercise;
 import domain.ExerciseDomainController;
+import domain.GroupOperation;
+import domain.PersistMode;
 import domain.Session;
 import domain.SessionController;
+import domain.SessionStatus;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.ResourceBundle;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 
 /**
@@ -25,9 +34,13 @@ import javafx.scene.layout.AnchorPane;
 public class SessionModifyPaneLeftController extends AnchorPane {
 
     @FXML
-    private TableColumn<Session, String> tblSessions;
-    
+    private TableView<Session> tblSessions;
+
     private SessionController dc;
+    @FXML
+    private AnchorPane pane;
+    @FXML
+    private TableColumn<Session, String> clmSessions;
 
     public SessionModifyPaneLeftController(SessionController dc) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("SessionModifyPaneLeft.fxml"));
@@ -40,9 +53,21 @@ public class SessionModifyPaneLeftController extends AnchorPane {
         }
 
         this.dc = dc;
-//        btnTest.getStylesheets().add("bootstrapfx.css");
-//        btnTest.getStyleClass().setAll("btn", "btn-danger");
-//test
+
+        clmSessions.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getName()));
+        tblSessions.setItems(dc.getFilteredItems(Session.class));
+
+        tblSessions.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                setSelectedItemToDc();
+            }
+        });
+
+    }
+
+    private void setSelectedItemToDc() {
+        dc.setManagerMode(Session.class, PersistMode.UPDATE);
+        dc.setSelectedItem(tblSessions.getSelectionModel().getSelectedItem());
     }
 
 }

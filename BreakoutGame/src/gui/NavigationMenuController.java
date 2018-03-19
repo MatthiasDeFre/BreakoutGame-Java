@@ -26,15 +26,13 @@ import javafx.util.Duration;
  *
  * @author Matthias
  */
-public class NavigationMenuController  extends AnchorPane{
+public class NavigationMenuController extends AnchorPane {
 
     @FXML
     private AnchorPane AnchorPane;
 
- 
-    public NavigationMenuController( )
-    {
-          FXMLLoader loader = new FXMLLoader(getClass().getResource("NavigationMenu.fxml"));
+    public NavigationMenuController() {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("NavigationMenu.fxml"));
         loader.setRoot(this);
         loader.setController(this);
         try {
@@ -42,26 +40,26 @@ public class NavigationMenuController  extends AnchorPane{
         } catch (IOException ex) {
             System.out.printf(ex.getMessage());
         }
-      
+
     }
 
     @FXML
-    private void goToEx(ActionEvent event)
-    {
+    private void goToEx(ActionEvent event) {
         SceneController4.createScene(SceneName.EXERCISEMAINSCREEN2);
-        SceneController4.switchScene(SceneName.EXERCISEMAINSCREEN);   
+        SceneController4.switchScene(SceneName.EXERCISEMAINSCREEN);
     }
 
     @FXML
-    private void goToBox(ActionEvent event)
-    {
+    private void goToBox(ActionEvent event) {
         SceneController4.createScene(SceneName.BOXSCREEN);
         SceneController4.switchScene(SceneName.BOXSCREEN);
     }
 
-    /**
-     * Initializes the controller class.
-     */
-   
-    
+    @FXML
+    private void goToSessions(ActionEvent event) {
+        SceneController4.createScene(SceneName.SESSIONMAIN);
+        SceneController4.switchScene(SceneName.SESSIONMAIN);
+
+    }
+
 }

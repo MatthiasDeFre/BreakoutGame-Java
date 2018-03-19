@@ -12,6 +12,7 @@ import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXDrawer;
 import domain.BoxController;
 import domain.ExerciseDomainController;
+import domain.Session;
 import domain.SessionController;
 import gui.ExerciseDetailScreenController2;
 import gui.ExerciseDetailsPaneMidController;
@@ -99,11 +100,10 @@ public class SessionMainController extends StackPane {
         test = new SessionModifyPaneRightController(dc);
         test2 = new SessionModifyPaneLeftController(dc);
 
-//        dc.addObserverExercise(screen2);
-//        dc.addObserverExercise(screen3);
+        dc.addObserver(Session.class, test);
 
-        splitPane.getItems().add(test);
         splitPane.getItems().add(test2);
+        splitPane.getItems().add(test);
 //        splitPane.getItems().add(screen3);
 
         
@@ -132,7 +132,7 @@ public class SessionMainController extends StackPane {
             this.getChildren().remove(filterDrawer);
         });
 
-        screen3.setDialog(dialogScreen);
+//        screen3.setDialog(dialogScreen);
     }
 
     @FXML

@@ -1,4 +1,4 @@
- /*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -27,16 +27,14 @@ import persistence.PersistenceController;
  * @author Matthias
  */
 public class SessionController {
-    
-    
+
     private SessionManager sessionManager;
     private GroupManager groupManager;
     private BoxManager boxManager;
     private Map<String, Manager> managers;
 
-    public SessionController(PersistenceController persistenceController)
-    {
-                
+    public SessionController(PersistenceController persistenceController) {
+
         sessionManager = new SessionManager(persistenceController);
         groupManager = new GroupManager(persistenceController);
         boxManager = new BoxManager(persistenceController);
@@ -44,62 +42,72 @@ public class SessionController {
 
         managers.put(Session.class.getSimpleName(), sessionManager);
         managers.put(Box.class.getSimpleName(), boxManager);
-   // STUDENT / STUDENTCLASS MANAGER
-   //managers.put(StudentClass.class.getSimpleName(), new Stu)
+        // STUDENT / STUDENTCLASS MANAGER
+        //managers.put(StudentClass.class.getSimpleName(), new Stu)
         managers.put(GroupManager.class.getSimpleName(), groupManager);
     }
-    
+
     public FilteredList getFilteredItems(Class<? extends IManageable> className) {
         return managers.get(className.getSimpleName()).getFilteredItems();
     }
-    
+
     public void addObserver(Class<? extends IManageable> className, Observer obs) {
         managers.get(className.getSimpleName()).addObserver(obs);
     }
-    
+
     public void saveSession(String description, String name, LocalDate activationDate, boolean tile, boolean feedback) {
-     //TODO NEED OTHER MANAGERS => group, studentclass etc
-          managers.get(Session.class.getSimpleName()).save(new Session(
-                (Box) managers.get(Box.class.getSimpleName()).getSelected(), 
+        //TODO NEED OTHER MANAGERS => group, studentclass etc
+        managers.get(Session.class.getSimpleName()).save(new Session(
+                (Box) managers.get(Box.class.getSimpleName()).getSelected(),
                 sessionManager.getTempGroups(),
-                description, 
-                new StudentClass(), 
-                name, 
-                activationDate, 
-                tile, 
+                description,
+                new StudentClass(),
+                name,
+                activationDate,
+                tile,
                 feedback));
     }
-    
+
     public void addNewTempGroup(String name) {
         //TODO GET TEMP STUDENTS FROM MANAGER
         sessionManager.getTempGroups().add(new BoBGroup(name));
     }
+
     public void removeTempGroup(BoBGroup group) {
         sessionManager.getTempGroups().remove(group);
-      
+
     }
-      
+
     public void addStudentToTempGroup(Student student) {
-       ((BoBGroup) groupManager.getSelected()).addStudent(student);
-    }  
+        ((BoBGroup) groupManager.getSelected()).addStudent(student);
+    }
+
     public void removeStudentFromTempGroup(Student student) {
         ((BoBGroup) groupManager.getSelected()).removeStudent(student);
     }
-    
+
     public void generateGroups(int amount, boolean notEmpty) {
         List<BoBGroup> groups;
-        if(notEmpty)
-           groups = GroupManager.generateRandomGroups(new StudentClass(), amount);
-        else
-           groups = GroupManager.generateEmptyGroups(amount);
+        if (notEmpty) {
+            groups = GroupManager.generateRandomGroups(new StudentClass(), amount);
+        } else {
+            groups = GroupManager.generateEmptyGroups(amount);
+        }
         sessionManager.clearTempGroups();
         sessionManager.addAllToTempGroup(groups);
     }
-    
+
     public void generatePaths() {
         SessionManager.generatePaths(sessionManager.getTempGroups(), boxManager.getSelected());
     }
-    
-    
-    
+
+    public void setManagerMode(Class<? extends IManageable> className, PersistMode persistMode) {
+        System.out.println(className.getSimpleName());
+        managers.get(className.getSimpleName()).setManagerMode(persistMode);
+    }
+
+    public void setSelectedItem(IManageable item) {
+        managers.get(item.getClass().getSimpleName()).setSelected(item);
+    }
+
 }

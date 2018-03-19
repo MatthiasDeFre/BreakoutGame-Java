@@ -83,7 +83,7 @@ public class ExercisesGroupOperationsPaneRightController extends AnchorPane impl
     private TableView<Category> tblClasses;
     @FXML
     private TableColumn<Category, String> clmClassName;
-    
+
     private JFXDialog dialog;
 
     public ExercisesGroupOperationsPaneRightController(ExerciseDomainController dc, JFXDialog dialog) {
@@ -101,112 +101,109 @@ public class ExercisesGroupOperationsPaneRightController extends AnchorPane impl
         clmDescription.setCellValueFactory(e -> e.getValue().descriptionProperty());
         tblViewGroupOperations.setItems(dc.getFilteredItems(GroupOperation.class));
         ObservableList groupOpTemp = dc.getGroupOperationsTemp();
-       tblViewSelectedGroupOperations.setItems(groupOpTemp);
-               clmSelectedDescription.setCellValueFactory(e -> e.getValue().descriptionProperty());
+        tblViewSelectedGroupOperations.setItems(groupOpTemp);
+        clmSelectedDescription.setCellValueFactory(e -> e.getValue().descriptionProperty());
         System.out.println(dc.getFilteredItems(GroupOperation.class));
-        
+
         GroupOperationDetailController groupOperationDetailController = new GroupOperationDetailController(dc, dialog);
         dc.addObserverGroupOperation(groupOperationDetailController);
         hboxGroupOpActions.getChildren().add(groupOperationDetailController);
         //TODO CHANGE TO FULL LIST
         tblAvailableGrOps.itemsProperty().bind(tblViewGroupOperations.itemsProperty());
-        tblAvailableGrOps.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> 
-                {
-                    if (newSelection != null)
-                    {
-                        dc.setManagerModeGroupOp(PersistMode.UPDATE);
-                        dc.setSelectedItem(newSelection);
-                    }
+        tblAvailableGrOps.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection)
+                -> {
+            if (newSelection != null) {
+                dc.setManagerModeGroupOp(PersistMode.UPDATE);
+                dc.setSelectedItem(newSelection);
+            }
         });
         clmAvailableGrOpName.setCellValueFactory(e -> e.getValue().descriptionProperty());
-        
+
         tblViewGroals.setItems(dc.getFilteredItems(Goal.class));
         clmAllGoalName.setCellValueFactory(e -> e.getValue().code());
         tblViewSelectedGroals.setItems(dc.getGoalsTemp());
         clmSelectedGoalName.setCellValueFactory(e -> e.getValue().code());
-        
+
         btnRight.setDisable(true);
         btnLeft.disableProperty().bind(Bindings.size(groupOpTemp).isEqualTo(0));
-      
+
         //Goal editing
         GoalDetailController goalDetailController = new GoalDetailController(dc, dialog);
         vboxGoal.getChildren().add(goalDetailController);
         this.dc.addObserverGoal(goalDetailController);
-        tblViewGroals.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> 
-                {
-                    if (newSelection != null)
-                    {
-                        dc.setSelectedItem(newSelection);
-                    }
+        tblViewGroals.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection)
+                -> {
+            if (newSelection != null) {
+                dc.setSelectedItem(newSelection);
+            }
         });
-        
+
         ClassDetailController classDetailController = new ClassDetailController(dc, dialog);
         tblClasses.setItems(dc.getFilteredItems(Category.class));
         clmClassName.setCellValueFactory(e -> e.getValue().nameProperty());
         hboxClasses.getChildren().add(classDetailController);
         dc.addObserver(Category.class, classDetailController);
-        
-        tblClasses.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> 
-                {
-                    if (newSelection != null)
-                    {
-                        dc.setManagerMode(Category.class, PersistMode.UPDATE);
-                        dc.setSelectedItem(newSelection);
-                    }
+
+        tblClasses.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection)
+                -> {
+            if (newSelection != null) {
+                dc.setManagerMode(Category.class, PersistMode.UPDATE);
+                dc.setSelectedItem(newSelection);
+            }
         });
-        
-        
-        
+
     }
 
     @FXML
     private void btnRightOnAction(ActionEvent event) {
         dc.addToTempList(tblViewGroupOperations.getSelectionModel().getSelectedItems());
-         if(tblViewGroupOperations.getItems().size() > 0) 
-                tblViewGroupOperations.getSelectionModel().select(0);
+        if (tblViewGroupOperations.getItems().size() > 0) {
+            tblViewGroupOperations.getSelectionModel().select(0);
+        }
     }
 
     @FXML
     private void btnLeftOnAction(ActionEvent event) {
-           dc.removeFromTempList(tblViewSelectedGroupOperations.getSelectionModel().getSelectedItems());
-            if(tblViewSelectedGroupOperations.getItems().size() > 0) 
-                tblViewSelectedGroupOperations.getSelectionModel().select(0);
+        dc.removeFromTempList(tblViewSelectedGroupOperations.getSelectionModel().getSelectedItems());
+        if (tblViewSelectedGroupOperations.getItems().size() > 0) {
+            tblViewSelectedGroupOperations.getSelectionModel().select(0);
+        }
     }
 
     @Override
     public void update(Observable o, Object arg) {
         Exercise exercise = (Exercise) arg;
         btnRight.setDisable(false);
-     //deze gebruiken
+        //deze gebruiken
         //     exercise.addGroupOperationTemp(new GroupOperation(OperationCategory.MULTIPLY, "5"));
         //clmCat.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getCategory().getDescription()));
-      //deze gebruiken
+        //deze gebruiken
         dc.changeFilterGroupOperations(exercise.getGroupOperations());
         dc.changeFilterGoal(exercise.getGoals().stream().collect(Collectors.toList()));
         //     tblViewGroupOperations.setItems(dc.getGroupOperations());
     }
 
     @FXML
-    private void addGoalTolTemp(ActionEvent event)
-    {
-        
-          dc.addToTempList(tblViewGroals.getSelectionModel().getSelectedItems());
-          if(tblViewGroals.getItems().size() > 0) 
-                tblViewGroals.getSelectionModel().select(0);
-     
+    private void addGoalTolTemp(ActionEvent event) {
+
+        dc.addToTempList(tblViewGroals.getSelectionModel().getSelectedItems());
+        if (tblViewGroals.getItems().size() > 0) {
+            tblViewGroals.getSelectionModel().select(0);
+        }
+
     }
 
     @FXML
-    private void removeGoalFromTemp(ActionEvent event)
-    {
-    
-         dc.removeFromTempList(tblViewSelectedGroals.getSelectionModel().getSelectedItems());
-         if(tblViewSelectedGroals.getItems().size() > 0) 
-                tblViewSelectedGroals.getSelectionModel().select(0);
-        
+    private void removeGoalFromTemp(ActionEvent event) {
+
+        dc.removeFromTempList(tblViewSelectedGroals.getSelectionModel().getSelectedItems());
+        if (tblViewSelectedGroals.getItems().size() > 0) {
+            tblViewSelectedGroals.getSelectionModel().select(0);
+        }
+
     }
-    
-      public void setDialog(JFXDialog dialogLayout) {
+
+    public void setDialog(JFXDialog dialogLayout) {
         dialog = dialogLayout;
     }
 }
