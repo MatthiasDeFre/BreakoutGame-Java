@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.layout.VBox?>
+
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" type="StackPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.SessionMainController">
+   <children>
+      <VBox prefHeight="600.0" prefWidth="900.0">
+         <children>
+            <HBox fx:id="hBoxNavBar" prefHeight="47.0" prefWidth="900.0" spacing="10.0" style="-fx-background-color: lightblue;">
+               <children>
+                  <ImageView fitHeight="33.0" fitWidth="35.0" onMouseClicked="#test" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/img/home.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets bottom="5.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <JFXButton fx:id="btnFilters" onAction="#applyFilters" text="Filters" />
+                  <JFXButton ripplerFill="#6f0606" style="-fx-background-color: wsparent;" text="SCHERM 1" />
+                  <JFXButton style="-fx-background-color: tra,sparent;" text="SCHERM 2" />
+                  <JFXButton style="-fx-background-color: tra,sparent;" text="SCHERM 3" />
+                  <JFXButton style="-fx-background-color: tra,sparent;" text="SCHERM 4" />
+               </children>
+               <padding>
+                  <Insets left="10.0" top="7.0" />
+               </padding>
+            </HBox>
+            <SplitPane id="pane" fx:id="splitPane" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" stylesheets="@../assets/css/style_1.css" VBox.vgrow="ALWAYS" />
+         </children>
+         <stylesheets>
+            <URL value="@ComplexApplication.css" />
+         </stylesheets>
+      </VBox>
+      <JFXDrawer fx:id="filterDrawer" defaultDrawerSize="450.0" prefHeight="400.0" prefWidth="343.0" />
+      <JFXDrawer fx:id="testD" defaultDrawerSize="450.0" prefHeight="400.0" prefWidth="343.0" />
+   </children>
+</fx:root>

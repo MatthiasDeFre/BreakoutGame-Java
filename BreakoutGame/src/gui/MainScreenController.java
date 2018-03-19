@@ -33,7 +33,8 @@ import javafx.stage.Stage;
  *
  * @author geers
  */
-public class MainScreenController extends AnchorPane implements Observer{
+public class MainScreenController extends AnchorPane implements Observer {
+
     private ExerciseDomainController dc;
     @FXML
     private JFXButton btnBox;
@@ -51,6 +52,8 @@ public class MainScreenController extends AnchorPane implements Observer{
     private Label lblVersion;
     @FXML
     private JFXButton btnStudents;
+    @FXML
+    private JFXButton btnSession;
 
     public MainScreenController(ExerciseDomainController dc) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("MainScreen.fxml"));
@@ -62,16 +65,16 @@ public class MainScreenController extends AnchorPane implements Observer{
             System.out.printf("Error starting scene");
         }
 
-        this.dc=dc;
-   //     hBox.setAlignment(Pos.CENTER);
-  //      lblTitle.setAlignment(Pos.TOP_CENTER);
-  //      lblTeam.setAlignment(Pos.BOTTOM_RIGHT);
-  //      lblVersion.setAlignment(Pos.BOTTOM_LEFT);
+        this.dc = dc;
+        //     hBox.setAlignment(Pos.CENTER);
+        //      lblTitle.setAlignment(Pos.TOP_CENTER);
+        //      lblTeam.setAlignment(Pos.BOTTOM_RIGHT);
+        //      lblVersion.setAlignment(Pos.BOTTOM_LEFT);
         this.requestFocus();
-    String image = MainScreenController.class.getResource("boeken.jpg").toExternalForm();
-      this.setStyle("-fx-background-image: url('" + image + "'); " +
-           "-fx-background-position: center center; " +
-           "-fx-background-repeat: stretch;");
+        String image = MainScreenController.class.getResource("boeken.jpg").toExternalForm();
+        this.setStyle("-fx-background-image: url('" + image + "'); "
+                + "-fx-background-position: center center; "
+                + "-fx-background-repeat: stretch;");
     }
 
     @FXML
@@ -95,5 +98,11 @@ public class MainScreenController extends AnchorPane implements Observer{
     private void btnStudentsExcell(ActionEvent event) {
         SceneController4.createScene(SceneName.STUDENTSSCREEN);
         SceneController4.switchScene(SceneName.STUDENTSSCREEN);
+    }
+
+    @FXML
+    private void btnSessionOnAction(ActionEvent event) {
+        SceneController4.createScene(SceneName.SESSIONMAIN);
+        SceneController4.switchScene(SceneName.SESSIONMAIN);
     }
 }

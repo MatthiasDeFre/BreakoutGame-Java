@@ -9,6 +9,7 @@ import domain.BoxController;
 import domain.ExerciseDomainController;
 import domain.ListStudentController;
 import domain.SceneName;
+import domain.SessionController;
 import javafx.animation.FadeTransition;
 
 import javafx.scene.Parent;
@@ -29,10 +30,10 @@ public class SceneController4 {
     private static Scene scene; 
     private static Parent parent;
 
-    public SceneController4(ExerciseDomainController dc, BoxController dc2,ListStudentController dc3,Stage primaryStage, Scene scene) {
+    public SceneController4(ExerciseDomainController dc, BoxController dc2,ListStudentController dc3 ,SessionController dc4,Stage primaryStage, Scene scene) {
         this.dc = dc;
         this.primaryStage = primaryStage;
-        sf = new SceneFactory(dc, dc2,dc3);
+        sf = new SceneFactory(dc, dc2,dc3,dc4);
         this.scene = scene;
         primaryStage.setScene(scene);
     }

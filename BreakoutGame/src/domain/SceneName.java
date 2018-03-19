@@ -16,6 +16,7 @@ public enum SceneName {
     EXERCISEMAINSCREEN2,
     STUDENTSSCREEN,
     MAINSCREEN,
-    BOXSCREEN
+    BOXSCREEN,
+    SESSIONMAIN
     
 }

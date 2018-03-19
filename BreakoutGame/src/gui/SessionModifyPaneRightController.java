@@ -6,6 +6,7 @@
 package gui;
 
 import domain.ExerciseDomainController;
+import domain.SessionController;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -25,9 +26,9 @@ public class SessionModifyPaneRightController extends AnchorPane {
     @FXML
     private Button btnTest;
 
-    private ExerciseDomainController dc;
+    private SessionController dc;
 
-    public SessionModifyPaneRightController(ExerciseDomainController dc) {
+    public SessionModifyPaneRightController(SessionController dc) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("SessionModifyPaneRight.fxml"));
         loader.setRoot(this);
         loader.setController(this);

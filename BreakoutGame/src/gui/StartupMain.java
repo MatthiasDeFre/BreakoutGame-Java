@@ -5,11 +5,11 @@
  */
 package gui;
 
-
 import domain.BoxController;
 import domain.ExerciseDomainController;
 import domain.ListStudentController;
 import domain.SceneName;
+import domain.SessionController;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
@@ -26,24 +26,23 @@ import static javafx.application.Application.launch;
  *
  * @author geers
  */
-public class StartupMain extends Application{
+public class StartupMain extends Application {
 
     @Override
-    public void start(Stage stage) throws Exception
-    {
-  //      Seeder.seedDatabaseWithStartData();
+    public void start(Stage stage) throws Exception {
+        //      Seeder.seedDatabaseWithStartData();
         LangConfig.setLang();
-        
+
         Scene scene = new Scene(new MainScreenController(new ExerciseDomainController()));
         scene.getStylesheets().add(StartupMain.class.getResource("assets/css/jfoenix-components.css").toExternalForm());
-        SceneController4 sc4=new SceneController4(new ExerciseDomainController(), new BoxController(new PersistenceController()),new ListStudentController(), stage, scene);
+        SceneController4 sc4 = new SceneController4(new ExerciseDomainController(), new BoxController(new PersistenceController()), new ListStudentController(), new SessionController(new PersistenceController()), stage, scene);
         Image icon = new Image("/gui/assets/img/icon.png");
         stage.getIcons().add(icon);
         stage.setTitle("BOB Manager");
-      //  sc4.createScene(SceneName.BOXSCREEN);
-       // sc4.switchScene(SceneName.BOXSCREEN);
-    
- //         stage.setMaximized(true);
+        //  sc4.createScene(SceneName.BOXSCREEN);
+        // sc4.switchScene(SceneName.BOXSCREEN);
+
+        //         stage.setMaximized(true);
         stage.setResizable(true);
         stage.show();
     }
@@ -51,5 +50,4 @@ public class StartupMain extends Application{
     public static void main(String[] args) {
         launch(args);
     }
-    }
-
+}
