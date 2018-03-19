@@ -38,10 +38,10 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  */
 public class ExcelStudents {
 
-    public List<String> ImportStudents() {
+    public List<String> ImportStudents(String bestandsNaam) {
         List<String> listStudents=new ArrayList<>();
         
-        try (XSSFWorkbook wb = readFile("C:\\Users\\geers\\Documents\\FXML Files BreakOut\\TestBook.xlsx")) {
+        try (XSSFWorkbook wb = readFile(bestandsNaam)) {
             for (int k = 0; k < wb.getNumberOfSheets(); k++) {
                 XSSFSheet sheet = wb.getSheetAt(k);
                 int rows = sheet.getPhysicalNumberOfRows();

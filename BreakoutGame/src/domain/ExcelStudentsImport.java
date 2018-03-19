@@ -22,9 +22,9 @@ import persistence.PersistenceController;
 public class ExcelStudentsImport {
     ExcelStudents excelStudents=new ExcelStudents();
     PersistenceController persistenceController=new PersistenceController();
-    public void AddStudentsExcel()
+    public void AddStudentsExcel(String bestandsNaam)
     {
-        List<String> listExcelDataStudents=excelStudents.ImportStudents();
+        List<String> listExcelDataStudents=excelStudents.ImportStudents(bestandsNaam);
         ListIterator<String> Iterator=listExcelDataStudents.listIterator();
         
         //Klas opvragen uit excel,deze zit vooraan in de lijst

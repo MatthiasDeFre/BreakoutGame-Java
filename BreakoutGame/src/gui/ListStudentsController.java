@@ -5,12 +5,14 @@
  */
 package gui;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import domain.Exercise;
 import domain.ListStudentController;
 import domain.Student;
 import domain.ExerciseDomainController;
 import domain.PersistMode;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Observable;
@@ -31,6 +33,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.stage.FileChooser;
 
 /**
  * FXML Controller class
@@ -40,6 +43,7 @@ import javafx.scene.layout.GridPane;
 public class ListStudentsController extends AnchorPane {
 
     private ListStudentController dc;
+    String bestandsNaam;
     @FXML
     private TableView<Student> tblStudents;
     private ObservableList<Student> listStudents;
@@ -68,6 +72,10 @@ public class ListStudentsController extends AnchorPane {
     private JFXTextField txtClassnumber;
     @FXML
     private Button btnStudentsImport;
+    @FXML
+    private JFXTextField txtBestandsNaam;
+    @FXML
+    private JFXButton btnExcelBestand;
     
     public ListStudentsController(ListStudentController dc) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ListStudents.fxml"));
@@ -90,6 +98,7 @@ public class ListStudentsController extends AnchorPane {
             if(newSelection != null)
                 setStudentToDC();
         });
+        
     }
     
     @FXML
@@ -159,7 +168,7 @@ public class ListStudentsController extends AnchorPane {
 
     @FXML
     private void btnStudentsImportExcel(ActionEvent event) {
-        dc.ImportStudentsExcel();
+        dc.ImportStudentsExcel(bestandsNaam);
         refreshTableView();
     }
     
@@ -167,6 +176,16 @@ public class ListStudentsController extends AnchorPane {
     {   
         listStudents = FXCollections.observableArrayList(dc.getListAllStudents());
         tblStudents.setItems(listStudents);
+    }
+
+    @FXML
+    private void btnFeedbackOnAction(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Resource File");
+        File selectedFile = fileChooser.showOpenDialog(SceneController4.getStage());
+        bestandsNaam=selectedFile.getPath();
+        txtBestandsNaam.setText(selectedFile.getPath());
+        
     }
     
 }

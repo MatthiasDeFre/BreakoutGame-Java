@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
@@ -7,7 +8,9 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <fx:root prefHeight="619.0" prefWidth="834.0" type="AnchorPane" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
@@ -74,6 +77,20 @@
             </Label>
          </children>
       </VBox>
-      <Button fx:id="btnStudentsImport" layoutX="592.0" layoutY="83.0" mnemonicParsing="false" onAction="#btnStudentsImportExcel" text="Students Importeren" />
+      <Button fx:id="btnStudentsImport" layoutX="592.0" layoutY="102.0" mnemonicParsing="false" onAction="#btnStudentsImportExcel" text="Students Importeren" />
+      <HBox layoutX="518.0" layoutY="29.0" prefHeight="18.0" prefWidth="273.0">
+         <children>
+            <JFXTextField fx:id="txtBestandsNaam" alignment="TOP_LEFT" focusColor="BLACK" labelFloat="true" prefHeight="39.0" prefWidth="218.0" promptText="BestandsNaam" styleClass="test" stylesheets="@assets/css/jfoenix-components.css">
+               <font>
+                  <Font name="Roboto Regular" size="18.0" />
+               </font>
+            </JFXTextField>
+            <JFXButton fx:id="btnExcelBestand" buttonType="RAISED" onAction="#btnFeedbackOnAction" prefHeight="40.0" prefWidth="152.0" style="-fx-background-color: #c7cfdd;" text="Bladeren">
+               <font>
+                  <Font name="Roboto Regular" size="18.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </HBox>
    </children>
 </fx:root>
