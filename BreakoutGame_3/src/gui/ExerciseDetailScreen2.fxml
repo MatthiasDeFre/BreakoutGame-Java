@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<fx:root maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="325.0" prefWidth="600.0" type="GridPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+  <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <VBox prefHeight="325.0" prefWidth="600.0" translateY="75.0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.rowSpan="8" GridPane.vgrow="ALWAYS">
+         <children>
+            <Label alignment="BOTTOM_CENTER" prefHeight="17.0" prefWidth="624.0" text="Answer" />
+            <TextField fx:id="txtAnw" />
+            <Label alignment="BOTTOM_CENTER" prefHeight="17.0" prefWidth="612.0" text="Feedback" />
+            <TextField fx:id="txtFeedback" />
+            <Label alignment="BOTTOM_CENTER" prefHeight="17.0" prefWidth="657.0" text="Assignment" />
+            <TextField fx:id="txtAssignment" />
+            <Label alignment="BOTTOM_CENTER" prefHeight="17.0" prefWidth="627.0" text="Category" />
+            <ComboBox fx:id="cmbCategory" prefWidth="150.0" />
+            <Label alignment="BOTTOM_CENTER" prefHeight="17.0" prefWidth="623.0" text="Exercise" />
+            <TextField fx:id="txtEx" />
+            <Button fx:id="Save" mnemonicParsing="false" onAction="#saveEx" prefHeight="25.0" prefWidth="239.0" text="Button" />
+         </children>
+      </VBox>
+   </children>
+</fx:root>
