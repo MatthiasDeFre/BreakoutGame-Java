@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -11,11 +11,14 @@ import domain.managers.IManageable;
 import domain.managers.Manager;
 import domain.managers.SessionManager;
 import domain.managers.StudentManager;
+import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Observer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.transformation.FilteredList;
 import persistence.PersistenceController;
 
@@ -70,6 +73,10 @@ public class SessionController {
     public void addNewTempGroup(String name) {
         //TODO GET TEMP STUDENTS FROM MANAGER
         sessionManager.getTempGroups().add(new Group(name));
+    }
+    public void removeTempGroup(Group group) {
+        sessionManager.getTempGroups().remove(group);
+      
     }
       
     public void addStudentToTempGroup(Student student) {

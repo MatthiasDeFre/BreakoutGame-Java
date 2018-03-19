@@ -77,6 +77,8 @@ public class GroupOperation implements IManageable {
     }
     public void setValueString(String valueString)
     {
+        if(valueString == null || valueString.isEmpty())
+            throw new IllegalArgumentException("Veld is leeg");
         this.valueString = valueString;
         description.set(getDescription());
     }

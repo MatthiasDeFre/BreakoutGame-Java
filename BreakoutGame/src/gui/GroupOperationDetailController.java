@@ -104,8 +104,13 @@ public class GroupOperationDetailController extends AnchorPane implements Observ
     @FXML
     private void saveGroupOp(ActionEvent event)
     {
-        dc.saveGroupOperation(cmbGrouOpSorts.getSelectionModel().getSelectedItem(), textFields.stream().map(TextField::getText).collect(Collectors.toList()));
+        try {
+            dc.saveGroupOperation(cmbGrouOpSorts.getSelectionModel().getSelectedItem(), textFields.stream().map(TextField::getText).collect(Collectors.toList()));
         dc.setManagerMode(GroupOperation.class, PersistMode.UPDATE);
+        } catch(IllegalArgumentException ex) {
+            setErrorDialog(ex);
+        }
+        
     }
 
     private void generateGroupOperationInputHbox()
@@ -161,13 +166,15 @@ public class GroupOperationDetailController extends AnchorPane implements Observ
     public void update(Observable o, Object arg)
     {
         GroupOperation groupOperation = (GroupOperation) arg;
+        if(groupOperation.getValueString() != null && !groupOperation.getValueString().isEmpty()) {
         cmbGrouOpSorts.getSelectionModel().select(groupOperation.getCategory());
         generateGroupOperationInputHbox();
  
         String[] values = groupOperation.getValueString().split("&");
         IntStream.range(0, values.length).forEach(e -> {
             textFields.get(e).setText(values[e]);
-        });
+        });             
+        }
     }
     
         private void setErrorDialog(Exception ex) {

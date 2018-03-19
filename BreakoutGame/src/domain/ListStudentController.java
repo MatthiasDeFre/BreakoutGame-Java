@@ -6,10 +6,13 @@
 package domain;
 
 import domain.managers.StudentManager;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Observable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import persistence.PersistenceController;
 
 /**
@@ -47,7 +50,13 @@ public class ListStudentController{
     
     public void deleteStudent(Student student)
     {
-        studentManager.delete();
+        try
+        {
+            studentManager.delete();
+        } catch (InvocationTargetException ex)
+        {
+            Logger.getLogger(ListStudentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void ImportStudentsExcel() {
