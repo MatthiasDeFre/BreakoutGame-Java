@@ -5,7 +5,9 @@
  */
 package persistence.repositories;
 
+import domain.Box;
 import domain.Student;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -22,4 +24,10 @@ public class StudentRepository extends GenericRepository<Student> {
         super(type);
     }
     
+    public boolean contains(String classroom, String classnumber) {
+        TypedQuery<Student> query =  getEntityManager().createNamedQuery("StudentExists", Student.class);
+        query.setParameter("classroom", classroom);
+        query.setParameter("classnumber", query);
+        return !query.getResultList().isEmpty();
+    }
 }

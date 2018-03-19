@@ -6,6 +6,8 @@ package domain.managers;
 import domain.Exercise;
 import domain.Student;
 import javafx.collections.FXCollections;
+import javax.persistence.EntityManager;
+import persistence.JPAUtil;
 import persistence.PersistenceController;
 
 
@@ -23,16 +25,19 @@ public class StudentManager extends Manager<Student>
             setItems(FXCollections.observableArrayList(persistence.getAllOfType(Student.class)));
     }
     
-    public void addStudent(Student object)
+    public void addStudent(Student student)
     {
-        ((Student) getSelected()).getId();
-        System.out.println(((Student) getSelected()).getId());
-        getPersistenceController().persistObject(Student.class, getSelected());
+        EntityManager entityManager=JPAUtil.getEntityManagerFactory().createEntityManager();
+        entityManager.getTransaction().begin();
+        entityManager.persist(student);
+        entityManager.getTransaction().commit();
+        entityManager.close();
     }
     
     @Override
     public void save(Student student)
     {
+        getPersistenceController().setPersistMode(getManagerMode());
         ((Student) getSelected()).copy(student);
         System.out.println(((Student) getSelected()).getId());
         super.save(student);

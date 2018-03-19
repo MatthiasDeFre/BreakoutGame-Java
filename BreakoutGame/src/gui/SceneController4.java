@@ -24,10 +24,10 @@ public class SceneController4 {
     private static Scene scene; 
     private static Parent parent;
 
-    public SceneController4(ExerciseDomainController dc, BoxController dc2,Stage primaryStage, Scene scene) {
+    public SceneController4(ExerciseDomainController dc, BoxController dc2,ListStudentController dc3,Stage primaryStage, Scene scene) {
         this.dc = dc;
         this.primaryStage = primaryStage;
-        sf = new SceneFactory(dc, dc2);
+        sf = new SceneFactory(dc, dc2,dc3);
         this.scene = scene;
         primaryStage.setScene(scene);
     }

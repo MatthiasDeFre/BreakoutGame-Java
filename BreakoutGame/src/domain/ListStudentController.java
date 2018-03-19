@@ -6,7 +6,9 @@
 package domain;
 
 import domain.managers.StudentManager;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Observable;
 import persistence.PersistenceController;
 
@@ -17,11 +19,12 @@ import persistence.PersistenceController;
 public class ListStudentController{
     private StudentManager studentManager;
     private PersistenceController persistenceController;
+    ExcelStudentsImport excelStudentsImport;
   
     public ListStudentController() {
         this.persistenceController = new PersistenceController();
         this.studentManager = new StudentManager(persistenceController);
-        
+        this.excelStudentsImport=new ExcelStudentsImport();
     }
 
     public void setManagerMode(PersistMode persistMode) {
@@ -33,7 +36,7 @@ public class ListStudentController{
         return persistenceController.getAllOfType(Student.class);
     }
      
-     public void createExercise(Student student) {
+     public void createStudent(Student student) {
         studentManager.addStudent(student);
     }
      
@@ -47,8 +50,31 @@ public class ListStudentController{
         studentManager.delete();
     }
 
-    public void saveStudent(String voornaam, String achternaam) {
-        studentManager.save(new Student(voornaam,achternaam));
+    public void ImportStudentsExcel() {
+        excelStudentsImport.AddStudentsExcel();
     }
+    
+//    public void getExcelStudentsObject()
+//    {
+//        List<String> listStudentsExcel=excelStudentsImport.AddStudentsExcel();
+//        ListIterator<String> lijstIterator=listStudentsExcel.listIterator();
+//        List<Student> listStudents= new ArrayList<>();
+//        //klasNummer opvragen
+//        String klas=lijstIterator.next();
+//        
+//        while(lijstIterator.hasNext())
+//        {
+//            Student student=new Student(lijstIterator.next(),lijstIterator.next(),klas,lijstIterator.next());
+//            listStudents.add(student);
+//        }
+//        
+//        //Lijst omzetten naar een ListIterator
+//        ListIterator<Student> lijstIterator2;
+//        lijstIterator2= listStudents.listIterator();
+//        while(lijstIterator2.hasNext())
+//        {
+//            studentManager.save(lijstIterator2.next());
+//        }
+//    }
 
 }

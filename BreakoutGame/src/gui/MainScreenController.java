@@ -49,6 +49,8 @@ public class MainScreenController extends AnchorPane implements Observer{
     private Label lblTeam;
     @FXML
     private Label lblVersion;
+    @FXML
+    private JFXButton btnStudents;
 
     public MainScreenController(ExerciseDomainController dc) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("MainScreen.fxml"));
@@ -87,5 +89,11 @@ public class MainScreenController extends AnchorPane implements Observer{
     private void btnExerciseStart(ActionEvent event) {
         SceneController4.createScene(SceneName.EXERCISEMAINSCREEN2);
         SceneController4.switchScene(SceneName.EXERCISEMAINSCREEN2);
+    }
+
+    @FXML
+    private void btnStudentsExcell(ActionEvent event) {
+        SceneController4.createScene(SceneName.STUDENTSSCREEN);
+        SceneController4.switchScene(SceneName.STUDENTSSCREEN);
     }
 }

@@ -5,6 +5,7 @@
  */
 package gui;
 
+import com.jfoenix.controls.JFXTextField;
 import domain.Exercise;
 import domain.ListStudentController;
 import domain.Student;
@@ -28,6 +29,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 
 /**
@@ -35,7 +37,7 @@ import javafx.scene.layout.GridPane;
  *
  * @author geers
  */
-public class ListStudentsController extends GridPane {
+public class ListStudentsController extends AnchorPane {
 
     private ListStudentController dc;
     @FXML
@@ -45,20 +47,27 @@ public class ListStudentsController extends GridPane {
     private TableColumn<Student, String> clmLastName;
     @FXML
     private TableColumn<Student, String> clmFirstName;
-    private TextField lblVoornaam;
-    private TextField lblAchternaam;
-    @FXML
-    private TextField txtVoornaam;
-    @FXML
-    private TextField txtAchternaam;
     @FXML
     private Button btnAdd;
     @FXML
     private Button btnRemove;
     @FXML
     private Button btnModify;
-    @FXML
     private Button btnSave;
+    @FXML
+    private JFXTextField txtFirstName;
+    @FXML
+    private JFXTextField txtLastName;
+    @FXML
+    private TableColumn<Student, String> clmClassroom;
+    @FXML
+    private TableColumn<Student, String> clmClassnumber;
+    @FXML
+    private JFXTextField txtClassroom;
+    @FXML
+    private JFXTextField txtClassnumber;
+    @FXML
+    private Button btnStudentsImport;
     
     public ListStudentsController(ListStudentController dc) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ListStudents.fxml"));
@@ -74,11 +83,9 @@ public class ListStudentsController extends GridPane {
         tblStudents.setItems(listStudents);
         clmFirstName.setCellValueFactory(e->new SimpleStringProperty(e.getValue().getFirstName()));
         clmLastName.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getLastName()));
+        clmClassroom.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getClassRoom()));
+        clmClassnumber.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getClassNumber()));
         btnRemove.setOnAction(this::btnRemoveStudent);
-        btnAdd.setOnAction(this::btnAddStudent);
-        btnModify.setOnAction(this::btnModifyStudent);
-        btnSave.setOnAction(this::btnSaveStudent);
-        
         tblStudents.getSelectionModel().selectedItemProperty().addListener((obs,oldSelection,newSelection)->{
             if(newSelection != null)
                 setStudentToDC();
@@ -87,22 +94,34 @@ public class ListStudentsController extends GridPane {
     
     @FXML
     private void btnAddStudent(ActionEvent event) {
-        dc.setManagerMode(PersistMode.NEW);
-        Student student= new Student(txtVoornaam.getText(),txtAchternaam.getText());
-        dc.setStudent(student);
-        listStudents.add(student);
-//        Student student= new Student(txtVoornaam.getText(),txtAchternaam.getText());
+        Student student;
+        try{
+                    student = new Student(txtFirstName.getText(),txtLastName.getText(),txtClassroom.getText(),txtClassnumber.getText());
+                    dc.createStudent(student);
+        }catch(Exception ex)
+        {
+            System.out.printf("%s%n",ex.toString());
+        }
+        refreshTableView();
+
 //        dc.setStudent(student);
 //        listStudents.add(student);
-//        dc.createUser(student);
-        System.out.printf("%s %s is added %n",student.getFirstName(),student.getLastName());
+////        Student student= new Student(txtVoornaam.getText(),txtAchternaam.getText());
+////        dc.setStudent(student);
+////        listStudents.add(student);
+////        dc.createUser(student);
+//        System.out.printf("%s %s is added %n",student.getFirstName(),student.getLastName());
+//        
     }
     
     @FXML
     private void btnRemoveStudent(ActionEvent event)
     {
-        //tblStudents.getSelectionModel().getSelectedIndex();
-//        Student student=new Student(tblStudents.getSelectionModel().getSelectedItem().getFirstName(),tblStudents.getSelectionModel().getSelectedItem().getLastName());
+            tblStudents.getSelectionModel().getSelectedIndex();
+            Student student=new Student(tblStudents.getSelectionModel().getSelectedItem().getFirstName(),
+                    tblStudents.getSelectionModel().getSelectedItem().getLastName(),
+                    tblStudents.getSelectionModel().getSelectedItem().getClassRoom(),
+                    tblStudents.getSelectionModel().getSelectedItem().getClassNumber());
 //        System.out.printf("%s %s is verwijderd",student.getFirstName(),student.getLastName());
 //        dc.removeUser(student);
 //        dc.setManagerMode(PersistMode.REMOVE);
@@ -115,8 +134,8 @@ public class ListStudentsController extends GridPane {
 
     @FXML
     private void btnModifyStudent(ActionEvent event) {
-        dc.setManagerMode(PersistMode.UPDATE);
-        Student student= new Student(txtVoornaam.getText(),txtAchternaam.getText());
+//        dc.setManagerMode(PersistMode.UPDATE);
+//        Student student= new Student(txtVoornaam.getText(),txtAchternaam.getText());
         
     }
     
@@ -132,11 +151,22 @@ public class ListStudentsController extends GridPane {
         
     }
 
-    @FXML
     private void btnSaveStudent(ActionEvent event) {
-         Student student=new Student(txtVoornaam.getText(),txtAchternaam.getText());
-         dc.saveStudent(txtVoornaam.getText(),txtAchternaam.getText());
-         listStudents.add(student);
+//         Student student=new Student(txtVoornaam.getText(),txtAchternaam.getText());
+//         dc.saveStudent(txtVoornaam.getText(),txtAchternaam.getText());
+//         listStudents.add(student);
+    }
+
+    @FXML
+    private void btnStudentsImportExcel(ActionEvent event) {
+        dc.ImportStudentsExcel();
+        refreshTableView();
+    }
+    
+    public void refreshTableView()
+    {   
+        listStudents = FXCollections.observableArrayList(dc.getListAllStudents());
+        tblStudents.setItems(listStudents);
     }
     
 }

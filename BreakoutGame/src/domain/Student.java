@@ -11,12 +11,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
  *
  * @author geers
  */
+@NamedQueries(@NamedQuery(name="StudentExists", query="SELECT s FROM Student s WHERE s.classroom=:classroom AND s.classnumber=:classnumber"))
 @Entity
 @Table(name="Student")
 public class Student implements IManageable {
@@ -25,10 +28,14 @@ public class Student implements IManageable {
     private long id;
     private String firstName;
     private String lastName;
+    private String classroom;
+    private String classnumber;
 
-    public Student(String firstName, String lastName) {
+    public Student(String firstName, String lastName,String classroom, String classnumber) {
         setFirstName(firstName);
         setLastName(lastName);
+        setClassRoom(classroom);
+        setClassNumber(classnumber);
     }
     
     //For JPA
@@ -70,6 +77,23 @@ public class Student implements IManageable {
             this.lastName = lastName;
     }
 
+    public String getClassRoom() {
+        return classroom;
+    }
+
+    public void setClassRoom(String classRoom) {
+        this.classroom = classRoom;
+    }
+
+    public String getClassNumber() {
+        return classnumber;
+    }
+
+    public void setClassNumber(String classNumber) {
+        this.classnumber = classNumber;
+    }
+    
+
     @Override
     public String toString() {
         return String.format("%s %s ", this.firstName,this.lastName);
@@ -79,6 +103,8 @@ public class Student implements IManageable {
         setFirstName(student.getFirstName());
         setLastName(student.getLastName());
     }
+    
+    
     
     
     

@@ -21,30 +21,30 @@ public class StudentTest {
     @Test
     public void correctConstructor()
     {
-        Student student= new Student("Jelle","Geers");
+        Student student= new Student("Jelle","Geers","","");
     }
     
     @Test(expected=IllegalArgumentException.class)
     public void emptyFirstNameThrowsException()
     {
-        Student student= new Student("","Geers");
+        Student student= new Student("","Geers","","");
     }
     
     @Test(expected=IllegalArgumentException.class)
     public void emptyLastNameThrowsException()
     {
-        Student student= new Student("Jelle","");
+        Student student= new Student("Jelle","","","");
     }
     
     @Test(expected=IllegalArgumentException.class)
     public void nullLastNameThrowsException()
     {
-        Student student= new Student("Jelle",null);
+        Student student= new Student("Jelle",null,"","");
     }
     
     @Test(expected=IllegalArgumentException.class)
     public void nullFirstNameThrowsException()
     {
-        Student student= new Student(null,"");
+        Student student= new Student(null,"","","");
     }
 }

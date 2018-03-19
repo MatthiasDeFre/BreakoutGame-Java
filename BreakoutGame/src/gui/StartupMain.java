@@ -36,7 +36,7 @@ public class StartupMain extends Application{
         
         Scene scene = new Scene(new MainScreenController(new ExerciseDomainController()));
         scene.getStylesheets().add(StartupMain.class.getResource("assets/css/jfoenix-components.css").toExternalForm());
-        SceneController4 sc4=new SceneController4(new ExerciseDomainController(), new BoxController(new PersistenceController()), stage, scene);
+        SceneController4 sc4=new SceneController4(new ExerciseDomainController(), new BoxController(new PersistenceController()),new ListStudentController(), stage, scene);
         Image icon = new Image("/gui/assets/img/icon.png");
         stage.getIcons().add(icon);
         stage.setTitle("BOB Manager");

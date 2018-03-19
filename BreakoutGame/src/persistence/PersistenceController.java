@@ -96,4 +96,9 @@ public class PersistenceController {
     public boolean boxExists(String name) {
         return ((BoxRepository) repositories.get(Box.class.getSimpleName())).contains(name);
     }
+    
+    public boolean StudentExists(String classroom, String classnumber)
+    {
+        return ((StudentRepository) repositories.get(Student.class.getSimpleName())).contains(classroom,classnumber);
+    }
 }

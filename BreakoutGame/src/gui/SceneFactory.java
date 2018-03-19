@@ -24,11 +24,12 @@ import javafx.scene.Scene;
 public class SceneFactory {
     private final Map<SceneName, Supplier<Parent>> factory = new HashMap();
 
-    public SceneFactory(ExerciseDomainController dc, BoxController dc2) {
+    public SceneFactory(ExerciseDomainController dc, BoxController dc2,ListStudentController dc3) {
         add(MAINSCREEN,()-> new MainScreenController(dc));
         add(STARTSCREEN, () -> new StartScreenController(dc));
         add(EXERCISEMAINSCREEN2, () -> new ExerciseController(dc));
         add(BOXSCREEN, () ->new BoxStartScreenController(dc2));
+        add(STUDENTSSCREEN,()->new ListStudentsController(dc3));
         
     }
     
