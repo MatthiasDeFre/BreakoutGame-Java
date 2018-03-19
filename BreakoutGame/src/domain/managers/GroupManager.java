@@ -4,7 +4,7 @@
 package domain.managers;
 
 import domain.Classroom;
-import domain.Group;
+import domain.BoBGroup;
 import domain.Student;
 import domain.StudentClass;
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ import javafx.collections.ObservableList;
 import persistence.PersistenceController;
 
 
-public class GroupManager extends Manager<Group>
+public class GroupManager extends Manager<BoBGroup>
 {
 
   
@@ -29,14 +29,14 @@ public class GroupManager extends Manager<Group>
     
     public GroupManager(PersistenceController persistence)
     {
-          super(Group.class, persistence);
-        setItems(FXCollections.observableArrayList(persistence.getAllOfType(Group.class)));
+          super(BoBGroup.class, persistence);
+        setItems(FXCollections.observableArrayList(persistence.getAllOfType(BoBGroup.class)));
            
     }
     
-    public static List<Group> generateRandomGroups(StudentClass studentClass, int amount) {
+    public static List<BoBGroup> generateRandomGroups(StudentClass studentClass, int amount) {
         List<Student> students = new ArrayList<>(studentClass.getStudents()); //GET CLASSROOM STUDENTS TODO
-        List<Group> groups = new ArrayList<>();
+        List<BoBGroup> groups = new ArrayList<>();
         int counter = 0;
         int groupSize = students.size() / amount;
         Collections.shuffle(students);
@@ -48,11 +48,11 @@ public class GroupManager extends Manager<Group>
                 System.out.println("List " + students.size());
                 studentsToBeAdded.add(students.remove(0));
             });
-            groups.add(new Group("Groep " + ++counter, studentsToBeAdded));
+            groups.add(new BoBGroup("Groep " + ++counter, studentsToBeAdded));
         }
         //classroom % amount != 0
         if(Math.ceil((double) students.size() / 2) >= Math.ceil((double)groupSize / 2)) {
-            groups.add(new Group("Groep " + ++counter, students));
+            groups.add(new BoBGroup("Groep " + ++counter, students));
         } else {
             int counterRemaining = 0;
             while (!students.isEmpty())
@@ -62,15 +62,15 @@ public class GroupManager extends Manager<Group>
         }
             
             /*  if(students.size() > 0) 
-            groups.add(new Group("Groep " + counter, students));*/
+            groups.add(new BoBGroup("Groep " + counter, students));*/
         
         return groups;
     }
     
-    public static List<Group> generateEmptyGroups(int amount) {
-        List<Group> groups = new ArrayList<>();
+    public static List<BoBGroup> generateEmptyGroups(int amount) {
+        List<BoBGroup> groups = new ArrayList<>();
         IntStream.rangeClosed(1, amount).forEach(e -> {
-            groups.add(new Group("Groep " + e));
+            groups.add(new BoBGroup("Groep " + e));
         });
         return groups;
     }

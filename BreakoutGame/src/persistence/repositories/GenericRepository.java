@@ -80,6 +80,7 @@ public abstract class GenericRepository<T> implements IGenericRepository<T>{
      * @return A list of type T
      */
     public List<T> getAll() {
+        System.out.println(type.getName());
         return em.createQuery("SELECT entity FROM " + type.getName() + " entity", type).getResultList();
     }
     

@@ -6,7 +6,7 @@ package domain.managers;
 import domain.Assignment;
 import domain.Box;
 import domain.Exercise;
-import domain.Group;
+import domain.BoBGroup;
 import domain.GroupOperation;
 import domain.Session;
 import domain.Path;
@@ -23,7 +23,7 @@ import persistence.PersistenceController;
 
 public class SessionManager extends Manager<Session>
 {
-    private ObservableList<Group> tempGroups;
+    private ObservableList<BoBGroup> tempGroups;
 
     protected SessionManager()
     {
@@ -36,7 +36,7 @@ public class SessionManager extends Manager<Session>
         tempGroups = FXCollections.observableArrayList();
     }
     
-     public static void generatePaths(List<Group> groups, Box box) {
+     public static void generatePaths(List<BoBGroup> groups, Box box) {
          groups.stream().forEach(e -> {
             List<Assignment> assignments = new ArrayList<>();
             List<Exercise> shuffledExercises = new ArrayList<>(box.getExercises());
@@ -56,7 +56,7 @@ public class SessionManager extends Manager<Session>
         });
      }
      public static void generatePaths(Session session) {
-        List<Group> groups = session.getGroups();
+        List<BoBGroup> groups = session.getGroups();
         Box box = session.getBox();
         SessionManager.generatePaths(groups, box);
         
@@ -68,7 +68,7 @@ public class SessionManager extends Manager<Session>
      public void clearTempGroups() {
          tempGroups.clear();
      }
-     public void addAllToTempGroup(List<Group> groups) {
+     public void addAllToTempGroup(List<BoBGroup> groups) {
          tempGroups.addAll(groups);
      }
 }

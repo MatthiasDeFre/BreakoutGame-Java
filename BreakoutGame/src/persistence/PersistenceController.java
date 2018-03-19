@@ -5,7 +5,7 @@
  */
 package persistence;
 
-import domain.Group;
+import domain.BoBGroup;
 import domain.Exercise;
 import domain.Category;
 import domain.Student;
@@ -51,7 +51,7 @@ public class PersistenceController {
         repositories.put(Classroom.class.getSimpleName(), new ClassroomRepository());
         repositories.put(Exercise.class.getSimpleName(),  new ExerciseRepository());
         repositories.put(GroupOperation.class.getSimpleName(), new GroupOperationRepository());
-        repositories.put(Group.class.getSimpleName(),new GroupRepository());
+        repositories.put(BoBGroup.class.getSimpleName(),new GroupRepository());
         repositories.put(Session.class.getSimpleName(),new SessionRepository());
         repositories.put(Student.class.getSimpleName(),new StudentRepository());
         repositories.put(AccessCode.class.getSimpleName(), new AccessCodeRepository());

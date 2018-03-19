@@ -19,8 +19,8 @@ import javax.persistence.Transient;
  *
  * @author geers
  */
-@Entity(name = "SessionGroup")
-public class Group implements IManageable, Serializable {
+@Entity
+public class BoBGroup implements IManageable, Serializable {
 
     
     private String name;
@@ -31,16 +31,16 @@ public class Group implements IManageable, Serializable {
     @Id
     private long id;
 
-    public Group()
+    public BoBGroup()
     {
     }
 
-    public Group(String name)
+    public BoBGroup(String name)
     {
         this(name, new ArrayList<>());
     }
 
-    public Group(String name, List<Student> students)
+    public BoBGroup(String name, List<Student> students)
     {
         this.name = name;
         this.students = students;

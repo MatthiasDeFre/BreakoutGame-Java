@@ -97,6 +97,7 @@ public class Exercise implements IManageable, Serializable {
         setCategory(exercise.getCategory());
         setTimeInMinutes(exercise.getTimeInMinutes());
         groupOperations = new ArrayList<>(exercise.getGroupOperations());
+        goals = new HashSet<>(exercise.getGoals());
         // groupOperationsTemp = FXCollections.observableArrayList(groupOperations);
     }
     

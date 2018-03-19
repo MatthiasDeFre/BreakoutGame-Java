@@ -5,21 +5,22 @@
  */
 package persistence.repositories;
 
+import domain.BoBGroup;
 import javafx.scene.Group;
 
 /**
  *
  * @author geers
  */
-public class GroupRepository extends GenericRepository<Group> {
+public class GroupRepository extends GenericRepository<BoBGroup> {
     
     public GroupRepository()
     {
-        this(Group.class);
+        this(BoBGroup.class);
     }
             
     
-    private GroupRepository(Class<Group> type) {
+    private GroupRepository(Class<BoBGroup> type) {
         super(type);
     }
     

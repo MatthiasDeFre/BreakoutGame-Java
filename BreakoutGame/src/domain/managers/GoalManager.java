@@ -7,7 +7,7 @@ package domain.managers;
 
 import domain.Category;
 import domain.Goal;
-import domain.Group;
+import domain.BoBGroup;
 import java.util.List;
 import java.util.Set;
 import javafx.collections.FXCollections;

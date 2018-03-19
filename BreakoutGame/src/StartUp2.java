@@ -8,7 +8,7 @@ import domain.Exercise;
 import domain.ExerciseDomainController;
 import domain.PersistMode;
 import domain.ExerciseDomainController;
-import domain.Group;
+import domain.BoBGroup;
 import domain.GroupOperation;
 import domain.OperationCategory;
 import domain.Session;
@@ -184,15 +184,15 @@ public class StartUp2 {
         test.add(ex2);
         Box box = new Box("Box voor 22/05", "BoxMDF1", exercises, acs);
 
-        Group group1 = new Group("something");
-        Group group2 = new Group("thing");
-        List<Group> groups = new ArrayList<>();
+        BoBGroup group1 = new BoBGroup("something");
+        BoBGroup group2 = new BoBGroup("thing");
+        List<BoBGroup> groups = new ArrayList<>();
         groups.add(group2);
         groups.add(group1);
        
 
      //   GroupManager groupManager = new GroupManager(new PersistenceController());
-        List<Group> groups2 = GroupManager.generateRandomGroups(studentClass, 22);
+        List<BoBGroup> groups2 = GroupManager.generateRandomGroups(studentClass, 22);
          Session session = new Session(box, groups2, "something something", studentClass, "Test session", LocalDate.now(), true, true);
        // session.generatePaths();
                 

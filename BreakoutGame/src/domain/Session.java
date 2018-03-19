@@ -44,7 +44,7 @@ public class Session implements IManageable, Serializable {
     private Box box;
    
    @OneToMany(cascade = CascadeType.ALL)
-    private List<Group> groups;
+    private List<BoBGroup> groups;
     private String description;
 
     private StudentClass classRoom;
@@ -62,7 +62,7 @@ public class Session implements IManageable, Serializable {
     {
     }
 
-    public Session(Box box, List<Group> groups, String description, StudentClass classRoom, String name, LocalDate activationDate, boolean tile, boolean feedback)
+    public Session(Box box, List<BoBGroup> groups, String description, StudentClass classRoom, String name, LocalDate activationDate, boolean tile, boolean feedback)
     {
         this.box = box;
        this.groups = groups;
@@ -126,12 +126,12 @@ public class Session implements IManageable, Serializable {
     }
     
     
-    public List<Group> getGroups()
+    public List<BoBGroup> getGroups()
     {
         return groups;
     }
 
-    public void setGroups(List<Group> groups)
+    public void setGroups(List<BoBGroup> groups)
     {
         this.groups = groups;
     }

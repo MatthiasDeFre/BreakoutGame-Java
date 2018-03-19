@@ -72,22 +72,22 @@ public class SessionController {
     
     public void addNewTempGroup(String name) {
         //TODO GET TEMP STUDENTS FROM MANAGER
-        sessionManager.getTempGroups().add(new Group(name));
+        sessionManager.getTempGroups().add(new BoBGroup(name));
     }
-    public void removeTempGroup(Group group) {
+    public void removeTempGroup(BoBGroup group) {
         sessionManager.getTempGroups().remove(group);
       
     }
       
     public void addStudentToTempGroup(Student student) {
-       ((Group) groupManager.getSelected()).addStudent(student);
+       ((BoBGroup) groupManager.getSelected()).addStudent(student);
     }  
     public void removeStudentFromTempGroup(Student student) {
-        ((Group) groupManager.getSelected()).removeStudent(student);
+        ((BoBGroup) groupManager.getSelected()).removeStudent(student);
     }
     
     public void generateGroups(int amount, boolean notEmpty) {
-        List<Group> groups;
+        List<BoBGroup> groups;
         if(notEmpty)
            groups = GroupManager.generateRandomGroups(new StudentClass(), amount);
         else
