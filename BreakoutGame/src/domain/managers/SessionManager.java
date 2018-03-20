@@ -7,6 +7,7 @@ import domain.Assignment;
 import domain.Box;
 import domain.Exercise;
 import domain.BoBGroup;
+import domain.Goal;
 import domain.GroupOperation;
 import domain.Session;
 import domain.Path;
@@ -71,4 +72,5 @@ public class SessionManager extends Manager<Session>
      public void addAllToTempGroup(List<BoBGroup> groups) {
          tempGroups.addAll(groups);
      }
+    
 }

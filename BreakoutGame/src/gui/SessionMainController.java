@@ -10,6 +10,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXDrawer;
+import domain.Box;
 import domain.BoxController;
 import domain.ExerciseDomainController;
 import domain.Session;
@@ -101,6 +102,7 @@ public class SessionMainController extends StackPane {
         test2 = new SessionModifyPaneLeftController(dc);
 
         dc.addObserver(Session.class, test);
+        dc.addObserver(Box.class, test);
 
         splitPane.getItems().add(test2);
         splitPane.getItems().add(test);

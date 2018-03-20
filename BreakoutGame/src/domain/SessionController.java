@@ -19,6 +19,7 @@ import java.util.Map;
 import java.util.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import persistence.PersistenceController;
 
@@ -108,6 +109,10 @@ public class SessionController {
 
     public void setSelectedItem(IManageable item) {
         managers.get(item.getClass().getSimpleName()).setSelected(item);
+    }
+
+    public ObservableList<Goal> getGoals() {
+        return boxManager.getGoals();
     }
 
 }
