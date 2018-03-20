@@ -103,5 +103,19 @@ public class SessionModifyPaneRightController extends AnchorPane implements Obse
         }
 
     }
-
+    
+    private void generateGroups() {
+        //int amount;
+        /*if(btntile) {
+            dc.getAmountOfStudents();
+        } else {
+            amount = txtAmount; 
+        }
+        */
+        //dc.generateGroups(/*amount*/, /*btnEmptyGroup*/);
+    }
+    private void generatePaths() {
+        
+        
+    }
 }
