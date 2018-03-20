@@ -43,9 +43,9 @@ public class ExerciseDomainController implements ExerciseFilter{
 
     private Exercise exercise;
 
-    public ExerciseDomainController()
+    public ExerciseDomainController(PersistenceController pc)
     {
-        persistenceController = new PersistenceController();
+        persistenceController = pc;
         groupOperationManager = new GroupOperationManager(persistenceController);
         exerciseManager = new ExerciseManager(persistenceController);
         goalManager = new GoalManager(persistenceController);

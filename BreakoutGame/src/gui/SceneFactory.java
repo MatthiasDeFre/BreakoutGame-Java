@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.function.Supplier;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import persistence.PersistenceController;
 
 /**
  *
@@ -25,13 +26,13 @@ import javafx.scene.Scene;
 public class SceneFactory {
     private final Map<SceneName, Supplier<Parent>> factory = new HashMap();
 
-    public SceneFactory(ExerciseDomainController dc, BoxController dc2,ListStudentController dc3, SessionController dc4) {
-        add(MAINSCREEN,()-> new MainScreenController(dc));
-        add(STARTSCREEN, () -> new StartScreenController(dc));
-        add(EXERCISEMAINSCREEN2, () -> new ExerciseController(dc));
-        add(BOXSCREEN, () ->new BoxStartScreenController(dc2));
-        add(STUDENTSSCREEN,()->new ListStudentsController(dc3));
-        add(SESSIONMAIN,()->new SessionMainController(dc4));
+    public SceneFactory(ExerciseDomainController dc, BoxController dc2,ListStudentController dc3, SessionController dc4, PersistenceController pc) {
+        add(MAINSCREEN,()-> new MainScreenController(new ExerciseDomainController(pc)));
+        add(STARTSCREEN, () -> new StartScreenController(new ExerciseDomainController(pc)));
+        add(EXERCISEMAINSCREEN2, () -> new ExerciseController(new ExerciseDomainController(pc)));
+        add(BOXSCREEN, () ->new BoxStartScreenController(new BoxController(pc)));
+        add(STUDENTSSCREEN,()->new ListStudentsController(new ListStudentController()));
+        add(SESSIONMAIN,()->new SessionMainController(new SessionController(pc)));
         
     }
     

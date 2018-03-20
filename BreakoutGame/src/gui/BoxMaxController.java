@@ -365,6 +365,8 @@ public class BoxMaxController extends AnchorPane implements Observer{
             JFXDialogLayout layout = new JFXDialogLayout();
             layout.setBody(new Label(e.getMessage()));
             JFXButton okButton = new JFXButton("OK");
+            okButton.setPadding(new Insets(5, 10, 5, 10));
+                okButton.setStyle("-fx-background-color: #112959;");
             okButton.setOnMouseClicked(e2 -> dialog.close());
             layout.setActions(okButton);
             dialog.setContent(layout);
@@ -392,6 +394,8 @@ public class BoxMaxController extends AnchorPane implements Observer{
             JFXDialogLayout layout = new JFXDialogLayout();
             layout.setBody(new Label("Je hebt proberen de actie schatkist zoeken te verwijderen, deze actie is verplicht op te namen bij elke box(tm)"));
             JFXButton okButton = new JFXButton("OK");
+              okButton.setPadding(new Insets(100, 100, 100, 100));
+               okButton.setStyle("-fx-background-color: #112959;");
             okButton.setOnMouseClicked(e -> dialog.close());
             layout.setActions(okButton);
             dialog.setContent(layout);

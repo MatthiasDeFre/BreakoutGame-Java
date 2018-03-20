@@ -233,6 +233,8 @@ public class BoxAccessActionsController extends AnchorPane implements Observer{
             JFXDialogLayout layout = new JFXDialogLayout();
             layout.setBody(new Label("Je hebt proberen de actie schatkist zoeken te verwijderen, deze actie is verplicht op te namen bij elke box(tm)"));
             JFXButton okButton = new JFXButton("OK ik zal het niet meer doen");
+              okButton.setStyle("-fx-background-color: yellow;");
+              
             okButton.setOnMouseClicked(e -> dialog.close());
             layout.setActions(okButton);
             dialog.setContent(layout);

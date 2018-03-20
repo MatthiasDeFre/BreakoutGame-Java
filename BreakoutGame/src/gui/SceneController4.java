@@ -18,6 +18,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import persistence.PersistenceController;
 
 /**
  *
@@ -30,10 +31,10 @@ public class SceneController4 {
     private static Scene scene; 
     private static Parent parent;
 
-    public SceneController4(ExerciseDomainController dc, BoxController dc2,ListStudentController dc3 ,SessionController dc4,Stage primaryStage, Scene scene) {
+    public SceneController4(ExerciseDomainController dc, BoxController dc2,ListStudentController dc3 ,SessionController dc4,Stage primaryStage, Scene scene, PersistenceController pc) {
         this.dc = dc;
         this.primaryStage = primaryStage;
-        sf = new SceneFactory(dc, dc2,dc3,dc4);
+        sf = new SceneFactory(dc, dc2,dc3,dc4, pc);
         this.scene = scene;
         primaryStage.setScene(scene);
     }

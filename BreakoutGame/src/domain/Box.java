@@ -55,7 +55,6 @@ public class Box implements Serializable, IManageable {
        exercises = new HashSet<>();
   //     accessCodes = new ArrayList<>();
    }
-
     public Box(String description, String name, Set<Exercise> exercises,  List<BoBAction> actions)
     {
         setDescription(description);

@@ -42,9 +42,11 @@ public class Startup extends Application {
      Seeder.seedDatabaseWithStartData();
            LangConfig.setLang();
         
-        Scene scene = new Scene(new MainScreenController(new ExerciseDomainController()));
+        PersistenceController pc = new PersistenceController();
+        Scene scene = new Scene(new MainScreenController(new ExerciseDomainController(pc)));
         scene.getStylesheets().add(StartupMain.class.getResource("assets/css/jfoenix-components.css").toExternalForm());
-        SceneController4 sc4=new SceneController4(new ExerciseDomainController(), new BoxController(new PersistenceController()),new ListStudentController(),new SessionController(new PersistenceController()), stage, scene);
+     
+        SceneController4 sc4=new SceneController4(new ExerciseDomainController(new PersistenceController()), new BoxController(pc),new ListStudentController(),new SessionController(new PersistenceController()), stage, scene, pc);
         Image icon = new Image("/gui/assets/img/icon.png");
         stage.getIcons().add(icon);
         stage.setTitle("BOB Manager");

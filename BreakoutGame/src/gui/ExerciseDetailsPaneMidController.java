@@ -99,9 +99,9 @@ public class ExerciseDetailsPaneMidController extends AnchorPane implements Obse
 
         };
         cmbCategory.setConverter(converter);
-        cmbCategory.getSelectionModel().selectedItemProperty().addListener((o, ol, nw) -> {
+        /*cmbCategory.getSelectionModel().selectedItemProperty().addListener((o, ol, nw) -> {
             System.out.println(cmbCategory.getValue().getDescription());
-        });
+        });*/
         
        txtTime.disableProperty().bind(btnToggleTime.selectedProperty().not());
       txfFeedback.setDisable(true);
@@ -178,6 +178,7 @@ public class ExerciseDetailsPaneMidController extends AnchorPane implements Obse
          JFXDialogLayout layout = new JFXDialogLayout();
             layout.setBody(new Label(ex.getMessage()));
             JFXButton okButton = new JFXButton("OK");
+              okButton.setStyle("-fx-background-color: #112959;");
             okButton.setOnMouseClicked(e -> dialog.close());
             layout.setActions(okButton);
             dialog.setContent(layout);

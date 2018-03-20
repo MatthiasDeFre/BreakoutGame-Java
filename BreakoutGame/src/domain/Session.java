@@ -16,7 +16,11 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.IntStream;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,31 +31,28 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import util.LocalDateAttributeConverter;
 
 /**
  *
  * @author geers
  */
-@javax.persistence.Entity
+@Entity
 @Table(name = "BoBSession")
 public class Session implements IManageable, Serializable {
     
-       @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
        
-    @ManyToOne
     private Box box;
    
-   @OneToMany(cascade = CascadeType.ALL)
     private List<BoBGroup> groups;
     private String description;
 
     private StudentClass classRoom;
-    private String name;
+    private SimpleStringProperty name = new SimpleStringProperty();
    
 
-   
+  
    private LocalDate activationDate;
     private boolean tile;
     private boolean feedback;
@@ -64,19 +65,36 @@ public class Session implements IManageable, Serializable {
 
     public Session(Box box, List<BoBGroup> groups, String description, StudentClass classRoom, String name, LocalDate activationDate, boolean tile, boolean feedback)
     {
-        this.box = box;
-       this.groups = groups;
-        this.description = description;
-   this.classRoom = classRoom;
-      this.name = name;
+        setBox(box);
+        setGroups(groups);
+        setDescription(description);
+        setClassRoom(classRoom);
+        setName(name);
        setActivationDate(activationDate);
         setFeedback(feedback);
-        this.tile = tile;
-        sessionStatus = SessionStatus.SCHEDULED;
+        setTile(tile);
+        setSessionStatus(SessionStatus.SCHEDULED);
     
     }
     
- 
+    public Session(Session session) {
+        copy(session);
+    }
+    
+    public void copy(Session session) {
+        setName(session.getName());
+        setDescription(session.getDescription());
+        setActivationDate(session.getActivationDate());
+        setFeedback(session.isTile());
+        setTile(session.isTile());
+        setSessionStatus(session.getSessionStatus());
+        setClassRoom(session.getClassRoom());
+        setBox(session.getBox());
+        setGroups(session.getGroups());
+    }
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Override
     public long getId()
     {
@@ -89,7 +107,8 @@ public class Session implements IManageable, Serializable {
         this.id = id;
     }
 
- 
+   
+   
     public LocalDate getActivationDate()
     {
         return activationDate;
@@ -115,6 +134,7 @@ public class Session implements IManageable, Serializable {
         this.feedback = feedback;
     }
 
+@ManyToOne
     public Box getBox()
     {
         return box;
@@ -126,6 +146,7 @@ public class Session implements IManageable, Serializable {
     }
     
     
+@OneToMany(cascade = CascadeType.ALL)
     public List<BoBGroup> getGroups()
     {
         return groups;
@@ -143,7 +164,9 @@ public class Session implements IManageable, Serializable {
 
     public void setDescription(String description)
     {
-        this.description = description;
+          if(description == null || description.trim().isEmpty())
+            throw new IllegalArgumentException("Description is empty");
+        this.description = description.trim();
     }
 
    
@@ -157,14 +180,17 @@ public class Session implements IManageable, Serializable {
         this.classRoom = classRoom;
     }
 
+    @Column(name = "name", unique = true)
     public String getName()
     {
-        return name;
+        return name.get();
     }
 
     public void setName(String name)
     {
-        this.name = name;
+        if(name == null || name.trim().isEmpty())
+            throw new IllegalArgumentException("Name is empty");
+        this.name.set(name.trim());
     }
 
     public boolean isTile()
@@ -191,5 +217,8 @@ public class Session implements IManageable, Serializable {
     }*/
     
    
-    private int counterAccessCode;
+    public StringProperty nameProperty() {
+        return name;
+    }
+
 }

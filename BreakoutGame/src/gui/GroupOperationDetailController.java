@@ -182,6 +182,7 @@ public class GroupOperationDetailController extends AnchorPane implements Observ
             layout.setBody(new Label(ex.getMessage()));
             JFXButton okButton = new JFXButton("OK");
             okButton.setOnMouseClicked(e -> dialog.close());
+              okButton.setStyle("-fx-background-color: #112959;");
             layout.setActions(okButton);
             dialog.setContent(layout);
             dialog.show();
