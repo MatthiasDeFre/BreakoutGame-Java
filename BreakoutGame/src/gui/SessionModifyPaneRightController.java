@@ -94,12 +94,12 @@ public class SessionModifyPaneRightController extends AnchorPane implements Obse
             TBTile.setSelected(session.isTile());
             ObservableList bobs = dc.getFilteredItems(Box.class);
             tblBOBS.setItems(bobs);
-            txtNaamBox.setText(session.getName());
         }
 
         if (obj instanceof Box) {
             ObservableList goals = dc.getGoals();
             tblGoal.setItems(goals);
+            txtNaamBox.setText(((Box) obj).getName());
         }
 
     }

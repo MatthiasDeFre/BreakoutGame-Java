@@ -450,7 +450,7 @@
     -fx-text-fill: black;
     -fx-prompt-text-fill: black;
     -fx-background-color: transparent;
-    -jfx-focus-color: white;
+    -jfx-focus-color: black;
     -fx-font-family: Roboto;
     -fx-font-size: 20px;
 }
@@ -478,4 +478,7 @@
 }
 .closeButton {
     -fx-background-color: #112959;
+}
+.buttonAlgemeen {
+    
 }

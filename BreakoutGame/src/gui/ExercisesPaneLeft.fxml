@@ -31,31 +31,31 @@
       </Label>
       <HBox layoutX="48.0" layoutY="459.0" prefHeight="27.0" prefWidth="507.0" spacing="30.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="48.0" AnchorPane.rightAnchor="48.0" />
       <JFXColorPicker fx:id="colorPicker" layoutX="352.0" layoutY="49.0" onAction="#colorPickerOnAction" opacity="0.7" promptText="Kleur" AnchorPane.leftAnchor="352.0" AnchorPane.rightAnchor="48.0" />
-      <VBox layoutX="153.0" layoutY="308.0" prefHeight="165.0" prefWidth="205.0" spacing="40.0" AnchorPane.bottomAnchor="27.0" AnchorPane.leftAnchor="153.0" AnchorPane.rightAnchor="142.0">
+      <VBox layoutX="145.0" layoutY="298.0" prefHeight="175.0" prefWidth="211.0" spacing="20.0" AnchorPane.bottomAnchor="27.0" AnchorPane.leftAnchor="145.0" AnchorPane.rightAnchor="144.0">
          <children>
-            <JFXButton fx:id="btnCreateExercise" buttonType="RAISED" onMouseClicked="#btnCreateExerciseOnClick" prefHeight="25.0" prefWidth="205.0" style="-fx-background-color: #c7cfdd;" text="Opdracht aanmaken">
+            <JFXButton fx:id="btnCreateExercise" buttonType="RAISED" onMouseClicked="#btnCreateExerciseOnClick" prefHeight="25.0" prefWidth="205.0" styleClass="button-raised" stylesheets="@assets/css/jfoenix-components.css" text="Opdracht aanmaken">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
                <graphic>
-                  <ImageView fitHeight="15.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="18.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" translateX="-5.0">
                      <image>
                         <Image url="@assets/img/createIcon.png" />
                      </image>
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="btnCopyExercise" buttonType="RAISED" onMouseClicked="#btnCopyExerciseOnClick" prefHeight="25.0" prefWidth="205.0" style="-fx-background-color: #c7cfdd;" text="Opdracht kopiëren">
+            <JFXButton fx:id="btnCopyExercise" buttonType="RAISED" onMouseClicked="#btnCopyExerciseOnClick" prefHeight="25.0" prefWidth="205.0" styleClass="button-raised" stylesheets="@assets/css/jfoenix-components.css" text="Opdracht kopiëren">
                <graphic>
-                  <ImageView fitHeight="15.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="18.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" translateX="-5.0">
                      <image>
                         <Image url="@assets/img/modifyIcon.png" />
                      </image>
                   </ImageView>
                </graphic></JFXButton>
-            <JFXButton fx:id="btnDeleteExercise" buttonType="RAISED" onMouseClicked="#btnDeleteExerciseOnClick" prefHeight="25.0" prefWidth="205.0" style="-fx-background-color: #c7cfdd;" text="Opdracht verwijderen">
+            <JFXButton fx:id="btnDeleteExercise" buttonType="RAISED" onMouseClicked="#btnDeleteExerciseOnClick" prefHeight="25.0" prefWidth="205.0" styleClass="button-raised" stylesheets="@assets/css/jfoenix-components.css" text="Opdracht verwijderen">
                <graphic>
-                  <ImageView fitHeight="15.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="18.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@assets/img/delIcon.png" />
                      </image>
