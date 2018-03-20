@@ -12,6 +12,7 @@ import domain.ListStudentController;
 import domain.Student;
 import domain.ExerciseDomainController;
 import domain.PersistMode;
+import gui.ComplexApplication2.ExerciseController;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -76,6 +77,8 @@ public class ListStudentsController extends AnchorPane {
     private JFXTextField txtBestandsNaam;
     @FXML
     private JFXButton btnExcelBestand;
+    @FXML
+    private AnchorPane anchorPane;
     
     public ListStudentsController(ListStudentController dc) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ListStudents.fxml"));
@@ -86,6 +89,10 @@ public class ListStudentsController extends AnchorPane {
         } catch (IOException ex) {
             System.out.printf("Error starting scene");
         }
+        String image = ExerciseController.class.getResource("boeken.jpg").toExternalForm();
+        anchorPane.setStyle("-fx-background-image: url('" + image + "'); " +
+           "-fx-background-position: center center; " +
+           "-fx-background-repeat: stretch;");
         this.dc = dc;
         listStudents = FXCollections.observableArrayList(dc.getListAllStudents());
         tblStudents.setItems(listStudents);
@@ -105,13 +112,19 @@ public class ListStudentsController extends AnchorPane {
     private void btnAddStudent(ActionEvent event) {
         Student student;
         try{
+            dc.setManagerMode(PersistMode.NEW);
                     student = new Student(txtFirstName.getText(),txtLastName.getText(),txtClassroom.getText(),txtClassnumber.getText());
                     dc.createStudent(student);
+                     refreshTableView();
+        txtFirstName.setText("");
+        txtLastName.setText("");
+        txtClassnumber.setText("");
+        txtClassroom.setText("");
         }catch(Exception ex)
         {
             System.out.printf("%s%n",ex.toString());
         }
-        refreshTableView();
+       
 
 //        dc.setStudent(student);
 //        listStudents.add(student);
@@ -126,11 +139,13 @@ public class ListStudentsController extends AnchorPane {
     @FXML
     private void btnRemoveStudent(ActionEvent event)
     {
+        dc.removeStudent();
             tblStudents.getSelectionModel().getSelectedIndex();
             Student student=new Student(tblStudents.getSelectionModel().getSelectedItem().getFirstName(),
                     tblStudents.getSelectionModel().getSelectedItem().getLastName(),
                     tblStudents.getSelectionModel().getSelectedItem().getClassRoom(),
                     tblStudents.getSelectionModel().getSelectedItem().getClassNumber());
+
 //        System.out.printf("%s %s is verwijderd",student.getFirstName(),student.getLastName());
 //        dc.removeUser(student);
 //        dc.setManagerMode(PersistMode.REMOVE);
@@ -138,7 +153,7 @@ public class ListStudentsController extends AnchorPane {
 //        System.out.printf("eeeeee %s",student.getFirstName());
 //        listStudents.remove(student);
 //        dc.deleteStudent(student);
-
+    
     }
 
     @FXML
@@ -170,6 +185,7 @@ public class ListStudentsController extends AnchorPane {
     private void btnStudentsImportExcel(ActionEvent event) {
         dc.ImportStudentsExcel(bestandsNaam);
         refreshTableView();
+        btnStudentsImport.setDisable(true);
     }
     
     public void refreshTableView()
@@ -179,13 +195,14 @@ public class ListStudentsController extends AnchorPane {
     }
 
     @FXML
-    private void btnFeedbackOnAction(ActionEvent event) {
+    private void btnExcelFileOnAction(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
         File selectedFile = fileChooser.showOpenDialog(SceneController4.getStage());
         bestandsNaam=selectedFile.getPath();
         txtBestandsNaam.setText(selectedFile.getPath());
-        
+        btnStudentsImport.disableProperty().bind(txtBestandsNaam.textProperty().isEmpty());
+                
     }
     
 }

@@ -46,10 +46,6 @@ public class ListStudentController{
         studentManager.setSelected(student);
     }
     
-    public void deleteStudent(Student student) throws InvocationTargetException
-    {
-        studentManager.delete();
-    }
 
     public void ImportStudentsExcel(String bestandsNaam) {
         excelStudentsImport.AddStudentsExcel(bestandsNaam);
@@ -77,5 +73,18 @@ public class ListStudentController{
 //            studentManager.save(lijstIterator2.next());
 //        }
 //    }
+
+    public void removeStudent() {
+        try
+        {
+            studentManager.delete();
+        }catch(Exception ex)
+        {
+            throw new IllegalArgumentException("Student kan niet worden verwijderd");
+        }
+    }
+
+
+
 
 }

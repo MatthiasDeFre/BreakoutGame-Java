@@ -19,7 +19,8 @@ import javax.persistence.Table;
  *
  * @author geers
  */
-@NamedQueries(@NamedQuery(name="StudentExists", query="SELECT s FROM Student s WHERE s.classroom=:classroom AND s.classnumber=:classnumber"))
+@NamedQueries(@NamedQuery(name="StudentExists", query="SELECT s FROM Student s WHERE s.classroom=:classroom AND s.classnumber=:classnumber")
+                )
 @Entity
 @Table(name="Student")
 public class Student implements IManageable {

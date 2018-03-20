@@ -34,6 +34,11 @@ public class StudentManager extends Manager<Student>
         entityManager.close();
     }
     
+    public void removeStudent(Student student)
+    {
+        
+    }
+    
     @Override
     public void save(Student student)
     {

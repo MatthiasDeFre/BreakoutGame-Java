@@ -80,7 +80,7 @@ public abstract class Manager<T extends domain.managers.IManageable> implements 
     }
     public void save(T object) {
          getPersistenceController().persistObject(type, getSelected());
-        if(getPersistenceController().getPersistMode() == PersistMode.NEW)
+        if(getPersistenceController().getPersistMode() == PersistMode.NEW )
             getItems().add(getSelected());
     }
     public void delete() throws java.lang.reflect.InvocationTargetException {
