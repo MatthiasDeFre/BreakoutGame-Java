@@ -95,6 +95,7 @@ public class ListStudentsController extends AnchorPane {
            "-fx-background-repeat: stretch;");
         this.dc = dc;
         listStudents = FXCollections.observableArrayList(dc.getListAllStudents());
+        //listStudents = dc.getStudents();
         tblStudents.setItems(listStudents);
         clmFirstName.setCellValueFactory(e->new SimpleStringProperty(e.getValue().getFirstName()));
         clmLastName.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getLastName()));
@@ -141,10 +142,11 @@ public class ListStudentsController extends AnchorPane {
     {
         dc.removeStudent();
             tblStudents.getSelectionModel().getSelectedIndex();
-            Student student=new Student(tblStudents.getSelectionModel().getSelectedItem().getFirstName(),
+            refreshTableView();
+      /*      Student student=new Student(tblStudents.getSelectionModel().getSelectedItem().getFirstName(),
                     tblStudents.getSelectionModel().getSelectedItem().getLastName(),
                     tblStudents.getSelectionModel().getSelectedItem().getClassRoom(),
-                    tblStudents.getSelectionModel().getSelectedItem().getClassNumber());
+                    tblStudents.getSelectionModel().getSelectedItem().getClassNumber());*/
 
 //        System.out.printf("%s %s is verwijderd",student.getFirstName(),student.getLastName());
 //        dc.removeUser(student);
@@ -190,7 +192,7 @@ public class ListStudentsController extends AnchorPane {
     
     public void refreshTableView()
     {   
-        listStudents = FXCollections.observableArrayList(dc.getListAllStudents());
+       listStudents = FXCollections.observableArrayList(dc.getListAllStudents());
         tblStudents.setItems(listStudents);
     }
 

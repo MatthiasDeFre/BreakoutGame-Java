@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Observable;
+import javafx.collections.transformation.FilteredList;
 import persistence.PersistenceController;
 
 /**
@@ -37,6 +38,9 @@ public class ListStudentController{
         return persistenceController.getAllOfType(Student.class);
     }
      
+    public FilteredList getStudents() {
+        return studentManager.getFilteredItems();
+    }
      public void createStudent(Student student) {
         studentManager.addStudent(student);
     }
