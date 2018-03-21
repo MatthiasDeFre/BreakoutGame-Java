@@ -96,7 +96,6 @@ public class SessionMainController extends StackPane {
 //        screen1 = new ExercisesPaneLeftController(dc, dialogScreen);
 //        screen2 = new ExerciseDetailsPaneMidController(dc, dialogScreen);
 //        screen3 = new ExercisesGroupOperationsPaneRightController(dc, dialogScreen);
-
         test = new SessionModifyPaneRightController(dc);
         test2 = new SessionModifyPaneLeftController(dc);
 
@@ -108,7 +107,6 @@ public class SessionMainController extends StackPane {
         splitPane.getItems().add(test);
 //        splitPane.getItems().add(screen3);
 
-        
         //bg + extra
         String image = SessionMainController.class.getResource("boeken.jpg").toExternalForm();
         splitPane.setStyle("-fx-background-image: url('" + image + "'); "
@@ -169,6 +167,8 @@ public class SessionMainController extends StackPane {
 
     @FXML
     private void goToStudent(MouseEvent event) {
+        SceneController4.createScene(SceneName.STUDENTSSCREEN);
+        SceneController4.switchScene(SceneName.STUDENTSSCREEN);
     }
 
 }

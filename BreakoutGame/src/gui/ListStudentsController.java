@@ -13,6 +13,7 @@ import domain.ListStudentController;
 import domain.Student;
 import domain.ExerciseDomainController;
 import domain.PersistMode;
+import domain.SceneName;
 import domain.StudentClass;
 import java.io.File;
 import java.io.IOException;
@@ -38,6 +39,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 
 /**
@@ -45,7 +48,7 @@ import javafx.stage.FileChooser;
  *
  * @author geers
  */
-public class ListStudentsController extends AnchorPane {
+public class ListStudentsController extends VBox {
 
     private ListStudentController dc;
     String bestandsNaam;
@@ -83,7 +86,9 @@ public class ListStudentsController extends AnchorPane {
     private JFXButton btnExcelBestand;
     @FXML
     private AnchorPane anchorPane;
-    
+    @FXML
+    private HBox hBoxNavBar;
+
     public ListStudentsController(ListStudentController dc) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ListStudents.fxml"));
         loader.setRoot(this);
@@ -101,35 +106,34 @@ public class ListStudentsController extends AnchorPane {
         listStudents = FXCollections.observableArrayList(dc.getListAllStudents());
         //listStudents = dc.getStudents();
         tblStudents.setItems(listStudents);
-        clmFirstName.setCellValueFactory(e->new SimpleStringProperty(e.getValue().getFirstName()));
+        clmFirstName.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getFirstName()));
         clmLastName.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getLastName()));
         clmClassroom.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getStudentClass().getStudentClassName()));
         clmClassnumber.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getClassNumber()));
         btnRemove.setOnAction(this::btnRemoveStudent);
-        tblStudents.getSelectionModel().selectedItemProperty().addListener((obs,oldSelection,newSelection)->{
-            if(newSelection != null)
+        tblStudents.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
                 setStudentToDC();
+            }
         });
-        
+
     }
-    
+
     @FXML
     private void btnAddStudent(ActionEvent event) {
         Student student;
-        try{
+        try {
             dc.setManagerMode(PersistMode.NEW);
-                    student = new Student(txtFirstName.getText(),txtLastName.getText(),new StudentClass(txtClassroom.getText()),txtClassnumber.getText());
-                    dc.createStudent(student);
-                     refreshTableView();
-        txtFirstName.setText("");
-        txtLastName.setText("");
-        txtClassnumber.setText("");
-        txtClassroom.setText("");
-        }catch(Exception ex)
-        {
-            System.out.printf("%s%n",ex.toString());
+            student = new Student(txtFirstName.getText(), txtLastName.getText(), new StudentClass(txtClassroom.getText()), txtClassnumber.getText());
+            dc.createStudent(student);
+            refreshTableView();
+            txtFirstName.setText("");
+            txtLastName.setText("");
+            txtClassnumber.setText("");
+            txtClassroom.setText("");
+        } catch (Exception ex) {
+            System.out.printf("%s%n", ex.toString());
         }
-       
 
 //        dc.setStudent(student);
 //        listStudents.add(student);
@@ -140,14 +144,13 @@ public class ListStudentsController extends AnchorPane {
 //        System.out.printf("%s %s is added %n",student.getFirstName(),student.getLastName());
 //        
     }
-    
+
     @FXML
-    private void btnRemoveStudent(ActionEvent event)
-    {
+    private void btnRemoveStudent(ActionEvent event) {
         dc.removeStudent();
-            tblStudents.getSelectionModel().getSelectedIndex();
-            refreshTableView();
-      /*      Student student=new Student(tblStudents.getSelectionModel().getSelectedItem().getFirstName(),
+        tblStudents.getSelectionModel().getSelectedIndex();
+        refreshTableView();
+        /*      Student student=new Student(tblStudents.getSelectionModel().getSelectedItem().getFirstName(),
                     tblStudents.getSelectionModel().getSelectedItem().getLastName(),
                     tblStudents.getSelectionModel().getSelectedItem().getClassRoom(),
                     tblStudents.getSelectionModel().getSelectedItem().getClassNumber());*/
@@ -159,26 +162,23 @@ public class ListStudentsController extends AnchorPane {
 //        System.out.printf("eeeeee %s",student.getFirstName());
 //        listStudents.remove(student);
 //        dc.deleteStudent(student);
-    
     }
 
     @FXML
     private void btnModifyStudent(ActionEvent event) {
 //        dc.setManagerMode(PersistMode.UPDATE);
 //        Student student= new Student(txtVoornaam.getText(),txtAchternaam.getText());
-        
+
     }
-    
-    private void setStudentToDC()
-    {
+
+    private void setStudentToDC() {
         dc.setManagerMode(PersistMode.UPDATE);
         dc.setStudent(tblStudents.getSelectionModel().getSelectedItem());
     }
-    
-    public void update(Observable o, Object obj)
-    {
-        Student student=(Student) obj;
-        
+
+    public void update(Observable o, Object obj) {
+        Student student = (Student) obj;
+
     }
 
     private void btnSaveStudent(ActionEvent event) {
@@ -193,10 +193,9 @@ public class ListStudentsController extends AnchorPane {
         refreshTableView();
 //        btnStudentsImport.setDisable(true);
     }
-    
-    public void refreshTableView()
-    {   
-       listStudents = FXCollections.observableArrayList(dc.getListAllStudents());
+
+    public void refreshTableView() {
+        listStudents = FXCollections.observableArrayList(dc.getListAllStudents());
         tblStudents.setItems(listStudents);
     }
 
@@ -205,17 +204,43 @@ public class ListStudentsController extends AnchorPane {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
         btnStudentsImport.disableProperty().bind(txtBestandsNaam.textProperty().isEmpty());
-        try{
+        try {
             File selectedFile = fileChooser.showOpenDialog(SceneController4.getStage());
-            bestandsNaam=selectedFile.getPath();
+            bestandsNaam = selectedFile.getPath();
             txtBestandsNaam.setText(selectedFile.getPath());
-            
-        }catch(Exception ex)
-        {
+
+        } catch (Exception ex) {
             System.out.println(ex.toString());
         }
-       
-                
+
     }
-    
+
+    @FXML
+    private void applyFilters(MouseEvent event) {
+    }
+
+    @FXML
+    private void goToBox(MouseEvent event) {
+        SceneController4.createScene(SceneName.BOXSCREEN);
+        SceneController4.switchScene(SceneName.BOXSCREEN);
+    }
+
+    @FXML
+    private void goToEx(MouseEvent event) {
+        SceneController4.createScene(SceneName.EXERCISEMAINSCREEN2);
+        SceneController4.switchScene(SceneName.EXERCISEMAINSCREEN);
+    }
+
+    @FXML
+    private void goToSessions(MouseEvent event) {
+        SceneController4.createScene(SceneName.SESSIONMAIN);
+        SceneController4.switchScene(SceneName.SESSIONMAIN);
+    }
+
+    @FXML
+    private void goToStudent(MouseEvent event) {
+        SceneController4.createScene(SceneName.STUDENTSSCREEN);
+        SceneController4.switchScene(SceneName.STUDENTSSCREEN);
+    }
+
 }

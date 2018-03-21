@@ -141,5 +141,7 @@ public class BoxStartScreenController extends StackPane {
 
     @FXML
     private void goToStudent(MouseEvent event) {
+        SceneController4.createScene(SceneName.STUDENTSSCREEN);
+        SceneController4.switchScene(SceneName.STUDENTSSCREEN);
     }
 }

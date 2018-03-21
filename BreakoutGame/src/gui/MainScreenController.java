@@ -95,7 +95,7 @@ public class MainScreenController extends AnchorPane implements Observer {
 
     @FXML
     private void btnStudentsExcell(ActionEvent event) {
-        SceneController4.createScene(SceneName.STUDENTSSCREEN);
+            SceneController4.createScene(SceneName.STUDENTSSCREEN);
         SceneController4.switchScene(SceneName.STUDENTSSCREEN);
     }
 
