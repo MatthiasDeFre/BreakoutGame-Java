@@ -12,6 +12,7 @@ import com.jfoenix.controls.JFXDrawer;
 import domain.Box;
 import domain.BoxController;
 import domain.ExerciseDomainController;
+import domain.SceneName;
 import domain.Session;
 import domain.SessionController;
 import domain.Student;
@@ -65,8 +66,6 @@ public class SessionMainController extends StackPane {
     private SplitPane splitPane;
     @FXML
     private HBox hBoxNavBar;
-    @FXML
-    private JFXButton btnFilters;
     @FXML
     private JFXDrawer filterDrawer;
     @FXML
@@ -138,18 +137,38 @@ public class SessionMainController extends StackPane {
 //        screen3.setDialog(dialogScreen);
     }
 
-    @FXML
     private void test(MouseEvent event) {
         this.getChildren().add(testD);
         testD.open();
     }
 
     @FXML
-    private void applyFilters(ActionEvent event) {
-        //fixen
+    private void applyFilters(MouseEvent event) {
 //        this.getChildren().add(filterDrawer);
 //        dc.applyFilters();
 //        filterDrawer.open();
+    }
+
+    @FXML
+    private void goToBox(MouseEvent event) {
+        SceneController4.createScene(SceneName.BOXSCREEN);
+        SceneController4.switchScene(SceneName.BOXSCREEN);
+    }
+
+    @FXML
+    private void goToEx(MouseEvent event) {
+        SceneController4.createScene(SceneName.EXERCISEMAINSCREEN2);
+        SceneController4.switchScene(SceneName.EXERCISEMAINSCREEN);
+    }
+
+    @FXML
+    private void goToSessions(MouseEvent event) {
+        SceneController4.createScene(SceneName.SESSIONMAIN);
+        SceneController4.switchScene(SceneName.SESSIONMAIN);
+    }
+
+    @FXML
+    private void goToStudent(MouseEvent event) {
     }
 
 }

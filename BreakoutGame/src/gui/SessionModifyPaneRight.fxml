@@ -62,6 +62,7 @@
                            </children>
                         </HBox>
                         <JFXButton fx:id="btnOpslaan" buttonType="RAISED" layoutX="374.0" layoutY="528.0" onAction="#btnOpslaanOnAction" text="Opslaan" />
+                        <JFXButton fx:id="btnGeneratePaths" buttonType="RAISED" layoutX="595.0" layoutY="528.0" onAction="#btnGeneratePathsOnAction" text="Genereer paden" />
                      </children></AnchorPane>
               </content>
             </Tab>
@@ -100,6 +101,7 @@
                         </AnchorPane>
                         <JFXButton fx:id="btnNewGroup" layoutX="78.0" layoutY="282.0" text="Nieuwe groep" />
                         <JFXButton fx:id="btnStudent" layoutX="622.0" layoutY="126.0" onAction="#btnStudentOnAction" text="Voeg student toe" />
+                        <JFXButton fx:id="btnDeleteStudent" buttonType="RAISED" layoutX="621.0" layoutY="170.0" onAction="#btnDeleteStudentOnAction" text="Verwijder student" />
                      </children></AnchorPane>
               </content>
             </Tab>

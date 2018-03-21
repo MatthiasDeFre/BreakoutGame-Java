@@ -1,35 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXDrawer?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" type="StackPane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" type="StackPane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
+      <JFXDrawer fx:id="testD" defaultDrawerSize="450.0" prefHeight="400.0" prefWidth="343.0">
+         <children>
+            <JFXDrawer fx:id="filterDrawer" defaultDrawerSize="450.0" prefHeight="400.0" prefWidth="343.0" />
+         </children></JFXDrawer>
       <VBox prefHeight="600.0" prefWidth="900.0">
          <children>
-            <HBox fx:id="hBoxNavBar" prefHeight="37.0" prefWidth="600.0" spacing="10.0" style="-fx-background-color: lightblue;">
+            <HBox id="bg" fx:id="hBoxNavBar" prefHeight="37.0" prefWidth="600.0" spacing="10.0" stylesheets="@assets/css/style.css">
                <children>
-                  <ImageView fitHeight="24.0" fitWidth="23.0" onMouseClicked="#test" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="53.0" fitWidth="54.0" onMouseClicked="#applyFilters" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@assets/img/home.png" />
+                        <Image url="@assets/img/burger.png" />
                      </image>
                      <HBox.margin>
                         <Insets bottom="5.0" />
                      </HBox.margin>
                   </ImageView>
-                  <JFXButton fx:id="btnFilters" onAction="#applyFilters" text="Filters" />
-                  <JFXButton ripplerFill="#6f0606" style="-fx-background-color: wsparent;" text="SCHERM 1" />
-                  <JFXButton style="-fx-background-color: tra,sparent;" text="SCHERM 2" />
-                  <JFXButton style="-fx-background-color: tra,sparent;" text="SCHERM 3" />
-                  <JFXButton style="-fx-background-color: tra,sparent;" text="SCHERM 4" />
+                  <Label text="Bob Manager" textFill="WHITE">
+                     <font>
+                        <Font name="The Blacksmith" size="34.0" />
+                     </font>
+                  </Label>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="58.0" prefWidth="497.0" spacing="30.0" stylesheets="@assets/css/style.css" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label onMouseClicked="#goToBox" text="Box" textFill="WHITE" translateY="5.0">
+                           <font>
+                              <Font name="ConthraxSb-Regular" size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Label onMouseClicked="#goToEx" text="Exercise" textFill="WHITE" translateY="5.0">
+                           <font>
+                              <Font name="ConthraxSb-Regular" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label onMouseClicked="#goToSessions" text="Session" textFill="WHITE" translateY="5.0">
+                           <font>
+                              <Font name="ConthraxSb-Regular" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label onMouseClicked="#goToStudent" text="Student" textFill="WHITE" translateY="5.0">
+                           <font>
+                              <Font name="ConthraxSb-Regular" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets right="30.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets right="50.0" />
+                     </HBox.margin>
+                  </HBox>
                </children>
                <padding>
                   <Insets left="10.0" top="7.0" />
@@ -41,7 +79,5 @@
             <URL value="@ComplexApplication.css" />
          </stylesheets>
       </VBox>
-      <JFXDrawer fx:id="filterDrawer" defaultDrawerSize="450.0" prefHeight="400.0" prefWidth="343.0" />
-      <JFXDrawer fx:id="testD" defaultDrawerSize="450.0" prefHeight="400.0" prefWidth="343.0" />
    </children>
 </fx:root>
