@@ -10,6 +10,7 @@ import domain.managers.GroupManager;
 import domain.managers.IManageable;
 import domain.managers.Manager;
 import domain.managers.SessionManager;
+import domain.managers.StudentClassManager;
 import domain.managers.StudentManager;
 import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDate;
@@ -17,6 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Observer;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.ObservableList;
@@ -33,6 +35,7 @@ public class SessionController {
     private GroupManager groupManager;
     private BoxManager boxManager;
     private StudentManager studentManager;
+    private StudentClassManager classManager;
     private Map<String, Manager> managers;
 
     public SessionController(PersistenceController persistenceController) {
@@ -41,13 +44,15 @@ public class SessionController {
         groupManager = new GroupManager(persistenceController);
         boxManager = new BoxManager(persistenceController);
         studentManager = new StudentManager(persistenceController);
+        classManager = new StudentClassManager(persistenceController);
         managers = new HashMap<>();
 
         managers.put(Session.class.getSimpleName(), sessionManager);
         managers.put(Box.class.getSimpleName(), boxManager);
         // STUDENT / STUDENTCLASS MANAGER
-        managers.put(StudentClass.class.getSimpleName(), studentManager);
+        managers.put(Student.class.getSimpleName(), studentManager);
         managers.put(BoBGroup.class.getSimpleName(), groupManager);
+        managers.put(StudentClass.class.getSimpleName(), classManager);
     }
 
     public FilteredList getFilteredItems(Class<? extends IManageable> className) {
@@ -86,18 +91,25 @@ public class SessionController {
 
     public void addStudentToTempGroup(Student student) {
         ((BoBGroup) groupManager.getSelected()).addStudent(student);
+        groupManager.getStudents().add(student);
     }
 
     public void removeStudentFromTempGroup(Student student) {
         ((BoBGroup) groupManager.getSelected()).removeStudent(student);
     }
 
-    public ObservableList getStudents() {
+    public ObservableList getStudentsFromClass() {
+        return classManager.getStudents();
+    }
+    public ObservableList getStudentsFromGroup() {
         return groupManager.getStudents();
+    }
+    public void setStudents(Set<Student> students) {
+        groupManager.setStudents(students);
     }
     public void generateGroups(int amount, boolean notEmpty, StudentClass studentClass) {
         List<BoBGroup> groups;
-        if (notEmpty) {
+        if (!notEmpty) {
             groups = GroupManager.generateRandomGroups(studentClass, amount);
         } else {
             groups = GroupManager.generateEmptyGroups(amount);

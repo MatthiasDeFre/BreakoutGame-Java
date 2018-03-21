@@ -12,17 +12,20 @@ import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
 import domain.BoBGroup;
 import domain.Box;
+import domain.Category;
 import domain.ExerciseDomainController;
 import domain.Goal;
 import domain.PersistMode;
 import domain.Session;
 import domain.SessionController;
+import domain.Student;
 import domain.StudentClass;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -34,6 +37,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.util.StringConverter;
 
 /**
  * FXML Controller class
@@ -78,9 +82,9 @@ public class SessionModifyPaneRightController extends AnchorPane implements Obse
     @FXML
     private TableColumn<BoBGroup, String> clmGroups;
     @FXML
-    private TableView<BoBGroup> tblGrouplessStudents;
+    private TableView<Student> tblGrouplessStudents;
     @FXML
-    private TableColumn<BoBGroup, String> clmGrouplessStudents;
+    private TableColumn<Student, String> clmGrouplessStudents;
     @FXML
     private JFXButton btnNewGroup;
     @FXML
@@ -88,7 +92,7 @@ public class SessionModifyPaneRightController extends AnchorPane implements Obse
     @FXML
     private JFXButton btnStudent;
     @FXML
-    private JFXComboBox<?> cmbClass;
+    private JFXComboBox<StudentClass> cmbClass;
 
     public SessionModifyPaneRightController(SessionController dc) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("SessionModifyPaneRight.fxml"));
@@ -108,14 +112,41 @@ public class SessionModifyPaneRightController extends AnchorPane implements Obse
                 dc.setSelectedItem(newSelection);
             }
         });
+         cmbClass.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection)
+                -> {
+            if (newSelection != null) {
+                dc.setSelectedItem(newSelection);
+            }
+        });
         tblGroups.setItems(dc.getGroupTempList());
         clmGroups.setCellValueFactory(e -> e.getValue().nameProperty());
         tblGroups.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection)
                 -> {
             if (newSelection != null) {
                 dc.setSelectedItem(newSelection);
+                
             }
         });
+       
+        cmbClass.setItems(dc.getFilteredItems(StudentClass.class));
+        StringConverter<StudentClass> converter = new StringConverter<StudentClass>() {
+            @Override
+            public String toString(StudentClass classRoom) {
+                return classRoom.getStudentClassName();
+            }
+            @Override
+            public StudentClass fromString(String string)
+            {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+        };
+     
+        tblGrouplessStudents.setItems(dc.getStudentsFromClass());
+        cmbClass.setConverter(converter);
+        GroupEditDetailController groupEditDetailController = new GroupEditDetailController(dc);
+        dc.addObserver(BoBGroup.class, groupEditDetailController);
+        hboxGroupEdit.getChildren().add(groupEditDetailController);
+        clmGrouplessStudents.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getFirstName() + " " + e.getValue().getLastName()));
     }
 
     @Override
@@ -137,19 +168,25 @@ public class SessionModifyPaneRightController extends AnchorPane implements Obse
             tblGoal.setItems(goals);
             txtNaamBox.setText(((Box) obj).getName());
         }
+        if (obj instanceof StudentClass) {
+            System.out.println("test");
+            StudentClass studentClass = (StudentClass) obj;
+            dc.setStudents(studentClass.getStudents());
+        }
 
     }
 
     @FXML
     private void generateGroups() {
         int amount;
+        
         if (TBTile.isSelected()) {
             amount =dc.getAmountOfStudents();
         } else {
             amount = Integer.valueOf(txfGroupAmount.getText());
         }
 
-        dc.generateGroups(amount, TBGroups.isSelected(), new StudentClass("2c1"));
+        dc.generateGroups(amount, TBGroups.isSelected(), cmbClass.getSelectionModel().getSelectedItem());
     }
 
     private void generatePaths() {
@@ -158,5 +195,6 @@ public class SessionModifyPaneRightController extends AnchorPane implements Obse
 
     @FXML
     private void btnStudentOnAction(ActionEvent event) {
+        dc.addStudentToTempGroup(tblGrouplessStudents.getSelectionModel().getSelectedItem());
     }
 }

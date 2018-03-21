@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
@@ -8,24 +13,24 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<fx:root id="AnchorPane" type="AnchorPane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root id="AnchorPane" type="AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TableView fx:id="tblStudents" layoutX="14.0" layoutY="7.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="254.0" AnchorPane.topAnchor="7.0">
+      <TableView fx:id="tblStudents" layoutX="14.0" layoutY="7.0" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="254.0" AnchorPane.topAnchor="7.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="Students" />
+          <TableColumn fx:id="clmName" prefWidth="75.0" text="Students" />
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <VBox layoutX="298.0" layoutY="60.0" prefHeight="79.0" prefWidth="100.0" spacing="40.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="298.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="60.0">
+      <VBox layoutX="298.0" layoutY="60.0" spacing="40.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="298.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="60.0">
          <children>
             <JFXTextField fx:id="txfGroupName">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
             </JFXTextField>
-            <JFXButton fx:id="btnAddGroup" onAction="#btnAddGroupOnAction" prefHeight="25.0" prefWidth="101.0" />
+            <JFXButton fx:id="btnAddGroup" onAction="#btnAddGroupOnAction" text="Sla groep op" />
          </children>
       </VBox>
    </children>

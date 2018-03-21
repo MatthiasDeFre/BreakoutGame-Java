@@ -5,6 +5,8 @@
  */
 package domain;
 
+import domain.managers.IManageable;
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -20,8 +22,7 @@ import javax.persistence.Table;
  * @author geers
  */
 @Entity
-@Table(name="StudentClass")
-public class StudentClass {
+public class StudentClass implements IManageable, Serializable{
 
     
     @Id
@@ -59,6 +60,20 @@ public class StudentClass {
             throw new IllegalArgumentException();
         else
             this.studentClassName=studentClassName;
+    }
+    public void addStudent(Student student) {
+        students.add(student);
+    }
+    @Override
+    public long getId()
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setId(long id)
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

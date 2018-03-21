@@ -14,6 +14,9 @@ import domain.BoxController;
 import domain.ExerciseDomainController;
 import domain.Session;
 import domain.SessionController;
+import domain.Student;
+import domain.StudentClass;
+import gui.ExerciseDetailScreenController2;
 import gui.ExerciseDetailsPaneMidController;
 import gui.ExercisesGroupOperationsPaneRightController;
 import gui.ExercisesPaneLeftController;
@@ -101,6 +104,7 @@ public class SessionMainController extends StackPane {
 
         dc.addObserver(Session.class, test);
         dc.addObserver(Box.class, test);
+        dc.addObserver(StudentClass.class, test);
 
         splitPane.getItems().add(test2);
         splitPane.getItems().add(test);

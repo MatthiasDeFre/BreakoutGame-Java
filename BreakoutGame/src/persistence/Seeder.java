@@ -57,7 +57,7 @@ public class Seeder {
         StudentClass studentClass=new StudentClass("2c2");
         Student student=new Student("Jelle","Geers",studentClass,"07");
         Set<Exercise> exercises = new HashSet<>();
-     
+        studentClass.addStudent(student);
         exercises.add(ex2);
         exercises.add(ex1);
         AccessCode a1 = new AccessCode(52);

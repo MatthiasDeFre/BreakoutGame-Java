@@ -9,14 +9,18 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import domain.BoBGroup;
 import domain.SessionController;
+import domain.Student;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 
@@ -28,13 +32,17 @@ import javafx.scene.layout.AnchorPane;
 public class GroupEditDetailController extends AnchorPane implements Observer{
 
     @FXML
-    private TableView<?> tblStudents;
+    private TableView<Student> tblStudents;
     @FXML
     private JFXTextField txfGroupName;
     @FXML
     private JFXButton btnAddGroup;
 
     private SessionController dc;
+    @FXML
+    private AnchorPane AnchorPane;
+    @FXML
+    private TableColumn<Student, String> clmName;
     
     public GroupEditDetailController(SessionController dc)
     {
@@ -49,14 +57,22 @@ public class GroupEditDetailController extends AnchorPane implements Observer{
             System.out.printf(ex.getMessage());
         }
         this.dc = dc;
-        tblStudents.setItems(dc.getStudents());
+        tblStudents.setItems(dc.getStudentsFromGroup());
+        clmName.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getFirstName() + " " + e.getValue().getLastName()));
+       
     }
 
     @Override
     public void update(Observable o, Object arg)
     {
         BoBGroup boBGroup = (BoBGroup) arg;
+         txfGroupName.setText(boBGroup.getName());
         
+    }
+
+    @FXML
+    private void btnAddGroupOnAction(ActionEvent event)
+    {
     }
 
     /**

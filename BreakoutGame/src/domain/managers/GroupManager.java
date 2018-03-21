@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Observable;
+import java.util.Set;
 import java.util.stream.IntStream;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -87,6 +88,11 @@ public class GroupManager extends Manager<BoBGroup>
             groups.add(new BoBGroup("Groep " + e));
         });
         return groups;
+    }
+
+    public void setStudents(Set<Student> students)
+    {
+        this.students.setAll(students);
     }
     
   

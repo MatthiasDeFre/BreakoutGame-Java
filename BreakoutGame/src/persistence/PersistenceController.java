@@ -33,6 +33,7 @@ import java.util.Map;
 import persistence.repositories.AccessCodeRepository;
 import persistence.repositories.CategoryRepository;
 import persistence.repositories.GoalRepository;
+import persistence.repositories.StudentClassRepository;
 
 /**
  *
@@ -56,6 +57,7 @@ public class PersistenceController {
         repositories.put(Student.class.getSimpleName(),new StudentRepository());
         repositories.put(AccessCode.class.getSimpleName(), new AccessCodeRepository());
         repositories.put(Goal.class.getSimpleName(), new GoalRepository());
+           repositories.put(StudentClass.class.getSimpleName(), new StudentClassRepository());
         //put other repos
         mode = PersistMode.NEW;
         
