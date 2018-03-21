@@ -42,7 +42,10 @@ public class ListStudentController{
         return studentManager.getFilteredItems();
     }
      public void createStudent(Student student) {
-        studentManager.addStudent(student);
+         List<Student> studenten=this.getListAllStudents();
+         studenten.stream().forEach(studentnaam -> System.out.printf("%s%n", studentnaam.getFirstName()));
+         if( !persistenceController.StudentExists(student.getStudentClass(), student.getClassNumber())==true)
+            studentManager.addStudent(student);
     }
      
     public void setStudent(Student student)

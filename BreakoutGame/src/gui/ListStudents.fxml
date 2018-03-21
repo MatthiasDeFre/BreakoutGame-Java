@@ -14,7 +14,7 @@
 
 <fx:root fx:id="anchorPane" prefHeight="619.0" prefWidth="834.0" stylesheets="@assets/css/jfoenix-components.css" type="AnchorPane" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TableView fx:id="tblStudents" layoutX="26.0" layoutY="29.0" prefHeight="346.0" prefWidth="463.0" AnchorPane.bottomAnchor="243.60000000000002" AnchorPane.leftAnchor="26.0" AnchorPane.rightAnchor="344.8" AnchorPane.topAnchor="29.0">
+      <TableView fx:id="tblStudents" layoutX="26.0" layoutY="29.0" prefHeight="346.0" prefWidth="463.0" styleClass="column-overlay" AnchorPane.bottomAnchor="243.60000000000002" AnchorPane.leftAnchor="26.0" AnchorPane.rightAnchor="344.8" AnchorPane.topAnchor="29.0">
          <columns>
             <TableColumn fx:id="clmFirstName" prefWidth="116.79998207092285" text="FirstName" />
             <TableColumn fx:id="clmLastName" minWidth="50.0" prefWidth="112.80001831054688" text="LastName" />
@@ -22,9 +22,8 @@
             <TableColumn fx:id="clmClassnumber" prefWidth="116.7999267578125" text="KlasNumber" />
          </columns>
       </TableView>
-      <VBox layoutX="582.0" layoutY="144.0" prefHeight="208.0" prefWidth="146.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="160.0">
+      <VBox layoutX="633.0" layoutY="422.0" prefHeight="169.0" prefWidth="146.0" AnchorPane.bottomAnchor="27.399999999999977" AnchorPane.leftAnchor="633.0" AnchorPane.rightAnchor="54.60000000000002">
          <children>
-            <Button fx:id="btnStudentsImport" disable="true" mnemonicParsing="false" onAction="#btnStudentsImportExcel" styleClass="button-raised" text="Students Importeren" textFill="#b72323" />
             <Button fx:id="btnAdd" mnemonicParsing="false" onAction="#btnAddStudent" styleClass="button-raised" text="Add student">
                <VBox.margin>
                   <Insets top="10.0" />
@@ -39,7 +38,7 @@
                </VBox.margin></Button>
          </children>
       </VBox>
-      <VBox layoutX="298.0" layoutY="401.0" prefHeight="200.0" prefWidth="399.0" AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="298.0">
+      <VBox layoutX="298.0" layoutY="401.0" prefHeight="200.0" prefWidth="399.0" AnchorPane.bottomAnchor="18.0">
          <children>
             <JFXTextField fx:id="txtFirstName">
                <VBox.margin>
@@ -89,7 +88,7 @@
       </VBox>
       <HBox layoutX="498.0" layoutY="63.0" prefHeight="40.0" prefWidth="314.0" AnchorPane.rightAnchor="21.600000000000023" AnchorPane.topAnchor="63.0">
          <children>
-            <JFXTextField fx:id="txtBestandsNaam" alignment="TOP_LEFT" focusColor="BLACK" labelFloat="true" prefHeight="39.0" prefWidth="218.0" promptText="BestandsNaam" styleClass="test" stylesheets="@assets/css/jfoenix-components.css">
+            <JFXTextField fx:id="txtBestandsNaam" alignment="TOP_LEFT" disable="true" focusColor="BLACK" labelFloat="true" prefHeight="39.0" prefWidth="218.0" promptText="BestandsNaam" styleClass="test" stylesheets="@assets/css/jfoenix-components.css">
                <font>
                   <Font name="Roboto Regular" size="18.0" />
                </font>
@@ -101,5 +100,7 @@
             </JFXButton>
          </children>
       </HBox>
+      <VBox layoutX="507.0" layoutY="120.0" prefHeight="50.0" prefWidth="148.0" AnchorPane.rightAnchor="179.0" AnchorPane.topAnchor="120.0" />
+      <Button fx:id="btnStudentsImport" disable="true" layoutX="533.0" layoutY="150.0" mnemonicParsing="false" onAction="#btnStudentsImportExcel" styleClass="button-raised" text="Students Importeren" textFill="#b72323" AnchorPane.rightAnchor="101.0" />
    </children>
 </fx:root>

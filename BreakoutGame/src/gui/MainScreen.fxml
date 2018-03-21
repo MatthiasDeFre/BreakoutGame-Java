@@ -6,14 +6,14 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<fx:root id="AnchorPane" type="AnchorPane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root id="AnchorPane" stylesheets="@assets/css/jfoenix-components.css" type="AnchorPane" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox fx:id="hBox" alignment="CENTER" layoutX="210.0" layoutY="225.0" prefWidth="500.0" spacing="10.0" AnchorPane.bottomAnchor="240.0" AnchorPane.leftAnchor="210.0" AnchorPane.rightAnchor="210.0" AnchorPane.topAnchor="225.0">
          <children>
-            <JFXButton fx:id="btnBox" buttonType="RAISED" onAction="#btnBoxStartScreen" prefHeight="70.0" prefWidth="201.0" ripplerFill="BLACK" style="-fx-background-color: lightblue;" text="Box" textFill="#a29090fc" wrapText="true" />
-            <JFXButton fx:id="btnExercise" buttonType="RAISED" onAction="#btnExerciseStart" prefHeight="70.0" prefWidth="201.0" ripplerFill="BLACK" style="-fx-background-color: lightblue;" text="Exercise" textFill="#a29090" />
-            <JFXButton fx:id="btnStudents" buttonType="RAISED" onAction="#btnStudentsExcell" prefHeight="70.0" prefWidth="201.0" ripplerFill="BLACK" style="-fx-background-color: lightblue;" text="Students" textFill="#a29090" />
-            <JFXButton fx:id="btnSession" buttonType="RAISED" onAction="#btnSessionOnAction" prefHeight="70.0" prefWidth="201.0" ripplerFill="BLACK" style="-fx-background-color: lightblue;" text="Session" textFill="#a29090" />
+            <JFXButton fx:id="btnBox" buttonType="RAISED" onAction="#btnBoxStartScreen" prefHeight="70.0" prefWidth="201.0" ripplerFill="BLACK" styleClass="button-raised" text="Box" textFill="#a29090fc" wrapText="true" />
+            <JFXButton fx:id="btnExercise" buttonType="RAISED" onAction="#btnExerciseStart" prefHeight="70.0" prefWidth="201.0" ripplerFill="BLACK" styleClass="button-raised" text="Exercise" textFill="#a29090" />
+            <JFXButton fx:id="btnStudents" buttonType="RAISED" onAction="#btnStudentsExcell" prefHeight="70.0" prefWidth="201.0" ripplerFill="BLACK" styleClass="button-raised" text="Students" textFill="#a29090" />
+            <JFXButton fx:id="btnSession" buttonType="RAISED" onAction="#btnSessionOnAction" prefHeight="70.0" prefWidth="201.0" ripplerFill="BLACK" styleClass="button-raised" text="Session" textFill="#a29090" />
          </children>
       </HBox>
       <Label fx:id="lblTeam" layoutX="718.0" layoutY="474.0" text="Team 07" textFill="#df4f4f" AnchorPane.bottomAnchor="4.263256414560601E-14" AnchorPane.rightAnchor="0.39999999999997726">

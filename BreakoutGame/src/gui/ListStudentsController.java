@@ -204,10 +204,17 @@ public class ListStudentsController extends AnchorPane {
     private void btnExcelFileOnAction(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
-        File selectedFile = fileChooser.showOpenDialog(SceneController4.getStage());
-        bestandsNaam=selectedFile.getPath();
-        txtBestandsNaam.setText(selectedFile.getPath());
         btnStudentsImport.disableProperty().bind(txtBestandsNaam.textProperty().isEmpty());
+        try{
+            File selectedFile = fileChooser.showOpenDialog(SceneController4.getStage());
+            bestandsNaam=selectedFile.getPath();
+            txtBestandsNaam.setText(selectedFile.getPath());
+            
+        }catch(Exception ex)
+        {
+            System.out.println(ex.toString());
+        }
+       
                 
     }
     
