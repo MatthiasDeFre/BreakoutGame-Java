@@ -14,7 +14,6 @@ import domain.Student;
 import domain.ExerciseDomainController;
 import domain.PersistMode;
 import domain.StudentClass;
-import gui.ComplexApplication2.ExerciseController;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
