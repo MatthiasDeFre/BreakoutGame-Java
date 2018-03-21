@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <fx:root id="pane" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="450.0" stylesheets="@assets/css/style_1.css" type="AnchorPane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TableView fx:id="tblSessions" layoutX="24.0" layoutY="19.0" prefHeight="340.0" prefWidth="402.0" AnchorPane.bottomAnchor="41.0" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="41.0">
+      <TableView fx:id="tblSessions" layoutX="24.0" layoutY="26.0" prefHeight="340.0" prefWidth="402.0" AnchorPane.bottomAnchor="56.0" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="26.0">
         <columns>
           <TableColumn fx:id="clmSessions" prefWidth="75.0" text="Sessies" />
         </columns>
@@ -14,5 +15,7 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
+      <JFXButton fx:id="btnOpslaan" layoutX="71.0" layoutY="354.0" onAction="#btnOpslaanOnAction" text="Opslaan" />
+      <JFXButton fx:id="btnVerwijder" layoutX="313.0" layoutY="354.0" onAction="#btnVerwijderOnAction" text="Verwijder" />
    </children>
 </fx:root>
