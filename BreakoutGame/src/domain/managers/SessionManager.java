@@ -7,6 +7,7 @@ import domain.Assignment;
 import domain.Box;
 import domain.Exercise;
 import domain.BoBGroup;
+import domain.Category;
 import domain.Goal;
 import domain.GroupOperation;
 import domain.Session;
@@ -36,6 +37,13 @@ public class SessionManager extends Manager<Session>
         setItems(FXCollections.observableArrayList(persistence.getAllOfType(Session.class)));
         tempGroups = FXCollections.observableArrayList();
     }
+
+    @Override
+    public void setSelected(Session item)
+    {
+        super.setSelected(item); //To change body of generated methods, choose Tools | Templates.
+        tempGroups.setAll(item.getGroups());
+    }
     
      public static void generatePaths(List<BoBGroup> groups, Box box) {
          groups.stream().forEach(e -> {
@@ -56,6 +64,15 @@ public class SessionManager extends Manager<Session>
             e.setPath(path);
         });
      }
+     
+         
+      @Override
+    public void save(Session object)
+    {
+        getPersistenceController().setPersistMode(getManagerMode());
+       ((Session) getSelected() ).copy(object);
+        super.save(object); //To change body of generated methods, choose Tools | Templates.
+    }
      public static void generatePaths(Session session) {
         List<BoBGroup> groups = session.getGroups();
         Box box = session.getBox();

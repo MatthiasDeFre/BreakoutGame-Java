@@ -138,5 +138,13 @@ public class SessionController {
     public int getAmountOfStudents() {
         return 10;
     }
-
+    public void removeSession() {
+        try
+        {
+            sessionManager.delete();
+        } catch (InvocationTargetException ex)
+        {
+            Logger.getLogger(SessionController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

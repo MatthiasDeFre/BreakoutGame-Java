@@ -46,7 +46,7 @@ public class Session implements IManageable, Serializable {
     private Box box;
    
     private List<BoBGroup> groups;
-    private String description;
+    private SimpleStringProperty description = new SimpleStringProperty();
 
     private StudentClass classRoom;
     private SimpleStringProperty name = new SimpleStringProperty();
@@ -59,8 +59,10 @@ public class Session implements IManageable, Serializable {
 
     private SessionStatus sessionStatus;
     
-    protected Session()
+    public Session()
     {
+        activationDate = LocalDate.now();
+        groups = new ArrayList<>();
     }
 
     public Session(Box box, List<BoBGroup> groups, String description, StudentClass classRoom, String name, LocalDate activationDate, boolean tile, boolean feedback)
@@ -159,14 +161,14 @@ public class Session implements IManageable, Serializable {
 
     public String getDescription()
     {
-        return description;
+        return description.get();
     }
 
     public void setDescription(String description)
     {
           if(description == null || description.trim().isEmpty())
             throw new IllegalArgumentException("Description is empty");
-        this.description = description.trim();
+        this.description.set(description.trim());
     }
 
    
@@ -219,6 +221,10 @@ public class Session implements IManageable, Serializable {
    
     public StringProperty nameProperty() {
         return name;
+    }
+    
+    public StringProperty descriptionProperty() {
+        return description;
     }
 
 }

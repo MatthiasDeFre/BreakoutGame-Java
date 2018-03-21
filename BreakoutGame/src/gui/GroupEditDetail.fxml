@@ -31,6 +31,7 @@
                </VBox.margin>
             </JFXTextField>
             <JFXButton fx:id="btnAddGroup" onAction="#btnAddGroupOnAction" text="Sla groep op" />
+            <JFXButton text="Verwijder leerling uit groep" />
          </children>
       </VBox>
    </children>

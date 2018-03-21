@@ -96,7 +96,8 @@ public class Seeder {
         Box box = new Box("Box voor 22/05","BoxMDF1", new HashSet<>(test), acs);
         
         Session session = new Session(box, null, "NIEUWE OMSCHRIJVING", studentClass, "NIEUWE NAAM", LocalDate.now(), true, true);
-        
+                
+        Session session2 = new Session(box, null, "NIEUWE OMSCHRIJVING", studentClass, "NIEUWE N", LocalDate.now(), true, true);
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("BreakoutGamePU");
         EntityManager em = emf.createEntityManager();
         
@@ -131,7 +132,7 @@ public class Seeder {
         em.persist(student);
         
         em.persist(session);
-
+        em.persist(session2);
         
         em.getTransaction().commit();
         em.close();

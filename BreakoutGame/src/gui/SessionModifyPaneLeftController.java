@@ -5,6 +5,7 @@
  */
 package gui;
 
+import com.jfoenix.controls.JFXButton;
 import domain.Exercise;
 import domain.ExerciseDomainController;
 import domain.GroupOperation;
@@ -19,6 +20,7 @@ import java.util.Observer;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -41,6 +43,10 @@ public class SessionModifyPaneLeftController extends AnchorPane {
     private AnchorPane pane;
     @FXML
     private TableColumn<Session, String> clmSessions;
+    @FXML
+    private JFXButton btnOpslaan;
+    @FXML
+    private JFXButton btnVerwijder;
 
     public SessionModifyPaneLeftController(SessionController dc) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("SessionModifyPaneLeft.fxml"));
@@ -54,11 +60,12 @@ public class SessionModifyPaneLeftController extends AnchorPane {
 
         this.dc = dc;
 
-        clmSessions.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getName()));
+        clmSessions.setCellValueFactory(e -> e.getValue().nameProperty());
         tblSessions.setItems(dc.getFilteredItems(Session.class));
 
         tblSessions.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
+                dc.setManagerMode(Session.class, PersistMode.UPDATE);
                 setSelectedItemToDc();
             }
         });
@@ -68,6 +75,19 @@ public class SessionModifyPaneLeftController extends AnchorPane {
     private void setSelectedItemToDc() {
         dc.setManagerMode(Session.class, PersistMode.UPDATE);
         dc.setSelectedItem(tblSessions.getSelectionModel().getSelectedItem());
+    }
+
+    @FXML
+    private void btnOpslaanOnAction(ActionEvent event)
+    {
+        dc.setSelectedItem(new Session());
+        dc.setManagerMode(Session.class, PersistMode.NEW);
+    }
+
+    @FXML
+    private void btnVerwijderOnAction(ActionEvent event)
+    {
+        dc.removeSession();
     }
 
 }

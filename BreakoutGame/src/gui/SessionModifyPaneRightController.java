@@ -22,6 +22,7 @@ import domain.Student;
 import domain.StudentClass;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
@@ -157,12 +158,17 @@ public class SessionModifyPaneRightController extends AnchorPane implements Obse
             Session session = (Session) obj;
             txtName.setText(session.getName());
             txtDescription.setText(session.getDescription());
-            txtClass.setText(session.getClassRoom().getStudentClassName());
+            if(session.getClassRoom() != null) 
+                txtClass.setText(session.getClassRoom().getStudentClassName());
+            else
+                txtClass.setText("");
             DPDate.setValue(session.getActivationDate());
             TBFeedback.setSelected(session.isFeedback());
             TBTile.setSelected(session.isTile());
             ObservableList bobs = dc.getFilteredItems(Box.class);
             tblBOBS.setItems(bobs);
+            tblBOBS.getSelectionModel().select(session.getBox());
+            
         }
 
         if (obj instanceof Box) {
@@ -183,7 +189,7 @@ public class SessionModifyPaneRightController extends AnchorPane implements Obse
         int amount;
         
         if (TBTile.isSelected()) {
-            amount =dc.getAmountOfStudents();
+            amount =cmbClass.getSelectionModel().getSelectedItem().getStudents().size();
         } else {
             amount = Integer.valueOf(txfGroupAmount.getText());
         }
@@ -202,5 +208,6 @@ public class SessionModifyPaneRightController extends AnchorPane implements Obse
 
     @FXML
     private void btnOpslaanOnAction(ActionEvent event) {
+        dc.saveSession(txtDescription.getText(), txtName.getText(), DPDate.getValue(), TBTile.isSelected(), TBFeedback.isSelected(), cmbClass.getSelectionModel().getSelectedItem());
     }
 }
