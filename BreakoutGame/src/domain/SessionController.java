@@ -63,13 +63,13 @@ public class SessionController {
         managers.get(className.getSimpleName()).addObserver(obs);
     }
 
-    public void saveSession(String description, String name, LocalDate activationDate, boolean tile, boolean feedback) {
+    public void saveSession(String description, String name, LocalDate activationDate, boolean tile, boolean feedback, StudentClass studentClass) {
         //TODO NEED OTHER MANAGERS => group, studentclass etc
         managers.get(Session.class.getSimpleName()).save(new Session(
                 (Box) managers.get(Box.class.getSimpleName()).getSelected(),
                 sessionManager.getTempGroups(),
                 description,
-                new StudentClass(),
+                studentClass,
                 name,
                 activationDate,
                 tile,
