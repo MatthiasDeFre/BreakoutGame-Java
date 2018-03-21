@@ -16,7 +16,6 @@ import domain.Session;
 import domain.SessionController;
 import domain.Student;
 import domain.StudentClass;
-import gui.ExerciseDetailScreenController2;
 import gui.ExerciseDetailsPaneMidController;
 import gui.ExercisesGroupOperationsPaneRightController;
 import gui.ExercisesPaneLeftController;

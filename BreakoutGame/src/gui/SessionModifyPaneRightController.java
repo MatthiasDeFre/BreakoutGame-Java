@@ -93,6 +93,8 @@ public class SessionModifyPaneRightController extends AnchorPane implements Obse
     private JFXButton btnStudent;
     @FXML
     private JFXComboBox<StudentClass> cmbClass;
+    @FXML
+    private JFXButton btnOpslaan;
 
     public SessionModifyPaneRightController(SessionController dc) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("SessionModifyPaneRight.fxml"));
@@ -196,5 +198,9 @@ public class SessionModifyPaneRightController extends AnchorPane implements Obse
     @FXML
     private void btnStudentOnAction(ActionEvent event) {
         dc.addStudentToTempGroup(tblGrouplessStudents.getSelectionModel().getSelectedItem());
+    }
+
+    @FXML
+    private void btnOpslaanOnAction(ActionEvent event) {
     }
 }
