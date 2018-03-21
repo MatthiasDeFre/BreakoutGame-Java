@@ -53,6 +53,7 @@ public class SessionController {
         managers.put(Student.class.getSimpleName(), studentManager);
         managers.put(BoBGroup.class.getSimpleName(), groupManager);
         managers.put(StudentClass.class.getSimpleName(), classManager);
+    
     }
 
     public FilteredList getFilteredItems(Class<? extends IManageable> className) {
@@ -96,6 +97,7 @@ public class SessionController {
 
     public void removeStudentFromTempGroup(Student student) {
         ((BoBGroup) groupManager.getSelected()).removeStudent(student);
+        groupManager.removeStudent(student);
     }
 
     public ObservableList getStudentsFromClass() {
@@ -126,9 +128,16 @@ public class SessionController {
         System.out.println(className.getSimpleName());
         managers.get(className.getSimpleName()).setManagerMode(persistMode);
     }
-
+    
+    public IManageable getSelectedItem(Class<? extends IManageable> item) {
+        return (IManageable) managers.get(item.getSimpleName()).getSelected();
+    }
     public void setSelectedItem(IManageable item) {
         managers.get(item.getClass().getSimpleName()).setSelected(item);
+    }
+    
+    public void setGroupName(String text) {
+        ((BoBGroup)groupManager.getSelected()).setName(text);
     }
 
     public ObservableList<Goal> getGoals() {

@@ -9,6 +9,10 @@ import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderColumn;
 
 /**
  *
@@ -17,7 +21,9 @@ import javax.persistence.Id;
 @Entity(name = "SessionPath")
 public class Path implements Serializable {
    
+    @OneToMany
     private List<Assignment> assignments;
+    @ManyToMany
     private List<BoBAction> actions;
     
     @Id

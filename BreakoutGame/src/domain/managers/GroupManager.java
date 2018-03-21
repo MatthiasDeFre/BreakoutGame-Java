@@ -36,6 +36,9 @@ public class GroupManager extends Manager<BoBGroup>
            
     }
     
+    public void removeStudent(Student student) {
+        students.remove(student);
+    }
     public ObservableList getStudents() {
         return students;
     }

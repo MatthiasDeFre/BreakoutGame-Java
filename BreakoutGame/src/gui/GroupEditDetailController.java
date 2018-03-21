@@ -8,6 +8,7 @@ package gui;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import domain.BoBGroup;
+import domain.PersistMode;
 import domain.SessionController;
 import domain.Student;
 import java.io.IOException;
@@ -58,6 +59,12 @@ public class GroupEditDetailController extends AnchorPane implements Observer{
         }
         this.dc = dc;
         tblStudents.setItems(dc.getStudentsFromGroup());
+        tblStudents.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection)
+                -> {
+            if (newSelection != null) {
+                dc.setSelectedItem(newSelection);
+            }
+        });
         clmName.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getFirstName() + " " + e.getValue().getLastName()));
        
     }
@@ -73,6 +80,7 @@ public class GroupEditDetailController extends AnchorPane implements Observer{
     @FXML
     private void btnAddGroupOnAction(ActionEvent event)
     {
+        dc.setGroupName(txfGroupName.getText());
     }
 
     /**

@@ -73,8 +73,9 @@ public class Session implements IManageable, Serializable {
         setClassRoom(classRoom);
         setName(name);
        setActivationDate(activationDate);
+         setTile(tile);
         setFeedback(feedback);
-        setTile(tile);
+      
         setSessionStatus(SessionStatus.SCHEDULED);
     
     }
@@ -87,8 +88,9 @@ public class Session implements IManageable, Serializable {
         setName(session.getName());
         setDescription(session.getDescription());
         setActivationDate(session.getActivationDate());
+           setTile(session.isTile());
         setFeedback(session.isTile());
-        setTile(session.isTile());
+     
         setSessionStatus(session.getSessionStatus());
         setClassRoom(session.getClassRoom());
         setBox(session.getBox());

@@ -217,9 +217,18 @@ public class SessionModifyPaneRightController extends AnchorPane implements Obse
 
     @FXML
     private void btnDeleteStudentOnAction(ActionEvent event) {
+        dc.removeStudentFromTempGroup((Student)dc.getSelectedItem(Student.class));
     }
 
     @FXML
     private void btnGeneratePathsOnAction(ActionEvent event) {
+        dc.generatePaths();
+    }
+
+    @FXML
+    private void newGroup(ActionEvent event)
+    {
+        dc.addNewTempGroup("NIEUWE GROUP");
+        
     }
 }

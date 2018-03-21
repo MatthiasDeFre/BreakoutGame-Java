@@ -37,6 +37,7 @@ public class BoBGroup implements IManageable, Serializable {
 
     public BoBGroup()
     {
+        students = new ArrayList<>();
     }
 
     public BoBGroup(String name)
@@ -107,6 +108,7 @@ public class BoBGroup implements IManageable, Serializable {
         students.add(student);
     }
     public void removeStudent(Student student) {
+        System.out.println(students.contains(student));
         students.remove(student);
     }
     

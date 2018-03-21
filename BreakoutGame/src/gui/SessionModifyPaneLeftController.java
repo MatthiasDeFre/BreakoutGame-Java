@@ -6,6 +6,7 @@
 package gui;
 
 import com.jfoenix.controls.JFXButton;
+import domain.BoBGroup;
 import domain.Exercise;
 import domain.ExerciseDomainController;
 import domain.GroupOperation;
@@ -75,6 +76,7 @@ public class SessionModifyPaneLeftController extends AnchorPane {
     private void setSelectedItemToDc() {
         dc.setManagerMode(Session.class, PersistMode.UPDATE);
         dc.setSelectedItem(tblSessions.getSelectionModel().getSelectedItem());
+        dc.setSelectedItem(new BoBGroup());
     }
 
     @FXML

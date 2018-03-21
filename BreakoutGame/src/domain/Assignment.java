@@ -7,19 +7,34 @@ package domain;
 
 import domain.groupOperationBehaviours.AnwserBehaviour;
 import domain.groupOperationBehaviours.AnwserBehaviourFactory;
+import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Transient;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  *
  * @author Matthias
  */
-public class Assignment {
+@Entity
+public class Assignment implements Serializable {
     
     private int referenceNr;
     private Exercise exercise;
     private GroupOperation groupOperation;
     private int accessCode;
+    @Transient
     private AnwserBehaviour anwserBehaviour;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    public Assignment()
+    {
+    }
     public Assignment(int referenceNr, Exercise exercise, GroupOperation groupOperation, int accessCode)
     {
         this.referenceNr = referenceNr;
@@ -30,6 +45,9 @@ public class Assignment {
     }
     
     public String getAnwser() {
+        if(anwserBehaviour == null) {
+            anwserBehaviour = AnwserBehaviourFactory.createAnwserBehaviour(groupOperation.getCategory());
+        }
         return anwserBehaviour.getAnwser(exercise.getAnswer(), groupOperation.getValueString());
     }
 
@@ -81,6 +99,16 @@ public class Assignment {
     public void setAnwserBehaviour(AnwserBehaviour anwserBehaviour)
     {
         this.anwserBehaviour = anwserBehaviour;
+    }
+
+    public long getId()
+    {
+        return id;
+    }
+
+    public void setId(long id)
+    {
+        this.id = id;
     }
     
     
