@@ -361,6 +361,7 @@ public class BoxMaxController extends AnchorPane implements Observer{
     { 
      try {
              dc.saveBox(txtName.getText(), txtDescription.getText());
+             dc.setManagerMode(Box.class, PersistMode.UPDATE);
         } catch(IllegalArgumentException e) {
             JFXDialogLayout layout = new JFXDialogLayout();
             layout.setBody(new Label(e.getMessage()));

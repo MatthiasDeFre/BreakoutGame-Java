@@ -14,6 +14,7 @@ import com.jfoenix.controls.JFXToggleButton;
 import domain.Category;
 import domain.Exercise;
 import domain.ExerciseDomainController;
+import domain.PersistMode;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -159,6 +160,7 @@ public class ExerciseDetailsPaneMidController extends AnchorPane implements Obse
     {
         try {
         dc.saveExercise(txtEx.getText(), txtAnw.getText(), txfFeedback.getText(), txfOpdracht.getText(), cmbCategory.getSelectionModel().getSelectedIndex(), Integer.valueOf(!txtTime.getText().equals("") ? txtTime.getText() : "0"));       
+        dc.setManagerMode(Exercise.class, PersistMode.UPDATE);
         } catch(NumberFormatException e) {
             setErrorDialog(new NumberFormatException("Gelieve een getal in te vullen in het tijd veld"));
         } catch(IllegalArgumentException e) {

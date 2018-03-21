@@ -111,7 +111,7 @@ public class ExercisesPaneLeftController extends AnchorPane {
         
         try{
              dc.deleteExercise();
-              dc.setSelectedItem(new Exercise());
+           //   dc.setSelectedItem(new Exercise());
         } catch(IllegalArgumentException ex) {
             setErrorDialog(ex);
         }

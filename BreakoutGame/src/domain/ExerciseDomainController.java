@@ -13,6 +13,7 @@ import domain.managers.GoalManager;
 import domain.managers.IManageable;
 import domain.managers.Manager;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -135,6 +136,7 @@ public class ExerciseDomainController implements ExerciseFilter{
         try {
                exerciseManager.delete();
         } catch(Exception e) {
+            System.out.println(Arrays.toString(e.getStackTrace()));
             throw new IllegalArgumentException("Er is een fout opgetreden: deze fout komt meestal voor omdat de oefening zich binnen een box bevind");
         }
      

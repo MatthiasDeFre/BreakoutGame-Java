@@ -32,6 +32,7 @@ public class SessionController {
     private SessionManager sessionManager;
     private GroupManager groupManager;
     private BoxManager boxManager;
+    private StudentManager studentManager;
     private Map<String, Manager> managers;
 
     public SessionController(PersistenceController persistenceController) {
@@ -39,12 +40,13 @@ public class SessionController {
         sessionManager = new SessionManager(persistenceController);
         groupManager = new GroupManager(persistenceController);
         boxManager = new BoxManager(persistenceController);
+        studentManager = new StudentManager(persistenceController);
         managers = new HashMap<>();
 
         managers.put(Session.class.getSimpleName(), sessionManager);
         managers.put(Box.class.getSimpleName(), boxManager);
         // STUDENT / STUDENTCLASS MANAGER
-        //managers.put(StudentClass.class.getSimpleName(), new Stu)
+        managers.put(StudentClass.class.getSimpleName(), studentManager);
         managers.put(BoBGroup.class.getSimpleName(), groupManager);
     }
 
@@ -90,6 +92,9 @@ public class SessionController {
         ((BoBGroup) groupManager.getSelected()).removeStudent(student);
     }
 
+    public ObservableList getStudents() {
+        return groupManager.getStudents();
+    }
     public void generateGroups(int amount, boolean notEmpty, StudentClass studentClass) {
         List<BoBGroup> groups;
         if (notEmpty) {

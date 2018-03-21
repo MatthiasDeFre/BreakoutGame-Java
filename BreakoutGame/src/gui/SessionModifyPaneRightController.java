@@ -101,6 +101,12 @@ public class SessionModifyPaneRightController extends AnchorPane implements Obse
         });
         tblGroups.setItems(dc.getGroupTempList());
         clmGroups.setCellValueFactory(e -> e.getValue().nameProperty());
+        tblGroups.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection)
+                -> {
+            if (newSelection != null) {
+                dc.setSelectedItem(newSelection);
+            }
+        });
     }
 
     @Override

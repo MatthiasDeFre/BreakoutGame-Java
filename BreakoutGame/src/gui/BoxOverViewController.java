@@ -157,7 +157,7 @@ public class BoxOverViewController extends AnchorPane implements Observer {
         try
         {
             dc.removeBox();
-            dc.setSelectedItem(new Box());
+           // dc.setSelectedItem(new Box());
             tblBox.getSelectionModel().clearSelection();
             tblBox.getSelectionModel().selectNext();
         } catch (IllegalArgumentException e)

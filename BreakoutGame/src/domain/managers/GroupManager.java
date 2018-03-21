@@ -20,7 +20,7 @@ import persistence.PersistenceController;
 public class GroupManager extends Manager<BoBGroup>
 {
 
-  
+  private ObservableList students;
     
     protected GroupManager()
     {
@@ -31,8 +31,22 @@ public class GroupManager extends Manager<BoBGroup>
     {
           super(BoBGroup.class, persistence);
         setItems(FXCollections.observableArrayList(persistence.getAllOfType(BoBGroup.class)));
+        students = FXCollections.observableArrayList();
            
     }
+    
+    public ObservableList getStudents() {
+        return students;
+    }
+
+    @Override
+    public void setSelected(BoBGroup item)
+    {
+        super.setSelected(item);
+        students.setAll(((BoBGroup)getSelected()).getStudents());
+    }
+    
+    
     
     public static List<BoBGroup> generateRandomGroups(StudentClass studentClass, int amount) {
         List<Student> students = new ArrayList<>(studentClass.getStudents()); //GET CLASSROOM STUDENTS TODO
