@@ -45,7 +45,7 @@ public class SessionController {
         managers.put(Box.class.getSimpleName(), boxManager);
         // STUDENT / STUDENTCLASS MANAGER
         //managers.put(StudentClass.class.getSimpleName(), new Stu)
-        managers.put(GroupManager.class.getSimpleName(), groupManager);
+        managers.put(BoBGroup.class.getSimpleName(), groupManager);
     }
 
     public FilteredList getFilteredItems(Class<? extends IManageable> className) {
@@ -69,6 +69,9 @@ public class SessionController {
                 feedback));
     }
 
+    public ObservableList getGroupTempList() {
+        return sessionManager.getTempGroups();
+    }
     public void addNewTempGroup(String name) {
         //TODO GET TEMP STUDENTS FROM MANAGER
         sessionManager.getTempGroups().add(new BoBGroup(name));
@@ -87,10 +90,10 @@ public class SessionController {
         ((BoBGroup) groupManager.getSelected()).removeStudent(student);
     }
 
-    public void generateGroups(int amount, boolean notEmpty) {
+    public void generateGroups(int amount, boolean notEmpty, StudentClass studentClass) {
         List<BoBGroup> groups;
         if (notEmpty) {
-            groups = GroupManager.generateRandomGroups(new StudentClass(), amount);
+            groups = GroupManager.generateRandomGroups(studentClass, amount);
         } else {
             groups = GroupManager.generateEmptyGroups(amount);
         }
@@ -113,6 +116,10 @@ public class SessionController {
 
     public ObservableList<Goal> getGoals() {
         return boxManager.getGoals();
+    }
+    
+    public int getAmountOfStudents() {
+        return 10;
     }
 
 }

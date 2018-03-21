@@ -9,8 +9,13 @@ import domain.managers.IManageable;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
@@ -23,12 +28,11 @@ import javax.persistence.Transient;
 public class BoBGroup implements IManageable, Serializable {
 
     
-    private String name;
+    private SimpleStringProperty name = new SimpleStringProperty();
     private List<Student> students;
     
-   @OneToOne(cascade = CascadeType.ALL)
+  
     private Path path;
-    @Id
     private long id;
 
     public BoBGroup()
@@ -42,9 +46,16 @@ public class BoBGroup implements IManageable, Serializable {
 
     public BoBGroup(String name, List<Student> students)
     {
-        this.name = name;
+        setName(name);
         this.students = students;
         
+    }
+
+    
+     @OneToOne(cascade = CascadeType.ALL)
+    public Path getPath()
+    {
+        return path;
     }
     
     
@@ -53,17 +64,40 @@ public class BoBGroup implements IManageable, Serializable {
         this.path = path;
     }
     
-    @Override
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long getId()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return id;
     }
 
     @Override
     public void setId(long id)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       this.id = id;
     }
+
+    @Column(name = "name")
+    public String getName()
+    {
+        return name.get();
+    }
+
+    public void setName(String name)
+    {
+        this.name.set(name);
+    }
+
+    public List<Student> getStudents()
+    {
+        return students;
+    }
+
+    public void setStudents(List<Student> students)
+    {
+        this.students = students;
+    }
+    
     
     public void testToString() {
    //     System.out.println(path.getToStringTest());
@@ -74,5 +108,9 @@ public class BoBGroup implements IManageable, Serializable {
     }
     public void removeStudent(Student student) {
         students.remove(student);
+    }
+    
+    public StringProperty nameProperty() {
+        return name;
     }
 }

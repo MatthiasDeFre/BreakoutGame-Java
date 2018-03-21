@@ -5,15 +5,18 @@
  */
 package gui;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
+import domain.BoBGroup;
 import domain.Box;
 import domain.ExerciseDomainController;
 import domain.Goal;
 import domain.PersistMode;
 import domain.Session;
 import domain.SessionController;
+import domain.StudentClass;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Observable;
@@ -61,6 +64,22 @@ public class SessionModifyPaneRightController extends AnchorPane implements Obse
     private TableView<Goal> tblGoal;
     @FXML
     private TableColumn<Goal, String> clmGoal;
+    @FXML
+    private JFXToggleButton TBGroups;
+    @FXML
+    private JFXButton btnGenerateGroup;
+    @FXML
+    private JFXTextField txfGroupAmount;
+    @FXML
+    private TableView<BoBGroup> tblGroups;
+    @FXML
+    private TableColumn<BoBGroup, String> clmGroups;
+    @FXML
+    private TableView<BoBGroup> tblGrouplessStudents;
+    @FXML
+    private TableColumn<BoBGroup, String> clmGrouplessStudents;
+    @FXML
+    private JFXButton btnNewGroup;
 
     public SessionModifyPaneRightController(SessionController dc) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("SessionModifyPaneRight.fxml"));
@@ -80,6 +99,8 @@ public class SessionModifyPaneRightController extends AnchorPane implements Obse
                 dc.setSelectedItem(newSelection);
             }
         });
+        tblGroups.setItems(dc.getGroupTempList());
+        clmGroups.setCellValueFactory(e -> e.getValue().nameProperty());
     }
 
     @Override
@@ -104,15 +125,16 @@ public class SessionModifyPaneRightController extends AnchorPane implements Obse
 
     }
 
+    @FXML
     private void generateGroups() {
         int amount;
-//        if (TBTile) {
-//            dc.getAmountOfStudents();
-//        } else {
-//            amount = txtAmount;
-//        }
-//
-//        dc.generateGroups(/*amount*/, /*btnEmptyGroup*/);
+        if (TBTile.isSelected()) {
+            amount =dc.getAmountOfStudents();
+        } else {
+            amount = Integer.valueOf(txfGroupAmount.getText());
+        }
+
+        dc.generateGroups(amount, TBGroups.isSelected(), new StudentClass("2c1"));
     }
 
     private void generatePaths() {

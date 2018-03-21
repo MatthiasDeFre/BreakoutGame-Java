@@ -7,6 +7,7 @@ package persistence;
 
 import domain.AccessCode;
 import domain.BoBAction;
+import domain.BoBGroup;
 import domain.Box;
 import domain.Category;
 import domain.Exercise;
@@ -90,6 +91,8 @@ public class Seeder {
            List<Exercise> test = new ArrayList();
            test.add(ex1);
            test.add(ex2);
+             BoBGroup group1 = new BoBGroup("something");
+        BoBGroup group2 = new BoBGroup("thing");
         Box box = new Box("Box voor 22/05","BoxMDF1", new HashSet<>(test), acs);
         
         Session session = new Session(box, null, "NIEUWE OMSCHRIJVING", studentClass, "NIEUWE NAAM", LocalDate.now(), true, true);

@@ -49,13 +49,13 @@
                                     <JFXTextField fx:id="txtDescription" layoutX="164.0" layoutY="90.0" prefHeight="25.0" prefWidth="143.0" />
                                     <JFXTextField fx:id="txtClass" layoutX="164.0" layoutY="124.0" prefHeight="25.0" prefWidth="143.0" />
                                     <Label layoutX="6.0" layoutY="6.0" text="Info" />
-                                    <JFXDatePicker fx:id="DPDate" disable="true" layoutX="164.0" layoutY="159.0" prefHeight="25.0" prefWidth="180.0" />
+                                    <JFXDatePicker fx:id="DPDate" disable="false" layoutX="164.0" layoutY="159.0" prefHeight="25.0" prefWidth="180.0" />
                                  </children>
                               </AnchorPane>
                               <AnchorPane prefHeight="82.0" prefWidth="144.0" style="-fx-border-color: black; -fx-border-width: 1; -fx-border-radius: 20;">
                                  <children>
-                                    <JFXToggleButton fx:id="TBFeedback" disable="true" layoutX="14.0" layoutY="4.0" text="Feedback" />
-                                    <JFXToggleButton fx:id="TBTile" disable="true" layoutX="14.0" layoutY="33.0" text="TILE" />
+                                    <JFXToggleButton fx:id="TBFeedback" disable="false" layoutX="14.0" layoutY="4.0" text="Feedback" />
+                                    <JFXToggleButton fx:id="TBTile" disable="false" layoutX="14.0" layoutY="33.0" text="TILE" />
                                  </children>
                               </AnchorPane>
                            </children>
@@ -70,7 +70,7 @@
                         <AnchorPane layoutX="23.0" layoutY="82.0" prefHeight="200.0" prefWidth="200.0">
                            <children>
                               <JFXToggleButton fx:id="TBGroups" layoutX="29.0" layoutY="14.0" text="Lege groepen" />
-                              <JFXButton fx:id="btnGenerateGroup" buttonType="RAISED" layoutX="47.0" layoutY="88.0" ripplerFill="#1e1457" text="Groepen generen" />
+                              <JFXButton fx:id="btnGenerateGroup" onAction="#generateGroups" buttonType="RAISED" layoutX="47.0" layoutY="88.0" ripplerFill="#1e1457" text="Groepen generen" />
                               <JFXTextField fx:id="txfGroupAmount" alignment="BOTTOM_CENTER" layoutX="34.0" layoutY="148.0" promptText="Aantal groepen" />
                            </children>
                         </AnchorPane>
