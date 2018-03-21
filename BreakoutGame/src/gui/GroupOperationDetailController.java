@@ -14,7 +14,6 @@ import domain.ExerciseDomainController;
 import domain.GroupOperation;
 import domain.OperationCategory;
 import domain.PersistMode;
-import gui.ComplexApplication2.ExerciseController;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayDeque;

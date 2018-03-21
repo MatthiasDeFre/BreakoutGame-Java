@@ -11,7 +11,6 @@ import domain.SceneName;
 import static domain.SceneName.*;
 import domain.ExerciseDomainController;
 import domain.SessionController;
-import gui.ComplexApplication2.ExerciseController;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;

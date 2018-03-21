@@ -5,7 +5,6 @@
  */
 package gui;
 
-import gui.ComplexApplication2.*;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
@@ -15,7 +14,6 @@ import domain.BoxController;
 import domain.ExerciseDomainController;
 import domain.Session;
 import domain.SessionController;
-import gui.ExerciseDetailScreenController2;
 import gui.ExerciseDetailsPaneMidController;
 import gui.ExercisesGroupOperationsPaneRightController;
 import gui.ExercisesPaneLeftController;

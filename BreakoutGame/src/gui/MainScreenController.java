@@ -8,7 +8,6 @@ package gui;
 import com.jfoenix.controls.JFXButton;
 import domain.ExerciseDomainController;
 import domain.SceneName;
-import gui.ComplexApplication2.ExerciseController;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Observable;

@@ -12,7 +12,6 @@ import com.jfoenix.controls.JFXTextField;
 import domain.ExerciseDomainController;
 import domain.Goal;
 import domain.PersistMode;
-import gui.ComplexApplication2.ExerciseController;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Observable;

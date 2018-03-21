@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gui.ComplexApplication2;
+package gui;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
@@ -11,13 +11,14 @@ import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXDrawer;
 import domain.BoxController;
 import domain.ExerciseDomainController;
-import gui.ExerciseDetailScreenController2;
+import domain.SceneName;
 import gui.ExerciseDetailsPaneMidController;
 import gui.ExercisesGroupOperationsPaneRightController;
 import gui.ExercisesPaneLeftController;
 import gui.FiltersBoxController;
 import gui.GroupScreenController;
 import gui.NavigationMenuController;
+import gui.SceneController4;
 import gui.SessionModifyPaneLeftController;
 import gui.SessionModifyPaneRightController;
 import gui.StartScreenController;
@@ -49,7 +50,6 @@ import persistence.PersistenceController;
  */
 public class ExerciseController extends StackPane {
 
-    private ExerciseDetailScreenController2 exerciseDetailScreen2;
     private StartScreenController startScreen;
     private GroupScreenController groupScreen;
     private ExercisesPaneLeftController screen1;
@@ -65,16 +65,14 @@ public class ExerciseController extends StackPane {
     @FXML
     private HBox hBoxNavBar;
     @FXML
-    private JFXButton btnFilters;
-    @FXML
     private JFXDrawer filterDrawer;
     @FXML
     private JFXDrawer testD;
 
-      private JFXDialog dialogScreen;
-    
+    private JFXDialog dialogScreen;
+
     private JFXDialogLayout dialogContent;
-    
+
     public ExerciseController(ExerciseDomainController dc) {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Exercise.fxml"));
@@ -85,16 +83,15 @@ public class ExerciseController extends StackPane {
         } catch (IOException ex) {
             System.out.printf(ex.getMessage());
         }
-       
+
         dialogScreen = new JFXDialog();
-       dialogContent = new JFXDialogLayout();
-   
-       dialogScreen.setContent(dialogContent);
-       dialogScreen.setDialogContainer(this);
-        
+        dialogContent = new JFXDialogLayout();
+
+        dialogScreen.setContent(dialogContent);
+        dialogScreen.setDialogContainer(this);
+
         this.dc = dc;
         startScreen = new StartScreenController(dc);
-        exerciseDetailScreen2 = new ExerciseDetailScreenController2(dc);
         groupScreen = new GroupScreenController(dc);
         screen1 = new ExercisesPaneLeftController(dc, dialogScreen);
         screen2 = new ExerciseDetailsPaneMidController(dc, dialogScreen);
@@ -102,7 +99,6 @@ public class ExerciseController extends StackPane {
 
         //test = new SessionModifyPaneRightController(dc);
         //test2 = new SessionModifyPaneLeftController(dc);
-
 //        testScreen = new TestScreenController(dc);
 //        exerciseDetailScreen = new ExerciseDetailScreenController(dc);
 //        this.add(startScreen, 0, 0);
@@ -113,54 +109,68 @@ public class ExerciseController extends StackPane {
         splitPane.getItems().add(screen1);
         splitPane.getItems().add(screen2);
         splitPane.getItems().add(screen3);
-     //   splitPane.getItems().add(test2);
-       // splitPane.getItems().add(test);
+        //   splitPane.getItems().add(test2);
+        // splitPane.getItems().add(test);
 
         String image = ExerciseController.class.getResource("boeken.jpg").toExternalForm();
         splitPane.setStyle("-fx-background-image: url('" + image + "'); "
                 + "-fx-background-position: center center; "
                 + "-fx-background-repeat: stretch;");
-        
+
         testD.setSidePane(new NavigationMenuController());
         List<Node> filterActions = new ArrayList<>();
         JFXButton closeFilter = new JFXButton("Sluit filters");
         closeFilter.getStyleClass().add("closeButton");
         closeFilter.setOnAction(e -> {
-           filterDrawer.close();
+            filterDrawer.close();
         });
         filterActions.add(closeFilter);
         filterDrawer.setSidePane(new FiltersBoxController(dc, filterActions));
-         this.getChildren().remove(testD);
-         this.getChildren().remove(filterDrawer);
-     //  testD.open();
-       testD.setOnDrawerClosed(e -> {
-           this.getChildren().remove(testD);
-       });
-       filterDrawer.setOnDrawerClosed(e -> {
-           this.getChildren().remove(filterDrawer);
-       });
-    
-       screen3.setDialog(dialogScreen);
+        this.getChildren().remove(testD);
+        this.getChildren().remove(filterDrawer);
+        //  testD.open();
+        testD.setOnDrawerClosed(e -> {
+            this.getChildren().remove(testD);
+        });
+        filterDrawer.setOnDrawerClosed(e -> {
+            this.getChildren().remove(filterDrawer);
+        });
+
+        screen3.setDialog(dialogScreen);
     }
 
-   
-    @FXML
-    private void test(MouseEvent event)
-    {
+    private void test(MouseEvent event) {
         this.getChildren().add(testD);
         testD.open();
     }
 
- 
- 
-
     @FXML
-    private void applyFilters(ActionEvent event)
-    {
-           this.getChildren().add(filterDrawer);
+    private void applyFilters(MouseEvent event) {
+        this.getChildren().add(filterDrawer);
         dc.applyFilters();
         filterDrawer.open();
     }
 
+    @FXML
+    private void goToBox(MouseEvent event) {
+        SceneController4.createScene(SceneName.BOXSCREEN);
+        SceneController4.switchScene(SceneName.BOXSCREEN);
+    }
+
+    @FXML
+    private void goToEx(MouseEvent event) {
+        SceneController4.createScene(SceneName.EXERCISEMAINSCREEN2);
+        SceneController4.switchScene(SceneName.EXERCISEMAINSCREEN);
+    }
+
+    @FXML
+    private void goToSessions(MouseEvent event) {
+        SceneController4.createScene(SceneName.SESSIONMAIN);
+        SceneController4.switchScene(SceneName.SESSIONMAIN);
+    }
+
+    @FXML
+    private void goToStudent(MouseEvent event) {
+    }
 
 }

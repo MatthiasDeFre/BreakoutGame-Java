@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXDrawer?>
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
@@ -19,19 +20,22 @@
          </children></JFXDrawer>
       <VBox prefHeight="600.0" prefWidth="900.0">
          <children>
-            <HBox id="bg" fx:id="hBoxNavBar" prefHeight="66.0" prefWidth="800.0" spacing="10.0" stylesheets="@assets/css/style.css">
+            <HBox id="bg" fx:id="hBoxNavBar" prefHeight="47.0" prefWidth="900.0" spacing="10.0" stylesheets="@assets/css/style.css">
                <children>
                   <ImageView fitHeight="53.0" fitWidth="54.0" onMouseClicked="#applyFilters" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@assets/img/burger.png" />
                      </image>
+                     <HBox.margin>
+                        <Insets bottom="5.0" />
+                     </HBox.margin>
                   </ImageView>
-                  <Label text="Bob Manager" textFill="WHITE" translateX="4.0">
+                  <Label text="Bob Manager" textFill="WHITE">
                      <font>
                         <Font name="The Blacksmith" size="34.0" />
                      </font>
                   </Label>
-                  <HBox alignment="CENTER_RIGHT" prefHeight="58.0" prefWidth="497.0" spacing="30.0" stylesheets="@assets/css/style.css" HBox.hgrow="ALWAYS">
+                  <HBox alignment="CENTER_RIGHT" prefHeight="58.0" prefWidth="497.0" spacing="30.0" stylesheets="@../assets/css/style.css" HBox.hgrow="ALWAYS">
                      <children>
                         <Label onMouseClicked="#goToBox" text="Box" textFill="WHITE" translateY="5.0">
                            <font>
@@ -57,20 +61,23 @@
                            </font>
                         </Label>
                      </children>
-                     <HBox.margin>
-                        <Insets right="50.0" />
-                     </HBox.margin>
                      <padding>
                         <Insets right="30.0" />
                      </padding>
+                     <HBox.margin>
+                        <Insets right="50.0" />
+                     </HBox.margin>
                   </HBox>
                </children>
                <padding>
                   <Insets left="10.0" top="7.0" />
                </padding>
             </HBox>
-            <SplitPane fx:id="mainPane" focusTraversable="true" prefWidth="600.0" style="-fx-box-border: transparant;" VBox.vgrow="ALWAYS" />
+            <SplitPane id="pane" fx:id="splitPane" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" stylesheets="@../assets/css/style_1.css" VBox.vgrow="ALWAYS" />
          </children>
+         <stylesheets>
+            <URL value="@ComplexApplication.css" />
+         </stylesheets>
       </VBox>
    </children>
 </fx:root>
