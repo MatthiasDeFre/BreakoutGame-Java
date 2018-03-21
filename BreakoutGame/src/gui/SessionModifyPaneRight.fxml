@@ -61,6 +61,7 @@
                               </AnchorPane>
                            </children>
                         </HBox>
+                        <JFXButton fx:id="btnOpslaan" buttonType="RAISED" layoutX="374.0" layoutY="528.0" text="Opslaan" />
                      </children></AnchorPane>
               </content>
             </Tab>
