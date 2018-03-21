@@ -6,6 +6,7 @@
 package gui;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
@@ -23,6 +24,7 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -31,6 +33,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 
 /**
  * FXML Controller class
@@ -80,6 +83,12 @@ public class SessionModifyPaneRightController extends AnchorPane implements Obse
     private TableColumn<BoBGroup, String> clmGrouplessStudents;
     @FXML
     private JFXButton btnNewGroup;
+    @FXML
+    private HBox hboxGroupEdit;
+    @FXML
+    private JFXButton btnStudent;
+    @FXML
+    private JFXComboBox<?> cmbClass;
 
     public SessionModifyPaneRightController(SessionController dc) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("SessionModifyPaneRight.fxml"));
@@ -145,5 +154,9 @@ public class SessionModifyPaneRightController extends AnchorPane implements Obse
 
     private void generatePaths() {
 
+    }
+
+    @FXML
+    private void btnStudentOnAction(ActionEvent event) {
     }
 }
