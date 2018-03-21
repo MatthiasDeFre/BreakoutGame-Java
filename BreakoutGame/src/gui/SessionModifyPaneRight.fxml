@@ -69,24 +69,24 @@
                      <children>
                         <AnchorPane layoutX="23.0" layoutY="82.0" prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <JFXToggleButton layoutX="29.0" layoutY="14.0" text="Lege groepen" />
-                              <JFXButton buttonType="RAISED" layoutX="47.0" layoutY="88.0" ripplerFill="#1e1457" text="Groepen generen" />
-                              <JFXTextField alignment="BOTTOM_CENTER" layoutX="34.0" layoutY="148.0" promptText="Aantal groepen" />
+                              <JFXToggleButton fx:id="TBGroups" layoutX="29.0" layoutY="14.0" text="Lege groepen" />
+                              <JFXButton fx:id="btnGenerateGroup" buttonType="RAISED" layoutX="47.0" layoutY="88.0" ripplerFill="#1e1457" text="Groepen generen" />
+                              <JFXTextField fx:id="txfGroupAmount" alignment="BOTTOM_CENTER" layoutX="34.0" layoutY="148.0" promptText="Aantal groepen" />
                            </children>
                         </AnchorPane>
                         <AnchorPane layoutX="223.0" layoutY="24.0" prefHeight="317.0" prefWidth="346.0">
                            <children>
-                              <TableView layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="145.0">
+                              <TableView fx:id="tblGroups" layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="145.0">
                                 <columns>
-                                  <TableColumn prefWidth="75.0" text="Groepen" />
+                                  <TableColumn fx:id="clmGroups" prefWidth="75.0" text="Groepen" />
                                 </columns>
                                  <columnResizePolicy>
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                  </columnResizePolicy>
                               </TableView>
-                              <TableView layoutX="195.0" layoutY="14.0" prefHeight="200.0" prefWidth="137.0">
+                              <TableView fx:id="tblGrouplessStudents" layoutX="195.0" layoutY="14.0" prefHeight="200.0" prefWidth="137.0">
                                 <columns>
-                                  <TableColumn prefWidth="75.0" text="Groeploze leerlingen" />
+                                  <TableColumn fx:id="clmGrouplessStudents" prefWidth="75.0" text="Groeploze leerlingen" />
                                 </columns>
                                  <columnResizePolicy>
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -94,6 +94,7 @@
                               </TableView>
                            </children>
                         </AnchorPane>
+                        <JFXButton fx:id="btnNewGroup" layoutX="91.0" layoutY="282.0" text="New group" />
                      </children></AnchorPane>
               </content>
             </Tab>
