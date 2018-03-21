@@ -6,6 +6,8 @@
 package domain;
 
 import domain.managers.IManageable;
+import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,7 +21,7 @@ import javax.persistence.Table;
  *
  * @author geers
  */
-@NamedQueries(@NamedQuery(name="StudentExists", query="SELECT s FROM Student s WHERE s.classroom=:classroom AND s.classnumber=:classnumber")
+@NamedQueries(@NamedQuery(name="StudentExists", query="SELECT s FROM Student s WHERE s.studentClass.studentClassName=:studentClass AND s.classnumber=:classnumber")
                 )
 @Entity
 @Table(name="Student")
@@ -29,14 +31,42 @@ public class Student implements IManageable {
     private long id;
     private String firstName;
     private String lastName;
-    private String classroom;
     private String classnumber;
 
-    public Student(String firstName, String lastName,String classroom, String classnumber) {
+    public Student(String firstName, String lastName,StudentClass studentClass, String classnumber) {
         setFirstName(firstName);
         setLastName(lastName);
-        setClassRoom(classroom);
+        setStudentClass(studentClass);
         setClassNumber(classnumber);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 29 * hash + Objects.hashCode(this.classnumber);
+        hash = 29 * hash + Objects.hashCode(this.studentClass.getStudentClassName());
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Student other = (Student) obj;
+        if (!Objects.equals(this.classnumber, other.classnumber)) {
+            return false;
+        }
+        if (!this.studentClass.getStudentClassName().equals(other.getStudentClass().getStudentClassName())) {
+            return false;
+        }
+        return true;
     }
     
     //For JPA
@@ -45,7 +75,7 @@ public class Student implements IManageable {
         
     }
     
-    @ManyToOne
+    @ManyToOne()
     private StudentClass studentClass;
     
     public long getId() {
@@ -78,12 +108,12 @@ public class Student implements IManageable {
             this.lastName = lastName;
     }
 
-    public String getClassRoom() {
-        return classroom;
+    public StudentClass getStudentClass() {
+        return studentClass;
     }
 
-    public void setClassRoom(String classRoom) {
-        this.classroom = classRoom;
+    public void setStudentClass(StudentClass classRoom) {
+        this.studentClass = classRoom;
     }
 
     public String getClassNumber() {

@@ -23,12 +23,11 @@ import javax.persistence.Table;
 @Table(name="StudentClass")
 public class StudentClass {
 
+    
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long id;
     private String studentClassName;
     
-    @OneToMany(mappedBy="StudentClass")
+    @OneToMany(mappedBy="studentClass")
     private Set<Student> students;
 
     public Set<Student> getStudents() {

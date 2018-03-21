@@ -8,8 +8,11 @@ package domain;
 import domain.managers.StudentManager;
 import persistence.ExcelStudents;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Set;
+import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import persistence.JPAUtil;
@@ -27,31 +30,33 @@ public class ExcelStudentsImport {
         List<String> listExcelDataStudents=excelStudents.ImportStudents(bestandsNaam);
         ListIterator<String> Iterator=listExcelDataStudents.listIterator();
         
+        
         //Klas opvragen uit excel,deze zit vooraan in de lijst
         String klas=Iterator.next();
+        StudentClass studentClass=new StudentClass(klas);
         List<Student> listStudents= new ArrayList<>();
         while(Iterator.hasNext())
         {
-            Student student=new Student(Iterator.next(),Iterator.next(),klas,Iterator.next());
-            listStudents.add(student);
+            Student student;
+            student=new Student(Iterator.next().toString(),Iterator.next().toString(),studentClass,Iterator.next().toString());
+            
+            if(!listStudents.contains(student))
+                listStudents.add(student);
         }
         
         //Lijst omzetten naar een ListIterator
         ListIterator<Student>lijstIterator2=listStudents.listIterator();
         EntityManager entityManager=JPAUtil.getEntityManagerFactory().createEntityManager();
         entityManager.getTransaction().begin();
-        
+        entityManager.persist(studentClass);
         while(lijstIterator2.hasNext())
         {
             Student student=lijstIterator2.next();
-            if(!persistenceController.StudentExists(student.getClassRoom(), student.getClassNumber())==true)
+            if(!persistenceController.StudentExists(student.getStudentClass(), student.getClassNumber())==true)
                 entityManager.persist(student);
             
         }
         entityManager.getTransaction().commit();
         entityManager.close();
-        
-
-        
     }
 }

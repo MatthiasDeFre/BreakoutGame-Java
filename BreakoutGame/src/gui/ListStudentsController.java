@@ -7,17 +7,22 @@ package gui;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import domain.Classroom;
 import domain.Exercise;
 import domain.ListStudentController;
 import domain.Student;
 import domain.ExerciseDomainController;
 import domain.PersistMode;
+import domain.StudentClass;
 import gui.ComplexApplication2.ExerciseController;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Observable;
 import java.util.ResourceBundle;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.Property;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -99,7 +104,7 @@ public class ListStudentsController extends AnchorPane {
         tblStudents.setItems(listStudents);
         clmFirstName.setCellValueFactory(e->new SimpleStringProperty(e.getValue().getFirstName()));
         clmLastName.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getLastName()));
-        clmClassroom.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getClassRoom()));
+        clmClassroom.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getStudentClass().getStudentClassName()));
         clmClassnumber.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getClassNumber()));
         btnRemove.setOnAction(this::btnRemoveStudent);
         tblStudents.getSelectionModel().selectedItemProperty().addListener((obs,oldSelection,newSelection)->{
@@ -114,7 +119,7 @@ public class ListStudentsController extends AnchorPane {
         Student student;
         try{
             dc.setManagerMode(PersistMode.NEW);
-                    student = new Student(txtFirstName.getText(),txtLastName.getText(),txtClassroom.getText(),txtClassnumber.getText());
+                    student = new Student(txtFirstName.getText(),txtLastName.getText(),new StudentClass(txtClassroom.getText()),txtClassnumber.getText());
                     dc.createStudent(student);
                      refreshTableView();
         txtFirstName.setText("");
@@ -187,7 +192,7 @@ public class ListStudentsController extends AnchorPane {
     private void btnStudentsImportExcel(ActionEvent event) {
         dc.ImportStudentsExcel(bestandsNaam);
         refreshTableView();
-        btnStudentsImport.setDisable(true);
+//        btnStudentsImport.setDisable(true);
     }
     
     public void refreshTableView()

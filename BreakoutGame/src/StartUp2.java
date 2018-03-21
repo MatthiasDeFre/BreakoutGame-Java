@@ -85,7 +85,7 @@ public class StartUp2 {
         Exercise ex4 = new Exercise("RANDOM NAME", "2",  "test", "test2?", math, Arrays.asList(goArray));
         Exercise ex5 = new Exercise("RANDOM NAME", "3",  "test", "Hoeveel is 5 + 5?", math, Arrays.asList(goArray));
      
-        Student student = new Student("Jelle", "Geers","2c1","07");
+        Student student = new Student("Jelle", "Geers",new StudentClass("2c1"),"07");
         Set<Student> students = new HashSet<>(Arrays.asList(new Student[]
         {
 //            new Student("Jelle", "Geers",""),
