@@ -15,7 +15,7 @@
 
 <fx:root id="AnchorPane" type="AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TableView fx:id="tblStudents" layoutX="14.0" layoutY="7.0" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="254.0" AnchorPane.topAnchor="7.0">
+      <TableView fx:id="tblStudents" layoutX="14.0" layoutY="7.0" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="7.0">
         <columns>
           <TableColumn fx:id="clmName" prefWidth="75.0" text="Students" />
         </columns>
@@ -23,15 +23,15 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <VBox layoutX="298.0" layoutY="60.0" spacing="40.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="298.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="60.0">
+      <VBox layoutX="298.0" layoutY="60.0" spacing="40.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="320.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="60.0">
          <children>
             <JFXTextField fx:id="txfGroupName">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
             </JFXTextField>
-            <JFXButton fx:id="btnAddGroup" onAction="#btnAddGroupOnAction" text="Sla groep op" />
-            <JFXButton text="Verwijder leerling uit groep" />
+            <JFXButton fx:id="btnAddGroup" onAction="#btnAddGroupOnAction" styleClass="button-raised" text="Sla groep op" />
+            <JFXButton styleClass="button-raised" text="Verwijder leerling uit groep" />
          </children>
       </VBox>
    </children>
