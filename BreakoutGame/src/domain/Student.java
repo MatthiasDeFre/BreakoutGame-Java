@@ -44,7 +44,10 @@ public class Student implements IManageable {
     public int hashCode() {
         int hash = 7;
         hash = 29 * hash + Objects.hashCode(this.classnumber);
-        hash = 29 * hash + Objects.hashCode(this.studentClass);
+        if(this.studentClass != null)
+             hash = 29 * hash + Objects.hashCode(this.studentClass.getStudentClassName());
+        else
+             hash = 29 * hash + Objects.hashCode(this.studentClass);
         return hash;
     }
 
@@ -60,12 +63,11 @@ public class Student implements IManageable {
             return false;
         }
         final Student other = (Student) obj;
-        if (!Objects.equals(this.classnumber, other.classnumber)) {
+        if (!Objects.equals(this.classnumber, other.classnumber) && !this.studentClass.getStudentClassName().equals(other.getStudentClass().getStudentClassName())) {
+            System.out.println("test");
             return false;
         }
-        if (!this.studentClass.getStudentClassName().equals(other.getStudentClass().getStudentClassName())) {
-            return false;
-        }
+      
         return true;
     }
     

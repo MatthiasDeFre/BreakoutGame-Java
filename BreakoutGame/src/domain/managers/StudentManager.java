@@ -5,6 +5,7 @@ package domain.managers;
 
 import domain.Exercise;
 import domain.Student;
+import java.lang.reflect.InvocationTargetException;
 import javafx.collections.FXCollections;
 import javax.persistence.EntityManager;
 import persistence.JPAUtil;
@@ -38,6 +39,16 @@ public class StudentManager extends Manager<Student>
     {
         
     }
+
+    @Override
+    public void delete() throws InvocationTargetException
+    {
+        Student student = (Student) getSelected();
+        student.getStudentClass().removeStudent(student);
+        super.delete(); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
     
     @Override
     public void save(Student student)

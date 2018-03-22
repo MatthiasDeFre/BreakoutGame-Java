@@ -7,8 +7,10 @@ package domain;
 
 import domain.managers.IManageable;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import javax.persistence.Entity;
@@ -69,6 +71,14 @@ public class StudentClass implements IManageable, Serializable{
     }
     public void addStudent(Student student) {
         students.add(student);
+    }
+    public void removeStudent(Student student) {
+        Iterator it = students.iterator();
+        List<Student> studentsList = new ArrayList<>(students);
+        studentsList.remove(student);
+        students.clear();
+        students.addAll(studentsList);
+  
     }
     public void setStudents(List<Student> students) {
         this.students.clear();
