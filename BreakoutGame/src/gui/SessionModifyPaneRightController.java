@@ -154,6 +154,8 @@ public class SessionModifyPaneRightController extends AnchorPane implements Obse
         dc.addObserver(BoBGroup.class, groupEditDetailController);
         hboxGroupEdit.getChildren().add(groupEditDetailController);
         clmGrouplessStudents.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getFirstName() + " " + e.getValue().getLastName()));
+        txfGroupAmount.disableProperty().bind(TBTile.selectedProperty());
+        TBGroups.disableProperty().bind(TBTile.selectedProperty());
     }
 
     @Override

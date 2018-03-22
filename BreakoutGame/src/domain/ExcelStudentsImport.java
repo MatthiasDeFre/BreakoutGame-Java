@@ -45,6 +45,7 @@ public class ExcelStudentsImport {
         }
         
         //Lijst omzetten naar een ListIterator
+        studentClass.setStudents(listStudents);
         ListIterator<Student>lijstIterator2=listStudents.listIterator();
         EntityManager entityManager=JPAUtil.getEntityManagerFactory().createEntityManager();
         entityManager.getTransaction().begin();

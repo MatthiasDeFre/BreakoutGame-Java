@@ -9,26 +9,31 @@ import domain.managers.IManageable;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import org.eclipse.persistence.annotations.JoinFetch;
 
 /**
  *
  * @author geers
  */
 @Entity
+
 public class StudentClass implements IManageable, Serializable{
 
     
     @Id
     private String studentClassName;
     
-    @OneToMany(mappedBy="studentClass")
+ 
+    @OneToMany(mappedBy="studentClass", fetch = FetchType.EAGER)
     private Set<Student> students;
 
     public Set<Student> getStudents() {
@@ -37,7 +42,7 @@ public class StudentClass implements IManageable, Serializable{
 
     protected StudentClass()
     {
-        
+        students = new HashSet<>();
     }
     
     public StudentClass(String studentClassName) {
@@ -48,6 +53,7 @@ public class StudentClass implements IManageable, Serializable{
     {
         setStudentClassName(studentClassName);
         this.students = students;
+        
     }
 
     
@@ -63,6 +69,10 @@ public class StudentClass implements IManageable, Serializable{
     }
     public void addStudent(Student student) {
         students.add(student);
+    }
+    public void setStudents(List<Student> students) {
+        this.students.clear();
+        this.students.addAll(students);
     }
     @Override
     public long getId()

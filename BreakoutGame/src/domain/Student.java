@@ -44,7 +44,7 @@ public class Student implements IManageable {
     public int hashCode() {
         int hash = 7;
         hash = 29 * hash + Objects.hashCode(this.classnumber);
-        hash = 29 * hash + Objects.hashCode(this.studentClass.getStudentClassName());
+        hash = 29 * hash + Objects.hashCode(this.studentClass);
         return hash;
     }
 

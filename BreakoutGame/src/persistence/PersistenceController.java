@@ -57,7 +57,7 @@ public class PersistenceController {
         repositories.put(Student.class.getSimpleName(),new StudentRepository());
         repositories.put(AccessCode.class.getSimpleName(), new AccessCodeRepository());
         repositories.put(Goal.class.getSimpleName(), new GoalRepository());
-           repositories.put(StudentClass.class.getSimpleName(), new StudentClassRepository());
+        repositories.put(StudentClass.class.getSimpleName(), new StudentClassRepository());
         //put other repos
         mode = PersistMode.NEW;
         
