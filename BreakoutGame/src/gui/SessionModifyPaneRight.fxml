@@ -78,7 +78,7 @@
                               <JFXComboBox fx:id="cmbClass" layoutX="47.0" layoutY="2.0" prefHeight="25.0" prefWidth="113.0" />
                            </children>
                         </AnchorPane>
-                        <AnchorPane layoutX="223.0" layoutY="24.0" prefHeight="317.0" prefWidth="346.0">
+                        <AnchorPane layoutX="223.0" layoutY="24.0">
                            <children>
                               <TableView fx:id="tblGroups" layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="145.0">
                                 <columns>
