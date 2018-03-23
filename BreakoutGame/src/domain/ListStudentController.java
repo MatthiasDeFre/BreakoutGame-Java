@@ -5,6 +5,7 @@
  */
 package domain;
 
+import domain.managers.StudentClassManager;
 import domain.managers.StudentManager;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -20,12 +21,14 @@ import persistence.PersistenceController;
  */
 public class ListStudentController{
     private StudentManager studentManager;
+    private StudentClassManager studentClassManager;
     private PersistenceController persistenceController;
     ExcelStudentsImport excelStudentsImport;
   
     public ListStudentController() {
         this.persistenceController = new PersistenceController();
         this.studentManager = new StudentManager(persistenceController);
+        this.studentClassManager = new StudentClassManager(persistenceController);
         this.excelStudentsImport=new ExcelStudentsImport();
     }
 
@@ -44,8 +47,16 @@ public class ListStudentController{
      public void createStudent(Student student) {
          List<Student> studenten=this.getListAllStudents();
          studenten.stream().forEach(studentnaam -> System.out.printf("%s%n", studentnaam.getFirstName()));
-         if( !persistenceController.StudentExists(student.getStudentClass(), student.getClassNumber())==true)
-            studentManager.addStudent(student);
+         if( !persistenceController.StudentExists(student.getStudentClass(), student.getClassNumber())==true) {
+             StudentClass studentClass = studentClassManager.findByName(student.getStudentClass().getStudentClassName());
+             student.setStudentClass(studentClass);
+             studentManager.addStudent(student);
+             studentClassManager.setManagerMode(PersistMode.UPDATE);
+              studentClass.addStudent(student);
+             studentClassManager.setSelected(studentClass);       
+             studentClassManager.save(studentClass);
+         }
+            
     }
      
     public void setStudent(Student student)

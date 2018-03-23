@@ -22,4 +22,7 @@ public class StudentClassRepository extends GenericRepository<StudentClass>{
         super(StudentClass.class);
     }
     
+       public StudentClass getByName(String name) {
+           return getEntityManager().find(StudentClass.class, name);
+       }
 }

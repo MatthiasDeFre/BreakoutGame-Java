@@ -5,6 +5,7 @@ package domain.managers;
 
 import domain.Exercise;
 import domain.Student;
+import domain.StudentClass;
 import java.lang.reflect.InvocationTargetException;
 import javafx.collections.FXCollections;
 import javax.persistence.EntityManager;
@@ -28,6 +29,7 @@ public class StudentManager extends Manager<Student>
     
     public void addStudent(Student student)
     {
+       
         EntityManager entityManager=JPAUtil.getEntityManagerFactory().createEntityManager();
         entityManager.getTransaction().begin();
         entityManager.persist(student);

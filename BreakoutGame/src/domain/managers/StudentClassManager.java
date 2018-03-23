@@ -31,7 +31,9 @@ public class StudentClassManager extends Manager<StudentClass>{
         students = FXCollections.observableArrayList();
        
     }
-
+    public StudentClass findByName(String name) {
+        return getPersistenceController().getStudentClass(name);
+    }
     @Override
     public void setSelected(StudentClass item)
     {
@@ -41,6 +43,13 @@ public class StudentClassManager extends Manager<StudentClass>{
     
     public ObservableList getStudents() {
         return students;
+    }
+
+    @Override
+    public void save(StudentClass object)
+    {
+        getPersistenceController().setPersistMode(getManagerMode());
+        super.save(object); //To change body of generated methods, choose Tools | Templates.
     }
     
     

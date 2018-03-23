@@ -103,4 +103,8 @@ public class PersistenceController {
     {
         return ((StudentRepository) repositories.get(Student.class.getSimpleName())).contains(studentClass,classnumber);
     }
+    
+    public StudentClass getStudentClass(String name) {
+        return ((StudentClassRepository) repositories.get(StudentClass.class.getSimpleName())).getByName(name);
+    }
 }
