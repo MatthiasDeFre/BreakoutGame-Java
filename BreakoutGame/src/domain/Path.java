@@ -58,7 +58,9 @@ public class Path implements Serializable {
     {
         this.id = id;
     }
-    
-    
-    
+
+    public List<Assignment> getAssignments()
+    {
+        return this.assignments;
+    }
 }

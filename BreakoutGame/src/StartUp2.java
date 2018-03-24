@@ -194,11 +194,7 @@ public class StartUp2 {
      //   GroupManager groupManager = new GroupManager(new PersistenceController());
         List<BoBGroup> groups2 = GroupManager.generateRandomGroups(studentClass, 22);
          Session session = new Session(box, groups2, "something something", studentClass, "Test session", LocalDate.now(), true, true);
-       // session.generatePaths();
-                
-        System.out.println("");
-        PDFGenerator edf = new PDFGenerator();
-        edf.generateGroupPathDocument("something");
+       // session.generatePaths();  
     }
 
 }

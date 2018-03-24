@@ -69,17 +69,17 @@ public class Seeder {
          AccessCode a7 = new AccessCode(32131);
          AccessCode a8 = new AccessCode(545);
          AccessCode a9 = new AccessCode(7758);
-          List<AccessCode> accesscodes = new ArrayList<>();
-          
-           accesscodes.add(a1);
-           accesscodes.add(a2);
-           accesscodes.add(a3);
-           accesscodes.add(a4);
-           accesscodes.add(a5);
-            accesscodes.add(a6);
-             accesscodes.add(a7);
-              accesscodes.add(a8);
-               accesscodes.add(a9);
+//          List<AccessCode> accesscodes = new ArrayList<>();
+//          
+//           accesscodes.add(a1);
+//           accesscodes.add(a2);
+//           accesscodes.add(a3);
+//           accesscodes.add(a4);
+//           accesscodes.add(a5);
+//            accesscodes.add(a6);
+//             accesscodes.add(a7);
+//              accesscodes.add(a8);
+//               accesscodes.add(a9);
            
            BoBAction action = new BoBAction("Doe iets");
            BoBAction action2 = new BoBAction("Zoek een kist");
@@ -122,7 +122,7 @@ public class Seeder {
         acs.forEach(e -> em.persist(e));
       
         //Seeding accesscodes
-        accesscodes.forEach(e -> em.persist(e));
+        //accesscodes.forEach(e -> em.persist(e));
         
         //Seeding box
         em.persist(box);
