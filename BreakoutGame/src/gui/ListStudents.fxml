@@ -11,158 +11,163 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" type="VBox" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="657.0" prefWidth="834.0" type="StackPane" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <HBox id="bg" fx:id="hBoxNavBar" prefHeight="66.0" prefWidth="800.0" spacing="10.0" stylesheets="@assets/css/style.css">
+      <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity">
          <children>
-            <ImageView fitHeight="53.0" fitWidth="54.0" onMouseClicked="#applyFilters" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@assets/img/burger.png" />
-               </image>
-            </ImageView>
-            <Label text="Bob Manager" textFill="WHITE" translateX="4.0">
-               <font>
-                  <Font name="The Blacksmith" size="34.0" />
-               </font>
-            </Label>
-            <HBox alignment="CENTER_RIGHT" prefHeight="58.0" prefWidth="497.0" spacing="30.0" stylesheets="@assets/css/style.css" HBox.hgrow="ALWAYS">
+            <HBox id="bg" fx:id="hBoxNavBar" prefHeight="66.0" prefWidth="800.0" spacing="10.0" stylesheets="@assets/css/style.css">
                <children>
-                  <Label onMouseClicked="#goToBox" text="Box" textFill="WHITE" translateY="5.0">
+                  <ImageView fitHeight="53.0" fitWidth="54.0" onMouseClicked="#applyFilters" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@assets/img/burger.png" />
+                     </image>
+                  </ImageView>
+                  <Label text="Bob Manager" textFill="WHITE" translateX="4.0">
                      <font>
-                        <Font name="ConthraxSb-Regular" size="14.0" />
+                        <Font name="The Blacksmith" size="34.0" />
                      </font>
+                  </Label>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="58.0" prefWidth="497.0" spacing="30.0" stylesheets="@assets/css/style.css" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label onMouseClicked="#goToBox" text="Box" textFill="WHITE" translateY="5.0">
+                           <font>
+                              <Font name="ConthraxSb-Regular" size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Label onMouseClicked="#goToEx" text="Exercise" textFill="WHITE" translateY="5.0">
+                           <font>
+                              <Font name="ConthraxSb-Regular" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label onMouseClicked="#goToSessions" text="Session" textFill="WHITE" translateY="5.0">
+                           <font>
+                              <Font name="ConthraxSb-Regular" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label onMouseClicked="#goToStudent" text="Student" textFill="WHITE" translateY="5.0">
+                           <font>
+                              <Font name="ConthraxSb-Regular" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
                      <HBox.margin>
-                        <Insets left="10.0" />
+                        <Insets right="50.0" />
                      </HBox.margin>
-                  </Label>
-                  <Label onMouseClicked="#goToEx" text="Exercise" textFill="WHITE" translateY="5.0">
-                     <font>
-                        <Font name="ConthraxSb-Regular" size="14.0" />
-                     </font>
-                  </Label>
-                  <Label onMouseClicked="#goToSessions" text="Session" textFill="WHITE" translateY="5.0">
-                     <font>
-                        <Font name="ConthraxSb-Regular" size="14.0" />
-                     </font>
-                  </Label>
-                  <Label onMouseClicked="#goToStudent" text="Student" textFill="WHITE" translateY="5.0">
-                     <font>
-                        <Font name="ConthraxSb-Regular" size="14.0" />
-                     </font>
-                  </Label>
+                     <padding>
+                        <Insets right="30.0" />
+                     </padding>
+                  </HBox>
                </children>
-               <HBox.margin>
-                  <Insets right="50.0" />
-               </HBox.margin>
                <padding>
-                  <Insets right="30.0" />
+                  <Insets left="10.0" top="7.0" />
                </padding>
             </HBox>
+            <AnchorPane fx:id="anchorPane" prefHeight="619.0" prefWidth="834.0" stylesheets="@assets/css/jfoenix-components.css" VBox.vgrow="ALWAYS">
+               <children>
+                  <TableView fx:id="tblStudents" layoutX="26.0" layoutY="29.0" prefHeight="346.0" prefWidth="463.0" styleClass="column-overlay" AnchorPane.bottomAnchor="243.60000000000002" AnchorPane.leftAnchor="26.0" AnchorPane.rightAnchor="344.8" AnchorPane.topAnchor="29.0">
+                     <columns>
+                        <TableColumn fx:id="clmFirstName" prefWidth="116.79998207092285" text="FirstName" />
+                        <TableColumn fx:id="clmLastName" minWidth="50.0" prefWidth="112.80001831054688" text="LastName" />
+                        <TableColumn fx:id="clmClassroom" minWidth="100.0" prefWidth="118.4000244140625" text="KlasName" />
+                        <TableColumn fx:id="clmClassnumber" prefWidth="116.7999267578125" text="KlasNumber" />
+                     </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
+                  <VBox layoutX="597.0" layoutY="431.0" prefHeight="169.0" prefWidth="146.0" AnchorPane.bottomAnchor="18.600000000000023" AnchorPane.leftAnchor="597.0" AnchorPane.rightAnchor="90.60000000000002">
+                     <children>
+                        <Button fx:id="btnAdd" mnemonicParsing="false" onAction="#btnAddStudent" styleClass="button-raised" text="Add student">
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Button fx:id="btnRemove" mnemonicParsing="false" onAction="#btnRemoveStudent" styleClass="button-raised" text="Remove Student">
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Button fx:id="btnModify" mnemonicParsing="false" onAction="#btnModifyStudent" styleClass="button-raised" text="Modify Student">
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <VBox layoutX="240.0" layoutY="401.0" prefHeight="192.0" prefWidth="314.0" AnchorPane.bottomAnchor="18.0">
+                     <children>
+                        <JFXTextField fx:id="txtFirstName">
+                           <VBox.margin>
+                              <Insets top="20.0" />
+                           </VBox.margin>
+                        </JFXTextField>
+                        <JFXTextField fx:id="txtLastName">
+                           <VBox.margin>
+                              <Insets top="20.0" />
+                           </VBox.margin>
+                        </JFXTextField>
+                        <JFXTextField fx:id="txtClassroom">
+                           <VBox.margin>
+                              <Insets top="20.0" />
+                           </VBox.margin>
+                        </JFXTextField>
+                        <JFXTextField fx:id="txtClassnumber">
+                           <VBox.margin>
+                              <Insets top="20.0" />
+                           </VBox.margin>
+                        </JFXTextField>
+                     </children>
+                  </VBox>
+                  <VBox layoutX="112.0" layoutY="401.0" prefHeight="200.0" prefWidth="90.0" AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="112.0">
+                     <children>
+                        <Label text="Voornaam">
+                           <VBox.margin>
+                              <Insets top="27.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="achternaam">
+                           <VBox.margin>
+                              <Insets top="27.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="KlasNaam">
+                           <VBox.margin>
+                              <Insets top="27.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="KlasNummer">
+                           <VBox.margin>
+                              <Insets top="30.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <HBox layoutX="498.0" layoutY="63.0" prefHeight="40.0" prefWidth="314.0" AnchorPane.rightAnchor="21.600000000000023" AnchorPane.topAnchor="63.0">
+                     <children>
+                        <JFXTextField fx:id="txtBestandsNaam" alignment="TOP_LEFT" disable="true" focusColor="BLACK" labelFloat="true" prefHeight="39.0" prefWidth="218.0" promptText="BestandsNaam" styleClass="test" stylesheets="@assets/css/jfoenix-components.css">
+                           <font>
+                              <Font name="Roboto Regular" size="18.0" />
+                           </font>
+                        </JFXTextField>
+                        <JFXButton fx:id="btnExcelBestand" buttonType="RAISED" onAction="#btnExcelFileOnAction" prefHeight="40.0" prefWidth="152.0" style="-fx-background-color: #c7cfdd;" styleClass="button-raised" text="Bladeren">
+                           <font>
+                              <Font name="Roboto Regular" size="18.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                  </HBox>
+                  <VBox layoutX="507.0" layoutY="120.0" prefHeight="50.0" prefWidth="148.0" AnchorPane.rightAnchor="179.0" AnchorPane.topAnchor="120.0" />
+                  <Button fx:id="btnStudentsImport" disable="true" layoutX="533.0" layoutY="150.0" mnemonicParsing="false" onAction="#btnStudentsImportExcel" styleClass="button-raised" text="Students Importeren" textFill="#b72323" AnchorPane.rightAnchor="101.0" />
+               </children>
+            </AnchorPane>
          </children>
-         <padding>
-            <Insets left="10.0" top="7.0" />
-         </padding>
-      </HBox>
-      <AnchorPane fx:id="anchorPane" prefHeight="619.0" prefWidth="834.0" stylesheets="@assets/css/jfoenix-components.css" VBox.vgrow="ALWAYS">
-         <children>
-            <TableView fx:id="tblStudents" layoutX="26.0" layoutY="29.0" prefHeight="346.0" prefWidth="463.0" styleClass="column-overlay" AnchorPane.bottomAnchor="243.60000000000002" AnchorPane.leftAnchor="26.0" AnchorPane.rightAnchor="344.8" AnchorPane.topAnchor="29.0">
-               <columns>
-                  <TableColumn fx:id="clmFirstName" prefWidth="116.79998207092285" text="FirstName" />
-                  <TableColumn fx:id="clmLastName" minWidth="50.0" prefWidth="112.80001831054688" text="LastName" />
-                  <TableColumn fx:id="clmClassroom" minWidth="100.0" prefWidth="118.4000244140625" text="KlasName" />
-                  <TableColumn fx:id="clmClassnumber" prefWidth="116.7999267578125" text="KlasNumber" />
-               </columns>
-               <columnResizePolicy>
-                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-               </columnResizePolicy>
-            </TableView>
-            <VBox layoutX="633.0" layoutY="422.0" prefHeight="169.0" prefWidth="146.0" AnchorPane.bottomAnchor="27.399999999999977" AnchorPane.leftAnchor="633.0" AnchorPane.rightAnchor="54.60000000000002">
-               <children>
-                  <Button fx:id="btnAdd" mnemonicParsing="false" onAction="#btnAddStudent" styleClass="button-raised" text="Add student">
-                     <VBox.margin>
-                        <Insets top="10.0" />
-                     </VBox.margin>
-                  </Button>
-                  <Button fx:id="btnRemove" mnemonicParsing="false" onAction="#btnRemoveStudent" styleClass="button-raised" text="Remove Student">
-                     <VBox.margin>
-                        <Insets top="10.0" />
-                     </VBox.margin>
-                  </Button>
-                  <Button fx:id="btnModify" mnemonicParsing="false" onAction="#btnModifyStudent" styleClass="button-raised" text="Modify Student">
-                     <VBox.margin>
-                        <Insets top="10.0" />
-                     </VBox.margin>
-                  </Button>
-               </children>
-            </VBox>
-            <VBox layoutX="298.0" layoutY="401.0" prefHeight="200.0" prefWidth="399.0" AnchorPane.bottomAnchor="18.0">
-               <children>
-                  <JFXTextField fx:id="txtFirstName">
-                     <VBox.margin>
-                        <Insets top="20.0" />
-                     </VBox.margin>
-                  </JFXTextField>
-                  <JFXTextField fx:id="txtLastName">
-                     <VBox.margin>
-                        <Insets top="20.0" />
-                     </VBox.margin>
-                  </JFXTextField>
-                  <JFXTextField fx:id="txtClassroom">
-                     <VBox.margin>
-                        <Insets top="20.0" />
-                     </VBox.margin>
-                  </JFXTextField>
-                  <JFXTextField fx:id="txtClassnumber">
-                     <VBox.margin>
-                        <Insets top="20.0" />
-                     </VBox.margin>
-                  </JFXTextField>
-               </children>
-            </VBox>
-            <VBox layoutX="112.0" layoutY="401.0" prefHeight="200.0" prefWidth="90.0" AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="112.0">
-               <children>
-                  <Label text="Voornaam">
-                     <VBox.margin>
-                        <Insets top="27.0" />
-                     </VBox.margin>
-                  </Label>
-                  <Label text="achternaam">
-                     <VBox.margin>
-                        <Insets top="27.0" />
-                     </VBox.margin>
-                  </Label>
-                  <Label text="KlasNaam">
-                     <VBox.margin>
-                        <Insets top="27.0" />
-                     </VBox.margin>
-                  </Label>
-                  <Label text="KlasNummer">
-                     <VBox.margin>
-                        <Insets top="30.0" />
-                     </VBox.margin>
-                  </Label>
-               </children>
-            </VBox>
-            <HBox layoutX="498.0" layoutY="63.0" prefHeight="40.0" prefWidth="314.0" AnchorPane.rightAnchor="21.600000000000023" AnchorPane.topAnchor="63.0">
-               <children>
-                  <JFXTextField fx:id="txtBestandsNaam" alignment="TOP_LEFT" disable="true" focusColor="BLACK" labelFloat="true" prefHeight="39.0" prefWidth="218.0" promptText="BestandsNaam" styleClass="test" stylesheets="@assets/css/jfoenix-components.css">
-                     <font>
-                        <Font name="Roboto Regular" size="18.0" />
-                     </font>
-                  </JFXTextField>
-                  <JFXButton fx:id="btnExcelBestand" buttonType="RAISED" onAction="#btnExcelFileOnAction" prefHeight="40.0" prefWidth="152.0" style="-fx-background-color: #c7cfdd;" styleClass="button-raised" text="Bladeren">
-                     <font>
-                        <Font name="Roboto Regular" size="18.0" />
-                     </font>
-                  </JFXButton>
-               </children>
-            </HBox>
-            <VBox layoutX="507.0" layoutY="120.0" prefHeight="50.0" prefWidth="148.0" AnchorPane.rightAnchor="179.0" AnchorPane.topAnchor="120.0" />
-            <Button fx:id="btnStudentsImport" disable="true" layoutX="533.0" layoutY="150.0" mnemonicParsing="false" onAction="#btnStudentsImportExcel" styleClass="button-raised" text="Students Importeren" textFill="#b72323" AnchorPane.rightAnchor="101.0" />
-         </children>
-      </AnchorPane>
+      </VBox>
    </children>
 </fx:root>

@@ -6,6 +6,8 @@
 package gui;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXTextField;
 import domain.Classroom;
 import domain.Exercise;
@@ -31,7 +33,9 @@ import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -40,6 +44,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 
@@ -48,8 +53,10 @@ import javafx.stage.FileChooser;
  *
  * @author geers
  */
-public class ListStudentsController extends VBox {
+public class ListStudentsController extends StackPane {
 
+    private JFXDialog dialog;
+    private JFXDialogLayout dialogContent;
     private ListStudentController dc;
     String bestandsNaam;
     @FXML
@@ -90,6 +97,7 @@ public class ListStudentsController extends VBox {
     private HBox hBoxNavBar;
 
     public ListStudentsController(ListStudentController dc) {
+        this.dialog = new JFXDialog();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ListStudents.fxml"));
         loader.setRoot(this);
         loader.setController(this);
@@ -99,9 +107,9 @@ public class ListStudentsController extends VBox {
             System.out.printf("Error starting scene");
         }
         String image = ExerciseController.class.getResource("boeken.jpg").toExternalForm();
-        anchorPane.setStyle("-fx-background-image: url('" + image + "'); " +
-           "-fx-background-position: center center; " +
-           "-fx-background-repeat: stretch;");
+        anchorPane.setStyle("-fx-background-image: url('" + image + "'); "
+                + "-fx-background-position: center center; "
+                + "-fx-background-repeat: stretch;");
         this.dc = dc;
         listStudents = FXCollections.observableArrayList(dc.getListAllStudents());
         //listStudents = dc.getStudents();
@@ -132,7 +140,16 @@ public class ListStudentsController extends VBox {
             txtClassnumber.setText("");
             txtClassroom.setText("");
         } catch (Exception ex) {
-            System.out.printf("%s%n", ex.toString());
+            JFXDialogLayout layout = new JFXDialogLayout();
+                layout.setBody(new Label("Gelieve eerst alle velden in te vullen van de student"));
+                JFXButton okButton = new JFXButton("OK");
+                okButton.setPadding(new Insets(5, 10, 5, 10));
+                    okButton.setStyle("-fx-background-color: #112959;");
+                okButton.setOnMouseClicked(e2 -> dialog.close());
+                layout.setActions(okButton);
+                dialog.setDialogContainer(this);
+                dialog.setContent(layout);
+                dialog.show();
         }
 
 //        dc.setStudent(student);
@@ -147,14 +164,28 @@ public class ListStudentsController extends VBox {
 
     @FXML
     private void btnRemoveStudent(ActionEvent event) {
-        dc.removeStudent();
-        tblStudents.getSelectionModel().getSelectedIndex();
-        refreshTableView();
+        try {
+            dc.removeStudent();
+            tblStudents.getSelectionModel().getSelectedIndex();
+            refreshTableView();
+        } catch (IllegalArgumentException ex) {
+                JFXDialogLayout layout = new JFXDialogLayout();
+                layout.setBody(new Label("Gelieve eerste een student te selecteren welke je wilt verwijderen"));
+                JFXButton okButton = new JFXButton("OK");
+                okButton.setPadding(new Insets(5, 10, 5, 10));
+                    okButton.setStyle("-fx-background-color: #112959;");
+                okButton.setOnMouseClicked(e2 -> dialog.close());
+                layout.setActions(okButton);
+                dialog.setDialogContainer(this);
+                dialog.setContent(layout);
+                dialog.show();
+              
+        }
+
         /*      Student student=new Student(tblStudents.getSelectionModel().getSelectedItem().getFirstName(),
                     tblStudents.getSelectionModel().getSelectedItem().getLastName(),
                     tblStudents.getSelectionModel().getSelectedItem().getClassRoom(),
                     tblStudents.getSelectionModel().getSelectedItem().getClassNumber());*/
-
 //        System.out.printf("%s %s is verwijderd",student.getFirstName(),student.getLastName());
 //        dc.removeUser(student);
 //        dc.setManagerMode(PersistMode.REMOVE);
@@ -203,6 +234,9 @@ public class ListStudentsController extends VBox {
     private void btnExcelFileOnAction(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Excel bestand", "*.xlsx")
+        );
         btnStudentsImport.disableProperty().bind(txtBestandsNaam.textProperty().isEmpty());
         try {
             File selectedFile = fileChooser.showOpenDialog(SceneController4.getStage());
