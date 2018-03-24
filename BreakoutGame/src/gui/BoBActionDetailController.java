@@ -11,7 +11,9 @@ import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXTextField;
 import domain.BoBAction;
 import domain.BoxController;
+import domain.GroupOperation;
 import domain.PersistMode;
+import domain.managers.IManageable;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Observable;
@@ -39,15 +41,16 @@ public class BoBActionDetailController extends AnchorPane implements Observer{
     @FXML
     private AnchorPane AnchorPane;
     @FXML
-    private JFXButton btnNew;
-    @FXML
     private JFXButton btnSave;
     @FXML
     private JFXTextField txtActionName;
-    @FXML
-    private JFXButton btnRemove;
+   
 
     private JFXDialog dialog;
+    @FXML
+    private Label lblTitle;
+    @FXML
+    private Label lblError;
     public BoBActionDetailController(BoxController dc, JFXDialog dia)
     {
          FXMLLoader loader = new FXMLLoader(getClass().getResource("BoBActionDetail.fxml"));
@@ -60,13 +63,13 @@ public class BoBActionDetailController extends AnchorPane implements Observer{
         }
         this.dc = dc;
         dc.addObserverAction(this);
-        btnSave.setDisable(true);
-        btnRemove.setDisable(true);
-        txtActionName.setDisable(true);
+       
         this.dialog = dia;
+           IManageable bobaction = dc.getSelectedItem(BoBAction.class);
+        if(bobaction != null)
+            update(null, bobaction);
     }
 
-    @FXML
     private void addNewAction(ActionEvent event)
     {
         dc.setManagerMode(BoBAction.class, PersistMode.NEW);
@@ -77,7 +80,14 @@ public class BoBActionDetailController extends AnchorPane implements Observer{
     @FXML
     private void saveAction(ActionEvent event)
     {
-        dc.saveAction(txtActionName.getText());
+        try
+        {
+            dc.saveAction(txtActionName.getText());
+            dialog.close();
+        } catch (Exception e)
+        {
+            setErrorDialog(e);
+        }
     }
 
     @Override
@@ -86,19 +96,27 @@ public class BoBActionDetailController extends AnchorPane implements Observer{
         
        
         BoBAction action = (BoBAction) arg;
+        if (action.getName() == null || action.getName().trim().isEmpty())
+        {
+            lblTitle.setText("Nieuwe actie");
+                btnSave.setDisable(false);
+                   txtActionName.setDisable(false);
+        } else {
+            lblTitle.setText("Actiedetails van: " + action.getName());
         if(!action.getName().equals("Zoek een kist")) {
-             btnRemove.setDisable(false);
-        btnSave.disableProperty().bind(txtActionName.textProperty().isEmpty());
+          
+            btnSave.setDisable(false);
+   
        txtActionName.setDisable(false);
         } else {
-              btnRemove.setDisable(true);
+                  btnSave.setDisable(true);
+                   txtActionName.setDisable(true);
+                   lblTitle.setText(lblTitle.getText() + " (niet wijzigbaar)");
         }
-        
-        txtActionName.setText(action.getName());
-        
+        txtActionName.setText(action.getName());              
+        }
     }
 
-    @FXML
     private void removeAction(ActionEvent event)
     {
         try {
@@ -109,14 +127,8 @@ public class BoBActionDetailController extends AnchorPane implements Observer{
       
     }
          private void setErrorDialog(Exception ex) {
-         JFXDialogLayout layout = new JFXDialogLayout();
-            layout.setBody(new Label(ex.getMessage()));
-            JFXButton okButton = new JFXButton("OK");
-            okButton.setOnMouseClicked(e -> dialog.close());
-              okButton.setStyle("-fx-background-color: #112959;");
-            layout.setActions(okButton);
-            dialog.setContent(layout);
-            dialog.show();
+             lblError.setVisible(true);
+             lblError.setText(ex.getMessage());
     }
 
   

@@ -111,6 +111,11 @@ public class BoxController implements ExerciseFilter{
             applyFilters();
     }
     
+      public IManageable getSelectedItem(Class<? extends IManageable> className)
+    {
+        return (IManageable) managers.get(className.getSimpleName()).getSelected();
+    }
+    
  /*   public void addObserver(String className, Observer object) {
         managers.get(className).addObserver(object);
     }*/
@@ -148,10 +153,12 @@ public class BoxController implements ExerciseFilter{
         try
         {
               Box box = new Box(description, name, new HashSet<>(boxManager.getExerciseTemp()), boxManager.getActionsTemp());
-                 boxManager.save(box);
+              boxManager.save(box);
         } catch (IllegalArgumentException e)
         {
             throw new IllegalArgumentException("Je hebt 1 of meerdere velden leeg gelaten");
+        } catch (Exception ex) {
+            throw new IllegalArgumentException("Box met deze naam bestaat al");
         }
             
       
@@ -159,8 +166,18 @@ public class BoxController implements ExerciseFilter{
     }
     
     public void saveAction(String name) {
-        BoBAction action = new BoBAction(name);
-        actionManager.save(action);
+        try
+        {
+            BoBAction action = new BoBAction(name);
+            actionManager.save(action);
+            
+        } catch (IllegalArgumentException e) {
+              throw new IllegalArgumentException("Je hebt het veld leeggelaten");
+        }
+        catch (Exception e)
+        {
+            throw new IllegalArgumentException("Deze actie bestaat al");
+        }
     }
       public void setManagerMode(Class<? extends IManageable> className, PersistMode persistMode) {
           System.out.println(className.getSimpleName());

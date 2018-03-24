@@ -141,6 +141,7 @@ public class ExerciseDetailsPaneMidController extends AnchorPane implements Obse
                 new ExtensionFilter("PDF Files", "*.pdf"));
 
         File selectedFile = fileChooser.showOpenDialog(SceneController4.getStage()); //moet nog aangepast worden
+        if(selectedFile != null)
         txfFeedback.setText(selectedFile.getPath());
     }
 
@@ -152,6 +153,7 @@ public class ExerciseDetailsPaneMidController extends AnchorPane implements Obse
                 new ExtensionFilter("PDF Files", "*.pdf"));
 
         File selectedFile = fileChooser.showOpenDialog(SceneController4.getStage()); //moet nog aangepast worden
+           if(selectedFile != null)
         txfOpdracht.setText(selectedFile.getPath());
     }
 

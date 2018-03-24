@@ -22,7 +22,9 @@ import domain.Student;
 import domain.StudentClass;
 import java.io.IOException;
 import java.net.URL;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
@@ -34,6 +36,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.NodeOrientation;
 import javafx.scene.control.Button;
+import javafx.scene.control.DateCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
@@ -156,6 +159,16 @@ public class SessionModifyPaneRightController extends AnchorPane implements Obse
         clmGrouplessStudents.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getFirstName() + " " + e.getValue().getLastName()));
         txfGroupAmount.disableProperty().bind(TBTile.selectedProperty());
         TBGroups.disableProperty().bind(TBTile.selectedProperty());
+    
+        DPDate.setDayCellFactory(e -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate item, boolean empty)
+            {
+                super.updateItem(item, empty); //To change body of generated methods, choose Tools | Templates.
+                setDisable(empty || calculateDateBoolean(item));
+            }
+           
+        });
     }
 
     @Override
@@ -232,5 +245,19 @@ public class SessionModifyPaneRightController extends AnchorPane implements Obse
     {
         dc.addNewTempGroup("NIEUWE GROUP");
         
+    }
+    
+    private boolean calculateDateBoolean(LocalDate date) {
+        if(date.isBefore(LocalDate.now()))
+            return true;
+        if(date.getDayOfWeek() == DayOfWeek.SUNDAY)
+            return true;
+        //PERIODE 
+     
+       /* if(date.isBefore(LocalDate.of(LocalDate.now().getYear()-1, Month.SEPTEMBER, 1))) {
+            return true;
+        }*/
+        
+        return false;
     }
 }

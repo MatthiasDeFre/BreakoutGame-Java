@@ -46,6 +46,8 @@ public class ClassDetailController extends AnchorPane implements Observer{
     private JFXDialog dialog;
     @FXML
     private Label lblError;
+    @FXML
+    private Label lblTitle;
 
     public ClassDetailController(ExerciseDomainController dc, JFXDialog dia)
     {
@@ -104,7 +106,11 @@ public class ClassDetailController extends AnchorPane implements Observer{
     {
         Category cat = (Category) arg;
         txtClassName.setText(cat.getName());
-    }
+         if(cat.getName()== null || cat.getName().trim().isEmpty()) {
+              lblTitle.setText("Nieuw vak");
+        } else
+            lblTitle.setText("Vak details van: " + cat.getName());
+        }
     
     private void setErrorDialog(Exception ex) {
             lblError.setVisible(true);

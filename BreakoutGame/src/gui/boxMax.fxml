@@ -13,7 +13,7 @@
          <children>
             <JFXTabPane fx:id="tabBox" VBox.vgrow="ALWAYS">
                <tabs>
-                  <Tab text="Acties / Toegangscodes">
+                  <Tab text="Acties ">
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
@@ -72,6 +72,13 @@
                                                       <TableColumn fx:id="clmSelectedActionName" prefWidth="75.0" text="Geselecteerde Acties" />
                                                    </columns>
                                                 </TableView>
+                                             </children>
+                                          </HBox>
+                                          <HBox nodeOrientation="RIGHT_TO_LEFT" spacing="10.0">
+                                             <children>
+                                                <JFXButton buttonType="RAISED" onAction="#deleteAction" styleClass="button-raised" text="Actie verwijderen" />
+                                                <JFXButton buttonType="RAISED" onAction="#EditAction" styleClass="button-raised" text="Actie aanpassen" />
+                                                <JFXButton buttonType="RAISED" onAction="#newAction" styleClass="button-raised" text="Nieuwe actie" />
                                              </children>
                                           </HBox>
                                        </children>

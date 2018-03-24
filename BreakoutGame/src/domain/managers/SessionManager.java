@@ -12,6 +12,8 @@ import domain.Goal;
 import domain.GroupOperation;
 import domain.Session;
 import domain.Path;
+import domain.SessionStatus;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -64,6 +66,17 @@ public class SessionManager extends Manager<Session>
             e.setPath(path);
         });
      }
+
+    @Override
+    public void delete() throws InvocationTargetException
+    {
+        Session session = getSelected();
+        if (session.getSessionStatus() == SessionStatus.ACTIVATED)
+        {
+            throw new IllegalArgumentException("Sessie is geactiveerd en kan daarom dus niet verwijderd worden");
+        }
+        super.delete(); //To change body of generated methods, choose Tools | Templates.
+    }
      
          
       @Override

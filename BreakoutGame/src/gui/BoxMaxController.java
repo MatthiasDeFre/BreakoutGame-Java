@@ -20,6 +20,7 @@ import domain.BoxController;
 import domain.Exercise;
 import domain.ExerciseDomainController;
 import domain.Goal;
+import domain.GroupOperation;
 import domain.PersistMode;
 import java.io.File;
 import java.io.IOException;
@@ -39,6 +40,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
@@ -297,13 +300,13 @@ public class BoxMaxController extends AnchorPane implements Observer{
         btnRemoveAction.disableProperty().bind(Bindings.size(tblSelectedActions.getItems()).lessThan(2));
         
         //Action management
-       vBoxCollections.getChildren().add(new BoBActionDetailController(dc, dia));
+       
    //  vBoxCollections.getChildren().add(new GroupOperationDetailController(new ExerciseDomainController()));
            tblAllActions.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> 
                 {
                     if (newSelection != null)
                     {
-                        dc.setManagerMode(BoBAction.class, PersistMode.UPDATE);
+                       
                         dc.setSelectedItem(newSelection);
                        
                     }
@@ -312,7 +315,7 @@ public class BoxMaxController extends AnchorPane implements Observer{
                 {
                     if (newSelection != null)
                     {
-                        dc.setManagerMode(BoBAction.class, PersistMode.UPDATE);
+                      
                         dc.setSelectedItem(newSelection);
                        
                     }
@@ -362,7 +365,7 @@ public class BoxMaxController extends AnchorPane implements Observer{
      try {
              dc.saveBox(txtName.getText(), txtDescription.getText());
              dc.setManagerMode(Box.class, PersistMode.UPDATE);
-        } catch(IllegalArgumentException e) {
+        } catch(Exception e) {
             JFXDialogLayout layout = new JFXDialogLayout();
             layout.setBody(new Label(e.getMessage()));
             JFXButton okButton = new JFXButton("OK");
@@ -452,5 +455,56 @@ public class BoxMaxController extends AnchorPane implements Observer{
     } catch (Exception e) {
         e.printStackTrace();
     }
+    
 }
+     private void showBoBActionDialog() {
+            BoBActionDetailController boBActionDetailController = new BoBActionDetailController(dc, dialog);
+            showComponentDialog(boBActionDetailController);
+    }
+    private void showComponentDialog(Parent pane) {
+            JFXDialogLayout layout = new JFXDialogLayout();
+           layout.setAlignment(Pos.BOTTOM_RIGHT);
+          layout.setPadding(Insets.EMPTY);
+            layout.setBody(pane);
+            JFXButton okButton = new JFXButton("Cancel");
+            okButton.setStyle("-fx-background-color: #112959;");
+            okButton.setOnMouseClicked(e -> dialog.close());
+            layout.setActions(okButton);
+          
+            dialog.setContent(layout);
+            dialog.show();
+    }
+    
+    private void showError(Exception e) {
+          VBox erros = new VBox();
+            erros.getChildren().addAll(new Label(e.getMessage(), new JFXButton("Ok")));
+            showComponentDialog(erros);
+    }
+
+    @FXML
+    private void deleteAction(ActionEvent event)
+    {
+        try
+        {
+            dc.removeAction();
+        } catch (Exception e)
+        {
+            showError(e);
+        }
+    }
+
+    @FXML
+    private void EditAction(ActionEvent event)
+    {
+         dc.setManagerMode(BoBAction.class, PersistMode.UPDATE);
+         showBoBActionDialog();
+    }
+
+    @FXML
+    private void newAction(ActionEvent event)
+    {
+          dc.setManagerMode(BoBAction.class, PersistMode.NEW);
+        dc.setSelectedItem(new BoBAction());
+        showBoBActionDialog();
+    }
 }

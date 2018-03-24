@@ -6,6 +6,8 @@
 package gui;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
 import domain.BoBGroup;
 import domain.Exercise;
 import domain.ExerciseDomainController;
@@ -19,15 +21,21 @@ import java.net.URL;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 
 /**
  * FXML Controller class
@@ -48,8 +56,10 @@ public class SessionModifyPaneLeftController extends AnchorPane {
     private JFXButton btnOpslaan;
     @FXML
     private JFXButton btnVerwijder;
-
-    public SessionModifyPaneLeftController(SessionController dc) {
+    
+    private JFXDialog dialog;
+    
+    public SessionModifyPaneLeftController(SessionController dc, JFXDialog dialog) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("SessionModifyPaneLeft.fxml"));
         loader.setRoot(this);
         loader.setController(this);
@@ -60,10 +70,12 @@ public class SessionModifyPaneLeftController extends AnchorPane {
         }
 
         this.dc = dc;
-
+        this.dialog = dialog;
         clmSessions.setCellValueFactory(e -> e.getValue().nameProperty());
         tblSessions.setItems(dc.getFilteredItems(Session.class));
-
+      //  , (tblSessions.getSelectionModel().getSelectedItem() != null && tblSessions.getSelectionModel().getSelectedItem().getSessionStatus() != SessionStatus.ACTIVATED))
+        btnVerwijder.disableProperty().bind(Bindings.size(tblSessions.getItems()).isEqualTo(0));
+      
         tblSessions.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 dc.setManagerMode(Session.class, PersistMode.UPDATE);
@@ -89,7 +101,31 @@ public class SessionModifyPaneLeftController extends AnchorPane {
     @FXML
     private void btnVerwijderOnAction(ActionEvent event)
     {
-        dc.removeSession();
+        try
+        {
+            dc.removeSession();
+        } catch (Exception e)
+        {
+            showError(e);
+        }
     }
-
+     private void showComponentDialog(Parent pane) {
+            JFXDialogLayout layout = new JFXDialogLayout();
+           layout.setAlignment(Pos.BOTTOM_RIGHT);
+          layout.setPadding(Insets.EMPTY);
+            layout.setBody(pane);
+            JFXButton okButton = new JFXButton("Cancel");
+            okButton.setStyle("-fx-background-color: #112959;");
+            okButton.setOnMouseClicked(e -> dialog.close());
+            layout.setActions(okButton);
+          
+            dialog.setContent(layout);
+            dialog.show();
+    }
+    
+    private void showError(Exception e) {
+          VBox erros = new VBox();
+            erros.getChildren().addAll(new Label(e.getMessage(), new JFXButton("Ok")));
+            showComponentDialog(erros);
+    }
 }

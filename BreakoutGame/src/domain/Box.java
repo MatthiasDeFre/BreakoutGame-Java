@@ -101,7 +101,7 @@ public class Box implements Serializable, IManageable {
         this.description.set(description);
     }
     
-   @Column(name = "name")
+   @Column(name = "name", unique = true)
     public String getName()
     {
         return name.get();

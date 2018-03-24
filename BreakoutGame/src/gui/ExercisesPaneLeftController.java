@@ -103,10 +103,10 @@ public class ExercisesPaneLeftController extends AnchorPane {
     @FXML
     private void btnCopyExerciseOnClick(MouseEvent event) {
         dc.setManagerMode(Exercise.class, PersistMode.NEW);
-        Exercise box = new Exercise(tblExercises.getSelectionModel().getSelectedItem());
+        Exercise exercise = new Exercise(tblExercises.getSelectionModel().getSelectedItem());
       //  box.copy();
-        box.setName(box.getName() + "_" + "COPY");
-        dc.setSelectedItem(box);
+        exercise.setName(exercise.getName() + "_" + "COPY");
+        dc.setSelectedItem(exercise);
     }
 
     @FXML

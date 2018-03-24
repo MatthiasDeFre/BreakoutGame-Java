@@ -130,10 +130,6 @@ public class BoxManager extends Manager<Box>
     public void save(Box object)
     {   
         getPersistenceController().setPersistMode(getManagerMode());
-        if(getPersistenceController().getPersistMode() == PersistMode.NEW && getPersistenceController().boxExists(object.getName())) {
-            throw new IllegalArgumentException("Oei de gekozen naam bestaat al: " + object.getName());
-        } 
-        
         ((Box) getSelected() ).copy(object);
         super.save(object);
     }

@@ -44,6 +44,8 @@ public class GoalDetailController extends AnchorPane implements Observer{
     private AnchorPane AnchorPane;
     @FXML
     private Label lblError;
+    @FXML
+    private Label lblTitle;
 
     public GoalDetailController(ExerciseDomainController dc, JFXDialog dia)
     {
@@ -99,6 +101,10 @@ public class GoalDetailController extends AnchorPane implements Observer{
     {
         Goal goal = (Goal) arg;
         txtGoalName.setText(goal.getCode());
+        if(goal.getCode() == null || goal.getCode().trim().isEmpty()) {
+              lblTitle.setText("Nieuwe doelstelling");
+        } else
+            lblTitle.setText("Doelstelling details van: " + goal.getCode());
     }
     
           private void setErrorDialog(Exception ex) {

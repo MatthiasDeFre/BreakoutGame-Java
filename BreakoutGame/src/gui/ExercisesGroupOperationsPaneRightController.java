@@ -225,7 +225,13 @@ public class ExercisesGroupOperationsPaneRightController extends AnchorPane impl
     @FXML
     private void removeGoal(ActionEvent event)
     {
-        dc.deleteGoal();
+        try
+        {
+            dc.deleteGoal();
+        } catch (Exception e)
+        {
+            showError(e);
+        }
     }
     
     private void showGoalDialog() {
@@ -255,7 +261,12 @@ public class ExercisesGroupOperationsPaneRightController extends AnchorPane impl
             dialog.setContent(layout);
             dialog.show();
     }
-
+    
+    private void showError(Exception e) {
+          VBox erros = new VBox();
+            erros.getChildren().addAll(new Label(e.getMessage(), new JFXButton("Ok")));
+            showComponentDialog(erros);
+    }
     @FXML
     private void newGroupOp(ActionEvent event)
     {
@@ -274,7 +285,13 @@ public class ExercisesGroupOperationsPaneRightController extends AnchorPane impl
     @FXML
     private void deleteGroupOp(ActionEvent event)
     {
-        dc.deleteGroupOperation();
+        try
+        {
+            dc.deleteGroupOperation();
+        } catch (Exception e)
+        {
+            showError(e);
+        }
     }
 
     @FXML
@@ -295,6 +312,12 @@ public class ExercisesGroupOperationsPaneRightController extends AnchorPane impl
     @FXML
     private void deleteCategory(ActionEvent event)
     {
-        dc.deleteCategory();
+        try
+        {
+            dc.deleteCategory();
+        } catch (Exception e)
+        {
+           showError(e);
+        }
     }
 }

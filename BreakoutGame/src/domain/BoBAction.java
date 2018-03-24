@@ -41,7 +41,7 @@ public class BoBAction implements IManageable, Serializable {
     public void copy(BoBAction action) {
         setName(action.getName());
     }
-    @Column(name="name")
+    @Column(name="name", unique = true)
     public String getName()
     {
         return name.get();
@@ -49,6 +49,8 @@ public class BoBAction implements IManageable, Serializable {
 
     public void setName(String name)
     {
+        if(name == null || name.trim().isEmpty())
+            throw new IllegalArgumentException("Mag niet leeg zijn");
         this.name.set(name);
     }
     

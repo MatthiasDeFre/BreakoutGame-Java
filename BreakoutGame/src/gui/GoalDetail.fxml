@@ -13,7 +13,7 @@
    <children>
       <VBox>
          <children>
-            <Label text="Doelstelling details" />
+            <Label fx:id="lblTitle" text="Doelstelling details" />
             <JFXTextField fx:id="txtGoalName" styleClass="test">
                <font>
                   <Font name="Roboto" size="12.0" />

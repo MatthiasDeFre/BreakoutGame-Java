@@ -62,8 +62,9 @@ public class GroupOperationDetailController extends AnchorPane implements Observ
     private ExerciseDomainController dc;
 
     private JFXDialog dialog;
-    @FXML
     private Label lblError;
+    @FXML
+    private Label lblTitle;
     public GroupOperationDetailController(ExerciseDomainController dc, JFXDialog dia)
     {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("GroupOperationDetail.fxml"));
@@ -176,7 +177,11 @@ public class GroupOperationDetailController extends AnchorPane implements Observ
         String[] values = groupOperation.getValueString().split("&");
         IntStream.range(0, values.length).forEach(e -> {
             textFields.get(e).setText(values[e]);
-        });             
+        });
+        if(groupOperation.getValueString()== null || groupOperation.getValueString().trim().isEmpty()) {
+              lblTitle.setText("Nieuwe groepsbewerking");
+        } else
+            lblTitle.setText("Groepsbewerking details van: " + groupOperation.getValueString());
         }
     }
     
