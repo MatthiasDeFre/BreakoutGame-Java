@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTabPane?>
 <?import javafx.geometry.Insets?>
@@ -12,9 +19,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<fx:root id="pane" minWidth="700.0" prefHeight="600.0" prefWidth="600.0" stylesheets="@assets/css/style_1.css" type="AnchorPane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root id="pane" minWidth="700.0" prefHeight="600.0" prefWidth="600.0" stylesheets="@assets/css/style_1.css" type="AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label layoutX="113.0" layoutY="14.0" text="Groepoperaties en doelstellingen" AnchorPane.leftAnchor="113.0" AnchorPane.rightAnchor="112.0">
+      <Label layoutX="113.0" layoutY="14.0" styleClass="headerText" text="Groepoperaties en doelstellingen" AnchorPane.leftAnchor="113.0" AnchorPane.rightAnchor="112.0">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
@@ -60,7 +67,7 @@
             </Tab>
             <Tab text="Groepoperaties aanpassen">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="180.0">
                      <children>
                         <TableView fx:id="tblAvailableGrOps" layoutX="26.0" layoutY="26.0" prefHeight="400.0" prefWidth="246.0" stylesheets="@assets/css/jfoenix-components.css" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="26.0" AnchorPane.rightAnchor="367.0" AnchorPane.topAnchor="26.0">
                           <columns>
@@ -70,7 +77,40 @@
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                            </columnResizePolicy>
                         </TableView>
-                        <HBox fx:id="hboxGroupOpActions" layoutX="287.0" layoutY="26.0" spacing="10.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="287.0" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="26.0" />
+                        <HBox fx:id="hboxGroupOpActions" layoutX="287.0" layoutY="26.0" spacing="10.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="287.0" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="26.0">
+                           <children>
+                              <VBox spacing="15.0">
+                                 <children>
+                                    <JFXButton onAction="#newGroupOp" styleClass="button-raised" text="Nieuwe Groepsbewerking ">
+                                       <graphic>
+                                          <ImageView fitHeight="18.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@assets/img/createIcon.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic></JFXButton>
+                                    <JFXButton onAction="#editGroupOp" styleClass="button-raised" text="Groepsbewerking aanpassen">
+                                       <graphic>
+                                          <ImageView fitHeight="18.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@assets/img/modifyIcon.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic></JFXButton>
+                                    <JFXButton onAction="#deleteGroupOp" styleClass="button-raised" text="Groepsbewerking verwijderen">
+                                       <graphic>
+                                          <ImageView fitHeight="18.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@assets/img/delIcon.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic></JFXButton>
+                                 </children>
+                              </VBox>
+                           </children>
+                           <padding>
+                              <Insets top="50.0" />
+                           </padding></HBox>
                      </children>
                   </AnchorPane>
               </content>
@@ -110,6 +150,37 @@
                                     </TableView>
                                  </children>
                               </HBox>
+                              <HBox spacing="20.0">
+                                 <children>
+                                    <JFXButton onAction="#newGoal" styleClass="button-raised" text="Nieuwe doelstelling">
+                                       <graphic>
+                                          <ImageView fitHeight="18.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@assets/img/createIcon.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic></JFXButton>
+                                    <JFXButton onAction="#EditGoal" styleClass="button-raised" text="Doelstelling aanpassen">
+                                       <graphic>
+                                          <ImageView fitHeight="18.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@assets/img/modifyIcon.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic></JFXButton>
+                                    <JFXButton onAction="#removeGoal" styleClass="button-raised" text="Doelstelling verwijderen">
+                                       <graphic>
+                                          <ImageView fitHeight="18.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@assets/img/delIcon.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic></JFXButton>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" right="10.0" top="10.0" />
+                                 </VBox.margin>
+                              </HBox>
                            </children>
                         </VBox>
                      </children>
@@ -130,7 +201,38 @@
                                     <TableColumn fx:id="clmClassName" prefWidth="75.0" text="Vak" />
                                  </columns>
                               </TableView>
-                              <HBox fx:id="hboxClasses" prefHeight="400.0" prefWidth="691.0" spacing="10.0" />
+                              <HBox fx:id="hboxClasses" prefHeight="400.0" prefWidth="691.0" spacing="10.0">
+                                 <children>
+                                    <VBox spacing="15.0">
+                                       <children>
+                                          <Label text="Vak opties" />
+                                          <JFXButton onAction="#newCategory" styleClass="button-raised" text="Nieuwe vak">
+                                             <graphic>
+                                                <ImageView fitHeight="18.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@assets/img/createIcon.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic></JFXButton>
+                                          <JFXButton onAction="#editCategory" styleClass="button-raised" text="Vak aanpassen">
+                                             <graphic>
+                                                <ImageView fitHeight="18.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@assets/img/modifyIcon.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic></JFXButton>
+                                          <JFXButton onAction="#deleteCategory" styleClass="button-raised" text="Vak verwijderen">
+                                             <graphic>
+                                                <ImageView fitHeight="18.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@assets/img/delIcon.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic></JFXButton>
+                                       </children>
+                                    </VBox>
+                                 </children></HBox>
                            </children>
                         </HBox>
                      </children>

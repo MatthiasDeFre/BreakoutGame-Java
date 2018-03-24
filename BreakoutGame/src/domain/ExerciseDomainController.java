@@ -74,7 +74,12 @@ public class ExerciseDomainController implements ExerciseFilter{
     {
         managers.get(item.getClass().getSimpleName()).setSelected(item);
     }
-
+    
+      public IManageable getSelectedItem(Class<? extends IManageable> className)
+    {
+        return (IManageable) managers.get(className.getSimpleName()).getSelected();
+    }
+    
     //  public void 
     public ObservableList<GroupOperation> getGroupOperationsTemp()
     {
@@ -108,7 +113,7 @@ public class ExerciseDomainController implements ExerciseFilter{
         try {
         exerciseManager.save(new Exercise(name, answer, feedback, assignment, exerciseManager.getCategory(categoryId), exerciseManager.getGroupOperationsTemp(), exerciseManager.getGoalsTemp(), time));
         } catch(IllegalArgumentException ex) {
-            throw new IllegalArgumentException("Een of meerdere velden zijn leeg ofzo");
+            throw new IllegalArgumentException("Een of meerdere velden zijn leeg of de tijd is negatief ingevuld");
         } catch(Exception ex) {
             throw new IllegalArgumentException("Deze bestaat al");
         } 
@@ -119,18 +124,42 @@ public class ExerciseDomainController implements ExerciseFilter{
         try {
             groupOperationManager.save(new GroupOperation(cat, valueString.stream().collect(Collectors.joining("&"))));
         } catch(IllegalArgumentException ex) {
-            throw new IllegalArgumentException("Een of meerdere velden zijn leeg ofzo");
+            throw new IllegalArgumentException("Een of meerdere velden zijn leeg");
         } catch(Exception ex) {
             throw new IllegalArgumentException("Deze bestaat al");
         } 
       
     }
-    public void saveCategory(String name) {
-        categoryManager.save(new Category(name));
+    public void saveCategory(String name)
+    {
+        try
+        {
+            categoryManager.save(new Category(name));
+        } catch (IllegalArgumentException ex)
+        {
+            throw new IllegalArgumentException("Een of meerdere velden zijn leeg");
+        } catch (Exception ex)
+        {
+            throw new IllegalArgumentException("Deze bestaat al");
+        }
+
     }
-    public void saveGoal(String name) {
-        goalManager.save(new Goal(name));
+
+    public void saveGoal(String name)
+    {
+
+        try
+        {
+            goalManager.save(new Goal(name));
+        } catch (IllegalArgumentException ex)
+        {
+            throw new IllegalArgumentException("Een of meerdere velden zijn leeg");
+        } catch (Exception ex)
+        {
+            throw new IllegalArgumentException("Deze bestaat al");
+        }
     }
+
     public void deleteExercise()
     {
         try {
@@ -249,13 +278,17 @@ public class ExerciseDomainController implements ExerciseFilter{
     
         public void addCategoryToFilter(Category cat) {
         exerciseManager.addCategoryToFilter(cat);
+          exerciseManager.changeFilter(new ArrayList<>());
+        
     
     }
         public void removeCategoryToFilter(Category cat) {
         exerciseManager.removeCategoryToFilter(cat);
+          exerciseManager.changeFilter(new ArrayList<>());
     }
          public void changeGoalFilter(List<String> goals) {
         exerciseManager.changeGoalFilter(goals);
+          exerciseManager.changeFilter(new ArrayList<>());
     }
 
     @Override

@@ -12,6 +12,7 @@ import com.jfoenix.controls.JFXTextField;
 import domain.ExerciseDomainController;
 import domain.Goal;
 import domain.PersistMode;
+import domain.managers.IManageable;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Observable;
@@ -34,13 +35,15 @@ public class GoalDetailController extends AnchorPane implements Observer{
     @FXML
     private JFXTextField txtGoalName;
     @FXML
-    private JFXButton btnNew;
-    @FXML
     private JFXButton btnSave;
 
     private ExerciseDomainController dc;
     
     private JFXDialog dialog;
+    @FXML
+    private AnchorPane AnchorPane;
+    @FXML
+    private Label lblError;
 
     public GoalDetailController(ExerciseDomainController dc, JFXDialog dia)
     {
@@ -55,11 +58,13 @@ public class GoalDetailController extends AnchorPane implements Observer{
 
         this.dc = dc;
         this.dialog = dia;
+        IManageable goal = dc.getSelectedItem(Goal.class);
+        if(goal != null)
+            update(null, goal);
     }
     
     
     
-    @FXML
     private void addNewGoal(ActionEvent event)
     {
         dc.setManagerMode(Goal.class, PersistMode.NEW);
@@ -69,16 +74,22 @@ public class GoalDetailController extends AnchorPane implements Observer{
     @FXML
     private void saveGoal(ActionEvent event)
     {
-        dc.saveGoal(txtGoalName.getText());
-        dc.setManagerMode(Goal.class, PersistMode.UPDATE);
+        try
+        {
+            dc.saveGoal(txtGoalName.getText());
+            dc.setManagerMode(Goal.class, PersistMode.UPDATE);
+            dialog.close();
+        } catch (Exception e)
+        {
+            setErrorDialog(e);
+        }
     }
 
-    @FXML
     private void deleteGoal(ActionEvent event)
     {
         try {
             dc.deleteGoal();
-        } catch(IllegalArgumentException e) {
+        } catch(Exception e) {
             setErrorDialog(e);
         }
     }
@@ -91,14 +102,8 @@ public class GoalDetailController extends AnchorPane implements Observer{
     }
     
           private void setErrorDialog(Exception ex) {
-         JFXDialogLayout layout = new JFXDialogLayout();
-            layout.setBody(new Label(ex.getMessage()));
-            JFXButton okButton = new JFXButton("OK");
-            okButton.setOnMouseClicked(e -> dialog.close());
-              okButton.setStyle("-fx-background-color: #112959;");
-            layout.setActions(okButton);
-            dialog.setContent(layout);
-            dialog.show();
+           lblError.setVisible(true);
+        lblError.setText(ex.getMessage());
     }
 
     

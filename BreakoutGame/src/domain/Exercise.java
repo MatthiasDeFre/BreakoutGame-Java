@@ -244,6 +244,9 @@ public class Exercise implements IManageable, Serializable {
 
     public void setTimeInMinutes(int timeInMinutes)
     {
+        if(timeInMinutes < 0) {
+            throw new IllegalArgumentException("Tijd mag niet kleiner zijn dan null");
+        }
         this.timeInMinutes.set(timeInMinutes);
     }
 

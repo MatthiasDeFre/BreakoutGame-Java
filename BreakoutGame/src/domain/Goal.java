@@ -62,6 +62,8 @@ public class Goal implements Serializable, IManageable, Comparable<Object> {
 
     public void setCode(String code)
     {
+        if(code == null || code.trim().isEmpty()) 
+            throw new IllegalArgumentException("Code moet ingevuld zijn");
         this.code.set(code);
     }
     

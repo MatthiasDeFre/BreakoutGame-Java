@@ -8,6 +8,7 @@ package gui;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
 import domain.BoBAction;
 import domain.Category;
 import domain.Exercise;
@@ -27,6 +28,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
@@ -104,10 +109,6 @@ public class ExercisesGroupOperationsPaneRightController extends AnchorPane impl
         tblViewSelectedGroupOperations.setItems(groupOpTemp);
         clmSelectedDescription.setCellValueFactory(e -> e.getValue().descriptionProperty());
         System.out.println(dc.getFilteredItems(GroupOperation.class));
-
-        GroupOperationDetailController groupOperationDetailController = new GroupOperationDetailController(dc, dialog);
-        dc.addObserverGroupOperation(groupOperationDetailController);
-        hboxGroupOpActions.getChildren().add(groupOperationDetailController);
         //TODO CHANGE TO FULL LIST
         tblAvailableGrOps.itemsProperty().bind(tblViewGroupOperations.itemsProperty());
         tblAvailableGrOps.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection)
@@ -115,6 +116,7 @@ public class ExercisesGroupOperationsPaneRightController extends AnchorPane impl
             if (newSelection != null) {
                 dc.setManagerModeGroupOp(PersistMode.UPDATE);
                 dc.setSelectedItem(newSelection);
+              
             }
         });
         clmAvailableGrOpName.setCellValueFactory(e -> e.getValue().descriptionProperty());
@@ -128,26 +130,23 @@ public class ExercisesGroupOperationsPaneRightController extends AnchorPane impl
         btnLeft.disableProperty().bind(Bindings.size(groupOpTemp).isEqualTo(0));
 
         //Goal editing
-        GoalDetailController goalDetailController = new GoalDetailController(dc, dialog);
+   /*    
         vboxGoal.getChildren().add(goalDetailController);
-        this.dc.addObserverGoal(goalDetailController);
+        this.dc.addObserverGoal(goalDetailController);*/
         tblViewGroals.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection)
                 -> {
             if (newSelection != null) {
-                dc.setSelectedItem(newSelection);
+                          dc.setSelectedItem(newSelection);
             }
         });
 
-        ClassDetailController classDetailController = new ClassDetailController(dc, dialog);
+      
         tblClasses.setItems(dc.getFilteredItems(Category.class));
         clmClassName.setCellValueFactory(e -> e.getValue().nameProperty());
-        hboxClasses.getChildren().add(classDetailController);
-        dc.addObserver(Category.class, classDetailController);
 
         tblClasses.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection)
                 -> {
             if (newSelection != null) {
-                dc.setManagerMode(Category.class, PersistMode.UPDATE);
                 dc.setSelectedItem(newSelection);
             }
         });
@@ -205,5 +204,97 @@ public class ExercisesGroupOperationsPaneRightController extends AnchorPane impl
 
     public void setDialog(JFXDialog dialogLayout) {
         dialog = dialogLayout;
+    }
+
+    @FXML
+    private void newGoal(ActionEvent event)
+    {
+        dc.setManagerMode(Goal.class, PersistMode.NEW);
+        dc.setSelectedItem(new Goal());
+        showGoalDialog();
+        
+    }
+
+    @FXML
+    private void EditGoal(ActionEvent event)
+    {
+        dc.setManagerMode(Goal.class, PersistMode.UPDATE);
+        showGoalDialog();
+    }
+
+    @FXML
+    private void removeGoal(ActionEvent event)
+    {
+        dc.deleteGoal();
+    }
+    
+    private void showGoalDialog() {
+            GoalDetailController goalDetailController = new GoalDetailController(dc, dialog);
+            showComponentDialog(goalDetailController);
+    }
+    
+    private void showGroupOperationDialog() {
+              GroupOperationDetailController groupOperationDetailController = new GroupOperationDetailController(dc, dialog);
+              showComponentDialog(groupOperationDetailController);
+    }
+    
+    private void showCategoryDialog() {
+            ClassDetailController classDetailController = new ClassDetailController(dc, dialog);
+            showComponentDialog(classDetailController);
+    }
+    private void showComponentDialog(Parent pane) {
+            JFXDialogLayout layout = new JFXDialogLayout();
+           layout.setAlignment(Pos.BOTTOM_RIGHT);
+          layout.setPadding(Insets.EMPTY);
+            layout.setBody(pane);
+            JFXButton okButton = new JFXButton("Cancel");
+            okButton.setStyle("-fx-background-color: #112959;");
+            okButton.setOnMouseClicked(e -> dialog.close());
+            layout.setActions(okButton);
+          
+            dialog.setContent(layout);
+            dialog.show();
+    }
+
+    @FXML
+    private void newGroupOp(ActionEvent event)
+    {
+        dc.setManagerMode(GroupOperation.class, PersistMode.NEW);
+        dc.setSelectedItem(new GroupOperation());
+        showGroupOperationDialog();
+    }
+
+    @FXML
+    private void editGroupOp(ActionEvent event)
+    {
+          dc.setManagerMode(GroupOperation.class, PersistMode.UPDATE);
+         showGroupOperationDialog();
+    }
+
+    @FXML
+    private void deleteGroupOp(ActionEvent event)
+    {
+        dc.deleteGroupOperation();
+    }
+
+    @FXML
+    private void newCategory(ActionEvent event)
+    {
+         dc.setManagerMode(Category.class, PersistMode.NEW);
+        dc.setSelectedItem(new Category());
+        showCategoryDialog();
+    }
+
+    @FXML
+    private void editCategory(ActionEvent event)
+    {
+         dc.setManagerMode(GroupOperation.class, PersistMode.UPDATE);
+         showCategoryDialog();
+    }
+
+    @FXML
+    private void deleteCategory(ActionEvent event)
+    {
+        dc.deleteCategory();
     }
 }

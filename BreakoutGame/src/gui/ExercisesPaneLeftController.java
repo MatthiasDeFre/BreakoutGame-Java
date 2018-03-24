@@ -19,6 +19,7 @@ import java.net.URL;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
+import javafx.beans.binding.Bindings;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -89,6 +90,8 @@ public class ExercisesPaneLeftController extends AnchorPane {
         });
         
         JFXDepthManager.setDepth(tblExercises, 1);
+        btnDeleteExercise.disableProperty().bind(Bindings.size(tblExercises.getItems()).isEqualTo(0));
+        btnCopyExercise.disableProperty().bind(Bindings.size(tblExercises.getItems()).isEqualTo(0));
     }
 
     @FXML
@@ -112,7 +115,7 @@ public class ExercisesPaneLeftController extends AnchorPane {
         try{
              dc.deleteExercise();
            //   dc.setSelectedItem(new Exercise());
-        } catch(IllegalArgumentException ex) {
+        } catch(Exception ex) {
             setErrorDialog(ex);
         }
       

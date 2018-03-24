@@ -52,24 +52,32 @@ public class Student implements IManageable {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
+    public boolean equals(Object obj)
+    {
+        if (this == obj)
+        {
             return true;
         }
-        if (obj == null) {
+        if (obj == null)
+        {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+        if (getClass() != obj.getClass())
+        {
             return false;
         }
         final Student other = (Student) obj;
-        if (!Objects.equals(this.classnumber, other.classnumber) && !this.studentClass.getStudentClassName().equals(other.getStudentClass().getStudentClassName())) {
-            System.out.println("test");
+        if (!Objects.equals(this.classnumber, other.classnumber))
+        {
             return false;
         }
-      
+        if (!Objects.equals(this.studentClass, other.studentClass))
+        {
+            return false;
+        }
         return true;
     }
+
     
     //For JPA
     protected Student()

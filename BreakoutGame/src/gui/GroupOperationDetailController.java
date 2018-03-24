@@ -11,9 +11,11 @@ import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXTextField;
 import domain.ExerciseDomainController;
+import domain.Goal;
 import domain.GroupOperation;
 import domain.OperationCategory;
 import domain.PersistMode;
+import domain.managers.IManageable;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayDeque;
@@ -51,8 +53,6 @@ public class GroupOperationDetailController extends AnchorPane implements Observ
     @FXML
     private HBox hBoxGroupOpContent;
     @FXML
-    private JFXButton btnNew;
-    @FXML
     private JFXButton btnSave;
     @FXML
     private JFXComboBox<OperationCategory> cmbGrouOpSorts;
@@ -62,6 +62,8 @@ public class GroupOperationDetailController extends AnchorPane implements Observ
     private ExerciseDomainController dc;
 
     private JFXDialog dialog;
+    @FXML
+    private Label lblError;
     public GroupOperationDetailController(ExerciseDomainController dc, JFXDialog dia)
     {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("GroupOperationDetail.fxml"));
@@ -90,9 +92,11 @@ public class GroupOperationDetailController extends AnchorPane implements Observ
                     }
         });
         this.dialog = dia;
+         IManageable groupop = dc.getSelectedItem(GroupOperation.class);
+        if(groupop != null)
+            update(null, groupop);
     }
 
-    @FXML
     private void addNewGroupOp(ActionEvent event)
     {
         dc.setManagerModeGroupOp(PersistMode.NEW);
@@ -106,6 +110,7 @@ public class GroupOperationDetailController extends AnchorPane implements Observ
         try {
             dc.saveGroupOperation(cmbGrouOpSorts.getSelectionModel().getSelectedItem(), textFields.stream().map(TextField::getText).collect(Collectors.toList()));
         dc.setManagerMode(GroupOperation.class, PersistMode.UPDATE);
+        dialog.close();
         } catch(IllegalArgumentException ex) {
             setErrorDialog(ex);
         }
@@ -149,7 +154,6 @@ public class GroupOperationDetailController extends AnchorPane implements Observ
         hBoxGroupOpContent.getChildren().addAll(nodes);
     }
 
-    @FXML
     private void deleteGroupOp(ActionEvent event)
     {
         try {
@@ -177,14 +181,16 @@ public class GroupOperationDetailController extends AnchorPane implements Observ
     }
     
         private void setErrorDialog(Exception ex) {
-         JFXDialogLayout layout = new JFXDialogLayout();
+        /* JFXDialogLayout layout = new JFXDialogLayout();
             layout.setBody(new Label(ex.getMessage()));
             JFXButton okButton = new JFXButton("OK");
             okButton.setOnMouseClicked(e -> dialog.close());
               okButton.setStyle("-fx-background-color: #112959;");
             layout.setActions(okButton);
             dialog.setContent(layout);
-            dialog.show();
+            dialog.show();*/
+        lblError.setVisible(true);
+        lblError.setText(ex.getMessage());
     }
 
 }

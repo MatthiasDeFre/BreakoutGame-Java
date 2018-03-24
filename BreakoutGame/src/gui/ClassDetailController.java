@@ -11,8 +11,10 @@ import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXTextField;
 import domain.Category;
 import domain.ExerciseDomainController;
+import domain.Goal;
 import domain.GroupOperation;
 import domain.PersistMode;
+import domain.managers.IManageable;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Observable;
@@ -37,15 +39,13 @@ public class ClassDetailController extends AnchorPane implements Observer{
     @FXML
     private JFXTextField txtClassName;
     @FXML
-    private JFXButton btnNew;
-    @FXML
     private JFXButton btnSave;
-    @FXML
-    private JFXButton btnRemove;
 
     private ExerciseDomainController dc;
     
     private JFXDialog dialog;
+    @FXML
+    private Label lblError;
 
     public ClassDetailController(ExerciseDomainController dc, JFXDialog dia)
     {
@@ -59,29 +59,42 @@ public class ClassDetailController extends AnchorPane implements Observer{
         }
         this.dc = dc;
         this.dialog = dia;
+         IManageable category = dc.getSelectedItem(Category.class);
+        if(category != null)
+            update(null, category);
     }
     
     
-    @FXML
     private void addNewClass(ActionEvent event)
     {
-        dc.setManagerMode(Category.class, PersistMode.NEW);
-        dc.setSelectedItem(new Category());
+        try
+        {
+          dc.setManagerMode(Category.class, PersistMode.NEW);
+          dc.setSelectedItem(new Category());
+        } catch (Exception e)
+        {
+            setErrorDialog(e);
+        }
     }
 
     @FXML
     private void saveClass(ActionEvent event)
     {
-        dc.saveCategory(txtClassName.getText());
+        try {
+             dc.saveCategory(txtClassName.getText());
         dc.setManagerMode(Category.class, PersistMode.UPDATE);
+        dialog.close();
+        } catch (Exception e) {
+            setErrorDialog(e);
+        }
+       
     }
 
-    @FXML
     private void removeClass(ActionEvent event)
     { 
         try {
             dc.deleteCategory();
-        } catch(IllegalArgumentException ex) {
+        } catch(Exception ex) {
             setErrorDialog(ex);
         }
     }
@@ -94,13 +107,8 @@ public class ClassDetailController extends AnchorPane implements Observer{
     }
     
     private void setErrorDialog(Exception ex) {
-         JFXDialogLayout layout = new JFXDialogLayout();
-            layout.setBody(new Label(ex.getMessage()));
-            JFXButton okButton = new JFXButton("OK");
-            okButton.setOnMouseClicked(e -> dialog.close());
-            layout.setActions(okButton);
-            dialog.setContent(layout);
-            dialog.show();
+            lblError.setVisible(true);
+        lblError.setText(ex.getMessage());
     }
     
 }
