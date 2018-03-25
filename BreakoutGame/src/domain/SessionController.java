@@ -21,6 +21,7 @@ import java.util.Observer;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import persistence.PersistenceController;
@@ -110,18 +111,27 @@ public class SessionController {
         groupManager.setStudents(students);
     }
     public void generateGroups(int amount, boolean notEmpty, StudentClass studentClass) {
-        List<BoBGroup> groups;
-        if (!notEmpty) {
-            groups = GroupManager.generateRandomGroups(studentClass, amount);
-        } else {
-            groups = GroupManager.generateEmptyGroups(amount);
-        }
-        sessionManager.clearTempGroups();
-        sessionManager.addAllToTempGroup(groups);
+        try
+        {
+            List<BoBGroup> groups;
+            if (!notEmpty)
+            {
+                groups = GroupManager.generateRandomGroups(studentClass, amount);
+            } else
+            {
+                groups = GroupManager.generateEmptyGroups(amount);
+            }
+            sessionManager.clearTempGroups();
+            sessionManager.addAllToTempGroup(groups);
+            applyGrouplessStudentFilter();
+        } catch (Exception e)
+        {
+            throw new IllegalArgumentException(e.getMessage());
+        } 
     }
 
-    public void generatePaths() {
-        SessionManager.generatePaths(sessionManager.getTempGroups(), boxManager.getSelected());
+    public void generatePaths(boolean remoteStuding) {
+        SessionManager.generatePaths(sessionManager.getTempGroups(), boxManager.getSelected(), remoteStuding);
     }
 
     public void setManagerMode(Class<? extends IManageable> className, PersistMode persistMode) {
@@ -155,5 +165,9 @@ public class SessionController {
         {
             Logger.getLogger(SessionController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public void applyGrouplessStudentFilter() {
+        classManager.applyGrouplessFilter(sessionManager.getTempGroups().stream().map(e -> e.getStudents()).flatMap(List::stream).collect(Collectors.toList()));
     }
 }

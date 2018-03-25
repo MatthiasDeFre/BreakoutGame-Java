@@ -93,9 +93,9 @@ public class GroupOperationDetailController extends AnchorPane implements Observ
                     }
         });
         this.dialog = dia;
-         IManageable groupop = dc.getSelectedItem(GroupOperation.class);
+         GroupOperation groupop = dc.getSelectedItem(GroupOperation.class);
         if(groupop != null)
-            update(null, groupop);
+            setTextFields(groupop);
     }
 
     private void addNewGroupOp(ActionEvent event)
@@ -170,19 +170,7 @@ public class GroupOperationDetailController extends AnchorPane implements Observ
     public void update(Observable o, Object arg)
     {
         GroupOperation groupOperation = (GroupOperation) arg;
-        if(groupOperation.getValueString() != null && !groupOperation.getValueString().isEmpty()) {
-        cmbGrouOpSorts.getSelectionModel().select(groupOperation.getCategory());
-        generateGroupOperationInputHbox();
- 
-        String[] values = groupOperation.getValueString().split("&");
-        IntStream.range(0, values.length).forEach(e -> {
-            textFields.get(e).setText(values[e]);
-        });
-        if(groupOperation.getValueString()== null || groupOperation.getValueString().trim().isEmpty()) {
-              lblTitle.setText("Nieuwe groepsbewerking");
-        } else
-            lblTitle.setText("Groepsbewerking details van: " + groupOperation.getValueString());
-        }
+        setTextFields(groupOperation);
     }
     
         private void setErrorDialog(Exception ex) {
@@ -197,5 +185,20 @@ public class GroupOperationDetailController extends AnchorPane implements Observ
         lblError.setVisible(true);
         lblError.setText(ex.getMessage());
     }
+        private void setTextFields(GroupOperation groupOperation) {
+              if(groupOperation.getValueString() != null && !groupOperation.getValueString().isEmpty()) {
+        cmbGrouOpSorts.getSelectionModel().select(groupOperation.getCategory());
+        generateGroupOperationInputHbox();
+ 
+        String[] values = groupOperation.getValueString().split("&");
+        IntStream.range(0, values.length).forEach(e -> {
+            textFields.get(e).setText(values[e]);
+        });
+        if(groupOperation.getValueString()== null || groupOperation.getValueString().trim().isEmpty()) {
+              lblTitle.setText("Nieuwe groepsbewerking");
+        } else
+            lblTitle.setText("Groepsbewerking details van: " + groupOperation.getValueString());
+        }
+        }
 
 }

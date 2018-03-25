@@ -7,7 +7,10 @@ package domain;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -21,22 +24,21 @@ import javax.persistence.OrderColumn;
 @Entity(name = "SessionPath")
 public class Path implements Serializable {
    
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true )
     private List<Assignment> assignments;
-    @ManyToMany
-    private List<BoBAction> actions;
+  
     
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     public Path()
     {
     }
 
-    public Path(List<Assignment> assignments, List<BoBAction> actions)
+    public Path(List<Assignment> assignments)
     {
         this.assignments = assignments;
-        this.actions = actions;
     }
 
     private int counter;

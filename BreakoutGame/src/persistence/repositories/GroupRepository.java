@@ -23,5 +23,11 @@ public class GroupRepository extends GenericRepository<BoBGroup> {
     private GroupRepository(Class<BoBGroup> type) {
         super(type);
     }
+
+    @Override
+    public void delete(BoBGroup object)
+    {
+        super.delete(object); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

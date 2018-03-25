@@ -60,9 +60,9 @@ public class GoalDetailController extends AnchorPane implements Observer{
 
         this.dc = dc;
         this.dialog = dia;
-        IManageable goal = dc.getSelectedItem(Goal.class);
+        Goal goal = dc.getSelectedItem(Goal.class);
         if(goal != null)
-            update(null, goal);
+            setTextFields(goal);
     }
     
     
@@ -100,17 +100,19 @@ public class GoalDetailController extends AnchorPane implements Observer{
     public void update(Observable o, Object arg)
     {
         Goal goal = (Goal) arg;
-        txtGoalName.setText(goal.getCode());
-        if(goal.getCode() == null || goal.getCode().trim().isEmpty()) {
-              lblTitle.setText("Nieuwe doelstelling");
-        } else
-            lblTitle.setText("Doelstelling details van: " + goal.getCode());
+        setTextFields(goal);
     }
     
           private void setErrorDialog(Exception ex) {
            lblError.setVisible(true);
         lblError.setText(ex.getMessage());
     }
-
+          private void setTextFields(Goal goal) {
+                 txtGoalName.setText(goal.getCode());
+        if(goal.getCode() == null || goal.getCode().trim().isEmpty()) {
+              lblTitle.setText("Nieuwe doelstelling");
+        } else
+            lblTitle.setText("Doelstelling details van: " + goal.getCode());
+          }
     
 }

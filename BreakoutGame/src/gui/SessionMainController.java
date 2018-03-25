@@ -96,7 +96,7 @@ public class SessionMainController extends StackPane {
 //        screen1 = new ExercisesPaneLeftController(dc, dialogScreen);
 //        screen2 = new ExerciseDetailsPaneMidController(dc, dialogScreen);
 //        screen3 = new ExercisesGroupOperationsPaneRightController(dc, dialogScreen);
-        test = new SessionModifyPaneRightController(dc);
+        test = new SessionModifyPaneRightController(dc, dialogScreen);
         test2 = new SessionModifyPaneLeftController(dc, dialogScreen);
 
         dc.addObserver(Session.class, test);

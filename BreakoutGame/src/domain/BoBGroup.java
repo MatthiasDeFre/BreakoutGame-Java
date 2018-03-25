@@ -17,6 +17,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
@@ -24,6 +26,7 @@ import javax.persistence.Transient;
  *
  * @author geers
  */
+
 @Entity
 public class BoBGroup implements IManageable, Serializable {
 
@@ -31,7 +34,7 @@ public class BoBGroup implements IManageable, Serializable {
     private SimpleStringProperty name = new SimpleStringProperty();
     private List<Student> students;
     
-  
+   
     private Path path;
     private long id;
 
@@ -53,7 +56,7 @@ public class BoBGroup implements IManageable, Serializable {
     }
 
     
-     @OneToOne(cascade = CascadeType.ALL)
+     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     public Path getPath()
     {
         return path;
@@ -98,6 +101,7 @@ public class BoBGroup implements IManageable, Serializable {
     {
         this.students = students;
     }
+    
     
     
     public void testToString() {

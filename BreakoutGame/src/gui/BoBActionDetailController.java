@@ -65,9 +65,9 @@ public class BoBActionDetailController extends AnchorPane implements Observer{
         dc.addObserverAction(this);
        
         this.dialog = dia;
-           IManageable bobaction = dc.getSelectedItem(BoBAction.class);
+           BoBAction bobaction = dc.getSelectedItem(BoBAction.class);
         if(bobaction != null)
-            update(null, bobaction);
+            setTextFields(bobaction);
     }
 
     private void addNewAction(ActionEvent event)
@@ -96,7 +96,25 @@ public class BoBActionDetailController extends AnchorPane implements Observer{
         
        
         BoBAction action = (BoBAction) arg;
-        if (action.getName() == null || action.getName().trim().isEmpty())
+        setTextFields(action);
+    }
+
+    private void removeAction(ActionEvent event)
+    {
+        try {
+            dc.removeAction(); 
+        } catch(IllegalArgumentException ex) {
+            setErrorDialog(ex);
+        }
+      
+    }
+         private void setErrorDialog(Exception ex) {
+             lblError.setVisible(true);
+             lblError.setText(ex.getMessage());
+    }
+
+    private void setTextFields(BoBAction action) {
+         if (action.getName() == null || action.getName().trim().isEmpty())
         {
             lblTitle.setText("Nieuwe actie");
                 btnSave.setDisable(false);
@@ -116,22 +134,6 @@ public class BoBActionDetailController extends AnchorPane implements Observer{
         txtActionName.setText(action.getName());              
         }
     }
-
-    private void removeAction(ActionEvent event)
-    {
-        try {
-            dc.removeAction(); 
-        } catch(IllegalArgumentException ex) {
-            setErrorDialog(ex);
-        }
-      
-    }
-         private void setErrorDialog(Exception ex) {
-             lblError.setVisible(true);
-             lblError.setText(ex.getMessage());
-    }
-
-  
     
     
     

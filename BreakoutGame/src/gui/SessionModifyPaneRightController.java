@@ -8,6 +8,8 @@ package gui;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
 import domain.BoBGroup;
@@ -28,19 +30,26 @@ import java.time.Month;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
+import javafx.beans.binding.Binding;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.geometry.NodeOrientation;
+import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.DateCell;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.util.StringConverter;
 
 /**
@@ -104,7 +113,8 @@ public class SessionModifyPaneRightController extends AnchorPane implements Obse
     @FXML
     private JFXButton btnGeneratePaths;
 
-    public SessionModifyPaneRightController(SessionController dc) {
+    private JFXDialog dialog;
+    public SessionModifyPaneRightController(SessionController dc, JFXDialog dialog) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("SessionModifyPaneRight.fxml"));
         loader.setRoot(this);
         loader.setController(this);
@@ -114,6 +124,7 @@ public class SessionModifyPaneRightController extends AnchorPane implements Obse
             System.out.printf(ex.getMessage());
         }
         this.dc = dc;
+        this.dialog = dialog;
         clmBob.setCellValueFactory(e -> e.getValue().nameProperty());
         clmGoal.setCellValueFactory(e -> e.getValue().code());
         tblBOBS.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection)
@@ -169,6 +180,14 @@ public class SessionModifyPaneRightController extends AnchorPane implements Obse
             }
            
         });
+        
+        TBTile.setOnAction(e -> {
+            if(TBTile.isSelected())
+                TBFeedback.setSelected(true);
+        });
+        
+       // btnGenerateGroup.disableProperty().bind(TBTile.selectedProperty().or((TBTile.selectedProperty().not().and(Bindings.isEmpty(txfGroupAmount.textProperty())))));
+        btnGeneratePaths.disableProperty().bind(Bindings.size(tblGroups.getItems()).isEqualTo(0));
     }
 
     @Override
@@ -188,6 +207,7 @@ public class SessionModifyPaneRightController extends AnchorPane implements Obse
             tblBOBS.setItems(bobs);
             tblBOBS.getSelectionModel().select(session.getBox());
             
+            cmbClass.getSelectionModel().select(session.getClassRoom());
         }
 
         if (obj instanceof Box) {
@@ -206,14 +226,24 @@ public class SessionModifyPaneRightController extends AnchorPane implements Obse
     @FXML
     private void generateGroups() {
         int amount;
-        
-        if (TBTile.isSelected()) {
+        try {
+             if (TBTile.isSelected()) {
             amount =cmbClass.getSelectionModel().getSelectedItem().getStudents().size();
         } else {
             amount = Integer.valueOf(txfGroupAmount.getText());
         }
+          dc.generateGroups(amount, TBGroups.isSelected(), cmbClass.getSelectionModel().getSelectedItem());     
+        
+        } catch (NumberFormatException e) {
+            showError(new IllegalArgumentException("Gelieve een getal bij het aantal groepen in te geven"));
+        } catch (IllegalArgumentException e) {
+            showError(e);
+        } catch (Exception e) {
+            showError(new IllegalArgumentException("Onbekende fout"));
+        }
+      
 
-        dc.generateGroups(amount, TBGroups.isSelected(), cmbClass.getSelectionModel().getSelectedItem());
+      
     }
 
     private void generatePaths() {
@@ -223,21 +253,24 @@ public class SessionModifyPaneRightController extends AnchorPane implements Obse
     @FXML
     private void btnStudentOnAction(ActionEvent event) {
         dc.addStudentToTempGroup(tblGrouplessStudents.getSelectionModel().getSelectedItem());
+        dc.applyGrouplessStudentFilter();
     }
 
     @FXML
     private void btnOpslaanOnAction(ActionEvent event) {
         dc.saveSession(txtDescription.getText(), txtName.getText(), DPDate.getValue(), TBTile.isSelected(), TBFeedback.isSelected(), cmbClass.getSelectionModel().getSelectedItem());
+        dc.setManagerMode(Session.class, PersistMode.UPDATE);
     }
 
     @FXML
     private void btnDeleteStudentOnAction(ActionEvent event) {
         dc.removeStudentFromTempGroup((Student)dc.getSelectedItem(Student.class));
+          dc.applyGrouplessStudentFilter();
     }
 
     @FXML
     private void btnGeneratePathsOnAction(ActionEvent event) {
-        dc.generatePaths();
+        dc.generatePaths(TBTile.isSelected());
     }
 
     @FXML
@@ -259,5 +292,25 @@ public class SessionModifyPaneRightController extends AnchorPane implements Obse
         }*/
         
         return false;
+    }
+    
+     private void showComponentDialog(Parent pane) {
+            JFXDialogLayout layout = new JFXDialogLayout();
+           layout.setAlignment(Pos.BOTTOM_RIGHT);
+          layout.setPadding(Insets.EMPTY);
+            layout.setBody(pane);
+            JFXButton okButton = new JFXButton("Cancel");
+            okButton.setStyle("-fx-background-color: #112959;");
+            okButton.setOnMouseClicked(e -> dialog.close());
+            layout.setActions(okButton);
+          
+            dialog.setContent(layout);
+            dialog.show();
+    }
+    
+    private void showError(Exception e) {
+          VBox erros = new VBox();
+            erros.getChildren().addAll(new Label(e.getMessage(), new JFXButton("Ok")));
+            showComponentDialog(erros);
     }
 }

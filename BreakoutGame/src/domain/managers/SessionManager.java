@@ -12,6 +12,7 @@ import domain.Goal;
 import domain.GroupOperation;
 import domain.Session;
 import domain.Path;
+import domain.PersistMode;
 import domain.SessionStatus;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -47,7 +48,7 @@ public class SessionManager extends Manager<Session>
         tempGroups.setAll(item.getGroups());
     }
     
-     public static void generatePaths(List<BoBGroup> groups, Box box) {
+     public static void generatePaths(List<BoBGroup> groups, Box box, boolean remoteStudying) {
          groups.stream().forEach(e -> {
             List<Assignment> assignments = new ArrayList<>();
             List<Exercise> shuffledExercises = new ArrayList<>(box.getExercises());
@@ -58,11 +59,11 @@ public class SessionManager extends Manager<Session>
                 if(e2 < shuffledExercises.size())
                      assignments.add(new Assignment(e2, shuffledExercises.get(e2-1),
                              shuffledGroupOperations.get(0), 
-                             new Random().nextInt(1000) + 1));
+                             new Random().nextInt(1000) + 1, !remoteStudying ? box.getActions().get(e2-1) : null));
                 else
-                     assignments.add(new Assignment(e2, shuffledExercises.get(e2-1),shuffledGroupOperations.get(0), 0));  
+                     assignments.add(new Assignment(e2, shuffledExercises.get(e2-1),shuffledGroupOperations.get(0), 0, !remoteStudying ? box.getActions().get(e2-1) : null));  
             });
-            Path path = new Path(assignments, box.getActions());
+            Path path = new Path(assignments);
             e.setPath(path);
         });
      }
@@ -81,18 +82,19 @@ public class SessionManager extends Manager<Session>
          
       @Override
     public void save(Session object)
-    {
+    {  
         getPersistenceController().setPersistMode(getManagerMode());
        ((Session) getSelected() ).copy(object);
         super.save(object); //To change body of generated methods, choose Tools | Templates.
+        
     }
      public static void generatePaths(Session session) {
         List<BoBGroup> groups = session.getGroups();
         Box box = session.getBox();
-        SessionManager.generatePaths(groups, box);
+        SessionManager.generatePaths(groups, box, session.isTile());
         
     }
-     public ObservableList getTempGroups() {
+     public ObservableList<BoBGroup> getTempGroups() {
          return tempGroups;
      }
      

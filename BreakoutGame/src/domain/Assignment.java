@@ -26,6 +26,7 @@ public class Assignment implements Serializable {
     private Exercise exercise;
     private GroupOperation groupOperation;
     private int accessCode;
+    private BoBAction action;
     @Transient
     private AnwserBehaviour anwserBehaviour;
     @Id
@@ -35,12 +36,13 @@ public class Assignment implements Serializable {
     public Assignment()
     {
     }
-    public Assignment(int referenceNr, Exercise exercise, GroupOperation groupOperation, int accessCode)
+    public Assignment(int referenceNr, Exercise exercise, GroupOperation groupOperation, int accessCode, BoBAction action)
     {
         this.referenceNr = referenceNr;
         this.groupOperation = groupOperation;
         this.exercise = exercise;
         this.accessCode = accessCode;
+        this.action = action;
         anwserBehaviour = AnwserBehaviourFactory.createAnwserBehaviour(groupOperation.getCategory());
     }
     

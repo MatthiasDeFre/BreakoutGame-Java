@@ -9,6 +9,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXTextField;
+import domain.BoBAction;
 import domain.Category;
 import domain.ExerciseDomainController;
 import domain.Goal;
@@ -61,7 +62,7 @@ public class ClassDetailController extends AnchorPane implements Observer{
         }
         this.dc = dc;
         this.dialog = dia;
-         IManageable category = dc.getSelectedItem(Category.class);
+         Category category = dc.getSelectedItem(Category.class);
         if(category != null)
             update(null, category);
     }
@@ -105,16 +106,20 @@ public class ClassDetailController extends AnchorPane implements Observer{
     public void update(Observable o, Object arg)
     {
         Category cat = (Category) arg;
-        txtClassName.setText(cat.getName());
-         if(cat.getName()== null || cat.getName().trim().isEmpty()) {
-              lblTitle.setText("Nieuw vak");
-        } else
-            lblTitle.setText("Vak details van: " + cat.getName());
+        setTextFields(cat);
         }
     
     private void setErrorDialog(Exception ex) {
             lblError.setVisible(true);
         lblError.setText(ex.getMessage());
+    }
+    
+    private void setTextFields(Category cat) {
+         txtClassName.setText(cat.getName());
+         if(cat.getName()== null || cat.getName().trim().isEmpty()) {
+              lblTitle.setText("Nieuw vak");
+        } else
+            lblTitle.setText("Vak details van: " + cat.getName());
     }
     
 }

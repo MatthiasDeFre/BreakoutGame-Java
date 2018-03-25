@@ -5,7 +5,9 @@
  */
 package persistence.repositories;
 
+import domain.Box;
 import domain.Session;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -22,4 +24,11 @@ public class SessionRepository extends GenericRepository<Session>{
         super(type);
     }
     
+    public void removeSession(Session session) {
+        getEntityManager().getTransaction().begin();
+            TypedQuery<Session> query =  getEntityManager().createNamedQuery("Remove", Session.class);
+        query.setParameter("id", session.getId());
+        query.executeUpdate();
+        getEntityManager().getTransaction().commit();
+    }
 }

@@ -26,6 +26,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -37,6 +38,7 @@ import util.LocalDateAttributeConverter;
  *
  * @author geers
  */
+@NamedQuery(name = "Remove", query = "DELETE FROM Session S WHERE s.id = :id")
 @Entity
 @Table(name = "BoBSession")
 public class Session implements IManageable, Serializable {
@@ -89,7 +91,7 @@ public class Session implements IManageable, Serializable {
         setDescription(session.getDescription());
         setActivationDate(session.getActivationDate());
            setTile(session.isTile());
-        setFeedback(session.isTile());
+        setFeedback(session.isFeedback());
      
         setSessionStatus(session.getSessionStatus());
         setClassRoom(session.getClassRoom());
@@ -150,7 +152,7 @@ public class Session implements IManageable, Serializable {
     }
     
     
-@OneToMany(cascade = CascadeType.ALL)
+@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     public List<BoBGroup> getGroups()
     {
         return groups;

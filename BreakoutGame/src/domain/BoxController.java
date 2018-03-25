@@ -111,9 +111,9 @@ public class BoxController implements ExerciseFilter{
             applyFilters();
     }
     
-      public IManageable getSelectedItem(Class<? extends IManageable> className)
+      public <T extends IManageable> T getSelectedItem(Class<T> className)
     {
-        return (IManageable) managers.get(className.getSimpleName()).getSelected();
+        return (T) managers.get(className.getSimpleName()).getSelected();
     }
     
  /*   public void addObserver(String className, Observer object) {

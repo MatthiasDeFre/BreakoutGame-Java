@@ -107,4 +107,9 @@ public class PersistenceController {
     public StudentClass getStudentClass(String name) {
         return ((StudentClassRepository) repositories.get(StudentClass.class.getSimpleName())).getByName(name);
     }
+    
+    public void removeOldSessionGroupAndPaths(Session session) {
+      
+       ((SessionRepository) repositories.get(Session.class.getSimpleName())).removeSession(session);
+    }
 }

@@ -6,10 +6,13 @@
 package domain.managers;
 
 import domain.Session;
+import domain.Student;
 import domain.StudentClass;
+import java.util.List;
 import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import persistence.PersistenceController;
 
 /**
@@ -18,7 +21,8 @@ import persistence.PersistenceController;
  */
 public class StudentClassManager extends Manager<StudentClass>{
     
-    private ObservableList students;
+    private ObservableList<Student> students;
+    private FilteredList<Student> studentsFiltered;
     
     protected StudentClassManager()
     {
@@ -29,6 +33,7 @@ public class StudentClassManager extends Manager<StudentClass>{
         super(StudentClass.class, persistence);
         setItems(FXCollections.observableArrayList(persistence.getAllOfType(StudentClass.class)));
         students = FXCollections.observableArrayList();
+        studentsFiltered = new FilteredList(students);
        
     }
     public StudentClass findByName(String name) {
@@ -41,10 +46,12 @@ public class StudentClassManager extends Manager<StudentClass>{
         students.setAll(item.getStudents());
     }
     
-    public ObservableList getStudents() {
-        return students;
+    public FilteredList getStudents() {
+        return studentsFiltered;
     }
-
+    public void applyGrouplessFilter(List<Student> students) {
+        studentsFiltered.setPredicate(e -> !students.contains(e));
+    }
     @Override
     public void save(StudentClass object)
     {

@@ -75,9 +75,9 @@ public class ExerciseDomainController implements ExerciseFilter{
         managers.get(item.getClass().getSimpleName()).setSelected(item);
     }
     
-      public IManageable getSelectedItem(Class<? extends IManageable> className)
+    public <T extends IManageable> T getSelectedItem(Class<T> className)
     {
-        return (IManageable) managers.get(className.getSimpleName()).getSelected();
+        return (T) managers.get(className.getSimpleName()).getSelected();
     }
     
     //  public void 

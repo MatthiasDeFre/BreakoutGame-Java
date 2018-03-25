@@ -85,7 +85,7 @@ public class BoxManager extends Manager<Box>
       //  this.exerciseTemp = exerciseTemp;
           tempLists.get(Exercise.class.getSimpleName()).setAll(exerciseTemp);
     }
-    public ObservableList getGoals() {
+    public ObservableList<Goal> getGoals() {
         return goals;
     }
     private void resetTempCollections() {     
