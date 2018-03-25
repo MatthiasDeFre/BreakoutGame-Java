@@ -84,7 +84,7 @@
                   </TableView>
                   <VBox layoutX="597.0" layoutY="431.0" prefHeight="169.0" prefWidth="146.0" AnchorPane.bottomAnchor="18.600000000000023" AnchorPane.leftAnchor="597.0" AnchorPane.rightAnchor="90.60000000000002">
                      <children>
-                        <Button fx:id="btnAdd" disable="true" mnemonicParsing="false" onAction="#btnAddStudent" styleClass="button-raised" text="Add student">
+                        <Button fx:id="btnAdd" mnemonicParsing="false" onAction="#btnAddStudent" styleClass="button-raised" text="Add student">
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>
@@ -103,7 +103,7 @@
                   </VBox>
                   <VBox layoutX="240.0" layoutY="401.0" prefHeight="192.0" prefWidth="314.0" AnchorPane.bottomAnchor="18.0">
                      <children>
-                        <JFXTextField fx:id="txtFirstName" disable="true">
+                        <JFXTextField fx:id="txtFirstName">
                            <VBox.margin>
                               <Insets top="20.0" />
                            </VBox.margin>

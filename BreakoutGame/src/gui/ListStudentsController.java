@@ -20,8 +20,12 @@ import domain.StudentClass;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.Observable;
 import java.util.ResourceBundle;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
+import javafx.beans.binding.IntegerBinding;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleObjectProperty;
@@ -110,6 +114,8 @@ public class ListStudentsController extends StackPane {
                 + "-fx-background-position: center center; "
                 + "-fx-background-repeat: stretch;");
         this.dc = dc;
+        btnStudentsImport.disableProperty().bind(txtBestandsNaam.textProperty().isEmpty());
+        
         listStudents = FXCollections.observableArrayList(dc.getListAllStudents());
         //listStudents = dc.getStudents();
         tblStudents.setItems(listStudents);
@@ -259,7 +265,6 @@ public class ListStudentsController extends StackPane {
         }
 
     }
-
 
     @FXML
     private void applyFilters(MouseEvent event) {
