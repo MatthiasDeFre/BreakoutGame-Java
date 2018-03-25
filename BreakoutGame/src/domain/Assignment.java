@@ -20,13 +20,13 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
  * @author Matthias
  */
 @Entity
-public class Assignment implements Serializable {
+public class Assignment implements Serializable, Comparable<Assignment>{
     
     private int referenceNr;
     private Exercise exercise;
     private GroupOperation groupOperation;
     private int accessCode;
-    private BoBAction action;
+    
     @Transient
     private AnwserBehaviour anwserBehaviour;
     @Id
@@ -36,13 +36,13 @@ public class Assignment implements Serializable {
     public Assignment()
     {
     }
-    public Assignment(int referenceNr, Exercise exercise, GroupOperation groupOperation, int accessCode, BoBAction action)
+    public Assignment(int referenceNr, Exercise exercise, GroupOperation groupOperation, int accessCode)
     {
         this.referenceNr = referenceNr;
         this.groupOperation = groupOperation;
         this.exercise = exercise;
         this.accessCode = accessCode;
-        this.action = action;
+     
         anwserBehaviour = AnwserBehaviourFactory.createAnwserBehaviour(groupOperation.getCategory());
     }
     
@@ -111,6 +111,12 @@ public class Assignment implements Serializable {
     public void setId(long id)
     {
         this.id = id;
+    }
+
+    @Override
+    public int compareTo(Assignment o)
+    {
+      return Integer.compare(this.getReferenceNr(), o.getReferenceNr());
     }
     
     

@@ -5,7 +5,9 @@
  */
 package persistence.repositories;
 
+import domain.Box;
 import domain.Exercise;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -33,5 +35,12 @@ public class ExerciseRepository extends GenericRepository<Exercise>{
     {
         super(Exercise.class);
     }
-   
+     public boolean exInBox(Exercise exercise) {
+        TypedQuery<Integer> query =  getEntityManager().createNamedQuery("ExInBox", Integer.class);
+     query.setParameter("id", exercise.getId());
+        if(query.getResultList().isEmpty())
+            return false;
+        return true;
+       
+    }
 }

@@ -3,22 +3,19 @@
 
 package util;
 
-import domain.Assignment;
-import domain.BoBAction;
 import domain.BoBGroup;
 import domain.Session;
-import domain.Student;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
 import java.util.stream.Collectors;
+import javafx.scene.Group;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import rst.pdfbox.layout.elements.ControlElement;
 import rst.pdfbox.layout.elements.Document;
 import rst.pdfbox.layout.elements.Paragraph;
-import rst.pdfbox.layout.text.BaseFont;
 
 
 public class PDFGenerator 
@@ -50,60 +47,47 @@ public class PDFGenerator
     
     public void createSessionDocument(Session session) throws IOException
     {
+        Session sesh = new Session(session);
         createDocument();
         generateIndexParagraph(session);
-        List<BoBGroup> groups =  session.getGroups();
-        for (BoBGroup group : groups)
+       
+        sesh.getGroups().forEach((group) ->
         {
-            System.out.println(group);
             try
             {
+                System.out.println("test");
                 this.generateDocumentForGroup(group);
             } catch (IOException ex)
             {
                 exception = ex.getMessage();
             }
-        }
+        });
         if(exception!=null)
         {
             throw new IOException(exception);
         }
-        saveDocument(session.getName()+".pdf");
+        saveDocument(sesh.getName()+".pdf");
     }
     
     private void generateIndexParagraph(Session session) throws IOException
     {
-        
         List<String> actionStrings = session.getBox().getActions().stream().map(a -> a.getName()).collect(Collectors.toList());
         List<String> groupnames = session.getGroups().stream().map(gr -> gr.getName()).collect(Collectors.toList());
         
         StringBuilder actionBuilder = new StringBuilder();
         actionBuilder.append("*Acties voor de sessie:*\n");
-        //Must use old java lambdas not working
-        for (BoBAction groupname :  session.getBox().getActions())
-        {
-              actionBuilder.append("-+").append(groupname.getName()).append("\n");
-        }
-      //  actionStrings.forEach(action -> actionBuilder.append("-+").append(action).append("\n"));
+        actionStrings.forEach(action -> actionBuilder.append("-+").append(action).append("\n"));
         actionBuilder.append("\n\n");
         
         StringBuilder groupNamesBuilder = new StringBuilder();
         groupNamesBuilder.append("*Groepen voor de sessie:*\n");
-        for (BoBGroup groupname : session.getGroups())
-        {
-            groupNamesBuilder.append("-+").append(groupname.getName()).append("\n");
-        }
-     //   groupnames.stream().forEach(grnm -> groupNamesBuilder.append("-+").append(grnm).append("\n"));
+        groupnames.stream().forEach(grnm -> groupNamesBuilder.append("-+").append(grnm).append("\n"));
         
         Paragraph indexParagraph = new Paragraph();
         
         try
         {
-            
-             // indexParagraph.addMarkup("*Sessie:*" + session.getName() + "\n\n", fontSize, BaseFont.Times);
-          //  indexParagraph.addMarkup(actionBuilder.toString(), fontSize, font, font, font, font);
-           // indexParagraph.addMarkup(groupNamesBuilder.toString(), fontSize, font, font, font, font);
-            indexParagraph.addMarkup("*Sessie:*" + session.getName() + " vindt plaats op " + session.getActivationDate() + "\n\n", fontSize, font, font, font, font);
+            indexParagraph.addMarkup("*Sessie:*" + session.getName() + "\n\n", fontSize, font, font, font, font);
             indexParagraph.addMarkup(actionBuilder.toString(), fontSize, font, font, font, font);
             indexParagraph.addMarkup(groupNamesBuilder.toString(), fontSize, font, font, font, font);
         } catch (IOException ex)
@@ -120,13 +104,9 @@ public class PDFGenerator
         List<String> students = group.getStudents().stream()
                 .map(student -> String.format("%s, %s", student.getLastName(),student.getFirstName()))
                 .collect(Collectors.toList());
+        
         StringBuilder memberBuilder = new StringBuilder();
-        for (Student student : group.getStudents())
-        {
-            memberBuilder.append("-+").append(String.format("%s %s", student.getLastName(), student.getFirstName())).append("\n");
-        }
-       
-       // students.forEach(student -> memberBuilder.append("-+").append(student).append("\n"));
+        students.forEach(student -> memberBuilder.append("-+").append(student).append("\n"));
         
         try{
             title.addMarkup("*Groep:*" + group.getName() + "\n\n", fontSize, font, font, font, font);
@@ -182,10 +162,9 @@ public class PDFGenerator
         Paragraph titleParagraph = new Paragraph();
         titleParagraph.addMarkup("*Pad:*\n\n", fontSize, font, font, font, font);
         doc.add(titleParagraph);
-        List<Assignment> assignments = group.getPath().getAssignments();
-        for (Assignment assignment : assignments)
-        {
-           System.out.println("test");
+        
+        group.getPath().getAssignments().stream().forEach(assignment -> {
+            System.out.println("test2");
             Paragraph assignmentParagraph = new Paragraph();
             StringBuilder assignmentBuilder = new StringBuilder();
             assignmentBuilder.append("Oefening ").append(assignment.getReferenceNr()).append(".").append("").append(assignment.getExercise().getName()).append("\n");
@@ -201,8 +180,8 @@ public class PDFGenerator
             catch(IOException ex)
             {
                 exception = "Het pad van groep " +group.getName() + "kona niet worden weggeschreven";
-            } 
-        }
+            }
+        });
         if(exception!=null)
         {
             throw new IOException(exception);

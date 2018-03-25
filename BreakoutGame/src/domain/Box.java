@@ -32,7 +32,9 @@ import javax.persistence.Transient;
  *
  * @author geers
  */
-@NamedQueries(@NamedQuery(name = "BoxExists", query = "SELECT b FROM Box b WHERE b.name = :name"))
+@NamedQueries({@NamedQuery(name = "BoxExists", query = "SELECT b FROM Box b WHERE b.name = :name"),
+ @NamedQuery(name = "BoxInSession",query = "SELECT DISTINCT s.box.id FROM Session s"),
+@NamedQuery(name = "ExInBox", query = "SELECT DISTINCT b.id FROM Session s JOIN S.box b join b.exercises ex WHERE :id  IN (SELECT ex2.id FROM b.exercises ex2) AND s.sessionStatus = domain.SessionStatus.ACTIVATED")})
 @Entity
 public class Box implements Serializable, IManageable {
 
@@ -117,7 +119,7 @@ public class Box implements Serializable, IManageable {
         this.name.set(name);
     }
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     public Set<Exercise> getExercises()
     {
         return exercises;
@@ -139,7 +141,7 @@ public class Box implements Serializable, IManageable {
         this.accessCodes = accessCodes;
     }*/
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     @OrderColumn
     public List<BoBAction> getActions()
     {
@@ -148,7 +150,7 @@ public class Box implements Serializable, IManageable {
 
     public void setActions(List<BoBAction> actions)
     {
-        this.actions = actions;
+        this.actions = new ArrayList<>(actions);
     }
     
     public void addAction(BoBAction action) {

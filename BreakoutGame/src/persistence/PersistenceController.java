@@ -95,10 +95,16 @@ public class PersistenceController {
        repository.delete(object);
     }
     
+     public boolean exInBox(Exercise exercise) {
+        return ((ExerciseRepository) repositories.get(Exercise.class.getSimpleName())).exInBox(exercise);
+    }
+    
     public boolean boxExists(String name) {
         return ((BoxRepository) repositories.get(Box.class.getSimpleName())).contains(name);
     }
-    
+    public boolean boxInSession(Box box) {
+        return ((SessionRepository) repositories.get(Session.class.getSimpleName())).boxInSession(box);
+    }
     public boolean StudentExists(StudentClass studentClass, String classnumber)
     {
         return ((StudentRepository) repositories.get(Student.class.getSimpleName())).contains(studentClass,classnumber);

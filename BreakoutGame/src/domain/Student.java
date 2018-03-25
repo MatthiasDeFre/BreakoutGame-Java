@@ -85,6 +85,10 @@ public class Student implements IManageable {
         
     }
     
+    public Student(String number) {
+        setClassNumber(number);
+    }
+    
     @ManyToOne()
     private StudentClass studentClass;
     

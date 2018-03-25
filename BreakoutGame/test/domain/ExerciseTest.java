@@ -39,16 +39,7 @@ public class ExerciseTest {
            Exercise ex = new Exercise("Test", "blabla", "5", "DOET IETS", new Category("DUTCH"));
            //Assert with all getters
     }
-    @Test
-    public void emptyOrNullFeedbackNoFeedback() {
-        Exercise ex = new Exercise("Test","blabla", "", "DOET IETS", new Category("DUTCH"));
-        Assert.assertFalse(ex.hasFeedback());
-        Exercise ex2 = new Exercise("Test","blabla", null, "DOET IETS", new Category("DUTCH")); 
-        Assert.assertFalse(ex2.hasFeedback());
-           Exercise ex3 = new Exercise("Test","blabla", "       ", "DOET IETS", new Category("DUTCH")); 
-        Assert.assertFalse(ex3.hasFeedback());
-        
-    }
+  
     @Test
     public void notEmptyFeedBackHasFeedback() {
         Exercise ex = new Exercise("Test","blabla", "dddd", "DOET IETS", new Category("DUTCH"));
@@ -94,6 +85,18 @@ public class ExerciseTest {
         new Exercise("","tekst","","",new Category("DUTCH"));
     }
     
+       @Test(expected=IllegalArgumentException.class)
+    public void emptyOrNullFeedbackNoFeedback() {
+        Exercise ex = new Exercise("Test","blabla", "  ", "DOET IETS", new Category("DUTCH"));
+      
+        
+    }
+      @Test(expected=IllegalArgumentException.class)
+    public void nullFeedbackNoFeedback() {
+        Exercise ex = new Exercise("Test","blabla", null, "DOET IETS", new Category("DUTCH"));
+      
+        
+    }
     // </editor-fold>
     
     

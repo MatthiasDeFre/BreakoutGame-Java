@@ -24,6 +24,13 @@ public class SessionRepository extends GenericRepository<Session>{
         super(type);
     }
     
+    public boolean boxInSession(Box box) {
+        TypedQuery<Long> query =  getEntityManager().createNamedQuery("BoxInSession", Long.class);
+        if(query.getResultList().isEmpty())
+            return false;
+        return query.getResultList().contains(box.getId());
+       
+    }
     public void removeSession(Session session) {
         getEntityManager().getTransaction().begin();
             TypedQuery<Session> query =  getEntityManager().createNamedQuery("Remove", Session.class);

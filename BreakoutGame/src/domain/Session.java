@@ -62,6 +62,8 @@ public class Session implements IManageable, Serializable {
 
     private SessionStatus sessionStatus;
     
+    
+    
     public Session()
     {
         activationDate = LocalDate.now();
@@ -70,14 +72,15 @@ public class Session implements IManageable, Serializable {
 
     public Session(Box box, List<BoBGroup> groups, String description, StudentClass classRoom, String name, LocalDate activationDate, boolean tile, boolean feedback)
     {
+           setTile(tile);
+        setFeedback(feedback);
+      
         setBox(box);
         setGroups(groups);
         setDescription(description);
         setClassRoom(classRoom);
         setName(name);
        setActivationDate(activationDate);
-         setTile(tile);
-        setFeedback(feedback);
       
         setSessionStatus(SessionStatus.SCHEDULED);
     
@@ -88,12 +91,12 @@ public class Session implements IManageable, Serializable {
     }
     
     public void copy(Session session) {
+        setTile(session.isTile());
+        setFeedback(session.isFeedback());
         setName(session.getName());
         setDescription(session.getDescription());
         setActivationDate(session.getActivationDate());
-           setTile(session.isTile());
-        setFeedback(session.isFeedback());
-     
+        
         setSessionStatus(session.getSessionStatus());
         setClassRoom(session.getClassRoom());
         setBox(session.getBox());
@@ -141,7 +144,7 @@ public class Session implements IManageable, Serializable {
         this.feedback = feedback;
     }
 
-@ManyToOne(fetch = FetchType.EAGER)
+@ManyToOne
     public Box getBox()
     {
         return box;
@@ -149,6 +152,8 @@ public class Session implements IManageable, Serializable {
 
     public void setBox(Box box)
     {
+        if(!tile && !box.isValidBox())
+            throw new IllegalArgumentException("Als er niet met afstandsonderwijs wordt gewerkt moet het aantal acties in een box gelijk zijn aan het aantal oefeningen; \n\nAantal oefeningen: " + box.getExercises().size() + "\nAantal acties: " + box.getActions().size());
         this.box = box;
     }
     
@@ -160,8 +165,8 @@ public class Session implements IManageable, Serializable {
     }
 
     public void setGroups(List<BoBGroup> groups)
-    {
-        this.groups = groups;
+    {  if(groups != null )
+        this.groups = new ArrayList<>(groups);
     }
 
     public String getDescription()

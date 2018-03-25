@@ -21,7 +21,7 @@ public class StudentTest {
     @Test
     public void correctConstructor()
     {
-        Student student= new Student("Jelle","Geers",new StudentClass("2c1"),"7");
+        Student student= new Student("Jelle","Geers",new StudentClass("2c1"),"");
     }
     
     @Test(expected=IllegalArgumentException.class)

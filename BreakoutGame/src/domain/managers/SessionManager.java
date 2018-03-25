@@ -29,7 +29,6 @@ import persistence.PersistenceController;
 public class SessionManager extends Manager<Session>
 {
     private ObservableList<BoBGroup> tempGroups;
-
     protected SessionManager()
     {
          this(new PersistenceController());
@@ -48,7 +47,7 @@ public class SessionManager extends Manager<Session>
         tempGroups.setAll(item.getGroups());
     }
     
-     public static void generatePaths(List<BoBGroup> groups, Box box, boolean remoteStudying) {
+     public static void generatePaths(List<BoBGroup> groups, Box box) {
          groups.stream().forEach(e -> {
             List<Assignment> assignments = new ArrayList<>();
             List<Exercise> shuffledExercises = new ArrayList<>(box.getExercises());
@@ -59,9 +58,9 @@ public class SessionManager extends Manager<Session>
                 if(e2 < shuffledExercises.size())
                      assignments.add(new Assignment(e2, shuffledExercises.get(e2-1),
                              shuffledGroupOperations.get(0), 
-                             new Random().nextInt(1000) + 1, !remoteStudying ? box.getActions().get(e2-1) : null));
+                             new Random().nextInt(1000) + 1));
                 else
-                     assignments.add(new Assignment(e2, shuffledExercises.get(e2-1),shuffledGroupOperations.get(0), 0, !remoteStudying ? box.getActions().get(e2-1) : null));  
+                     assignments.add(new Assignment(e2, shuffledExercises.get(e2-1),shuffledGroupOperations.get(0), 0));  
             });
             Path path = new Path(assignments);
             e.setPath(path);
@@ -91,7 +90,7 @@ public class SessionManager extends Manager<Session>
      public static void generatePaths(Session session) {
         List<BoBGroup> groups = session.getGroups();
         Box box = session.getBox();
-        SessionManager.generatePaths(groups, box, session.isTile());
+        SessionManager.generatePaths(groups, box);
         
     }
      public ObservableList<BoBGroup> getTempGroups() {

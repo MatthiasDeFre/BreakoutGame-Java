@@ -78,7 +78,10 @@ public class SessionController {
                     activationDate,
                     tile,
                     feedback));
-        } catch (Exception e)
+        } catch(IllegalArgumentException e) {
+            throw new IllegalArgumentException(e.getMessage());
+        }
+        catch (Exception e)
         {
             throw new IllegalArgumentException("De sessie met deze naam bestaat al");
         }
@@ -136,8 +139,8 @@ public class SessionController {
         } 
     }
 
-    public void generatePaths(boolean remoteStuding) {
-        SessionManager.generatePaths(sessionManager.getTempGroups(), boxManager.getSelected(), remoteStuding);
+    public void generatePaths() {
+        SessionManager.generatePaths(sessionManager.getTempGroups(), boxManager.getSelected());
     }
 
     public void setManagerMode(Class<? extends IManageable> className, PersistMode persistMode) {

@@ -95,6 +95,9 @@ public class ExerciseManager extends Manager<Exercise> {
     public void save(Exercise object)
     {
         getPersistenceController().setPersistMode(getManagerMode());
+        if(getManagerMode() == PersistMode.UPDATE)
+            if(getPersistenceController().exInBox(getSelected()))
+                throw new IllegalArgumentException("De oefening bevindt zich in een box die zich in een actieve sessie bevind hierdoor kan deze niet worden aangepast");
         ((Exercise) getSelected()).copy(object);
         System.out.println(((Exercise) getSelected()).getId());
         super.save(object);

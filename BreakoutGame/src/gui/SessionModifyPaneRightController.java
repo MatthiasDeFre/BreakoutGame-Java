@@ -191,6 +191,10 @@ public class SessionModifyPaneRightController extends AnchorPane implements Obse
         
        // btnGenerateGroup.disableProperty().bind(TBTile.selectedProperty().or((TBTile.selectedProperty().not().and(Bindings.isEmpty(txfGroupAmount.textProperty())))));
         btnGeneratePaths.disableProperty().bind(Bindings.size(tblGroups.getItems()).isEqualTo(0));
+        TBTile.setOnAction(e -> {
+            if(TBTile.isSelected())
+                TBGroups.setSelected(false);
+        });
     }
 
     @Override
@@ -268,9 +272,9 @@ public class SessionModifyPaneRightController extends AnchorPane implements Obse
            dc.setManagerMode(Session.class, PersistMode.UPDATE);
             PDFGenerator gen = new PDFGenerator();
             gen.createSessionDocument(dc.getSelectedItem(Session.class));
-        } catch (Exception ex)
+        } catch (IllegalArgumentException | IOException ex)
         {
-            showError(ex);
+           showError(ex);
         }
     }
 
@@ -282,7 +286,7 @@ public class SessionModifyPaneRightController extends AnchorPane implements Obse
 
     @FXML
     private void btnGeneratePathsOnAction(ActionEvent event) {
-        dc.generatePaths(TBTile.isSelected());
+        dc.generatePaths();
     }
 
     @FXML

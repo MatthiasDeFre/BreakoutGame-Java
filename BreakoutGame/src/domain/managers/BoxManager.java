@@ -103,6 +103,9 @@ public class BoxManager extends Manager<Box>
     @Override
     public void save(Box object)
     {   
+        if(getManagerMode() == PersistMode.UPDATE)
+            if(getPersistenceController().boxInSession(getSelected()))
+                throw new IllegalArgumentException("Box kan niet gewijzigd worden omdat deze zich in een sessie bevind");
         getPersistenceController().setPersistMode(getManagerMode());
         ((Box) getSelected() ).copy(object);
         super.save(object);

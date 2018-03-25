@@ -6,6 +6,9 @@
 package domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -24,12 +27,9 @@ import javax.persistence.OrderColumn;
 @Entity(name = "SessionPath")
 public class Path implements Serializable {
    
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true )
     private List<Assignment> assignments;
   
     
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     public Path()
@@ -38,10 +38,11 @@ public class Path implements Serializable {
 
     public Path(List<Assignment> assignments)
     {
-        this.assignments = assignments;
+        if(assignments != null)
+        this.assignments = new ArrayList<>(assignments);
     }
 
-    private int counter;
+   
     /*public String getToStringTest() {
         StringBuilder path = new StringBuilder();
         assignments.forEach(e -> {
@@ -51,6 +52,8 @@ public class Path implements Serializable {
         return path.toString();
     }*/
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.TABLE)
     public long getId()
     {
         return id;
@@ -60,9 +63,18 @@ public class Path implements Serializable {
     {
         this.id = id;
     }
-
+    
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true )
     public List<Assignment> getAssignments()
     {
         return this.assignments;
     }
+
+    public void setAssignments(List<Assignment> assignments)
+    {
+     
+        Collections.sort(assignments);
+        this.assignments = new ArrayList<>(assignments);
+    }
+    
 }

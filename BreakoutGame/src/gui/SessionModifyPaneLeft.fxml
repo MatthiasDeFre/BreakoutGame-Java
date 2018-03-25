@@ -19,7 +19,7 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <JFXButton fx:id="btnOpslaan" layoutX="71.0" layoutY="354.0" onAction="#btnOpslaanOnAction" text="Opslaan" AnchorPane.bottomAnchor="21.0" />
+      <JFXButton fx:id="btnOpslaan" layoutX="71.0" layoutY="354.0" onAction="#btnOpslaanOnAction" text="Nieuw" AnchorPane.bottomAnchor="21.0" />
       <JFXButton fx:id="btnVerwijder" layoutX="313.0" layoutY="354.0" onAction="#btnVerwijderOnAction" text="Verwijder" AnchorPane.bottomAnchor="21.0" />
    </children>
 </fx:root>

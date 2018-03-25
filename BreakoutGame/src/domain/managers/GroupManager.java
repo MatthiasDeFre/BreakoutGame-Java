@@ -55,6 +55,8 @@ public class GroupManager extends Manager<BoBGroup>
     public static List<BoBGroup> generateRandomGroups(StudentClass studentClass, int amount) {
       
         //Group amount validation
+        if(amount <= 0)
+            throw new IllegalArgumentException("Het aantal te maken groepen mag niet 0 of negatief zijn");
         if(amount > studentClass.getStudents().size())
            throw new IllegalArgumentException("Het aantal te maken groepen mag niet groter zijn dan het aantal leerlingen");
        

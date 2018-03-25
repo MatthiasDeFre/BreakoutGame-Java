@@ -156,7 +156,7 @@ public class BoxController implements ExerciseFilter{
               boxManager.save(box);
         } catch (IllegalArgumentException e)
         {
-            throw new IllegalArgumentException("Je hebt 1 of meerdere velden leeg gelaten");
+            throw new IllegalArgumentException(e.getMessage());
         } catch (Exception ex) {
             throw new IllegalArgumentException("Box met deze naam bestaat al");
         }

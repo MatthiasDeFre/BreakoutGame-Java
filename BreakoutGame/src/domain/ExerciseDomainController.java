@@ -113,7 +113,7 @@ public class ExerciseDomainController implements ExerciseFilter{
         try {
         exerciseManager.save(new Exercise(name, answer, feedback, assignment, exerciseManager.getCategory(categoryId), exerciseManager.getGroupOperationsTemp(), exerciseManager.getGoalsTemp(), time));
         } catch(IllegalArgumentException ex) {
-            throw new IllegalArgumentException("Een of meerdere velden zijn leeg of de tijd is negatief ingevuld");
+            throw new IllegalArgumentException(ex.getMessage());
         } catch(Exception ex) {
             throw new IllegalArgumentException("Deze bestaat al");
         } 

@@ -101,7 +101,7 @@ public class BoBGroup implements IManageable, Serializable {
 
     public void setStudents(List<Student> students)
     {
-        this.students = students;
+        this.students = new ArrayList<>(students);
     }
     
     
