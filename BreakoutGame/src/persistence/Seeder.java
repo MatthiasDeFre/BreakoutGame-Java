@@ -55,9 +55,9 @@ public class Seeder {
         Exercise ex1 = new Exercise("RANDOM NAME", "10",  "test", "Hoeveel is 5 + 5?", math, Arrays.asList(goArray));
         Exercise ex2 = new Exercise("ANOTHER RANDOM NAME", "2003", "Zoek via wikipedia naar het correcte antwoord.", "In welk jaar is het boek De Davinci Code uitgegeven", dutch, (Arrays.asList(goArray)).subList(0, 3), goals, 60);
         StudentClass studentClass=new StudentClass("2c2");
-        Student student=new Student("Jelle","Geers",studentClass,"07");
+        //Student student=new Student("Jelle","Geers",studentClass,"07");
         Set<Exercise> exercises = new HashSet<>();
-        studentClass.addStudent(student);
+        //studentClass.addStudent(student);
         exercises.add(ex2);
         exercises.add(ex1);
         AccessCode a1 = new AccessCode(52);
@@ -129,7 +129,7 @@ public class Seeder {
         
         //Seeding Student & class
         em.persist(studentClass);
-        em.persist(student);
+        //em.persist(student);
         
         em.persist(session);
         em.persist(session2);

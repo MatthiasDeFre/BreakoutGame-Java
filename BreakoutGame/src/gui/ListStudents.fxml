@@ -1,12 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
@@ -22,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="657.0" prefWidth="834.0" type="StackPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="657.0" prefWidth="834.0" type="StackPane" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox>
          <children>
@@ -91,7 +84,7 @@
                   </TableView>
                   <VBox layoutX="597.0" layoutY="431.0" prefHeight="169.0" prefWidth="146.0" AnchorPane.bottomAnchor="18.600000000000023" AnchorPane.leftAnchor="597.0" AnchorPane.rightAnchor="90.60000000000002">
                      <children>
-                        <Button fx:id="btnAdd" mnemonicParsing="false" onAction="#btnAddStudent" styleClass="button-raised" text="Add student">
+                        <Button fx:id="btnAdd" disable="true" mnemonicParsing="false" onAction="#btnAddStudent" styleClass="button-raised" text="Add student">
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>
@@ -110,7 +103,7 @@
                   </VBox>
                   <VBox layoutX="240.0" layoutY="401.0" prefHeight="192.0" prefWidth="314.0" AnchorPane.bottomAnchor="18.0">
                      <children>
-                        <JFXTextField fx:id="txtFirstName">
+                        <JFXTextField fx:id="txtFirstName" disable="true">
                            <VBox.margin>
                               <Insets top="20.0" />
                            </VBox.margin>

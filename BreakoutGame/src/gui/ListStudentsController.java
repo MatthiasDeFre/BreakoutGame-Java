@@ -56,7 +56,6 @@ import javafx.stage.FileChooser;
 public class ListStudentsController extends StackPane {
 
     private JFXDialog dialog;
-    private JFXDialogLayout dialogContent;
     private ListStudentController dc;
     String bestandsNaam;
     @FXML
@@ -70,8 +69,6 @@ public class ListStudentsController extends StackPane {
     private Button btnAdd;
     @FXML
     private Button btnRemove;
-    @FXML
-    private Button btnModify;
     private Button btnSave;
     @FXML
     private JFXTextField txtFirstName;
@@ -95,6 +92,8 @@ public class ListStudentsController extends StackPane {
     private AnchorPane anchorPane;
     @FXML
     private HBox hBoxNavBar;
+    @FXML
+    private Button btnModify;
 
     public ListStudentsController(ListStudentController dc) {
         this.dialog = new JFXDialog();
@@ -195,12 +194,6 @@ public class ListStudentsController extends StackPane {
 //        dc.deleteStudent(student);
     }
 
-    @FXML
-    private void btnModifyStudent(ActionEvent event) {
-//        dc.setManagerMode(PersistMode.UPDATE);
-//        Student student= new Student(txtVoornaam.getText(),txtAchternaam.getText());
-
-    }
 
     private void setStudentToDC() {
         dc.setManagerMode(PersistMode.UPDATE);
@@ -220,9 +213,27 @@ public class ListStudentsController extends StackPane {
 
     @FXML
     private void btnStudentsImportExcel(ActionEvent event) {
-        dc.ImportStudentsExcel(bestandsNaam);
+        try{
+           dc.ImportStudentsExcel(bestandsNaam);
         refreshTableView();
+        btnStudentsImport.disableProperty();
+        this.txtBestandsNaam.setText("");
 //        btnStudentsImport.setDisable(true);
+        }catch(Exception ex)
+        {
+            JFXDialogLayout layout = new JFXDialogLayout();
+                layout.setBody(new Label("U wou student(en) toevoegen die al werden toegevoegd aan de lijst"));
+                JFXButton okButton = new JFXButton("OK");
+                okButton.setPadding(new Insets(5, 10, 5, 10));
+                    okButton.setStyle("-fx-background-color: #112959;");
+                okButton.setOnMouseClicked(e2 -> dialog.close());
+                layout.setActions(okButton);
+                dialog.setDialogContainer(this);
+                dialog.setContent(layout);
+                dialog.show();
+                this.txtBestandsNaam.setText("");
+        }
+        
     }
 
     public void refreshTableView() {
@@ -248,6 +259,7 @@ public class ListStudentsController extends StackPane {
         }
 
     }
+
 
     @FXML
     private void applyFilters(MouseEvent event) {
@@ -275,6 +287,10 @@ public class ListStudentsController extends StackPane {
     private void goToStudent(MouseEvent event) {
         SceneController4.createScene(SceneName.STUDENTSSCREEN);
         SceneController4.switchScene(SceneName.STUDENTSSCREEN);
+    }
+
+    @FXML
+    private void btnModifyStudent(ActionEvent event) {
     }
 
 }
