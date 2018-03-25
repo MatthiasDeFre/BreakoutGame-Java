@@ -73,7 +73,6 @@ public class ListStudentsController extends StackPane {
     private Button btnAdd;
     @FXML
     private Button btnRemove;
-    private Button btnSave;
     @FXML
     private JFXTextField txtFirstName;
     @FXML
@@ -96,10 +95,9 @@ public class ListStudentsController extends StackPane {
     private AnchorPane anchorPane;
     @FXML
     private HBox hBoxNavBar;
-    @FXML
-    private Button btnModify;
 
     public ListStudentsController(ListStudentController dc) {
+
         this.dialog = new JFXDialog();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ListStudents.fxml"));
         loader.setRoot(this);
@@ -115,10 +113,11 @@ public class ListStudentsController extends StackPane {
                 + "-fx-background-repeat: stretch;");
         this.dc = dc;
         btnStudentsImport.disableProperty().bind(txtBestandsNaam.textProperty().isEmpty());
-        
         listStudents = FXCollections.observableArrayList(dc.getListAllStudents());
         //listStudents = dc.getStudents();
         tblStudents.setItems(listStudents);
+        binders();
+
         clmFirstName.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getFirstName()));
         clmLastName.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getLastName()));
         clmClassroom.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getStudentClass().getStudentClassName()));
@@ -129,7 +128,6 @@ public class ListStudentsController extends StackPane {
                 setStudentToDC();
             }
         });
-
     }
 
     @FXML
@@ -137,6 +135,20 @@ public class ListStudentsController extends StackPane {
         Student student;
         try {
             dc.setManagerMode(PersistMode.NEW);
+             try {
+                int x = Integer.parseInt(txtClassnumber.getText());
+            } catch (Exception e) {
+                JFXDialogLayout layout = new JFXDialogLayout();
+            layout.setBody(new Label("Het klasnummer moet integer zijn"));
+            JFXButton okButton = new JFXButton("OK");
+            okButton.setPadding(new Insets(5, 10, 5, 10));
+            okButton.setStyle("-fx-background-color: #112959;");
+            okButton.setOnMouseClicked(e2 -> dialog.close());
+            layout.setActions(okButton);
+            dialog.setDialogContainer(this);
+            dialog.setContent(layout);
+            dialog.show();
+            }
             student = new Student(txtFirstName.getText(), txtLastName.getText(), new StudentClass(txtClassroom.getText()), txtClassnumber.getText());
             dc.createStudent(student);
             refreshTableView();
@@ -146,16 +158,17 @@ public class ListStudentsController extends StackPane {
             txtClassroom.setText("");
         } catch (Exception ex) {
             JFXDialogLayout layout = new JFXDialogLayout();
-                layout.setBody(new Label("Gelieve eerst alle velden in te vullen van de student"));
-                JFXButton okButton = new JFXButton("OK");
-                okButton.setPadding(new Insets(5, 10, 5, 10));
-                    okButton.setStyle("-fx-background-color: #112959;");
-                okButton.setOnMouseClicked(e2 -> dialog.close());
-                layout.setActions(okButton);
-                dialog.setDialogContainer(this);
-                dialog.setContent(layout);
-                dialog.show();
+            layout.setBody(new Label("Gelieve eerst alle velden 'correct' in te vullen van de student"));
+            JFXButton okButton = new JFXButton("OK");
+            okButton.setPadding(new Insets(5, 10, 5, 10));
+            okButton.setStyle("-fx-background-color: #112959;");
+            okButton.setOnMouseClicked(e2 -> dialog.close());
+            layout.setActions(okButton);
+            dialog.setDialogContainer(this);
+            dialog.setContent(layout);
+            dialog.show();
         }
+        binders();
 
 //        dc.setStudent(student);
 //        listStudents.add(student);
@@ -174,18 +187,19 @@ public class ListStudentsController extends StackPane {
             tblStudents.getSelectionModel().getSelectedIndex();
             refreshTableView();
         } catch (IllegalArgumentException ex) {
-                JFXDialogLayout layout = new JFXDialogLayout();
-                layout.setBody(new Label("Gelieve eerste een student te selecteren welke je wilt verwijderen"));
-                JFXButton okButton = new JFXButton("OK");
-                okButton.setPadding(new Insets(5, 10, 5, 10));
-                    okButton.setStyle("-fx-background-color: #112959;");
-                okButton.setOnMouseClicked(e2 -> dialog.close());
-                layout.setActions(okButton);
-                dialog.setDialogContainer(this);
-                dialog.setContent(layout);
-                dialog.show();
-              
+            JFXDialogLayout layout = new JFXDialogLayout();
+            layout.setBody(new Label("Gelieve eerste een student te selecteren welke je wilt verwijderen"));
+            JFXButton okButton = new JFXButton("OK");
+            okButton.setPadding(new Insets(5, 10, 5, 10));
+            okButton.setStyle("-fx-background-color: #112959;");
+            okButton.setOnMouseClicked(e2 -> dialog.close());
+            layout.setActions(okButton);
+            dialog.setDialogContainer(this);
+            dialog.setContent(layout);
+            dialog.show();
+
         }
+        binders();
 
         /*      Student student=new Student(tblStudents.getSelectionModel().getSelectedItem().getFirstName(),
                     tblStudents.getSelectionModel().getSelectedItem().getLastName(),
@@ -199,7 +213,6 @@ public class ListStudentsController extends StackPane {
 //        listStudents.remove(student);
 //        dc.deleteStudent(student);
     }
-
 
     private void setStudentToDC() {
         dc.setManagerMode(PersistMode.UPDATE);
@@ -219,32 +232,41 @@ public class ListStudentsController extends StackPane {
 
     @FXML
     private void btnStudentsImportExcel(ActionEvent event) {
-        try{
-           dc.ImportStudentsExcel(bestandsNaam);
-        refreshTableView();
-        btnStudentsImport.disableProperty();
-        this.txtBestandsNaam.setText("");
+        try {
+            dc.ImportStudentsExcel(bestandsNaam);
+            refreshTableView();
+            btnStudentsImport.disableProperty();
+            this.txtBestandsNaam.setText("");
 //        btnStudentsImport.setDisable(true);
-        }catch(Exception ex)
-        {
+        } catch (Exception ex) {
             JFXDialogLayout layout = new JFXDialogLayout();
-                layout.setBody(new Label("U wou student(en) toevoegen die al werden toegevoegd aan de lijst"));
-                JFXButton okButton = new JFXButton("OK");
-                okButton.setPadding(new Insets(5, 10, 5, 10));
-                    okButton.setStyle("-fx-background-color: #112959;");
-                okButton.setOnMouseClicked(e2 -> dialog.close());
-                layout.setActions(okButton);
-                dialog.setDialogContainer(this);
-                dialog.setContent(layout);
-                dialog.show();
-                this.txtBestandsNaam.setText("");
+            layout.setBody(new Label("U wou student(en) toevoegen die al werden toegevoegd aan de lijst"));
+            JFXButton okButton = new JFXButton("OK");
+            okButton.setPadding(new Insets(5, 10, 5, 10));
+            okButton.setStyle("-fx-background-color: #112959;");
+            okButton.setOnMouseClicked(e2 -> dialog.close());
+            layout.setActions(okButton);
+            dialog.setDialogContainer(this);
+            dialog.setContent(layout);
+            dialog.show();
+            this.txtBestandsNaam.setText("");
         }
-        
+        binders();
+
     }
 
     public void refreshTableView() {
         listStudents = FXCollections.observableArrayList(dc.getListAllStudents());
         tblStudents.setItems(listStudents);
+    }
+
+    private void binders() {
+        btnAdd.disableProperty().bind(Bindings.size(tblStudents.getItems()).isEqualTo(0));
+        btnRemove.disableProperty().bind(Bindings.size(tblStudents.getItems()).isEqualTo(0));
+        txtFirstName.disableProperty().bind(Bindings.size(tblStudents.getItems()).isEqualTo(0));
+        txtLastName.disableProperty().bind(Bindings.size(tblStudents.getItems()).isEqualTo(0));
+        txtClassnumber.disableProperty().bind(Bindings.size(tblStudents.getItems()).isEqualTo(0));
+        txtClassroom.disableProperty().bind(Bindings.size(tblStudents.getItems()).isEqualTo(0));
     }
 
     @FXML
@@ -294,8 +316,5 @@ public class ListStudentsController extends StackPane {
         SceneController4.switchScene(SceneName.STUDENTSSCREEN);
     }
 
-    @FXML
-    private void btnModifyStudent(ActionEvent event) {
-    }
 
 }

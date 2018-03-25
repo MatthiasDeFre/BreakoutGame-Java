@@ -41,12 +41,12 @@
                               <Insets left="10.0" />
                            </HBox.margin>
                         </Label>
-                        <Label onMouseClicked="#goToEx" text="Exercise" textFill="WHITE" translateY="5.0">
+                        <Label onMouseClicked="#goToEx" text="Oefening" textFill="WHITE" translateY="5.0">
                            <font>
                               <Font name="ConthraxSb-Regular" size="14.0" />
                            </font>
                         </Label>
-                        <Label onMouseClicked="#goToSessions" text="Session" textFill="WHITE" translateY="5.0">
+                        <Label onMouseClicked="#goToSessions" text="Sessie" textFill="WHITE" translateY="5.0">
                            <font>
                               <Font name="ConthraxSb-Regular" size="14.0" />
                            </font>
@@ -82,19 +82,14 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                   </TableView>
-                  <VBox layoutX="597.0" layoutY="431.0" prefHeight="169.0" prefWidth="146.0" AnchorPane.bottomAnchor="18.600000000000023" AnchorPane.leftAnchor="597.0" AnchorPane.rightAnchor="90.60000000000002">
+                  <VBox layoutX="599.0" layoutY="432.0" prefHeight="118.0" prefWidth="147.0" AnchorPane.bottomAnchor="47.200000000000045" AnchorPane.leftAnchor="599.0" AnchorPane.rightAnchor="88.0">
                      <children>
-                        <Button fx:id="btnAdd" mnemonicParsing="false" onAction="#btnAddStudent" styleClass="button-raised" text="Add student">
+                        <Button fx:id="btnAdd" mnemonicParsing="false" onAction="#btnAddStudent" styleClass="button-raised" text="Voeg student toe">
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>
                         </Button>
-                        <Button fx:id="btnRemove" mnemonicParsing="false" onAction="#btnRemoveStudent" styleClass="button-raised" text="Remove Student">
-                           <VBox.margin>
-                              <Insets top="10.0" />
-                           </VBox.margin>
-                        </Button>
-                        <Button fx:id="btnModify" mnemonicParsing="false" onAction="#btnModifyStudent" styleClass="button-raised" text="Modify Student">
+                        <Button fx:id="btnRemove" mnemonicParsing="false" onAction="#btnRemoveStudent" prefWidth="148.0" styleClass="button-raised" text="Verwijder student">
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>
@@ -115,12 +110,12 @@
                         </JFXTextField>
                         <JFXTextField fx:id="txtClassroom">
                            <VBox.margin>
-                              <Insets top="20.0" />
+                              <Insets top="10.0" />
                            </VBox.margin>
                         </JFXTextField>
                         <JFXTextField fx:id="txtClassnumber">
                            <VBox.margin>
-                              <Insets top="20.0" />
+                              <Insets top="10.0" />
                            </VBox.margin>
                         </JFXTextField>
                      </children>
@@ -164,7 +159,7 @@
                      </children>
                   </HBox>
                   <VBox layoutX="507.0" layoutY="120.0" prefHeight="50.0" prefWidth="148.0" AnchorPane.rightAnchor="179.0" AnchorPane.topAnchor="120.0" />
-                  <Button fx:id="btnStudentsImport" disable="true" layoutX="533.0" layoutY="150.0" mnemonicParsing="false" onAction="#btnStudentsImportExcel" styleClass="button-raised" text="Students Importeren" textFill="#b72323" AnchorPane.rightAnchor="101.0" />
+                  <Button fx:id="btnStudentsImport" disable="true" layoutX="556.0" layoutY="150.0" mnemonicParsing="false" onAction="#btnStudentsImportExcel" styleClass="button-raised" text="Studenten importeren" textFill="#b72323" AnchorPane.rightAnchor="78.39999999999998" />
                </children>
             </AnchorPane>
          </children>
