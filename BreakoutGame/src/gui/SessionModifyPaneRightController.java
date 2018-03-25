@@ -117,6 +117,7 @@ public class SessionModifyPaneRightController extends AnchorPane implements Obse
     private JFXButton btnGeneratePaths;
 
     private JFXDialog dialog;
+
     public SessionModifyPaneRightController(SessionController dc, JFXDialog dialog) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("SessionModifyPaneRight.fxml"));
         loader.setRoot(this);
@@ -136,7 +137,7 @@ public class SessionModifyPaneRightController extends AnchorPane implements Obse
                 dc.setSelectedItem(newSelection);
             }
         });
-         cmbClass.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection)
+        cmbClass.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection)
                 -> {
             if (newSelection != null) {
                 dc.setSelectedItem(newSelection);
@@ -148,23 +149,23 @@ public class SessionModifyPaneRightController extends AnchorPane implements Obse
                 -> {
             if (newSelection != null) {
                 dc.setSelectedItem(newSelection);
-                
+
             }
         });
-       
+
         cmbClass.setItems(dc.getFilteredItems(StudentClass.class));
         StringConverter<StudentClass> converter = new StringConverter<StudentClass>() {
             @Override
             public String toString(StudentClass classRoom) {
                 return classRoom.getStudentClassName();
             }
+
             @Override
-            public StudentClass fromString(String string)
-            {
+            public StudentClass fromString(String string) {
                 throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
         };
-     
+
         tblGrouplessStudents.setItems(dc.getStudentsFromClass());
         cmbClass.setConverter(converter);
         GroupEditDetailController groupEditDetailController = new GroupEditDetailController(dc);
@@ -173,27 +174,28 @@ public class SessionModifyPaneRightController extends AnchorPane implements Obse
         clmGrouplessStudents.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getFirstName() + " " + e.getValue().getLastName()));
         txfGroupAmount.disableProperty().bind(TBTile.selectedProperty());
         TBGroups.disableProperty().bind(TBTile.selectedProperty());
-    
+
         DPDate.setDayCellFactory(e -> new DateCell() {
             @Override
-            public void updateItem(LocalDate item, boolean empty)
-            {
+            public void updateItem(LocalDate item, boolean empty) {
                 super.updateItem(item, empty); //To change body of generated methods, choose Tools | Templates.
                 setDisable(empty || calculateDateBoolean(item));
             }
-           
+
         });
-        
+
         TBTile.setOnAction(e -> {
-            if(TBTile.isSelected())
+            if (TBTile.isSelected()) {
                 TBFeedback.setSelected(true);
+            }
         });
-        
-       // btnGenerateGroup.disableProperty().bind(TBTile.selectedProperty().or((TBTile.selectedProperty().not().and(Bindings.isEmpty(txfGroupAmount.textProperty())))));
+
+        // btnGenerateGroup.disableProperty().bind(TBTile.selectedProperty().or((TBTile.selectedProperty().not().and(Bindings.isEmpty(txfGroupAmount.textProperty())))));
         btnGeneratePaths.disableProperty().bind(Bindings.size(tblGroups.getItems()).isEqualTo(0));
         TBTile.setOnAction(e -> {
-            if(TBTile.isSelected())
+            if (TBTile.isSelected()) {
                 TBGroups.setSelected(false);
+            }
         });
     }
 
@@ -203,17 +205,18 @@ public class SessionModifyPaneRightController extends AnchorPane implements Obse
             Session session = (Session) obj;
             txtName.setText(session.getName());
             txtDescription.setText(session.getDescription());
-            if(session.getClassRoom() != null) 
+            if (session.getClassRoom() != null) {
                 txtClass.setText(session.getClassRoom().getStudentClassName());
-            else
+            } else {
                 txtClass.setText("");
+            }
             DPDate.setValue(session.getActivationDate());
             TBFeedback.setSelected(session.isFeedback());
             TBTile.setSelected(session.isTile());
             ObservableList bobs = dc.getFilteredItems(Box.class);
             tblBOBS.setItems(bobs);
             tblBOBS.getSelectionModel().select(session.getBox());
-            
+
             cmbClass.getSelectionModel().select(session.getClassRoom());
         }
 
@@ -234,13 +237,13 @@ public class SessionModifyPaneRightController extends AnchorPane implements Obse
     private void generateGroups() {
         int amount;
         try {
-             if (TBTile.isSelected()) {
-            amount =cmbClass.getSelectionModel().getSelectedItem().getStudents().size();
-        } else {
-            amount = Integer.valueOf(txfGroupAmount.getText());
-        }
-          dc.generateGroups(amount, TBGroups.isSelected(), cmbClass.getSelectionModel().getSelectedItem());     
-        
+            if (TBTile.isSelected()) {
+                amount = cmbClass.getSelectionModel().getSelectedItem().getStudents().size();
+            } else {
+                amount = Integer.valueOf(txfGroupAmount.getText());
+            }
+            dc.generateGroups(amount, TBGroups.isSelected(), cmbClass.getSelectionModel().getSelectedItem());
+
         } catch (NumberFormatException e) {
             showError(new IllegalArgumentException("Gelieve een getal bij het aantal groepen in te geven"));
         } catch (IllegalArgumentException e) {
@@ -248,9 +251,7 @@ public class SessionModifyPaneRightController extends AnchorPane implements Obse
         } catch (Exception e) {
             showError(new IllegalArgumentException("Onbekende fout"));
         }
-      
 
-      
     }
 
     private void generatePaths() {
@@ -259,74 +260,89 @@ public class SessionModifyPaneRightController extends AnchorPane implements Obse
 
     @FXML
     private void btnStudentOnAction(ActionEvent event) {
-        dc.addStudentToTempGroup(tblGrouplessStudents.getSelectionModel().getSelectedItem());
-        dc.applyGrouplessStudentFilter();
+        try {
+            dc.addStudentToTempGroup(tblGrouplessStudents.getSelectionModel().getSelectedItem());
+            dc.applyGrouplessStudentFilter();
+        } catch (Exception e) {
+            showError(new IllegalArgumentException("Onbekende fout"));
+        }
     }
 
     @FXML
     private void btnOpslaanOnAction(ActionEvent event) {
-        
-        try
-        {
+
+        try {
             dc.saveSession(txtDescription.getText(), txtName.getText(), DPDate.getValue(), TBTile.isSelected(), TBFeedback.isSelected(), cmbClass.getSelectionModel().getSelectedItem());
-           dc.setManagerMode(Session.class, PersistMode.UPDATE);
+            dc.setManagerMode(Session.class, PersistMode.UPDATE);
             PDFGenerator gen = new PDFGenerator();
             gen.createSessionDocument(dc.getSelectedItem(Session.class));
-        } catch (IllegalArgumentException | IOException ex)
-        {
-           showError(ex);
+        } catch (IllegalArgumentException | IOException ex) {
+            showError(ex);
         }
     }
 
     @FXML
     private void btnDeleteStudentOnAction(ActionEvent event) {
-        dc.removeStudentFromTempGroup((Student)dc.getSelectedItem(Student.class));
-          dc.applyGrouplessStudentFilter();
+        try {
+            dc.removeStudentFromTempGroup((Student) dc.getSelectedItem(Student.class));
+            dc.applyGrouplessStudentFilter();
+        } catch (Exception e) {
+            showError(new IllegalArgumentException("Onbekende fout"));
+        }
+
     }
 
     @FXML
     private void btnGeneratePathsOnAction(ActionEvent event) {
-        dc.generatePaths();
+        try {
+            dc.generatePaths();
+        } catch (Exception e) {
+            showError(new IllegalArgumentException("Onbekende fout"));
+        }
     }
 
     @FXML
-    private void newGroup(ActionEvent event)
-    {
-        dc.addNewTempGroup("NIEUWE GROUP");
-        
+    private void newGroup(ActionEvent event) {
+        try {
+            dc.addNewTempGroup("NIEUWE GROUP");
+        } catch (Exception e) {
+            showError(new IllegalArgumentException("Onbekende fout"));
+        }
+
     }
-    
+
     private boolean calculateDateBoolean(LocalDate date) {
-        if(date.isBefore(LocalDate.now()))
+        if (date.isBefore(LocalDate.now())) {
             return true;
-        if(date.getDayOfWeek() == DayOfWeek.SUNDAY)
+        }
+        if (date.getDayOfWeek() == DayOfWeek.SUNDAY) {
             return true;
+        }
         //PERIODE 
-     
-       /* if(date.isBefore(LocalDate.of(LocalDate.now().getYear()-1, Month.SEPTEMBER, 1))) {
+
+        /* if(date.isBefore(LocalDate.of(LocalDate.now().getYear()-1, Month.SEPTEMBER, 1))) {
             return true;
         }*/
-        
         return false;
     }
-    
-     private void showComponentDialog(Parent pane) {
-            JFXDialogLayout layout = new JFXDialogLayout();
-           layout.setAlignment(Pos.BOTTOM_RIGHT);
-          layout.setPadding(Insets.EMPTY);
-            layout.setBody(pane);
-            JFXButton okButton = new JFXButton("Cancel");
-            okButton.setStyle("-fx-background-color: #112959;");
-            okButton.setOnMouseClicked(e -> dialog.close());
-            layout.setActions(okButton);
-          
-            dialog.setContent(layout);
-            dialog.show();
+
+    private void showComponentDialog(Parent pane) {
+        JFXDialogLayout layout = new JFXDialogLayout();
+        layout.setAlignment(Pos.BOTTOM_RIGHT);
+        layout.setPadding(Insets.EMPTY);
+        layout.setBody(pane);
+        JFXButton okButton = new JFXButton("Cancel");
+        okButton.setStyle("-fx-background-color: #112959;");
+        okButton.setOnMouseClicked(e -> dialog.close());
+        layout.setActions(okButton);
+
+        dialog.setContent(layout);
+        dialog.show();
     }
-    
+
     private void showError(Exception e) {
-          VBox erros = new VBox();
-            erros.getChildren().addAll(new Label(e.getMessage(), new JFXButton("Ok")));
-            showComponentDialog(erros);
+        VBox erros = new VBox();
+        erros.getChildren().addAll(new Label(e.getMessage(), new JFXButton("Ok")));
+        showComponentDialog(erros);
     }
 }

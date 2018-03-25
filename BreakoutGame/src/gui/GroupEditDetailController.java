@@ -30,7 +30,7 @@ import javafx.scene.layout.AnchorPane;
  *
  * @author Alexander
  */
-public class GroupEditDetailController extends AnchorPane implements Observer{
+public class GroupEditDetailController extends AnchorPane implements Observer {
 
     @FXML
     private TableView<Student> tblStudents;
@@ -44,17 +44,14 @@ public class GroupEditDetailController extends AnchorPane implements Observer{
     private AnchorPane AnchorPane;
     @FXML
     private TableColumn<Student, String> clmName;
-    
-    public GroupEditDetailController(SessionController dc)
-    {
+
+    public GroupEditDetailController(SessionController dc) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("GroupEditDetail.fxml"));
         loader.setRoot(this);
         loader.setController(this);
-        try
-        {
+        try {
             loader.load();
-        } catch (IOException ex)
-        {
+        } catch (IOException ex) {
             System.out.printf(ex.getMessage());
         }
         this.dc = dc;
@@ -66,26 +63,27 @@ public class GroupEditDetailController extends AnchorPane implements Observer{
             }
         });
         clmName.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getFirstName() + " " + e.getValue().getLastName()));
-       
+
     }
 
     @Override
-    public void update(Observable o, Object arg)
-    {
+    public void update(Observable o, Object arg) {
         BoBGroup boBGroup = (BoBGroup) arg;
-         txfGroupName.setText(boBGroup.getName());
-        
+        txfGroupName.setText(boBGroup.getName());
+
     }
 
     @FXML
-    private void btnAddGroupOnAction(ActionEvent event)
-    {
-        dc.setGroupName(txfGroupName.getText());
+    private void btnAddGroupOnAction(ActionEvent event) {
+        try {
+            dc.setGroupName(txfGroupName.getText());
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
     }
 
     /**
      * Initializes the controller class.
      */
-    
-    
 }
