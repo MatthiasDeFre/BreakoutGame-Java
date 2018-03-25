@@ -67,15 +67,21 @@ public class SessionController {
 
     public void saveSession(String description, String name, LocalDate activationDate, boolean tile, boolean feedback, StudentClass studentClass) {
         //TODO NEED OTHER MANAGERS => group, studentclass etc
-        managers.get(Session.class.getSimpleName()).save(new Session(
-                (Box) managers.get(Box.class.getSimpleName()).getSelected(),
-                sessionManager.getTempGroups(),
-                description,
-                studentClass,
-                name,
-                activationDate,
-                tile,
-                feedback));
+        try
+        {
+            managers.get(Session.class.getSimpleName()).save(new Session(
+                    (Box) managers.get(Box.class.getSimpleName()).getSelected(),
+                    sessionManager.getTempGroups(),
+                    description,
+                    studentClass,
+                    name,
+                    activationDate,
+                    tile,
+                    feedback));
+        } catch (Exception e)
+        {
+            throw new IllegalArgumentException("De sessie met deze naam bestaat al");
+        }
     }
 
     public ObservableList getGroupTempList() {
@@ -139,8 +145,9 @@ public class SessionController {
         managers.get(className.getSimpleName()).setManagerMode(persistMode);
     }
     
-    public IManageable getSelectedItem(Class<? extends IManageable> item) {
-        return (IManageable) managers.get(item.getSimpleName()).getSelected();
+       public <T extends IManageable> T getSelectedItem(Class<T> className)
+    {
+        return (T) managers.get(className.getSimpleName()).getSelected();
     }
     public void setSelectedItem(IManageable item) {
         managers.get(item.getClass().getSimpleName()).setSelected(item);

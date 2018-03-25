@@ -36,8 +36,7 @@ public class BoxManager extends Manager<Box>
              tempLists = new HashMap<>();
            resetTempCollections();
            goals = FXCollections.observableArrayList();
-           /*goals.clear();
-           goals = FXCollections.observableSet(exerciseTemp.stream().map(e -> ((Exercise)e).getGoals()).flatMap(List::stream).collect(Collectors.toSet()));*/
+         
          
     }
     
@@ -52,18 +51,6 @@ public class BoxManager extends Manager<Box>
      
     }
 
-  /*  public ObservableList<AccessCode> getAccessCodesTemp()
-    {
-        return tempLists.get(AccessCode.class.getSimpleName());
-    }
-
-   public void setAccessCodesTemp(List<AccessCode> accessCodesTemp)
-    {
-        //this.accessCodesTemp = accessCodesTemp;
-      
-        tempLists.get(AccessCode.class.getSimpleName()).setAll(accessCodesTemp);
-    }
-*/
     public ObservableList<BoBAction> getActionsTemp()
     {
         return tempLists.get(BoBAction.class.getSimpleName());
@@ -72,7 +59,7 @@ public class BoxManager extends Manager<Box>
     public void setActionsTemp(List<BoBAction> actionsTemp)
     {
         tempLists.get(BoBAction.class.getSimpleName()).setAll(actionsTemp);
-       // this.actionsTemp = actionsTemp;
+  
     }
 
     public ObservableList<Exercise> getExerciseTemp()
@@ -82,7 +69,7 @@ public class BoxManager extends Manager<Box>
 
     public void setExerciseTemp(List<Exercise> exerciseTemp)
     {
-      //  this.exerciseTemp = exerciseTemp;
+   
           tempLists.get(Exercise.class.getSimpleName()).setAll(exerciseTemp);
     }
     public ObservableList<Goal> getGoals() {
@@ -91,11 +78,7 @@ public class BoxManager extends Manager<Box>
     private void resetTempCollections() {     
         tempLists.put(Exercise.class.getSimpleName(), FXCollections.observableArrayList());
         tempLists.put(BoBAction.class.getSimpleName(), FXCollections.observableArrayList());
-         //tempLists.put(AccessCode.class.getSimpleName(), FXCollections.observableArrayList());
-                
-   /*     setAccessCodesTemp(FXCollections.observableArrayList());
-        setActionsTemp(FXCollections.observableArrayList());
-        setExerciseTemp(FXCollections.observableArrayList());*/
+        
     }
     public <T extends IManageable> void addObjectToTemp(List<T> object) {
         String key = object.get(0).getClass().getSimpleName();
@@ -116,15 +99,6 @@ public class BoxManager extends Manager<Box>
     }
     
     
-   /* public void addAccessCodeTemp(AccessCode accessCode)
-    {
-        accessCodesTemp.add(accessCode); 
-   }
-
-    public void removeAccessCodeTemp(AccessCode accessCode)
-    {
-        accessCodesTemp.remove(accessCode);
-    }*/
 
     @Override
     public void save(Box object)
@@ -142,7 +116,6 @@ public class BoxManager extends Manager<Box>
     @Override
     public void setSelected(Box item)
     {
-      //  setAccessCodesTemp(item.getAccessCodes());
         setActionsTemp(item.getActions());
         setExerciseTemp(item.getExercises().stream().collect(Collectors.toList()));
         resetBoxGoalSet();

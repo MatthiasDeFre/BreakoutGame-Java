@@ -30,6 +30,8 @@ import java.time.Month;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.binding.Binding;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
@@ -51,6 +53,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.StringConverter;
+import util.PDFGenerator;
 
 /**
  * FXML Controller class
@@ -258,8 +261,17 @@ public class SessionModifyPaneRightController extends AnchorPane implements Obse
 
     @FXML
     private void btnOpslaanOnAction(ActionEvent event) {
-        dc.saveSession(txtDescription.getText(), txtName.getText(), DPDate.getValue(), TBTile.isSelected(), TBFeedback.isSelected(), cmbClass.getSelectionModel().getSelectedItem());
-        dc.setManagerMode(Session.class, PersistMode.UPDATE);
+        
+        try
+        {
+            dc.saveSession(txtDescription.getText(), txtName.getText(), DPDate.getValue(), TBTile.isSelected(), TBFeedback.isSelected(), cmbClass.getSelectionModel().getSelectedItem());
+           dc.setManagerMode(Session.class, PersistMode.UPDATE);
+            PDFGenerator gen = new PDFGenerator();
+            gen.createSessionDocument(dc.getSelectedItem(Session.class));
+        } catch (Exception ex)
+        {
+            showError(ex);
+        }
     }
 
     @FXML

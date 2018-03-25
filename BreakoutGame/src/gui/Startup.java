@@ -39,7 +39,7 @@ public class Startup extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-     Seeder.seedDatabaseWithStartData();
+      Seeder.seedDatabaseWithStartData();
            LangConfig.setLang();
         
         PersistenceController pc = new PersistenceController();

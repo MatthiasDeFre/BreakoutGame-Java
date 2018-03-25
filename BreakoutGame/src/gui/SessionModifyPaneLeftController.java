@@ -89,6 +89,8 @@ public class SessionModifyPaneLeftController extends AnchorPane {
         dc.setManagerMode(Session.class, PersistMode.UPDATE);
         dc.setSelectedItem(tblSessions.getSelectionModel().getSelectedItem());
         dc.setSelectedItem(new BoBGroup());
+          dc.setSelectedItem(tblSessions.getSelectionModel().getSelectedItem().getClassRoom());
+         dc.applyGrouplessStudentFilter();
     }
 
     @FXML
@@ -96,6 +98,7 @@ public class SessionModifyPaneLeftController extends AnchorPane {
     {
         dc.setSelectedItem(new Session());
         dc.setManagerMode(Session.class, PersistMode.NEW);
+        dc.applyGrouplessStudentFilter();
     }
 
     @FXML

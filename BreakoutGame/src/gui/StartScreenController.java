@@ -65,7 +65,7 @@ public class StartScreenController extends GridPane implements Observer {
     //NONFXML Attributes
     private ExerciseDomainController dc;
     private ObservableList<Exercise> listExercices;
-    private SceneController2 sceneController2;
+    //private SceneController2 sceneController2;
     @FXML
     private Label lblExec;
 
