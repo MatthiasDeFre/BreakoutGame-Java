@@ -73,6 +73,11 @@ public class ExerciseDetailsPaneMidController extends AnchorPane implements Obse
     private JFXDialog dialog;
     @FXML
     private Label lblOefeningActie;
+    
+       private static final String FX_TEXT_FILL_WHITE = "-fx-text-fill:WHITE";
+    private static final String ANIMATED_OPTION_BUTTON = "animated-option-button";
+    private static final String ANIMATED_OPTION_SUB_BUTTON = "animated-option-sub-button";
+    private static final String ANIMATED_OPTION_SUB_BUTTON2 = "animated-option-sub-button2";
     public ExerciseDetailsPaneMidController(ExerciseDomainController dc, JFXDialog dialog) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ExerciseDetailsPaneMid.fxml"));
         loader.setRoot(this);
@@ -107,6 +112,7 @@ public class ExerciseDetailsPaneMidController extends AnchorPane implements Obse
        txtTime.disableProperty().bind(btnToggleTime.selectedProperty().not());
       txfFeedback.setDisable(true);
       txfOpdracht.setDisable(true);
+      
     }
 
 
