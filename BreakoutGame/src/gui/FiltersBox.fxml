@@ -1,41 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
-<?import com.jfoenix.controls.*?>
-<?import javafx.geometry.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<fx:root minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="450.0" type="AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="350.0" style="-fx-background-color: #ebf3fb;" type="AnchorPane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ScrollPane fitToHeight="true" fitToWidth="true" layoutX="37.0" layoutY="28.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <ScrollPane fitToHeight="true" fitToWidth="true" layoutX="37.0" layoutY="28.0" prefHeight="800.0" prefWidth="350.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <content>
-            <AnchorPane prefHeight="387.0" prefWidth="450.0">
+            <AnchorPane prefHeight="800.0" prefWidth="350.0" style="-fx-background-color: #ebf3fb;">
                <children>
-                  <VBox AnchorPane.bottomAnchor="-0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <VBox prefHeight="652.0" prefWidth="350.0" spacing="40.0">
                      <children>
-                        <VBox fx:id="vboxClasses" spacing="20.0">
+                        <VBox fx:id="vboxClasses" prefWidth="350.0" spacing="20.0">
                            <children>
-                              <Label text="Vakken">
+                              <Label prefWidth="350.0" text="Vakken">
                                  <font>
-                                    <Font name="Roboto" size="15.0" />
+                                    <Font name="System Bold" size="15.0" />
                                  </font></Label>
                            </children>
                            <padding>
                               <Insets left="15.0" top="25.0" />
                            </padding>
                         </VBox>
-                        <VBox fx:id="vboxGoals" spacing="20.0">
+                        <VBox fx:id="vboxGoals" prefWidth="350.0" spacing="20.0">
                            <children>
-                              <Label text="Doelstellingen">
+                              <Label prefWidth="350.0" text="Doelstellingen">
                                  <font>
-                                    <Font name="Roboto" size="15.0" />
+                                    <Font name="System Bold" size="15.0" />
                                  </font></Label>
-                              <JFXTextArea fx:id="txtGoalFilter" onKeyReleased="#changeGoalFilter" styleClass="goalArea" VBox.vgrow="ALWAYS" />
-                              <HBox fx:id="hboxActions" alignment="TOP_RIGHT">
+                              <JFXTextArea fx:id="txtGoalFilter" onKeyReleased="#changeGoalFilter" prefWidth="350.0" styleClass="goalArea" VBox.vgrow="ALWAYS">
+                                 <VBox.margin>
+                                    <Insets right="15.0" />
+                                 </VBox.margin></JFXTextArea>
+                              <HBox fx:id="hboxActions" alignment="TOP_RIGHT" prefWidth="350.0">
                                  <VBox.margin>
                                     <Insets right="20.0" />
                                  </VBox.margin>
@@ -47,16 +51,19 @@
                         </VBox>
                      </children>
                      <padding>
-                        <Insets top="35.0" />
+                        <Insets top="250.0" />
                      </padding>
                   </VBox>
-                  <Label text="Oefening filters" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <padding>
-                        <Insets bottom="10.0" left="15.0" right="10.0" top="20.0" />
-                     </padding>
+                  <Label fx:id="lblOnderwerp" alignment="CENTER" layoutX="-3.0" prefHeight="226.0" prefWidth="350.0" style="-fx-background-color: #114f8a;" stylesheets="@assets/css/style2.css" text="Filter oefeningen" textAlignment="CENTER" wrapText="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <font>
-                        <Font name="Roboto" size="24.0" />
+                        <Font name="Avenir Roman" size="75.0" />
                      </font>
+                     <styleClass>
+                        <String fx:value="avenir" />
+                        <String fx:value="h3" />
+                        <String fx:value="schaduw" />
+                        <String fx:value="wit" />
+                     </styleClass>
                   </Label>
                </children>
             </AnchorPane>

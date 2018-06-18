@@ -484,12 +484,12 @@
       -fx-background-color: transparent;
 }
 .goalArea {
-    -fx-font-size: 2em;
+    -fx-font-size: 1em;
 }
 
 .goalArea:empty {
-    -fx-font-size: 1.75em;
-    -fx-prompt-text-fill: white;
+    -fx-font-size: 1em;
+    -fx-prompt-text-fill: black;
 }
 .closeButton {
     -fx-background-color: #112959;
