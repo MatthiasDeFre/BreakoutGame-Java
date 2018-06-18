@@ -47,7 +47,7 @@
                         <Insets bottom="15.0" />
                      </padding>
                   </JFXToggleButton>
-                  <JFXTextField fx:id="txtTime" alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="120.0" promptText="Tijd" stylesheets="@assets/css/style2.css" unFocusColor="WHITE">
+                  <JFXTextField fx:id="txtTime" alignment="CENTER_RIGHT" focusColor="WHITE" prefHeight="36.0" prefWidth="120.0" promptText="Tijd" stylesheets="@assets/css/style2.css" unFocusColor="WHITE">
                      <padding>
                         <Insets bottom="6.0" top="15.0" />
                      </padding>
@@ -65,7 +65,7 @@
             </HBox>
             <HBox prefHeight="35.0" prefWidth="197.0" stylesheets="@assets/css/style2.css" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <children>
-                  <JFXTextField fx:id="txfFeedback" alignment="TOP_LEFT" focusColor="BLACK" labelFloat="true" prefHeight="37.0" prefWidth="124.0" promptText="Feedback">
+                  <JFXTextField fx:id="txfFeedback" alignment="TOP_LEFT" focusColor="WHITE" labelFloat="true" prefHeight="37.0" prefWidth="124.0" promptText="Feedback" stylesheets="@assets/css/style2.css" unFocusColor="WHITE">
                      <font>
                         <Font name="Roboto Regular" size="18.0" />
                      </font>
@@ -73,11 +73,8 @@
                         <String fx:value="avenir" />
                         <String fx:value="p" />
                         <String fx:value="wit" />
+                        <String fx:value="witprompt" />
                      </styleClass>
-                     <stylesheets>
-                        <URL value="@assets/css/jfoenix-components.css" />
-                        <URL value="@assets/css/style2.css" />
-                     </stylesheets>
                   </JFXTextField>
                   <JFXButton fx:id="btnFeedback" buttonType="RAISED" onAction="#btnFeedbackOnAction" prefHeight="0.0" prefWidth="90.0" styleClass="uploadbutton" text="Bladeren">
                      <font>
@@ -90,7 +87,7 @@
                   </JFXButton>
                </children>
             </HBox>
-            <JFXTextField fx:id="txtAnw" focusColor="BLACK" prefHeight="39.0" prefWidth="217.0" promptText="Answer" unFocusColor="WHITE" GridPane.rowIndex="1">
+            <JFXTextField fx:id="txtAnw" focusColor="WHITE" labelFloat="true" prefHeight="39.0" prefWidth="217.0" promptText="Answer" stylesheets="@assets/css/style2.css" unFocusColor="WHITE" GridPane.rowIndex="1">
                <font>
                   <Font name="Roboto Regular" size="18.0" />
                </font>
@@ -115,7 +112,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <JFXComboBox fx:id="cmbCategory" nodeOrientation="RIGHT_TO_LEFT" prefHeight="31.0" prefWidth="277.0" promptText="Category" stylesheets="@assets/css/style2.css" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <JFXComboBox fx:id="cmbCategory" focusColor="WHITE" nodeOrientation="RIGHT_TO_LEFT" prefHeight="31.0" prefWidth="277.0" promptText="Category" stylesheets="@assets/css/style2.css" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <styleClass>
                   <String fx:value="avenir" />
                   <String fx:value="p" />
@@ -125,7 +122,7 @@
             </JFXComboBox>
             <HBox prefHeight="48.0" prefWidth="200.0" stylesheets="@assets/css/style2.css" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <children>
-                  <JFXTextField fx:id="txfOpdracht" alignment="TOP_LEFT" focusColor="BLACK" labelFloat="true" prefHeight="30.0" prefWidth="125.0" promptText="Opdracht">
+                  <JFXTextField fx:id="txfOpdracht" alignment="TOP_LEFT" focusColor="WHITE" labelFloat="true" prefHeight="30.0" prefWidth="125.0" promptText="Opdracht" stylesheets="@assets/css/style2.css" unFocusColor="WHITE">
                      <font>
                         <Font name="Roboto Regular" size="18.0" />
                      </font>
@@ -136,11 +133,8 @@
                         <String fx:value="avenir" />
                         <String fx:value="p" />
                         <String fx:value="wit" />
+                        <String fx:value="witprompt" />
                      </styleClass>
-                     <stylesheets>
-                        <URL value="@assets/css/jfoenix-components.css" />
-                        <URL value="@assets/css/style2.css" />
-                     </stylesheets>
                   </JFXTextField>
                   <JFXButton fx:id="btnAssignment" buttonType="RAISED" onAction="#btnAssignmentOnAction" prefHeight="40.0" prefWidth="83.0" styleClass="uploadbutton" text="Bladeren">
                      <font>
@@ -153,7 +147,7 @@
                   </JFXButton>
                </children>
             </HBox>
-            <JFXTextField fx:id="txtEx" focusColor="WHITE" prefHeight="39.0" prefWidth="172.0" promptText="Naam" unFocusColor="WHITE" GridPane.rowIndex="1">
+            <JFXTextField fx:id="txtEx" focusColor="WHITE" labelFloat="true" prefHeight="39.0" prefWidth="172.0" promptText="Naam" stylesheets="@assets/css/style2.css" unFocusColor="WHITE" GridPane.rowIndex="1">
                <font>
                   <Font name="Roboto Regular" size="18.0" />
                </font>
