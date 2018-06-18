@@ -54,7 +54,7 @@
                         <Insets top="250.0" />
                      </padding>
                   </VBox>
-                  <Label fx:id="lblOnderwerp" alignment="CENTER" layoutX="-3.0" prefHeight="226.0" prefWidth="350.0" style="-fx-background-color: #114f8a;" stylesheets="@assets/css/style2.css" text="Filter oefeningen" textAlignment="CENTER" wrapText="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <Label fx:id="lblOnderwerp" alignment="CENTER" layoutX="-3.0" prefHeight="226.0" prefWidth="350.0" style="-fx-background-color: #114f8a;" stylesheets="@assets/css/style2.css" text="Filter oefeningen" textAlignment="CENTER" wrapText="true">
                      <font>
                         <Font name="Avenir Roman" size="75.0" />
                      </font>
