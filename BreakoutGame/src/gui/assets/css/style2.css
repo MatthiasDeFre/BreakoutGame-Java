@@ -122,6 +122,7 @@
 }
 .witprompt{
     -fx-prompt-text-fill: white;
+    -jfx-unfocus-color: white;-jfx-focus-color: white;
 }
 .chipp{
     -fx-background-color:#ebf3fb;

@@ -10,6 +10,7 @@ import com.jfoenix.controls.JFXColorPicker;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXListView;
+import com.jfoenix.controls.JFXNodesList;
 import com.jfoenix.effects.JFXDepthManager;
 import domain.Box;
 import domain.Exercise;
@@ -17,9 +18,14 @@ import domain.ExerciseDomainController;
 import domain.PersistMode;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
+import javafx.animation.Interpolator;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
 import javafx.beans.binding.Bindings;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -27,16 +33,21 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Tooltip;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.util.Duration;
 
 /**
  * FXML Controller class
@@ -63,6 +74,13 @@ public class ExercisesPaneLeftController extends AnchorPane {
     private JFXDialog dialog; 
     @FXML
     private Label lblOnderwerp;
+    @FXML
+    private JFXNodesList nodeList;
+    
+     private static final String FX_TEXT_FILL_WHITE = "-fx-text-fill:WHITE";
+    private static final String ANIMATED_OPTION_BUTTON = "animated-option-button";
+    private static final String ANIMATED_OPTION_SUB_BUTTON = "animated-option-sub-button";
+    private static final String ANIMATED_OPTION_SUB_BUTTON2 = "animated-option-sub-button2";
     public ExercisesPaneLeftController(ExerciseDomainController dc, JFXDialog dialog) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ExercisesPaneLeft.fxml"));
         loader.setRoot(this);
@@ -86,12 +104,41 @@ public class ExercisesPaneLeftController extends AnchorPane {
         
         btnDeleteExercise.disableProperty().bind(Bindings.size(tblExercises.getItems()).isEqualTo(0));
         btnCopyExercise.disableProperty().bind(Bindings.size(tblExercises.getItems()).isEqualTo(0));
+     
+       
+         JFXButton ssbutton1 = new JFXButton();
+     
+
+        JFXButton ssbutton2 = new JFXButton("A");
+       Label lblA = new Label("A");
+        lblA.setStyle("-fx-font-weight: bold;-fx-text-fill:WHITE");
+        //lblA.setPadding(new Insets(0, 0, 0, 5));
+        lblA.setAlignment(Pos.CENTER);
+        ssbutton2.setGraphic(lblA);
+        
+        ssbutton2.setButtonType(JFXButton.ButtonType.RAISED);
+        ssbutton2.getStyleClass().addAll(ANIMATED_OPTION_BUTTON, ANIMATED_OPTION_SUB_BUTTON2);
+       
+        nodeList.setSpacing(10);
+         btnCreateExercise.getStyleClass().addAll(ANIMATED_OPTION_BUTTON, ANIMATED_OPTION_SUB_BUTTON2);
+          btnCopyExercise.getStyleClass().addAll(ANIMATED_OPTION_BUTTON, ANIMATED_OPTION_SUB_BUTTON2);
+           btnDeleteExercise.getStyleClass().addAll(ANIMATED_OPTION_BUTTON, ANIMATED_OPTION_SUB_BUTTON2);
+          
+        nodeList.addAnimatedNode(ssbutton2);
+        nodeList.addAnimatedNode(btnCreateExercise);
+        nodeList.addAnimatedNode(btnCopyExercise);
+       nodeList.addAnimatedNode(btnDeleteExercise);
+         
+
+     nodeList.setRotate(180);
+    
     }
 
     @FXML
     private void btnCreateExerciseOnClick(MouseEvent event) {
         dc.setManagerMode(Exercise.class, PersistMode.NEW);
         dc.setSelectedItem(new Exercise());
+        nodeList.animateList();
     }
 
     @FXML
@@ -101,6 +148,7 @@ public class ExercisesPaneLeftController extends AnchorPane {
       //  box.copy();
         exercise.setName(exercise.getName() + "_" + "COPY");
         dc.setSelectedItem(exercise);
+        nodeList.animateList();
     }
 
     @FXML
@@ -109,6 +157,7 @@ public class ExercisesPaneLeftController extends AnchorPane {
         try{
              dc.deleteExercise();
            //   dc.setSelectedItem(new Exercise());
+              nodeList.animateList();
         } catch(Exception ex) {
             setErrorDialog(ex);
         }
