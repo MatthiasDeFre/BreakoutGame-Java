@@ -13,7 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Transient;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 
 /**
  *
@@ -31,7 +31,7 @@ public class Assignment implements Serializable, Comparable<Assignment>{
     private AnwserBehaviour anwserBehaviour;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private int id;
 
     public Assignment()
     {
@@ -103,12 +103,12 @@ public class Assignment implements Serializable, Comparable<Assignment>{
         this.anwserBehaviour = anwserBehaviour;
     }
 
-    public long getId()
+    public int getId()
     {
         return id;
     }
 
-    public void setId(long id)
+    public void setId(int id)
     {
         this.id = id;
     }

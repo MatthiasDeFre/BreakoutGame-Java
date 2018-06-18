@@ -83,6 +83,18 @@ public class GroupEditDetailController extends AnchorPane implements Observer {
 
     }
 
+    @FXML
+    private void removeFromGroup(ActionEvent event)
+    {
+        try
+        {
+            dc.removeStudentFromTempGroup((Student) dc.getSelectedItem(Student.class));
+            dc.applyGrouplessStudentFilter();
+        } catch (Exception e)
+        {
+        }
+    }
+
     /**
      * Initializes the controller class.
      */

@@ -66,13 +66,13 @@ public class ExerciseDetailsPaneMidController extends AnchorPane implements Obse
     @FXML
     private JFXButton btnAssignment;
     @FXML
-    private VBox vboxInfo;
-    @FXML
     private JFXTextField txtTime;
     @FXML
     private JFXToggleButton btnToggleTime;
   
     private JFXDialog dialog;
+    @FXML
+    private Label lblOefeningActie;
     public ExerciseDetailsPaneMidController(ExerciseDomainController dc, JFXDialog dialog) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ExerciseDetailsPaneMid.fxml"));
         loader.setRoot(this);

@@ -24,6 +24,8 @@ public class SwapCharBehaviour implements AnwserBehaviour{
         IntStream.range(0, anwserChars.length).forEach(e -> {
             if(anwserChars[e] == char1)
                 anwserChars[e] = char2;
+            else if(anwserChars[e] == char2)
+                 anwserChars[e] = char1;
         });
         
         return new String(anwserChars);

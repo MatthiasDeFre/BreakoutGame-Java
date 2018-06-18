@@ -47,7 +47,7 @@ public class SceneController4 {
 
     public static void switchScene(SceneName sn) {
   
-        primaryStage.setMaximized(true);
+//        primaryStage.setMaximized(true);
  
         scene.setRoot(parent);
       //  primaryStage.setScene(scene);

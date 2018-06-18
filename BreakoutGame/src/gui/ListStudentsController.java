@@ -107,7 +107,7 @@ public class ListStudentsController extends StackPane {
         } catch (IOException ex) {
             System.out.printf("Error starting scene");
         }
-        String image = ExerciseController.class.getResource("boeken.jpg").toExternalForm();
+        String image = ExerciseController.class.getResource("background.jpg").toExternalForm();
         anchorPane.setStyle("-fx-background-image: url('" + image + "'); "
                 + "-fx-background-position: center center; "
                 + "-fx-background-repeat: stretch;");

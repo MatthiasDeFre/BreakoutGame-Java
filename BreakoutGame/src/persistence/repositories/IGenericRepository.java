@@ -13,9 +13,9 @@ import java.util.List;
  */
 public interface IGenericRepository<T> {
     List<T> getAll();
-    T getById(long id);
+    T getById(int id);
     T update(T object);
     void delete(T object);
     void persistObject(T object);
-    boolean exists(long id);
+    boolean exists(int id);
 }

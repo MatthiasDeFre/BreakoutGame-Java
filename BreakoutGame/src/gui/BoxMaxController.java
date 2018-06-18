@@ -175,6 +175,7 @@ public class BoxMaxController extends AnchorPane implements Observer{
       JFXDepthManager.setDepth(tblSelectedActions, 1);
       //End those things
       
+     
       
       //All access
     

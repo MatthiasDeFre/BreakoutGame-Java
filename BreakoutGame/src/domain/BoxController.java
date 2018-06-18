@@ -250,5 +250,8 @@ public class BoxController implements ExerciseFilter{
     {
         return categoryManager.getFilteredItems();
     }
-    
+ 
+    public BoBAction getStartAction() {
+        return boxManager.getStartAction();
+    }
 }

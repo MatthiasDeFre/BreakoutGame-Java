@@ -12,5 +12,6 @@ package domain;
 public enum SessionStatus {
     ACTIVATED,
     CLOSED,
-    SCHEDULED
+    SCHEDULED,
+    STARTED
 }

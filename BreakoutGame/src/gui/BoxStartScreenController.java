@@ -54,6 +54,13 @@ public class BoxStartScreenController extends StackPane {
             System.out.printf(ex.getMessage());
         }
         dialogScreen = new JFXDialog();
+        
+        //NEW
+        
+     //   dialogScreen.setOnDialogOpened(e -> UnsavedController.setDeciding(true));
+        dialogScreen.setOnDialogClosed(e -> UnsavedController.setDeciding(false));
+  
+        
         dialogContent = new JFXDialogLayout();
 
         dialogScreen.setContent(dialogContent);

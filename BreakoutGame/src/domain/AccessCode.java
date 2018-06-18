@@ -26,7 +26,7 @@ public class AccessCode implements Serializable, IManageable {
     
     
     
-    private long id;
+    private int id;
     
     private SimpleIntegerProperty code = new SimpleIntegerProperty();
     
@@ -60,12 +60,12 @@ public class AccessCode implements Serializable, IManageable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public long getId()
+    public int getId()
     {
         return id;
     }
 
-    public void setId(long id)
+    public void setId(int id)
     {
         this.id = id;
     }

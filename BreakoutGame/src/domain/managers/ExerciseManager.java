@@ -7,6 +7,7 @@ import domain.Exercise;
 import domain.Goal;
 import domain.GroupOperation;
 import domain.PersistMode;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -152,4 +153,12 @@ public class ExerciseManager extends Manager<Exercise> {
         this.goalFilter = goals;
     }
 
+    @Override
+    public void delete() throws InvocationTargetException
+    {
+         if(getPersistenceController().exInBox(getSelected()))
+                throw new IllegalArgumentException("De oefening bevindt zich in een box die zich in een actieve sessie bevind hierdoor kan deze niet worden aangepast");
+        super.delete(); //To change body of generated methods, choose Tools | Templates.
+    }
+    
 }

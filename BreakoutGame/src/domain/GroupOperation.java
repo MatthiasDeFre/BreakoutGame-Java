@@ -24,7 +24,7 @@ import javax.persistence.Transient;
 @Entity
 @Table(name="GroupOperation")
 public class GroupOperation implements IManageable {
-    private long id;
+    private int id;
     private OperationCategory category;
     private String valueString;
 
@@ -86,13 +86,13 @@ public class GroupOperation implements IManageable {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Override
-    public long getId()
+    public int getId()
     {
         return id;
     }
 
     @Override
-    public void setId(long id)
+    public void setId(int id)
     {
        this.id = id;
     }

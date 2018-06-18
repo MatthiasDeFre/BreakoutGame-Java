@@ -15,6 +15,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -30,7 +31,7 @@ public class Path implements Serializable {
     private List<Assignment> assignments;
   
     
-    private long id;
+    private int id;
 
     public Path()
     {
@@ -54,17 +55,18 @@ public class Path implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
-    public long getId()
+    public int getId()
     {
         return id;
     }
 
-    public void setId(long id)
+    public void setId(int id)
     {
         this.id = id;
     }
     
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true )
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name="PathId")
     public List<Assignment> getAssignments()
     {
         return this.assignments;

@@ -118,4 +118,8 @@ public class PersistenceController {
       
        ((SessionRepository) repositories.get(Session.class.getSimpleName())).removeSession(session);
     }
+    
+    public BoBAction getStartAction() {
+        return  ((ActionRepository) repositories.get(BoBAction.class.getSimpleName())).getById(1);
+    }
 }

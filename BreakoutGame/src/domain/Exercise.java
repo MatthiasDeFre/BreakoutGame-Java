@@ -44,7 +44,7 @@ import org.eclipse.persistence.annotations.ChangeTracking;
 @Table(name = "Exercises")
 public class Exercise implements IManageable, Serializable {
     
-    private long id;
+    private int id;
     //   @Column(unique = true)
     private SimpleStringProperty name = new SimpleStringProperty();
     private String answer;
@@ -256,19 +256,19 @@ public class Exercise implements IManageable, Serializable {
     @Override
     public String toString()
     {
-        return String.format("%s %s", category.get().getDescription(), assignment);
+        return String.format("%s", this.name.get());
     }
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Override
-    public long getId()
+    public int getId()
     {
         return id;
     }
     
     @Override
-    public void setId(long id)
+    public void setId(int id)
     {
         System.out.println(id);
         this.id = id;

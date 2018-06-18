@@ -34,6 +34,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.beans.binding.Binding;
 import javafx.beans.binding.Bindings;
+import javafx.beans.binding.StringBinding;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -185,18 +186,18 @@ public class SessionModifyPaneRightController extends AnchorPane implements Obse
         });
 
         TBTile.setOnAction(e -> {
+              
             if (TBTile.isSelected()) {
+              
                 TBFeedback.setSelected(true);
-            }
+            } else
+                  TBGroups.setSelected(false);
         });
 
         // btnGenerateGroup.disableProperty().bind(TBTile.selectedProperty().or((TBTile.selectedProperty().not().and(Bindings.isEmpty(txfGroupAmount.textProperty())))));
         btnGeneratePaths.disableProperty().bind(Bindings.size(tblGroups.getItems()).isEqualTo(0));
-        TBTile.setOnAction(e -> {
-            if (TBTile.isSelected()) {
-                TBGroups.setSelected(false);
-            }
-        });
+        
+        txtClass.textProperty().bind(Bindings.when(cmbClass.getSelectionModel().selectedItemProperty().isNotNull()).then(cmbClass.getSelectionModel().selectedItemProperty().asString()).otherwise(new SimpleStringProperty()));
     }
 
     @Override
@@ -205,11 +206,11 @@ public class SessionModifyPaneRightController extends AnchorPane implements Obse
             Session session = (Session) obj;
             txtName.setText(session.getName());
             txtDescription.setText(session.getDescription());
-            if (session.getClassRoom() != null) {
+        /*    if (session.getClassRoom() != null) {
                 txtClass.setText(session.getClassRoom().getStudentClassName());
             } else {
                 txtClass.setText("");
-            }
+            }*/
             DPDate.setValue(session.getActivationDate());
             TBFeedback.setSelected(session.isFeedback());
             TBTile.setSelected(session.isTile());

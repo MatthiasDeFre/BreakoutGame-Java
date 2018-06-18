@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<fx:root id="pane" prefHeight="800.0" prefWidth="1200.0" stylesheets="@assets/css/style_1.css" type="AnchorPane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root id="pane" prefHeight="800.0" prefWidth="1200.0" stylesheets="@assets/css/style_1.css" type="AnchorPane" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <JFXTabPane layoutY="-2.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <tabs>
@@ -76,8 +76,6 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="600.0">
                      <children>
-                        <JFXButton fx:id="btnNewGroup" layoutX="696.0" layoutY="449.0" onAction="#newGroup" styleClass="button-raised" stylesheets="@assets/css/jfoenix-components.css" text="Nieuwe groep" AnchorPane.leftAnchor="696.0" AnchorPane.topAnchor="449.0" />
-                        <JFXButton fx:id="btnStudent" layoutX="696.0" layoutY="122.0" onAction="#btnStudentOnAction" styleClass="button-raised" stylesheets="@assets/css/jfoenix-components.css" text="Voeg student toe" AnchorPane.leftAnchor="696.0" AnchorPane.topAnchor="122.0" />
                         <JFXButton fx:id="btnDeleteStudent" buttonType="RAISED" layoutX="696.0" layoutY="175.0" onAction="#btnDeleteStudentOnAction" styleClass="button-raised" stylesheets="@assets/css/jfoenix-components.css" text="Verwijder student" AnchorPane.leftAnchor="696.0" />
                         <AnchorPane layoutX="191.0" layoutY="69.0" prefHeight="451.0" prefWidth="899.0" AnchorPane.bottomAnchor="245.0" AnchorPane.leftAnchor="191.0" AnchorPane.rightAnchor="110.0" AnchorPane.topAnchor="69.0">
                            <children>
@@ -100,6 +98,8 @@
                               <JFXButton fx:id="btnGenerateGroup" buttonType="RAISED" layoutX="138.0" layoutY="300.0" onAction="#generateGroups" ripplerFill="#1e1457" styleClass="button-raised" stylesheets="@assets/css/jfoenix-components.css" text="Groepen generen" AnchorPane.leftAnchor="138.0" AnchorPane.topAnchor="300.0" />
                            </children>
                         </AnchorPane>
+                        <JFXButton fx:id="btnStudent" layoutX="696.0" layoutY="122.0" onAction="#btnStudentOnAction" styleClass="button-raised" stylesheets="@assets/css/jfoenix-components.css" text="Voeg student toe" AnchorPane.leftAnchor="696.0" AnchorPane.topAnchor="122.0" />
+                        <JFXButton fx:id="btnNewGroup" layoutX="696.0" layoutY="449.0" onAction="#newGroup" styleClass="button-raised" stylesheets="@assets/css/jfoenix-components.css" text="Nieuwe groep" AnchorPane.leftAnchor="696.0" AnchorPane.topAnchor="449.0" />
                         <JFXComboBox fx:id="cmbClass" layoutX="740.0" layoutY="247.0" prefHeight="25.0" prefWidth="113.0" AnchorPane.leftAnchor="740.0" />
                         <JFXToggleButton fx:id="TBGroups" layoutX="720.0" layoutY="297.0" prefHeight="58.0" prefWidth="144.0" text="Lege groepen" AnchorPane.leftAnchor="720.0" />
                         <JFXTextField fx:id="txfGroupAmount" alignment="BOTTOM_CENTER" layoutX="729.0" layoutY="378.0" promptText="Aantal groepen" AnchorPane.leftAnchor="729.0" />

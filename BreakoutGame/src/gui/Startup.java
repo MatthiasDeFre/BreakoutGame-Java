@@ -43,7 +43,7 @@ public class Startup extends Application {
            LangConfig.setLang();
         
         PersistenceController pc = new PersistenceController();
-        Scene scene = new Scene(new MainScreenController(new ExerciseDomainController(pc)));
+        Scene scene = new Scene(new MainScreenController(new ExerciseDomainController(pc)),1250,750);
         scene.getStylesheets().add(StartupMain.class.getResource("assets/css/jfoenix-components.css").toExternalForm());
      
         SceneController4 sc4=new SceneController4(new ExerciseDomainController(new PersistenceController()), new BoxController(pc),new ListStudentController(),new SessionController(new PersistenceController()), stage, scene, pc);
@@ -54,7 +54,7 @@ public class Startup extends Application {
        // sc4.switchScene(SceneName.BOXSCREEN);
     
  //         stage.setMaximized(true);
-        stage.setResizable(true);
+        stage.setResizable(false);
         stage.show();
     }
 

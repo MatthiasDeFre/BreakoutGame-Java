@@ -23,7 +23,7 @@ import javax.persistence.Id;
 @Entity
 public class Goal implements Serializable, IManageable, Comparable<Object> {
 
-    private long id;
+    private int id;
 
     private SimpleStringProperty code = new SimpleStringProperty();
     public Goal()
@@ -44,12 +44,12 @@ public class Goal implements Serializable, IManageable, Comparable<Object> {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public long getId()
+    public int getId()
     {
         return id;
     }
 
-    public void setId(long id)
+    public void setId(int id)
     {
         this.id = id;
     }

@@ -3,15 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package domain;
+package util;
 
-import java.util.Observer;
+import java.math.BigInteger;
+import javax.persistence.AttributeConverter;
+import javax.persistence.Converter;
 
 /**
  *
  * @author Matthias
  */
-public interface Subject {
-    void addObserver(Observer obs);
-    void removeObserver(Observer obs);
+
+public class LongBigIntConverter {
+
+   
+    
 }

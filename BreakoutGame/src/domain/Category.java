@@ -28,7 +28,7 @@ public class Category implements Serializable, IManageable {
 //    MATH("MATH"),
 //    GEOGRAPHY("GEOGRAPHY"),
 //    DUTCH("DUTCH");
-    private long id;
+    private int id;
 
     private SimpleStringProperty name = new SimpleStringProperty();
     
@@ -109,12 +109,12 @@ public class Category implements Serializable, IManageable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public long getId()
+    public int getId()
     {
         return id;
     }
 
-    public void setId(long id)
+    public void setId(int id)
     {
         this.id = id;
     }

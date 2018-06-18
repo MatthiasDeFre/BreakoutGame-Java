@@ -61,7 +61,7 @@ public class ExerciseController extends StackPane {
 
     private ExerciseDomainController dc;
     @FXML
-    private SplitPane splitPane;
+    private HBox splitPane;
     @FXML
     private HBox hBoxNavBar;
     @FXML
@@ -72,6 +72,12 @@ public class ExerciseController extends StackPane {
     private JFXDialog dialogScreen;
 
     private JFXDialogLayout dialogContent;
+    @FXML
+    private VBox vbox;
+    @FXML
+    private HBox hboxDetail;
+    @FXML
+    private HBox hboxGroupDetails;
 
     public ExerciseController(ExerciseDomainController dc) {
 
@@ -106,14 +112,18 @@ public class ExerciseController extends StackPane {
         dc.addObserverExercise(screen2);
         dc.addObserverExercise(screen3);
 
-        splitPane.getItems().add(screen1);
-        splitPane.getItems().add(screen2);
-        splitPane.getItems().add(screen3);
-        //   splitPane.getItems().add(test2);
-        // splitPane.getItems().add(test);
+        //de linker hbox
+        splitPane.getChildren().add(screen1);
+        
+        //de rechtervbox met 2hboxes
+        hboxDetail.getChildren().add(screen2);
+        hboxGroupDetails.getChildren().add(screen3);
+        
+        
 
-        String image = ExerciseController.class.getResource("boeken.jpg").toExternalForm();
-        splitPane.setStyle("-fx-background-image: url('" + image + "'); "
+        //foto
+        String image = ExerciseController.class.getResource("background.jpg").toExternalForm();
+        vbox.setStyle("-fx-background-image: url('" + image + "'); "
                 + "-fx-background-position: center center; "
                 + "-fx-background-repeat: stretch;");
 

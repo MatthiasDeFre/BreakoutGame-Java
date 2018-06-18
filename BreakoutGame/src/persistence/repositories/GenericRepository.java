@@ -89,7 +89,7 @@ public abstract class GenericRepository<T> implements IGenericRepository<T>{
      * @param id
      * @return The asked entity or null if the entity wasn't found.
      */
-    public T getById(long id)
+    public T getById(int id)
     {
         T entity = em.find(type, id);
         return entity;
@@ -113,7 +113,7 @@ public abstract class GenericRepository<T> implements IGenericRepository<T>{
      * @param id
      * @return true of object was found, false if the object was not found.
      */
-    public boolean exists(long id) {
+    public boolean exists(int id) {
         T entity = em.find(type, id);
         return entity != null;
     }

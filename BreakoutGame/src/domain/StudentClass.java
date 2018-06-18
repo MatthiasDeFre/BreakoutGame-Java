@@ -85,15 +85,22 @@ public class StudentClass implements IManageable, Serializable{
         this.students.addAll(students);
     }
     @Override
-    public long getId()
+    public int getId()
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void setId(long id)
+    public void setId(int id)
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public String toString()
+    {
+        return studentClassName;
+    }
+
+    
 }

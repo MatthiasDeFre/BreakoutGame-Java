@@ -25,7 +25,7 @@ public class SessionRepository extends GenericRepository<Session>{
     }
     
     public boolean boxInSession(Box box) {
-        TypedQuery<Long> query =  getEntityManager().createNamedQuery("BoxInSession", Long.class);
+        TypedQuery<Integer> query =  getEntityManager().createNamedQuery("BoxInSession", int.class);
         if(query.getResultList().isEmpty())
             return false;
         return query.getResultList().contains(box.getId());

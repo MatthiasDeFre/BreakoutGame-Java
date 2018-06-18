@@ -22,6 +22,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -38,7 +39,7 @@ import javax.persistence.Transient;
 @Entity
 public class Box implements Serializable, IManageable {
 
-   private long id;
+   private int id;
    private SimpleStringProperty description = new SimpleStringProperty();
    private SimpleStringProperty name = new SimpleStringProperty();
    
@@ -52,9 +53,9 @@ public class Box implements Serializable, IManageable {
    public Box() {
        //Treasurechest
        actions = new ArrayList<>();
-       BoBAction boBAction = new BoBAction("Zoek een kist");
-       boBAction.setId(1);
-       actions.add(boBAction);
+  //     BoBAction boBAction = new BoBAction("Zoek een kist");
+    //   boBAction.setId(1);
+   //    actions.add(boBAction);
        exercises = new HashSet<>();
   //     accessCodes = new ArrayList<>();
    }
@@ -80,12 +81,12 @@ public class Box implements Serializable, IManageable {
    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public long getId()
+    public int getId()
     {
         return id;
     }
 
-    public void setId(long id)
+    public void setId(int id)
     {
         this.id = id;
     }
@@ -99,7 +100,7 @@ public class Box implements Serializable, IManageable {
     public void setDescription(String description)
     {
         if(description == null || description.trim().isEmpty()) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Omschrijving is leeg");
         }
         this.description.set(description);
     }
@@ -114,7 +115,7 @@ public class Box implements Serializable, IManageable {
     public void setName(String name)
     {
         if(name == null || name.trim().isEmpty()) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Naam is leeg");
         }
         this.name.set(name);
     }
@@ -154,7 +155,10 @@ public class Box implements Serializable, IManageable {
     }
     
     public void addAction(BoBAction action) {
-        actions.add(actions.size() -2, action);
+        if(actions.isEmpty())
+            actions.add(0,action);
+        else
+            actions.add(actions.size() -2, action);
        
     }
     public void removeAction(BoBAction action) {

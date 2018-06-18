@@ -164,7 +164,9 @@ public class ExerciseDomainController implements ExerciseFilter{
     {
         try {
                exerciseManager.delete();
-        } catch(Exception e) {
+        } catch (IllegalArgumentException ex){
+            throw new IllegalArgumentException(ex.getMessage());
+        }catch(Exception e) {
             System.out.println(Arrays.toString(e.getStackTrace()));
             throw new IllegalArgumentException("Er is een fout opgetreden: deze fout komt meestal voor omdat de oefening zich binnen een box bevind");
         }

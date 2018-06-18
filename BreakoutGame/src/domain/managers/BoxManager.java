@@ -28,6 +28,7 @@ public class BoxManager extends Manager<Box>
     private ObservableList<BoBAction> actionsTemp;
     private ObservableList<Exercise> exerciseTemp;
     private Map<String, ObservableList> tempLists;
+    private BoBAction startAction;
     private ObservableList<Goal> goals;
     
     protected BoxManager()
@@ -36,7 +37,7 @@ public class BoxManager extends Manager<Box>
              tempLists = new HashMap<>();
            resetTempCollections();
            goals = FXCollections.observableArrayList();
-         
+           
          
     }
     
@@ -44,11 +45,10 @@ public class BoxManager extends Manager<Box>
     {
         super(Box.class, persistence);
         setItems(FXCollections.observableList(persistence.getAllOfType(Box.class)));
-         tempLists = new HashMap<>();
-         goals = FXCollections.observableArrayList();
+        tempLists = new HashMap<>();
+        goals = FXCollections.observableArrayList();
+        startAction = persistence.getStartAction();
         resetTempCollections();
-      
-     
     }
 
     public ObservableList<BoBAction> getActionsTemp()
@@ -131,7 +131,9 @@ public class BoxManager extends Manager<Box>
         goals.addAll(x.stream().map(e -> ((Exercise)e).getGoals()).flatMap(Set::stream).collect(Collectors.toSet()));
     }
     
-    
+    public BoBAction getStartAction() {
+        return startAction;
+    }
     
     
 

@@ -9,6 +9,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXColorPicker;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
+import com.jfoenix.controls.JFXListView;
 import com.jfoenix.effects.JFXDepthManager;
 import domain.Box;
 import domain.Exercise;
@@ -45,11 +46,7 @@ import javafx.scene.paint.Paint;
 public class ExercisesPaneLeftController extends AnchorPane {
 
     @FXML
-    private TableView<Exercise> tblExercises;
-    @FXML
-    private TableColumn<Exercise, String> clmSection;
-    @FXML
-    private TableColumn<Exercise, String> clmDescription;
+    private JFXListView<Exercise> tblExercises;
     @FXML
     private JFXButton btnCreateExercise;
     @FXML
@@ -61,11 +58,11 @@ public class ExercisesPaneLeftController extends AnchorPane {
     private ExerciseDomainController dc;
     private ObservableList<Exercise> listExercices;
     @FXML
-    private AnchorPane AnchorPane;
-    @FXML
     private JFXColorPicker colorPicker;
 
     private JFXDialog dialog; 
+    @FXML
+    private Label lblOnderwerp;
     public ExercisesPaneLeftController(ExerciseDomainController dc, JFXDialog dialog) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ExercisesPaneLeft.fxml"));
         loader.setRoot(this);
@@ -81,15 +78,12 @@ public class ExercisesPaneLeftController extends AnchorPane {
 //        dc.addObserver(this);
         listExercices = dc.getFilteredItems(Exercise.class);
         tblExercises.setItems(listExercices);
-        clmSection.setCellValueFactory(e -> e.getValue().categoryProperty());
-        clmDescription.setCellValueFactory(e -> e.getValue().nameProperty());
         tblExercises.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 setSelectedItemToDc();
             }
         });
         
-        JFXDepthManager.setDepth(tblExercises, 1);
         btnDeleteExercise.disableProperty().bind(Bindings.size(tblExercises.getItems()).isEqualTo(0));
         btnCopyExercise.disableProperty().bind(Bindings.size(tblExercises.getItems()).isEqualTo(0));
     }

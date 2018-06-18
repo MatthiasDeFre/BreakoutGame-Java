@@ -18,6 +18,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
@@ -37,7 +38,7 @@ public class BoBGroup implements IManageable, Serializable {
     
    
     private Path path;
-    private long id;
+    private int id;
 
     public BoBGroup()
     {
@@ -71,13 +72,14 @@ public class BoBGroup implements IManageable, Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public long getId()
+       
+    public int getId()
     {
         return id;
     }
 
     @Override
-    public void setId(long id)
+    public void setId(int id)
     {
        this.id = id;
     }
@@ -103,8 +105,7 @@ public class BoBGroup implements IManageable, Serializable {
     {
         this.students = new ArrayList<>(students);
     }
-    
-    
+
     
     public void testToString() {
    //     System.out.println(path.getToStringTest());

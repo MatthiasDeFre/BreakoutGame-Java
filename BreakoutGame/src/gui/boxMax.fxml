@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.geometry.*?>
@@ -136,6 +138,14 @@
                                           </TableView>
                                        </children>
                                     </HBox>
+                                    <Label layoutX="75.0" layoutY="129.0" text="Beschikbare oefeningen" AnchorPane.topAnchor="85.0">
+                                       <font>
+                                          <Font name="Roboto" size="18.0" />
+                                       </font></Label>
+                                    <Label layoutX="459.0" layoutY="140.0" text="Geselecteerde oefeningen" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="85.0">
+                                       <font>
+                                          <Font name="Roboto" size="18.0" />
+                                       </font></Label>
                                  </children>
                                  <padding>
                                     <Insets top="50.0" />

@@ -27,7 +27,6 @@
 
 .jfx-text-field,
 .jfx-password-field {
-    -fx-background-color: WHITE;
     -fx-font-weight: BOLD;
     -fx-prompt-text-fill: #808080;
     -fx-alignment: top-left;
@@ -387,7 +386,7 @@
 }
 
 .table-row-cell {
-    -fx-background-color: rgba(123, 133, 139,0.3);
+    -fx-background-color: #ebf3fb;
 /*        rgba(230, 230, 230, 1);*/
 }
 
@@ -474,7 +473,7 @@
 
 .goalArea:empty {
     -fx-font-size: 1.75em;
-    -fx-prompt-text-fill: #98999b;
+    -fx-prompt-text-fill: white;
 }
 .closeButton {
     -fx-background-color: #112959;
@@ -500,4 +499,12 @@
       -fx-font-family: "System";
     -fx-font-size: 24px;
     -fx-font-weight: bold;
+}
+
+.button-raised2 {
+    -fx-padding: 0.7em 0.57em;
+    -fx-font-size: 14px;
+    -jfx-button-type: RAISED;
+    -fx-background-color: rgb(77, 102, 204);
+    -fx-text-fill: WHITE;
 }

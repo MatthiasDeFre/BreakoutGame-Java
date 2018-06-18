@@ -26,9 +26,11 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -44,7 +46,7 @@ import util.LocalDateAttributeConverter;
 @Table(name = "BoBSession")
 public class Session implements IManageable, Serializable {
     
-    private long id;
+    private int id;
        
     private Box box;
    
@@ -68,6 +70,7 @@ public class Session implements IManageable, Serializable {
     {
         activationDate = LocalDate.now();
         groups = new ArrayList<>();
+        setSessionStatus(SessionStatus.SCHEDULED);
     }
 
     public Session(Box box, List<BoBGroup> groups, String description, StudentClass classRoom, String name, LocalDate activationDate, boolean tile, boolean feedback)
@@ -97,7 +100,7 @@ public class Session implements IManageable, Serializable {
         setDescription(session.getDescription());
         setActivationDate(session.getActivationDate());
         
-        setSessionStatus(session.getSessionStatus());
+        //setSessionStatus(session.getSessionStatus());
         setClassRoom(session.getClassRoom());
         setBox(session.getBox());
         setGroups(session.getGroups());
@@ -106,19 +109,19 @@ public class Session implements IManageable, Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Override
-    public long getId()
+    public int getId()
     {
         return id;
     }
 
     @Override
-    public void setId(long id)
+    public void setId(int id)
     {
         this.id = id;
     }
 
    
-   
+   @Convert(converter = LocalDateAttributeConverter.class)
     public LocalDate getActivationDate()
     {
         return activationDate;
@@ -126,9 +129,9 @@ public class Session implements IManageable, Serializable {
 
     public void setActivationDate(LocalDate activationDate)
     {
-        if(!activationDate.isEqual(LocalDate.now()) && activationDate.isBefore(LocalDate.now())) {
+       /* if(!activationDate.isEqual(LocalDate.now()) && activationDate.isBefore(LocalDate.now())) {
             throw new IllegalArgumentException("Datum ligt voor vandaag");
-        }
+        }*/
         this.activationDate = activationDate;
     }
 
@@ -159,6 +162,7 @@ public class Session implements IManageable, Serializable {
     
     
 @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+@JoinColumn(name="BoBSessionID")
     public List<BoBGroup> getGroups()
     {
         return groups;
@@ -177,7 +181,7 @@ public class Session implements IManageable, Serializable {
     public void setDescription(String description)
     {
           if(description == null || description.trim().isEmpty())
-            throw new IllegalArgumentException("Description is empty");
+            throw new IllegalArgumentException("Omschrijving is leeg");
         this.description.set(description.trim());
     }
 
@@ -201,7 +205,7 @@ public class Session implements IManageable, Serializable {
     public void setName(String name)
     {
         if(name == null || name.trim().isEmpty())
-            throw new IllegalArgumentException("Name is empty");
+            throw new IllegalArgumentException("Naam is leeg");
         this.name.set(name.trim());
     }
 

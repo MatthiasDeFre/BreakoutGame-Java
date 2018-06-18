@@ -58,18 +58,18 @@ public class BoBAction implements IManageable, Serializable {
     
     
     
-    private long id;
+    private int id;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Override
-    public long getId()
+    public int getId()
     {
        return id;
     }
 
     @Override
-    public void setId(long id)
+    public void setId(int id)
     {
         this.id = id;
     }
