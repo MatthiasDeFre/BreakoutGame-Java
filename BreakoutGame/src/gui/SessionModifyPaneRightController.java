@@ -82,8 +82,8 @@ public class SessionModifyPaneRightController extends AnchorPane implements Obse
     private TableView<Box> tblBOBS;
     @FXML
     private TableColumn<Box, String> clmBob;
-    @FXML
-    private JFXTextField txtNaamBox;
+//    @FXML
+//    private JFXTextField txtNaamBox;
     @FXML
     private TableView<Goal> tblGoal;
     @FXML
@@ -224,7 +224,7 @@ public class SessionModifyPaneRightController extends AnchorPane implements Obse
         if (obj instanceof Box) {
             ObservableList goals = dc.getGoals();
             tblGoal.setItems(goals);
-            txtNaamBox.setText(((Box) obj).getName());
+//            txtNaamBox.setText(((Box) obj).getName());
         }
         if (obj instanceof StudentClass) {
             System.out.println("test");
