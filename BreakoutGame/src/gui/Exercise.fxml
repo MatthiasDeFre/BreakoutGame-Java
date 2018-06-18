@@ -44,12 +44,12 @@
                               <Insets left="10.0" />
                            </HBox.margin>
                         </Label>
-                        <Label onMouseClicked="#goToEx" text="Exercise" textFill="WHITE" translateY="5.0">
+                        <Label onMouseClicked="#goToEx" text="Oefening" textFill="WHITE" translateY="5.0">
                            <font>
                               <Font name="ConthraxSb-Regular" size="14.0" />
                            </font>
                         </Label>
-                        <Label onMouseClicked="#goToSessions" text="Session" textFill="WHITE" translateY="5.0">
+                        <Label onMouseClicked="#goToSessions" text="Sessie" textFill="WHITE" translateY="5.0">
                            <font>
                               <Font name="ConthraxSb-Regular" size="14.0" />
                            </font>

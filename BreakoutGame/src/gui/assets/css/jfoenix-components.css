@@ -135,6 +135,22 @@
     -fx-text-fill: WHITE;
 }
 
+.halloWerkDan {
+    -fx-padding: 0.2em;
+    -fx-font-size: 18px;
+    -jfx-button-type: RAISED;
+    -fx-background-color: rgb(77, 102, 204);
+    -fx-pref-height: 20;
+    -fx-pref-width: 35;
+    -fx-text-fill: white;
+}
+
+.colorPickerFix {
+    color: black;
+}
+
+
+
 
 /* The main scrollbar **track** CSS class  */
 
