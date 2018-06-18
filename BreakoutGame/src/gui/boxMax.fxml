@@ -243,7 +243,7 @@
                                           <Font name="Roboto" size="18.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="717.0" layoutY="241.0" text="Bereike doelstellingen" textFill="WHITE">
+                                    <Label layoutX="717.0" layoutY="241.0" text="Bereikte doelstellingen" textFill="WHITE">
                                        <font>
                                           <Font name="Roboto" size="18.0" />
                                        </font>
