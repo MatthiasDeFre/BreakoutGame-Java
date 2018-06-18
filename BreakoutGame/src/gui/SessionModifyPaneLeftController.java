@@ -8,7 +8,6 @@ package gui;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
-import com.jfoenix.controls.JFXListView;
 import domain.BoBGroup;
 import domain.Exercise;
 import domain.ExerciseDomainController;
@@ -45,22 +44,20 @@ import javafx.scene.layout.VBox;
  */
 public class SessionModifyPaneLeftController extends AnchorPane {
 
-//    @FXML
-//    private TableView<Session> tblSessions;
+    @FXML
+    private TableView<Session> tblSessions;
 
     private SessionController dc;
     @FXML
     private AnchorPane pane;
-//    @FXML
-//    private TableColumn<Session, String> clmSessions;
+    @FXML
+    private TableColumn<Session, String> clmSessions;
     @FXML
     private JFXButton btnOpslaan;
     @FXML
     private JFXButton btnVerwijder;
     
     private JFXDialog dialog;
-    @FXML
-    private JFXListView<Session> tblSessions2;
     
     public SessionModifyPaneLeftController(SessionController dc, JFXDialog dialog) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("SessionModifyPaneLeft.fxml"));
@@ -74,12 +71,12 @@ public class SessionModifyPaneLeftController extends AnchorPane {
 
         this.dc = dc;
         this.dialog = dialog;
-        //clmSessions.setCellValueFactory(e -> e.getValue().nameProperty());
-        tblSessions2.setItems(dc.getFilteredItems(Session.class));
-      //  , (tblSessions2.getSelectionModel().getSelectedItem() != null && tblSessions2.getSelectionModel().getSelectedItem().getSessionStatus() != SessionStatus.ACTIVATED))
-        btnVerwijder.disableProperty().bind(Bindings.size(tblSessions2.getItems()).isEqualTo(0));
+        clmSessions.setCellValueFactory(e -> e.getValue().nameProperty());
+        tblSessions.setItems(dc.getFilteredItems(Session.class));
+      //  , (tblSessions.getSelectionModel().getSelectedItem() != null && tblSessions.getSelectionModel().getSelectedItem().getSessionStatus() != SessionStatus.ACTIVATED))
+        btnVerwijder.disableProperty().bind(Bindings.size(tblSessions.getItems()).isEqualTo(0));
       
-        tblSessions2.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+        tblSessions.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 dc.setManagerMode(Session.class, PersistMode.UPDATE);
                 setSelectedItemToDc();
@@ -90,9 +87,9 @@ public class SessionModifyPaneLeftController extends AnchorPane {
 
     private void setSelectedItemToDc() {
         dc.setManagerMode(Session.class, PersistMode.UPDATE);
-        dc.setSelectedItem(tblSessions2.getSelectionModel().getSelectedItem());
+        dc.setSelectedItem(tblSessions.getSelectionModel().getSelectedItem());
         dc.setSelectedItem(new BoBGroup());
-          dc.setSelectedItem(tblSessions2.getSelectionModel().getSelectedItem().getClassRoom());
+          dc.setSelectedItem(tblSessions.getSelectionModel().getSelectedItem().getClassRoom());
          dc.applyGrouplessStudentFilter();
     }
 

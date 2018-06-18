@@ -63,7 +63,7 @@ public class SessionMainController extends StackPane {
 
     private SessionController dc;
     @FXML
-    private HBox splitPane;
+    private SplitPane splitPane;
     @FXML
     private HBox hBoxNavBar;
     @FXML
@@ -74,10 +74,6 @@ public class SessionMainController extends StackPane {
     private JFXDialog dialogScreen;
 
     private JFXDialogLayout dialogContent;
-    @FXML
-    private HBox paneLeft;
-    @FXML
-    private HBox paneRight;
 
     public SessionMainController(SessionController dc) {
         //fxml loader + basic dc
@@ -107,11 +103,12 @@ public class SessionMainController extends StackPane {
         dc.addObserver(Box.class, test);
         dc.addObserver(StudentClass.class, test);
 
-        paneLeft.getChildren().add(test2);
-        paneRight.getChildren().add(test);
+        splitPane.getItems().add(test2);
+        splitPane.getItems().add(test);
+//        splitPane.getItems().add(screen3);
 
         //bg + extra
-        String image = SessionMainController.class.getResource("background.jpg").toExternalForm();
+        String image = SessionMainController.class.getResource("boeken.jpg").toExternalForm();
         splitPane.setStyle("-fx-background-image: url('" + image + "'); "
                 + "-fx-background-position: center center; "
                 + "-fx-background-repeat: stretch;");
