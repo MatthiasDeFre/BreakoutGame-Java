@@ -126,7 +126,7 @@
                   </AnchorPane>
                   <AnchorPane fx:id="anchorPane" prefHeight="800.0" prefWidth="995.0" stylesheets="@assets/css/jfoenix-components.css">
                      <children>
-                        <TableView fx:id="tblStudents" layoutX="177.0" layoutY="83.0" prefHeight="389.0" prefWidth="629.0" styleClass="column-overlay" AnchorPane.bottomAnchor="268.0" AnchorPane.leftAnchor="177.0" AnchorPane.rightAnchor="146.0" AnchorPane.topAnchor="83.0">
+                        <TableView fx:id="tblStudents" layoutX="177.0" layoutY="83.0" prefHeight="389.0" prefWidth="629.0" stylesheets="@assets/css/jfoenix-components.css" AnchorPane.bottomAnchor="268.0" AnchorPane.leftAnchor="177.0" AnchorPane.rightAnchor="146.0" AnchorPane.topAnchor="83.0">
                            <columns>
                               <TableColumn fx:id="clmFirstName" prefWidth="120.0" text="Voornaam" />
                               <TableColumn fx:id="clmLastName" minWidth="50.0" prefWidth="101.0" text="Achternaam" />
@@ -136,34 +136,62 @@
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                            </columnResizePolicy>
+                           <styleClass>
+                              <String fx:value="column-overlay" />
+                              <String fx:value="alexanderFixTableView" />
+                           </styleClass>
                         </TableView>
                         <VBox layoutX="240.0" layoutY="521.0" prefHeight="192.0" prefWidth="314.0" AnchorPane.bottomAnchor="27.0">
                            <children>
-                              <JFXTextField fx:id="txtFirstName" promptText="Voornaam">
+                              <JFXTextField fx:id="txtFirstName" promptText="Voornaam" stylesheets="@assets/css/style2.css">
                                  <VBox.margin>
                                     <Insets top="20.0" />
                                  </VBox.margin>
+                                 <styleClass>
+                                    <String fx:value="avenir" />
+                                    <String fx:value="wit" />
+                                    <String fx:value="witprompt" />
+                                 </styleClass>
                               </JFXTextField>
-                              <JFXTextField fx:id="txtLastName" promptText="achternaam">
+                              <JFXTextField fx:id="txtLastName" promptText="Achternaam" stylesheets="@assets/css/style2.css">
                                  <VBox.margin>
                                     <Insets top="20.0" />
                                  </VBox.margin>
+                                 <styleClass>
+                                    <String fx:value="wit" />
+                                    <String fx:value="witprompt" />
+                                    <String fx:value="avenir" />
+                                 </styleClass>
                               </JFXTextField>
-                              <JFXTextField fx:id="txtClassroom" promptText="klasnaam">
+                              <JFXTextField fx:id="txtClassroom" promptText="Klasnaam" stylesheets="@assets/css/style2.css">
                                  <VBox.margin>
                                     <Insets top="10.0" />
                                  </VBox.margin>
+                                 <styleClass>
+                                    <String fx:value="wit" />
+                                    <String fx:value="witprompt" />
+                                    <String fx:value="avenir" />
+                                 </styleClass>
                               </JFXTextField>
-                              <JFXTextField fx:id="txtClassnumber" promptText="klasnummer">
+                              <JFXTextField fx:id="txtClassnumber" promptText="Klasnummer" stylesheets="@assets/css/style2.css">
                                  <VBox.margin>
                                     <Insets top="10.0" />
                                  </VBox.margin>
+                                 <styleClass>
+                                    <String fx:value="wit" />
+                                    <String fx:value="witprompt" />
+                                    <String fx:value="avenir" />
+                                 </styleClass>
                               </JFXTextField>
                            </children>
                         </VBox>
                         <HBox layoutX="498.0" layoutY="63.0" prefHeight="40.0" prefWidth="314.0" AnchorPane.rightAnchor="21.600000000000023" AnchorPane.topAnchor="63.0" />
-                        <Button fx:id="btnAdd" layoutX="573.0" layoutY="568.0" mnemonicParsing="false" onAction="#btnAddStudent" prefHeight="37.0" prefWidth="200.0" style="-fx-background-color: #114f8a;" text="Voeg student toe" />
-                        <Button fx:id="btnRemove" layoutX="573.0" layoutY="638.0" mnemonicParsing="false" onAction="#btnRemoveStudent" prefHeight="40.0" prefWidth="160.0" style="-fx-background-color: #114f8a;" styleClass="button-raised" text="Verwijder student" />
+                        <VBox layoutX="605.0" layoutY="552.0" prefHeight="130.0" prefWidth="201.0" spacing="50.0" AnchorPane.bottomAnchor="58.0" AnchorPane.leftAnchor="605.0" AnchorPane.rightAnchor="146.0" AnchorPane.topAnchor="552.0">
+                           <children>
+                              <Button fx:id="btnAdd" mnemonicParsing="false" onAction="#btnAddStudent" prefHeight="37.0" prefWidth="200.0" style="-fx-background-color: #114f8a;" text="Voeg student toe" />
+                              <Button fx:id="btnRemove" mnemonicParsing="false" onAction="#btnRemoveStudent" prefHeight="40.0" prefWidth="160.0" style="-fx-background-color: #114f8a;" styleClass="button-raised" text="Verwijder student" />
+                           </children>
+                        </VBox>
                      </children>
                   </AnchorPane>
                </children>

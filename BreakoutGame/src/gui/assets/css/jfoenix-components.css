@@ -524,3 +524,17 @@
     -fx-background-color: rgb(77, 102, 204);
     -fx-text-fill: WHITE;
 }
+
+.alexanderFixTableView .scroll-bar:horizontal .increment-arrow,
+.alexanderFixTableView .scroll-bar:horizontal .decrement-arrow,
+.alexanderFixTableView .scroll-bar:horizontal .increment-button,
+.alexanderFixTableView .scroll-bar:horizontal .decrement-button {
+    -fx-padding:0;
+}
+
+.alexanderFixTableView .scroll-bar:vertical .increment-arrow,
+.alexanderFixTableView .scroll-bar:vertical .decrement-arrow,
+.alexanderFixTableView .scroll-bar:vertical .increment-button,
+.alexanderFixTableView .scroll-bar:vertical .decrement-button {
+    -fx-padding:0;
+}

@@ -70,6 +70,19 @@
                            </graphic>
                         </JFXButton>
                         <Line endX="100.0" stroke="WHITE" />
+                        <JFXButton fx:id="btnStudent" contentDisplay="TOP" onAction="#btnStudentOnAction" prefHeight="114.0" prefWidth="130.0" text="STUDENT." textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                           <font>
+                              <Font size="19.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="53.0" fitWidth="107.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@assets/img/students.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                        <Line endX="100.0" stroke="WHITE" />
                      </children>
                   </VBox>
                   <VBox fx:id="vboxGreeting" alignment="TOP_CENTER" prefHeight="800.0" prefWidth="1150.0" styleClass="background" stylesheets="@assets/css/style2.css">
