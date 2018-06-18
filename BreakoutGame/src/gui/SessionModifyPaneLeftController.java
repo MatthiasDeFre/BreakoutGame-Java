@@ -9,6 +9,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXListView;
+import com.jfoenix.effects.JFXDepthManager;
 import domain.BoBGroup;
 import domain.Exercise;
 import domain.ExerciseDomainController;
@@ -85,7 +86,6 @@ public class SessionModifyPaneLeftController extends AnchorPane {
                 setSelectedItemToDc();
             }
         });
-
     }
 
     private void setSelectedItemToDc() {
