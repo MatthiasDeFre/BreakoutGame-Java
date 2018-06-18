@@ -231,6 +231,13 @@ public class Session implements IManageable, Serializable {
    public void testToString() {
         groups.forEach(e -> e.testToString());
     }*/
+
+    @Override
+    public String toString() {
+        return String.format("%s", getName());
+    }
+    
+    
     
    
     public StringProperty nameProperty() {
