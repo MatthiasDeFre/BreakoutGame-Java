@@ -32,7 +32,7 @@ public class BoxStartScreenController extends StackPane {
 
     private BoxController dc;
     @FXML
-    private SplitPane mainPane;
+    private HBox mainPane;
     @FXML
     private HBox hBoxNavBar;
     @FXML
@@ -43,6 +43,10 @@ public class BoxStartScreenController extends StackPane {
     private JFXDialogLayout dialogContent;
     @FXML
     private JFXDrawer filterDrawer;
+    @FXML
+    private HBox paneLeft;
+    @FXML
+    private HBox paneRight;
 
     public BoxStartScreenController(BoxController dc) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("BoxStartScreen.fxml"));
@@ -69,10 +73,10 @@ public class BoxStartScreenController extends StackPane {
         BoxOverViewController boxOverViewController = new BoxOverViewController(dc, dialogScreen);
         //    mainPane.getItems().add(new AnchorPane());
         JFXDepthManager.setDepth(hBoxNavBar, 45);
-        mainPane.getItems().add(boxOverViewController);
+        paneLeft.getChildren().add(boxOverViewController);
         BoxMaxController boxMax = new BoxMaxController(dc, dialogScreen);
         JFXDepthManager.setDepth(boxMax, 2);
-        mainPane.getItems().add(boxMax);
+        paneRight.getChildren().add(boxMax);
         //   mainPane.setDividerPosition(0,50);
         //  SplitPane.setResizableWithParent(boxOverViewController, Boolean.TRUE);
         //BoxAccessActionsController boxAccessActionsController = new BoxAccessActionsController(dc);
@@ -84,7 +88,7 @@ public class BoxStartScreenController extends StackPane {
         //    dc.addObserverBox(boxExerciseListController);
         //   mainPane.getItems().add(boxExerciseListController);
         //  mainPane.setDividerPositions(100, 100,100);
-        String image = ExerciseController.class.getResource("boeken.jpg").toExternalForm();
+        String image = ExerciseController.class.getResource("background.jpg").toExternalForm();
         mainPane.setStyle("-fx-background-image: url('" + image + "'); "
                 + "-fx-background-position: center center; "
                 + "-fx-background-repeat: stretch;");
