@@ -1,23 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.*?>
-<?import com.jfoenix.controls.*?>
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXListView?>
+<?import com.jfoenix.controls.JFXNodesList?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<fx:root prefHeight="800.0" prefWidth="350.0" style="-fx-background-color: #ebf3fb;" styleClass="schaduw" stylesheets="@assets/css/style2.css" type="AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root prefHeight="800.0" prefWidth="350.0" style="-fx-background-color: #ebf3fb;" styleClass="schaduw" stylesheets="@assets/css/style2.css" type="AnchorPane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" minWidth="60.0" prefWidth="-1.0" style="&#10;" text="Overzicht boxen" textAlignment="CENTER" wrapText="false">
          <font>
@@ -68,6 +64,6 @@
          </styleClass>
       </Label>
       <JFXListView fx:id="tblBox2" layoutX="51.0" layoutY="309.0" prefHeight="300.0" prefWidth="248.0" styleClass="jfx-list-view-selectie" stylesheets="@assets/css/style2.css" />
-      <JFXNodesList fx:id="nodeList" layoutX="289.0" layoutY="770.0" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="30.0" />
+      <JFXNodesList fx:id="nodeList" layoutX="289.0" layoutY="770.0" translateX="20.0" translateY="20.0" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="30.0" />
    </children>
 </fx:root>
