@@ -53,6 +53,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.util.StringConverter;
 import util.PDFGenerator;
 
@@ -198,6 +199,7 @@ public class SessionModifyPaneRightController extends AnchorPane implements Obse
         btnGeneratePaths.disableProperty().bind(Bindings.size(tblGroups.getItems()).isEqualTo(0));
         
         txtClass.textProperty().bind(Bindings.when(cmbClass.getSelectionModel().selectedItemProperty().isNotNull()).then(cmbClass.getSelectionModel().selectedItemProperty().asString()).otherwise(new SimpleStringProperty()));
+      //  DPDate.setDefaultColor(Color.WHITE);
     }
 
     @Override

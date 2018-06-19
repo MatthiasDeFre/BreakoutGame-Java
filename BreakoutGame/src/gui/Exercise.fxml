@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.JFXDrawer?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
@@ -11,13 +19,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1300.0" type="StackPane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1300.0" type="StackPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <JFXDrawer fx:id="testD" defaultDrawerSize="450.0" prefHeight="800.0" prefWidth="350.0">
          <children>
             <JFXDrawer fx:id="filterDrawer" defaultDrawerSize="450.0" prefHeight="800.0" prefWidth="350.0" />
          </children></JFXDrawer>
-      <VBox prefHeight="600.0" prefWidth="900.0">
+      <VBox prefHeight="800.0" prefWidth="1300.0">
          <children>
             <HBox fx:id="hBoxNavBar" prefHeight="50.0" prefWidth="1300.0" spacing="10.0" style="-fx-background-color: #144575;" stylesheets="@assets/css/style.css">
                <children>
@@ -69,16 +77,16 @@
                   </HBox>
                </children>
                <padding>
-                  <Insets left="10.0" top="7.0" />
+                  <Insets left="10.0" top="33.0" />
                </padding>
             </HBox>
-            <HBox prefHeight="735.0" prefWidth="1300.0">
+            <HBox prefHeight="750.0" prefWidth="1300.0">
                <children>
-                  <HBox fx:id="splitPane" prefHeight="800.0" prefWidth="350.0" styleClass="shaduw" stylesheets="@assets/css/style2.css" />
-                  <VBox fx:id="vbox" prefHeight="800.0" prefWidth="950.0" styleClass="lichteschaduw" stylesheets="@assets/css/style2.css">
+                  <HBox fx:id="splitPane" prefHeight="750.0" prefWidth="350.0" styleClass="shaduw" stylesheets="@assets/css/style2.css" />
+                  <VBox fx:id="vbox" minWidth="-Infinity" prefHeight="750.0" prefWidth="950.0" styleClass="lichteschaduw" stylesheets="@assets/css/style2.css">
                      <children>
-                        <HBox fx:id="hboxDetail" prefHeight="353.0" prefWidth="591.0" style="-fx-background-color: transparent;" styleClass="schaduw" stylesheets="@assets/css/style2.css" />
-                        <HBox fx:id="hboxGroupDetails" prefHeight="384.0" prefWidth="591.0" style="-fx-background-color: transparent;" styleClass="lichteschaduw" stylesheets="@assets/css/style2.css" />
+                        <HBox fx:id="hboxDetail" minWidth="-Infinity" prefHeight="353.0" prefWidth="950.0" style="-fx-background-color: transparent;" styleClass="schaduw" stylesheets="@assets/css/style2.css" />
+                        <HBox fx:id="hboxGroupDetails" minWidth="-Infinity" prefHeight="384.0" prefWidth="950.0" style="-fx-background-color: transparent;" styleClass="lichteschaduw" stylesheets="@assets/css/style2.css" />
                      </children>
                   </VBox>
                </children>

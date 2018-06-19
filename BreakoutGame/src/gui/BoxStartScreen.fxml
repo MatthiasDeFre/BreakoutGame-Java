@@ -19,9 +19,9 @@
 
 <fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1300.0" type="StackPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <JFXDrawer fx:id="testD" defaultDrawerSize="450.0" prefHeight="400.0" prefWidth="343.0">
+      <JFXDrawer fx:id="testD" defaultDrawerSize="450.0" prefHeight="750.0" prefWidth="350.0">
          <children>
-            <JFXDrawer fx:id="filterDrawer" defaultDrawerSize="450.0" prefHeight="400.0" prefWidth="343.0" />
+            <JFXDrawer fx:id="filterDrawer" defaultDrawerSize="450.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="750.0" prefWidth="350.0" />
          </children></JFXDrawer>
       <VBox prefHeight="800.0" prefWidth="1300.0">
          <children>
@@ -75,7 +75,7 @@
                   </HBox>
                </children>
                <padding>
-                  <Insets left="10.0" top="7.0" />
+                  <Insets left="10.0" top="33.0" />
                </padding>
             </HBox>
             <HBox fx:id="mainPane" prefHeight="750.0" prefWidth="1300.0">

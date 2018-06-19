@@ -43,7 +43,7 @@ public class Startup extends Application {
            LangConfig.setLang();
         
         PersistenceController pc = new PersistenceController();
-        Scene scene = new Scene(new MainScreenController(new ExerciseDomainController(pc)),1250,750);
+        Scene scene = new Scene(new MainScreenController(new ExerciseDomainController(pc)),1300,800);
         scene.getStylesheets().add(StartupMain.class.getResource("assets/css/jfoenix-components.css").toExternalForm());
      
         SceneController4 sc4=new SceneController4(new ExerciseDomainController(new PersistenceController()), new BoxController(pc),new ListStudentController(),new SessionController(new PersistenceController()), stage, scene, pc);

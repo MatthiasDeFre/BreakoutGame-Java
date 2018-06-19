@@ -147,6 +147,8 @@ public class ExerciseController extends StackPane {
         });
 
         screen3.setDialog(dialogScreen);
+        testD.setDefaultDrawerSize(350);
+        filterDrawer.setDefaultDrawerSize(350);
     }
 
     private void test(MouseEvent event) {

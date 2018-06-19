@@ -117,7 +117,8 @@ public class BoxStartScreenController extends StackPane {
         //  boxAccessActionsController.setDialog(dialogScreen);
         //boxMax.setDialog(dialogScreen);
         this.requestFocus();
-
+        testD.setDefaultDrawerSize(350);
+        filterDrawer.setDefaultDrawerSize(350);
     }
 
     private void test(MouseEvent event) {

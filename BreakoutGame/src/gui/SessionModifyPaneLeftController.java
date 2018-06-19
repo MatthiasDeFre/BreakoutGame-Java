@@ -9,6 +9,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXListView;
+import com.jfoenix.controls.JFXNodesList;
 import com.jfoenix.effects.JFXDepthManager;
 import domain.BoBGroup;
 import domain.Exercise;
@@ -62,7 +63,12 @@ public class SessionModifyPaneLeftController extends AnchorPane {
     private JFXDialog dialog;
     @FXML
     private JFXListView<Session> tblSessions2;
-    
+    @FXML
+    private JFXNodesList nodeList;
+    private static final String FX_TEXT_FILL_WHITE = "-fx-text-fill:WHITE";
+    private static final String ANIMATED_OPTION_BUTTON = "animated-option-button";
+    private static final String ANIMATED_OPTION_SUB_BUTTON = "animated-option-sub-button";
+    private static final String ANIMATED_OPTION_SUB_BUTTON2 = "animated-option-sub-button2";
     public SessionModifyPaneLeftController(SessionController dc, JFXDialog dialog) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("SessionModifyPaneLeft.fxml"));
         loader.setRoot(this);
@@ -86,6 +92,30 @@ public class SessionModifyPaneLeftController extends AnchorPane {
                 setSelectedItemToDc();
             }
         });
+        
+            JFXButton ssbutton1 = new JFXButton();
+
+        JFXButton ssbutton2 = new JFXButton("A");
+        Label lblA = new Label("A");
+        lblA.setStyle("-fx-font-weight: bold;-fx-text-fill:WHITE");
+        lblA.setPadding(new Insets(0, 0, 0, 5));
+
+        ssbutton2.setGraphic(lblA);
+
+        ssbutton2.setButtonType(JFXButton.ButtonType.RAISED);
+        ssbutton2.getStyleClass().addAll(ANIMATED_OPTION_BUTTON, ANIMATED_OPTION_SUB_BUTTON2);
+
+        nodeList.setSpacing(10);
+        btnOpslaan.getStyleClass().addAll(ANIMATED_OPTION_BUTTON, ANIMATED_OPTION_SUB_BUTTON2);
+        btnVerwijder.getStyleClass().addAll(ANIMATED_OPTION_BUTTON, ANIMATED_OPTION_SUB_BUTTON2);
+  
+
+        nodeList.addAnimatedNode(ssbutton2);
+        nodeList.addAnimatedNode(btnOpslaan);
+        nodeList.addAnimatedNode(btnVerwijder);
+       
+
+        nodeList.setRotate(180);
     }
 
     private void setSelectedItemToDc() {

@@ -28,10 +28,10 @@
 .jfx-text-field,
 .jfx-password-field {
     -fx-font-weight: BOLD;
-    -fx-prompt-text-fill: #808080;
+    -fx-prompt-text-fill: #ffffff;
     -fx-alignment: top-left;
-    -jfx-focus-color: #4059A9;
-    -jfx-unfocus-color: #4d4d4d;
+    -jfx-focus-color: #ffffff;
+    -jfx-unfocus-color: #ffffff;
     -fx-max-width: 300;
 }
 
