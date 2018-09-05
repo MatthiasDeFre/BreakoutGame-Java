@@ -58,7 +58,7 @@
             <Insets left="10.0" right="10.0" />
          </padding>
       </HBox>
-      <JFXTextField fx:id="txtBoxFilter" labelFloat="true" layoutX="85.0" layoutY="260.0" onKeyReleased="#changeBoxNameFilter" promptText="Filter naam" style="-fx-prompt-text-fill: black; -jfx-focus-color: black; -jfx-unfocus-color: black; -fx-font-size: 2em;" stylesheets="@assets/css/jfoenix-components.css" AnchorPane.leftAnchor="85.0" AnchorPane.rightAnchor="85.0" />
+      <JFXTextField fx:id="txtBoxFilter" labelFloat="true" layoutX="85.0" layoutY="260.0" onKeyReleased="#changeBoxNameFilter" promptText="Filter naam" stylesheets="@assets/css/jfoenix-components.css" AnchorPane.leftAnchor="85.0" AnchorPane.rightAnchor="85.0" />
       <Label fx:id="lblOnderwerp" alignment="CENTER" layoutX="-1.0" layoutY="-1.0" prefHeight="216.0" prefWidth="350.0" style="-fx-background-color: #114f8a;" stylesheets="@assets/css/style2.css" text="Box" textAlignment="CENTER" wrapText="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <font>
             <Font name="Avenir Roman" size="75.0" />
