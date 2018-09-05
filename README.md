@@ -2,26 +2,26 @@
 
 ## Description
 
-For our first year assignment we needed to make the game Pazaak. Pazaak is a card game situated in the Star Wars universe.
-First we needed to make a console application and later a JavaFX version using the same underlying code.
-Below you can also find a video gameplay of our version of the game. At the moment the game uses a local database connection so if you would want to try the game yourself you can send me an email at matthiasdefre@hotmail.com and I will send the database SQL script.
+For our second-year assignment we needed to work out a platform that teachers could use to organize quizzes on a bit like Kahoot. The assignment existed out of 2 parts. A desktop application written in Java and a Web application written in C# / ASP.NET MVC CORE 2.0.
+In comparison to the first-year assignment we needed to use database frameworks instead of pure SQL (JPA for Java and Entity Framework for .NET).
+The Java application was made to create the quizzes while the .NET application would be used by the students to participate in the quizzes.
+This repository houses the Java application.
+
 
 ## Team
 
 | Name     | Role                        | 
 | :---     | :---                          | 
-| Jens Neirynck | Supporting Programmer and console application designer | 
-| Jelle Geers | Analytical and database management | 
-| Gerrit De Vriese | GUI Design | 
+| Alexander Willems | GUI designer and programmer | 
+| Jelle Geers | Student import screen | 
+| Navaron Bracke | Tester | 
 | Matthias De Fré  | Lead programmer and teamleader | 
-| Adil Iminov (External Friend) | Music and sound design |
-| Polarchips (Royalty Free) | Music |
 
 
 ### My role within the team
 
-During the project I was the team leader, we all decided that I would be the one taking that position. Although I was the team leader all team members still had a free choice of what to do, I was there to make sure everything got finished in time and that the quality was good.
-I also was the main programmer, this meant that I did most of the main gameplay code and database communication. We also organized weekly sessions to explain the code to each other so everybody knew what each piece of code did.
+Because of the good result of our project last year (2 members the same from last team) I was again appointed leader. Because of the deadlines being stricter this time around we also had to be stricter about who did what. So during this project we decided together which features we would complete during each sprint. Each team member decided what he was going to do during the sprint.
+My job was mainly writing the main domain code and database communication (persistence layer). I also helped Alexander with some of the GUI code.
 
 ## Links and Media
 
